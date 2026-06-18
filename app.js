@@ -255,27 +255,51 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Form submission
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdqlaad';
   const submitBtn = document.getElementById('submit-btn');
   if (submitBtn) {
-    submitBtn.addEventListener('click', (e) => {
+    submitBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (!validateCurrentStep()) return;
       saveCurrentStep();
+
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Joining...';
 
       // Build audit record
       const auditRecord = {
         ...formData,
         timestamp: new Date().toISOString(),
         disclaimerVersion: 'v1.0-2026-06-05',
-        checkboxState: formData.tcpaConsent ? 'CHECKED_BY_USER' : 'UNCHECKED'
+        checkboxState: formData.tcpaConsent ? 'CHECKED_BY_USER' : 'UNCHECKED',
+        source: 'phonepact-website'
       };
 
-      console.log('PhonePact Waitlist Submission:', auditRecord);
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(auditRecord)
+        });
 
-      // Show success
-      formContainer.style.display = 'none';
-      document.querySelector('.form-progress').style.display = 'none';
-      formSuccess.classList.add('active');
+        if (!response.ok) {
+          throw new Error('Formspree rejected the submission');
+        }
+
+        // Show success only after the signup is saved.
+        formContainer.style.display = 'none';
+        document.querySelector('.form-progress').style.display = 'none';
+        formSuccess.classList.add('active');
+      } catch (error) {
+        console.error('PhonePact waitlist submission failed:', error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        alert('Something went wrong. Please try again in a moment.');
+      }
     });
   }
 
