@@ -6,13 +6,13 @@
 /* ── Design Tokens ─────────────────────────────────── */
 :root {
   /* Color Palette (OKLCH with hex fallbacks) */
-  --ancient-pearl:    #f0ead6;
-  --pearl-deep:       #e8e0c8;
+  --ancient-pearl:    #F0E9D8;
+  --pearl-deep:       #E8DFCA;
   --deep-green:       #2d4a35;
   --accent-active:    #3a6b48;
   --accent-pale:      #c8dbc5;
-  --ledger-line:      #c8c0a8;
-  --pearl-warm:       #f5f0e0;
+  --ledger-line:      #C8BFAA;
+  --pearl-warm:       #F5EFE2;
 
   /* Typography */
   --font-serif:    'Newsreader', Georgia, 'Times New Roman', serif;
@@ -126,7 +126,7 @@ input, select, textarea {
 }
 
 .nav--scrolled {
-  background-color: rgba(240, 234, 214, 0.92);
+  background-color: rgba(240, 233, 216, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--ledger-line);
@@ -558,6 +558,55 @@ a.floating-card {
   border-radius: 50%;
   background-color: var(--accent-active);
   flex-shrink: 0;
+}
+
+
+/* ── Optimized For ─────────────────────────────────── */
+.optimized__layout {
+  text-align: center;
+}
+
+.optimized__header {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-active);
+  margin-bottom: var(--space-md);
+}
+
+.optimized__grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.optimized__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-style: italic;
+  color: var(--deep-green);
+}
+
+.optimized__dot {
+  font-size: 0.6rem;
+  color: var(--accent-active);
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .optimized__grid {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
 }
 
 
@@ -1442,6 +1491,414 @@ input[type="range"]::-moz-range-thumb {
   line-height: 1.6;
   color: var(--deep-green);
   opacity: 0.85;
+}
+
+/* ── Double Ledger Dividers ────────────────────────── */
+.double-ledger {
+  height: 6px;
+  border-top: 1px solid var(--ledger-line);
+  border-bottom: 1px solid var(--ledger-line);
+  margin: var(--space-md) 0;
+}
+
+/* ── Studies Spotlight Section (Featured Research) ──── */
+.studies-spotlight-section {
+  background-color: transparent;
+  position: relative;
+}
+
+.studies-spotlight-banner {
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--ledger-line);
+  padding-bottom: 1rem;
+}
+
+.spotlight-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--accent-active);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.spotlight-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--deep-green);
+  margin-bottom: 0.5rem;
+}
+
+.spotlight-citation a {
+  text-decoration: underline;
+  text-decoration-color: var(--ledger-line);
+  text-underline-offset: 2px;
+  color: inherit;
+  transition: color 0.3s var(--ease-smooth), text-decoration-color 0.3s var(--ease-smooth);
+}
+
+.spotlight-citation a:hover {
+  color: var(--accent-active);
+  text-decoration-color: var(--accent-active);
+}
+
+.spotlight-citation {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.studies-spotlight-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+  margin-top: var(--space-md);
+}
+
+.spotlight-quote-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.spotlight-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--deep-green);
+  border-left: 2px solid var(--accent-active);
+  padding-left: 1.5rem;
+  margin: 0;
+  opacity: 0.95;
+}
+
+.spotlight-summary-paragraph {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--deep-green);
+  opacity: 0.85;
+}
+
+.spotlight-findings-col {
+  background: var(--pearl-deep);
+  border: 1px solid var(--ledger-line);
+  padding: 1.5rem;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(45, 74, 53, 0.03);
+}
+
+.spotlight-findings-col::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1px dashed var(--ledger-line);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.findings-header {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--deep-green);
+  border-bottom: 1px dashed var(--ledger-line);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.findings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.finding-item {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+}
+
+.finding-num {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-active);
+  width: 24px;
+  line-height: 1.1;
+  text-align: right;
+  opacity: 0.8;
+}
+
+.finding-content h4 {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-active);
+  margin-bottom: 0.25rem;
+}
+
+.finding-content p {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--deep-green);
+  opacity: 0.85;
+}
+
+@media (max-width: 900px) {
+  .studies-spotlight-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+/* ── Research Library Grid Layout ──────────────────── */
+.library-header {
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.library-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--accent-active);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.library-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--deep-green);
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.library-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.column-header {
+  border-bottom: 1px solid var(--ledger-line);
+  padding-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.column-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-active);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.column-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2vw, 1.45rem);
+  font-weight: 500;
+  color: var(--deep-green);
+  margin-bottom: 0.35rem;
+}
+
+.column-desc {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--deep-green);
+  opacity: 0.75;
+}
+
+.library-slips-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ── Library Slip Card Styling ────────────────────── */
+.library-slip {
+  background: var(--pearl-warm);
+  border: 1px solid var(--ledger-line);
+  border-left: 3px dashed var(--accent-active);
+  transition: all 0.3s var(--ease-out);
+  cursor: pointer;
+}
+
+.library-slip:hover {
+  transform: translateY(-2.5px);
+  box-shadow: 0 6px 20px rgba(45, 74, 53, 0.05);
+  border-color: var(--accent-active);
+}
+
+.library-slip[open] {
+  border-color: var(--accent-active);
+  box-shadow: 0 4px 16px rgba(45, 74, 53, 0.04);
+}
+
+.library-slip summary {
+  padding: 0.95rem 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  outline: none;
+}
+
+.library-slip summary::-webkit-details-marker {
+  display: none;
+}
+
+.slip-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.slip-type {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-active);
+  margin-bottom: 0.2rem;
+}
+
+.slip-title {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--deep-green);
+}
+
+
+.slip-toggle {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent-active);
+  font-weight: 300;
+  transition: transform 0.3s var(--ease-out);
+  user-select: none;
+  padding-left: var(--space-xs);
+}
+
+.library-slip[open] .slip-toggle {
+  transform: rotate(45deg);
+}
+
+.slip-body {
+  padding: 0 1.15rem 1.15rem 1.15rem;
+  border-top: 1px dashed var(--ledger-line);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--deep-green);
+}
+
+.slip-body p {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.slip-body p strong {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-active);
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+
+.slip-body p:last-child {
+  margin-bottom: 0;
+}
+
+.slip-meta {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  opacity: 0.5;
+  display: block;
+  margin-top: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.slip-meta a {
+  text-decoration: underline;
+  text-decoration-color: var(--ledger-line);
+  text-underline-offset: 2px;
+  color: inherit;
+  transition: color 0.3s var(--ease-smooth), text-decoration-color 0.3s var(--ease-smooth);
+}
+
+.slip-meta a:hover {
+  color: var(--accent-active);
+  text-decoration-color: var(--accent-active);
+}
+
+/* ── Tactile SRF Diagram ──────────────────────────── */
+.srf-diagram-tactile {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: var(--ancient-pearl);
+  border: 1px dashed var(--ledger-line);
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.srf-step {
+  font-weight: 600;
+  color: var(--deep-green);
+}
+
+.srf-arrow {
+  color: var(--accent-active);
+  font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .library-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
 }
 
 
