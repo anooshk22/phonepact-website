@@ -1,6 +1,6 @@
 /* ============================================================
    PHONEPACT — INTERACTION LAYER
-   Scroll reveals, multi-step form, modals, navigation
+   Scroll reveals, forms, modals, navigation
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,34 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.classList.toggle('nav--scrolled', currentScroll > 60);
     lastScroll = currentScroll;
   }, { passive: true });
-
-  // Scroll Spy for Sticky Sidebar Navigation (Home page)
-  const sidebarLinks = document.querySelectorAll('.sidebar-nav__link');
-  const spySections = Array.from(sidebarLinks).map(link => {
-    return document.querySelector(link.getAttribute('href'));
-  }).filter(Boolean);
-
-  if (sidebarLinks.length > 0 && spySections.length > 0) {
-    window.addEventListener('scroll', () => {
-      let current = 'hero';
-      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-      const offset = 120; // offset threshold
-
-      spySections.forEach(section => {
-        const sectionTop = section.offsetTop - offset;
-        if (scrollPosition >= sectionTop) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      sidebarLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    }, { passive: true });
-  }
 
   // Mobile menu
   if (mobileToggle) {
@@ -115,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         emailError.textContent = 'Enter a valid email address.';
         valid = false;
       }
-      if (phone.value && phoneDigits.length < 10) {
-        phoneError.textContent = 'Enter a complete phone number or leave this field blank.';
+      if (phone.value && (phoneDigits.length < 8 || phoneDigits.length > 15)) {
+        phoneError.textContent = 'Enter a complete international phone number or leave this field blank.';
         valid = false;
       }
       if (phone.value && !consent.checked) {
@@ -154,220 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Legacy survey (kept hidden for reference) ─────── */
-  const formContainer = document.getElementById('waitlist-survey-legacy');
-  const formSteps = document.querySelectorAll('.form-step');
-  const progressDots = document.querySelectorAll('.form-progress__dot');
-  const formSuccess = document.querySelector('.form-success');
-  let currentStep = 0;
-
-  // Form data storage
-  const formData = {
-    maxScreenTime: '',
-    weeklyScreenTime: '',
-    reason: '',
-    ageRange: '',
-    phone: '',
-    email: '',
-    tcpaConsent: false
-  };
-
-  function showStep(index) {
-    formSteps.forEach((step, i) => {
-      step.classList.toggle('active', i === index);
-    });
-    progressDots.forEach((dot, i) => {
-      dot.classList.remove('active', 'completed');
-      if (i === index) dot.classList.add('active');
-      else if (i < index) dot.classList.add('completed');
-    });
-    currentStep = index;
-  }
-
-  // Next/Prev buttons
-  document.querySelectorAll('.form-next').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (validateCurrentStep()) {
-        saveCurrentStep();
-        if (currentStep < formSteps.length - 1) {
-          showStep(currentStep + 1);
-        }
-      }
-    });
-  });
-
-  document.querySelectorAll('.form-prev').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentStep > 0) {
-        showStep(currentStep - 1);
-      }
-    });
-  });
-
-  // Range slider live update
-  const maxSlider = document.getElementById('screen-time-max');
-  const maxDisplay = document.getElementById('max-display');
-  if (maxSlider && maxDisplay) {
-    maxSlider.addEventListener('input', () => {
-      const val = parseInt(maxSlider.value);
-      const hours = Math.floor(val / 60);
-      const mins = val % 60;
-      if (hours > 0 && mins > 0) {
-        maxDisplay.innerHTML = `${hours}<span>h</span> ${mins}<span>m</span>`;
-      } else if (hours > 0) {
-        maxDisplay.innerHTML = `${hours}<span>h</span>`;
-      } else {
-        maxDisplay.innerHTML = `${mins}<span>m</span>`;
-      }
-    });
-  }
-
-  const weeklySlider = document.getElementById('screen-time-weekly');
-  const weeklyDisplay = document.getElementById('weekly-display');
-  if (weeklySlider && weeklyDisplay) {
-    weeklySlider.addEventListener('input', () => {
-      const val = parseInt(weeklySlider.value);
-      weeklyDisplay.innerHTML = `${val}<span>h</span>`;
-    });
-  }
-
-  // Pill selection (age range)
-  document.querySelectorAll('.pill-option').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.pill-option').forEach(p => p.classList.remove('selected'));
-      pill.classList.add('selected');
-    });
-  });
-
-  // Validation
-  function validateCurrentStep() {
-    const step = formSteps[currentStep];
-    const stepIndex = parseInt(step.dataset.step);
-
-    switch (stepIndex) {
-      case 1: // Max screen time
-        return parseInt(maxSlider?.value) > 0;
-
-      case 2: // Weekly screen time
-        return parseInt(weeklySlider?.value) > 0;
-
-      case 3: // Reason
-        const reason = document.getElementById('reason-reduce');
-        if (!reason || !reason.value.trim()) {
-          reason?.focus();
-          reason?.classList.add('shake');
-          setTimeout(() => reason?.classList.remove('shake'), 500);
-          return false;
-        }
-        return true;
-
-      case 4: // Age range
-        const selectedPill = document.querySelector('.pill-option.selected');
-        if (!selectedPill) {
-          document.querySelector('.pill-group')?.classList.add('shake');
-          setTimeout(() => document.querySelector('.pill-group')?.classList.remove('shake'), 500);
-          return false;
-        }
-        return true;
-
-      case 5: // Contact + TCPA
-        const phone = document.getElementById('phone-number');
-        const email = document.getElementById('email-input');
-        const tcpa = document.getElementById('tcpa-checkbox');
-
-        let valid = true;
-
-        if (!phone?.value.trim() || phone.value.replace(/\D/g, '').length < 10) {
-          phone?.classList.add('shake');
-          setTimeout(() => phone?.classList.remove('shake'), 500);
-          valid = false;
-        }
-
-        if (!email?.value.trim() || !email.value.includes('@')) {
-          email?.classList.add('shake');
-          setTimeout(() => email?.classList.remove('shake'), 500);
-          valid = false;
-        }
-
-        if (!tcpa?.checked) {
-          document.querySelector('.tcpa-wrapper')?.classList.add('shake');
-          setTimeout(() => document.querySelector('.tcpa-wrapper')?.classList.remove('shake'), 500);
-          valid = false;
-        }
-
-        return valid;
-
-      default:
-        return true;
-    }
-  }
-
-  function saveCurrentStep() {
-    const step = formSteps[currentStep];
-    const stepIndex = parseInt(step.dataset.step);
-
-    switch (stepIndex) {
-      case 1:
-        formData.maxScreenTime = maxSlider?.value + ' minutes';
-        break;
-      case 2:
-        formData.weeklyScreenTime = weeklySlider?.value + ' hours/day';
-        break;
-      case 3:
-        formData.reason = document.getElementById('reason-reduce')?.value;
-        break;
-      case 4:
-        formData.ageRange = document.querySelector('.pill-option.selected')?.textContent;
-        break;
-      case 5:
-        formData.phone = document.getElementById('phone-number')?.value;
-        formData.email = document.getElementById('email-input')?.value;
-        formData.tcpaConsent = document.getElementById('tcpa-checkbox')?.checked;
-        break;
-    }
-  }
-
-  // Form submission
-  const submitBtn = document.getElementById('legacy-submit-btn');
-  if (submitBtn) {
-    submitBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (!validateCurrentStep()) return;
-      saveCurrentStep();
-
-      // Build audit record
-      const auditRecord = {
-        ...formData,
-        timestamp: new Date().toISOString(),
-        disclaimerVersion: 'v1.0-2026-06-05',
-        checkboxState: formData.tcpaConsent ? 'CHECKED_BY_USER' : 'UNCHECKED'
-      };
-
-      // Show success
-      formContainer.style.display = 'none';
-      document.querySelector('.form-progress').style.display = 'none';
-      formSuccess.classList.add('active');
-    });
-  }
-
-  // Phone number formatting
-  const phoneInput = document.getElementById('phone-number');
-  if (phoneInput) {
-    phoneInput.addEventListener('input', (e) => {
-      let digits = e.target.value.replace(/\D/g, '');
-      if (digits.length > 10) digits = digits.substring(0, 10);
-      
-      let formatted = '';
-      if (digits.length > 0) formatted += '(' + digits.substring(0, 3);
-      if (digits.length >= 3) formatted += ') ';
-      if (digits.length > 3) formatted += digits.substring(3, 6);
-      if (digits.length >= 6) formatted += '-' + digits.substring(6, 10);
-      
-      e.target.value = formatted;
-    });
-  }
-
-
   /* ── Modal System ──────────────────────────────────── */
   const modalTriggers = document.querySelectorAll('[data-modal]');
   const modalOverlays = document.querySelectorAll('.modal-overlay');
@@ -378,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById(modalId);
     if (modal) {
       modalTrigger = document.activeElement;
+      modal.hidden = false;
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
       // Reset scroll position
@@ -389,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeModal(modal) {
     modal.classList.remove('active');
+    modal.hidden = true;
     document.body.style.overflow = '';
     modalTrigger?.focus();
   }
@@ -445,20 +205,24 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Feedback Form ─────────────────────────────────── */
   const feedbackForm = document.getElementById('feedback-form');
   const feedbackSuccess = document.querySelector('.feedback__success');
+  const feedbackStatus = document.getElementById('feedback-status');
 
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const feedbackData = {
-        name: document.getElementById('feedback-name')?.value,
-        email: document.getElementById('feedback-email')?.value,
-        message: document.getElementById('feedback-message')?.value,
-        timestamp: new Date().toISOString(),
-        source: 'phonepact-feedback'
-      };
+      const message = document.getElementById('feedback-message');
+      feedbackStatus.textContent = '';
+      if (!message.value.trim()) {
+        feedbackStatus.textContent = 'Please enter a message.';
+        message.focus();
+        return;
+      }
+      const feedbackData = Object.fromEntries(new FormData(feedbackForm).entries());
+      feedbackData.timestamp = new Date().toISOString();
       const button = feedbackForm.querySelector('button[type="submit"]');
       button.disabled = true;
       button.textContent = 'Sending…';
+      feedbackStatus.textContent = 'Sending your feedback…';
       try {
         const response = await fetch(FORMSPREE_ENDPOINT, {
           method: 'POST',
@@ -471,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         button.disabled = false;
         button.textContent = 'Send Feedback';
-        alert('We could not send your feedback. Please try again.');
+        feedbackStatus.textContent = 'We could not send your feedback. Please try again.';
       }
     });
   }
