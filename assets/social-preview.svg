@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">PhonePact — Reduce screen time without rigid lockouts</title>
   <desc id="desc">A branded PhonePact social preview with a paper-colored background and a simple phone interface illustration.</desc>
-  <rect width="1200" height="630" fill="#F0E9D8"/>
-  <path d="M0 72H1200M0 558H1200" stroke="#C8BFAA"/>
+  <rect width="1200" height="630" fill="#F8F6F0"/>
+  <path d="M0 72H1200M0 558H1200" stroke="#D6D1C5"/>
   <text x="72" y="112" fill="#2D4A35" font-family="Georgia, serif" font-size="34">PhonePact</text>
   <text x="72" y="190" fill="#3A6B48" font-family="Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="4">SCREEN-TIME CHANGE, BUILT AROUND AGENCY</text>
   <text x="72" y="278" fill="#2D4A35" font-family="Georgia, serif" font-size="66" font-style="italic">
@@ -14,21 +14,21 @@
 
   <g transform="translate(845 78) rotate(3 140 230)">
     <rect width="280" height="480" rx="40" fill="#2D4A35"/>
-    <rect x="12" y="12" width="256" height="456" rx="30" fill="#F5EFE2"/>
+    <rect x="12" y="12" width="256" height="456" rx="30" fill="#FFFDF8"/>
     <rect x="96" y="12" width="88" height="22" rx="0 0 12 12" fill="#2D4A35"/>
     <text x="42" y="92" fill="#2D4A35" font-family="Arial, sans-serif" font-size="12" letter-spacing="3">TODAY’S PACT</text>
     <text x="42" y="170" fill="#2D4A35" font-family="Georgia, serif" font-size="54" font-style="italic">2h 30m</text>
     <text x="42" y="202" fill="#2D4A35" opacity=".65" font-family="Arial, sans-serif" font-size="13">Your intention—not a lock.</text>
-    <rect x="42" y="232" width="196" height="5" rx="3" fill="#E8DFCA"/>
+    <rect x="42" y="232" width="196" height="5" rx="3" fill="#EFECE3"/>
     <rect x="42" y="232" width="112" height="5" rx="3" fill="#3A6B48"/>
-    <circle cx="58" cy="342" r="18" fill="#F0E9D8" stroke="#2D4A35"/>
-    <circle cx="88" cy="342" r="18" fill="#F0E9D8" stroke="#2D4A35"/>
-    <circle cx="118" cy="342" r="18" fill="#F0E9D8" stroke="#2D4A35"/>
+    <circle cx="58" cy="342" r="18" fill="#F8F6F0" stroke="#2D4A35"/>
+    <circle cx="88" cy="342" r="18" fill="#F8F6F0" stroke="#2D4A35"/>
+    <circle cx="118" cy="342" r="18" fill="#F8F6F0" stroke="#2D4A35"/>
     <text x="53" y="347" fill="#2D4A35" font-family="monospace" font-size="11">H</text>
     <text x="83" y="347" fill="#2D4A35" font-family="monospace" font-size="11">M</text>
     <text x="113" y="347" fill="#2D4A35" font-family="monospace" font-size="11">A</text>
     <text x="148" y="347" fill="#2D4A35" font-family="Arial, sans-serif" font-size="12">Circle ready</text>
-    <rect x="42" y="385" width="196" height="54" fill="none" stroke="#C8BFAA"/>
+    <rect x="42" y="385" width="196" height="54" fill="none" stroke="#D6D1C5"/>
     <text x="56" y="407" fill="#2D4A35" font-family="Georgia, serif" font-size="13" font-style="italic">
       <tspan x="56" dy="0">Checking in gently.</tspan>
       <tspan x="56" dy="19">What matters next?</tspan>

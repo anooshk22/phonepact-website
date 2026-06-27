@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260627-6">
+  <link rel="stylesheet" href="styles.css?v=20260627-7">
 </head>
 <body>
 
@@ -25,10 +25,10 @@
   <a href="index.html" class="nav__logo">
     <span class="nav__wordmark">PhonePact</span>
   </a>
-  <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+  <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ethos-nav-links">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav__links">
+  <ul class="nav__links" id="ethos-nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="ethos.html" class="active">Ethos</a></li>
     <li><a href="studies.html">Studies</a></li>
@@ -64,9 +64,25 @@
         <p class="ethos-section__desc">The scale of the modern digital crisis.</p>
       </div>
       <div class="ethos-grid__content">
-        <p>Screen time is one of the most pressing health issues of the modern era. Excessive, mindless digital device use is strongly linked to severe sleep disruption, social isolation, and declining mental health. It acts as a primary driver of adolescent anxiety, depression, and cognitive dysfunction.</p>
-        <p>The playing field is deeply unequal. On one side are multi-trillion-dollar corporations, armed with algorithms designed by teams of behaviorists specifically to hijack human psychology. On the other side is a single, defenseless human mind, trying to navigate infinite loops of personalized dopamine spikes.</p>
-        <p>We are going to solve that. Not by building thicker digital walls, but by restoring your internal defenses.</p>
+        <figure class="ethos-visual ethos-visual--asymmetry" aria-labelledby="asymmetry-visual-caption">
+          <div class="attention-scale" aria-hidden="true">
+            <div class="attention-scale__side">
+              <span class="attention-scale__label">Attention systems</span>
+              <div class="attention-stack"><i></i><i></i><i></i><i></i></div>
+              <strong>Infinite feeds<br>Personalized prompts<br>Always-on access</strong>
+            </div>
+            <div class="attention-scale__beam"><span></span></div>
+            <div class="attention-scale__side attention-scale__side--person">
+              <span class="attention-scale__label">One person</span>
+              <div class="attention-person">H</div>
+              <strong>Finite time<br>Finite energy<br>One conscious choice</strong>
+            </div>
+          </div>
+          <figcaption id="asymmetry-visual-caption">The attention contest is structurally uneven: industrial-scale systems meet one person&rsquo;s limited time and energy.</figcaption>
+        </figure>
+        <p>Heavy or poorly timed device use is associated with concerns including disrupted sleep, reduced presence, and lower well-being, although effects vary by person, activity, and context.</p>
+        <p>The playing field is uneven. Large platforms can continuously test and personalize systems optimized for attention, while each person navigates those systems with finite time, energy, and focus.</p>
+        <p>PhonePact explores one response: not building thicker digital walls, but helping people practice awareness and conscious choice with support from people they trust.</p>
       </div>
     </div>
   </div>
@@ -87,14 +103,27 @@
         <p class="ethos-section__desc">Why restriction weakens self-regulation.</p>
       </div>
       <div class="ethos-grid__content">
+        <figure class="ethos-visual ethos-visual--paths" aria-labelledby="autonomy-visual-caption">
+          <div class="choice-paths" aria-hidden="true">
+            <div class="choice-path">
+              <p class="choice-path__label">Constraint loop</p>
+              <div><span>Urge</span><b>&rarr;</b><span>Hard lock</span><b>&rarr;</b><span>Workaround</span><b>&rarr;</b><span>Shame</span></div>
+            </div>
+            <div class="choice-path choice-path--agency">
+              <p class="choice-path__label">Agency loop</p>
+              <div><span>Urge</span><b>&rarr;</b><span>Pause</span><b>&rarr;</b><span>Choose</span><b>&rarr;</b><span>Reflect</span></div>
+            </div>
+          </div>
+          <figcaption id="autonomy-visual-caption">PhonePact is designed around a different repetition: notice, choose, and learn—not encounter a wall and search for a way around it.</figcaption>
+        </figure>
         <p>When we attempt to reduce screen time, we must ask: <em>Who has the autonomy? Who is choosing to put the phone down? Is it an external force, or is it our own choice?</em></p>
         
         <h3>The Parental Trap</h3>
-        <p>Historically, screen regulation began with parents confiscating devices as a punishment. This requires zero self-regulation. Instead, it creates a <strong>balloon effect</strong>: when technology is restricted by force, the internal desire for it expands. The moment a child leaves parental control, they enter college or the workforce with zero training of the mental muscle required to stop themselves.</p>
+        <p>Screen regulation often begins with parents confiscating devices as punishment. That may reduce access in the moment, but it does not necessarily give a young person practice making the choice when external control is absent.</p>
         
         <h3>The Failure of Blocker Apps</h3>
         <p>As adults, we realize the problem and try to solve it. In a brief moment of clarity, we install app blockers, buy physical phone vaults, or use gadgets to lock ourselves out. But this system is fundamentally built on a lack of trust in our future self.</p>
-        <p>When society inevitably forces us to unlock our devices again, we fall into the exact same habits because our internal defenses are next to none. We then blame ourselves, assuming it is a personal failure of willpower. This shame only fuels a cycle: to escape the negative emotions of failure, we dive even deeper into the screen. Eventually, we lose hope and resign ourselves to addiction.</p>
+        <p>When access returns, old habits may return with it. People can interpret that as a failure of willpower, even when the tool never helped them practice awareness, flexibility, or self-directed regulation.</p>
         <p><strong>The point is not to take the phone away. The point is to build the mental muscle of conscious choice.</strong></p>
       </div>
     </div>
@@ -116,6 +145,19 @@
         <p class="ethos-section__desc">How a pact between friends revealed a new model.</p>
       </div>
       <div class="ethos-grid__content">
+        <figure class="ethos-visual ethos-visual--circle" aria-labelledby="origin-visual-caption">
+          <div class="pact-circle-ui" aria-hidden="true">
+            <div class="pact-circle-ui__header"><span class="status-dot"></span> Your pact circle</div>
+            <div class="pact-circle-ui__people">
+              <div><span>H</span><small>You</small></div>
+              <div><span>M</span><small>Maya</small></div>
+              <div><span>D</span><small>Daniel</small></div>
+            </div>
+            <div class="pact-circle-ui__message"><span>M</span><p><strong>Maya checked in.</strong><br>&ldquo;Resetting after a long afternoon.&rdquo;</p></div>
+            <div class="pact-circle-ui__response">Send support <span aria-hidden="true">&rarr;</span></div>
+          </div>
+          <figcaption id="origin-visual-caption">The first PhonePact was not a lock. It was a small agreement in which a private choice became visible to trusted people.</figcaption>
+        </figure>
         <p>The idea for PhonePact emerged from a simple, personal agreement. A friend of mine expressed a desire to break a deeply compulsive, highly addictive online habit that was draining their productivity and presence. I shared a similar struggle with my own digital dependencies. Instead of installing web filters or locking our devices, we made a pact: <strong>we were entirely free to choose to engage in the habit, but if we did, we had to message each other the exact details of that slip-up.</strong></p>
         <p>There was no force. The choice remained ours, but it carried immediate social visibility.</p>
         <blockquote>
@@ -142,6 +184,28 @@
         <p class="ethos-section__desc">The sociological mirror that interrupts addiction.</p>
       </div>
       <div class="ethos-grid__content">
+        <figure class="ethos-visual ethos-visual--reflection" aria-labelledby="reflection-visual-caption">
+          <svg class="reflection-loop" viewBox="0 0 720 270" role="img" aria-labelledby="reflection-loop-title reflection-loop-desc">
+            <title id="reflection-loop-title">A social reflection loop</title>
+            <desc id="reflection-loop-desc">A four-step loop moves from action to trusted circle, reflection, and conscious next choice.</desc>
+            <defs>
+              <marker id="ethos-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#3a6b48"/>
+              </marker>
+            </defs>
+            <path d="M170 70 C260 18 455 18 545 70" fill="none" stroke="#D6D1C5" stroke-width="2" marker-end="url(#ethos-arrow)"/>
+            <path d="M585 108 C625 155 625 185 565 218" fill="none" stroke="#D6D1C5" stroke-width="2" marker-end="url(#ethos-arrow)"/>
+            <path d="M515 230 C405 270 260 270 155 225" fill="none" stroke="#D6D1C5" stroke-width="2" marker-end="url(#ethos-arrow)"/>
+            <path d="M115 195 C75 150 75 115 128 82" fill="none" stroke="#D6D1C5" stroke-width="2" marker-end="url(#ethos-arrow)"/>
+            <g class="reflection-loop__node"><circle cx="145" cy="70" r="48"/><text x="145" y="66">01</text><text x="145" y="86">Action</text></g>
+            <g class="reflection-loop__node"><circle cx="575" cy="78" r="48"/><text x="575" y="74">02</text><text x="575" y="94">Circle</text></g>
+            <g class="reflection-loop__node"><circle cx="545" cy="220" r="48"/><text x="545" y="216">03</text><text x="545" y="236">Reflect</text></g>
+            <g class="reflection-loop__node"><circle cx="125" cy="215" r="48"/><text x="125" y="211">04</text><text x="125" y="231">Choose</text></g>
+            <text class="reflection-loop__center" x="360" y="133">SOCIAL</text>
+            <text class="reflection-loop__center" x="360" y="155">MIRROR</text>
+          </svg>
+          <figcaption id="reflection-visual-caption">Trusted visibility creates a social mirror: action becomes reflection, and reflection creates another opportunity to choose.</figcaption>
+        </figure>
         <p>This pact is built on a well-established sociological concept: <strong>The Looking-Glass Self</strong>. This theory states that a person's self-concept is built from their perception of how others view them. Our social self acts as a mirror, helping us regulate our behavior based on the imagined judgments of those we respect.</p>
         
         <h3>The Cafe Effect</h3>
@@ -170,6 +234,35 @@
         <p class="ethos-section__desc">How the PhonePact interface works in practice.</p>
       </div>
       <div class="ethos-grid__content">
+        <figure class="ethos-visual ethos-visual--mechanics" aria-labelledby="mechanics-visual-caption">
+          <div class="mechanics-sequence" aria-hidden="true">
+            <div class="mechanic-screen">
+              <span class="mechanic-screen__step">01 / Intention</span>
+              <strong>2h 30m</strong>
+              <p>Choose today&rsquo;s pact.</p>
+              <i class="mechanic-screen__button">Set my pact</i>
+            </div>
+            <div class="mechanic-screen">
+              <span class="mechanic-screen__step">02 / Awareness</span>
+              <strong>1h 42m</strong>
+              <p>A quiet progress check.</p>
+              <i class="mechanic-screen__line"><b></b></i>
+            </div>
+            <div class="mechanic-screen">
+              <span class="mechanic-screen__step">03 / Choice</span>
+              <strong>5:00</strong>
+              <p>Pause, explain, or continue.</p>
+              <i class="mechanic-screen__button mechanic-screen__button--quiet">Add a note</i>
+            </div>
+            <div class="mechanic-screen">
+              <span class="mechanic-screen__step">04 / Circle</span>
+              <div class="mechanic-screen__avatars"><b>H</b><b>M</b><b>D</b></div>
+              <p>Your trusted people can respond.</p>
+              <i class="mechanic-screen__message">Maya sent support</i>
+            </div>
+          </div>
+          <figcaption id="mechanics-visual-caption">The current product concept follows four states: set an intention, notice progress, make a conscious choice, and involve the circle only as agreed.</figcaption>
+        </figure>
         <h3>1. The Onboarding Ritual</h3>
         <p>To establish intent, onboarding is tactile:</p>
         <ul>
@@ -207,6 +300,18 @@
         <p class="ethos-section__desc">A commitment model that puts focus over revenue.</p>
       </div>
       <div class="ethos-grid__content">
+        <figure class="ethos-visual ethos-visual--pledge" aria-labelledby="pledge-visual-caption">
+          <div class="ethics-lockup" aria-hidden="true">
+            <div class="ethics-lockup__price"><span>$</span><strong>1</strong><small>/ month<br>price-locked</small></div>
+            <div class="ethics-lockup__pledges">
+              <span>No ads</span>
+              <span>No data selling</span>
+              <span>10% of profits donated</span>
+              <span>30-day trust trial</span>
+            </div>
+          </div>
+          <figcaption id="pledge-visual-caption">The business model is intended to align revenue with a small commitment from users—not with capturing more of their attention.</figcaption>
+        </figure>
         <div class="pricing-card">
           <div class="pricing-card__price">
             <span class="pricing-card__currency">$</span>1<span class="pricing-card__period">/mo</span>
@@ -244,6 +349,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.add('js');
   // Scroll reveal
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
@@ -264,6 +370,13 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileToggle.classList.toggle('active');
       navLinks.classList.toggle('open');
       mobileToggle.setAttribute('aria-expanded', String(navLinks.classList.contains('open')));
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 });
