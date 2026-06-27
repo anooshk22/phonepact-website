@@ -11,9 +11,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500;1,6..72,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260627-2">
+  <link rel="stylesheet" href="styles.css?v=20260627-3">
 </head>
 <body>
 
@@ -23,9 +23,9 @@
 <!-- Navigation -->
 <nav class="nav nav--scrolled" id="main-nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="nav__logo">
-    <img src="assets/wordmark.png" alt="PhonePact" class="nav__logo-img">
+    <span class="nav__wordmark">PhonePact</span>
   </a>
-  <button class="nav__mobile-toggle" aria-label="Toggle menu">
+  <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav__links">
@@ -60,14 +60,14 @@
       <span class="spotlight-tag">FOLIO 01 // LEAD RESEARCH</span>
       <h2 class="spotlight-title">Neurodivergence &amp; The Failure of Rigid Blockers</h2>
       <p class="spotlight-citation">
-        <a href="https://scholar.google.com/scholar?q=Advancing+Inclusive+Digital+Well-Being+Tools%3A+How+Neurodivergent+Students+Use+Distraction+Blockers" target="_blank" rel="noopener noreferrer">Research conducted at the University of British Columbia (2026)</a>
+        <a href="https://doi.org/10.1145/3772318.3790801" target="_blank" rel="noopener noreferrer">Hariadi, Chow &amp; McGrenere · ACM CHI 2026 · DOI 10.1145/3772318.3790801</a>
       </p>
     </div>
 
     <div class="studies-spotlight-grid reveal stagger-1">
       <div class="spotlight-quote-col">
         <blockquote class="spotlight-quote">
-          “While distraction blockers aim to help, we found that their inflexible designs often clash with the ways neurodivergent individuals focus, and can unintentionally deepen feelings of shame.”
+          Interviews with 27 neurodivergent post-secondary students found tension between fixed, linear blocker designs and nonlinear work patterns such as hyperfocus.
         </blockquote>
         <p class="spotlight-summary-paragraph">
           Conventional blockers operate on rigid, all-or-nothing schedules that disregard executive constraints, time blindness, and the unique cognitive momentum of hyperfocus states (typical in ADHD and Autistic profiles). When users are abruptly locked out during flow, it shatters momentum and shames their capabilities, prompting them to abandon the tool completely.
@@ -282,10 +282,10 @@
             <div class="slip-body">
               <p><strong>Methodology:</strong> Evaluation of strict digital lockouts vs. moderate limits.</p>
               <p><strong>The Core Flaw:</strong> Demanding absolute behavioral compliance (e.g., strict detoxes).</p>
-              <p><strong>The Backfire:</strong> 75% of users failed or abandoned strict blockouts within two weeks.</p>
-              <p><strong>Solution:</strong> Partial detoxes (moderation) achieve identical focus and sleep benefits without user burnout.</p>
+              <p><strong>What the evidence says:</strong> Reviews find that digital-detox interventions often reduce device use, while their effects on broader well-being remain mixed.</p>
+              <p><strong>Design implication:</strong> Prefer flexible, measurable reductions over promising that one strict method works for everyone.</p>
               <span class="slip-meta">
-                <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10292270/" target="_blank" rel="noopener noreferrer">Kushlev, K., et al. Georgetown Psychology</a>
+                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11422191/" target="_blank" rel="noopener noreferrer">Digital Detox and Well-Being · Review (2024)</a>
               </span>
             </div>
           </details>
@@ -300,7 +300,7 @@
               <span class="slip-toggle">+</span>
             </summary>
             <div class="slip-body">
-              <p><strong>Methodology:</strong> Retention audits showing 70%–80% wellness app abandonment in 30–100 days.</p>
+              <p><strong>Methodology:</strong> Retention research consistently identifies long-term engagement as a central challenge for digital wellness products.</p>
               <p><strong>The Core Flaw:</strong> Fragmented app stacks (separate apps for limits, mindfulness, sleep) create high administrative fatigue.</p>
               <p><strong>The Backfire:</strong> Well-being apps use hooks (badges, streaks) that keep users on their screens, reinforcing device dependency.</p>
               <span class="slip-meta">
@@ -347,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.addEventListener('click', () => {
       mobileToggle.classList.toggle('active');
       navLinks.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(navLinks.classList.contains('open')));
     });
   }
 });

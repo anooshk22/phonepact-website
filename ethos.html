@@ -11,9 +11,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400;1,6..72,500;1,6..72,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260627-2">
+  <link rel="stylesheet" href="styles.css?v=20260627-3">
 </head>
 <body>
 
@@ -23,9 +23,9 @@
 <!-- Navigation -->
 <nav class="nav nav--scrolled" id="main-nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="nav__logo">
-    <img src="assets/wordmark.png" alt="PhonePact" class="nav__logo-img">
+    <span class="nav__wordmark">PhonePact</span>
   </a>
-  <button class="nav__mobile-toggle" aria-label="Toggle menu">
+  <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav__links">
@@ -263,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.addEventListener('click', () => {
       mobileToggle.classList.toggle('active');
       navLinks.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(navLinks.classList.contains('open')));
     });
   }
 });
