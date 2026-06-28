@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Formspree Waitlist Form ───────────────────────── */
   const WAITLIST_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgynzzl';
-  const FEEDBACK_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdqlaad';
+  const FEEDBACK_FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnjkvror';
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');

@@ -2995,20 +2995,23 @@ blockquote {
 
 /* ── Ethos Visual Language ──────────────────────────── */
 .ethos-visual {
-  margin: 0 0 2.2rem;
-  padding: 1.25rem;
-  border: 1px solid var(--ledger-line);
-  background: var(--pearl-warm);
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
 }
 
 .ethos-visual figcaption {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   padding-top: 0.85rem;
   border-top: 1px dashed var(--ledger-line);
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-style: italic;
   line-height: 1.5;
-  opacity: 0.72;
+  opacity: 0.8;
+  color: var(--ink-muted);
+  text-align: center;
 }
 
 .attention-scale {
@@ -3469,4 +3472,31 @@ blockquote {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
   .reveal, .js .reveal:not(.visible) { opacity: 1; transform: none; }
+}
+
+/* Ethos Graphic Images */
+.ethos-graphic {
+  display: block;
+  width: auto;
+  max-width: 440px;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.ethos-graphic--small {
+  max-width: 280px;
+  max-height: 140px;
+}
+
+@media (max-width: 600px) {
+  .ethos-graphic {
+    max-width: 320px;
+    max-height: 160px;
+  }
+  .ethos-graphic--small {
+    max-width: 200px;
+    max-height: 100px;
+  }
 }
