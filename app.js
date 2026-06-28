@@ -26,6 +26,42 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById(window.location.hash.slice(1))?.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   }
 
+  /* ── Draggable Hero Phone ──────────────────────────── */
+  const phoneScreen = document.querySelector('.phone-ui');
+
+  if (phoneScreen) {
+    let draggingPhone = false;
+    let dragStartY = 0;
+    let dragStartScroll = 0;
+
+    phoneScreen.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      draggingPhone = true;
+      dragStartY = event.clientY;
+      dragStartScroll = phoneScreen.scrollTop;
+      phoneScreen.classList.add('is-dragging');
+      phoneScreen.setPointerCapture(event.pointerId);
+    });
+
+    phoneScreen.addEventListener('pointermove', (event) => {
+      if (!draggingPhone) return;
+      event.preventDefault();
+      phoneScreen.scrollTop = dragStartScroll - (event.clientY - dragStartY);
+    });
+
+    const endPhoneDrag = (event) => {
+      if (!draggingPhone) return;
+      draggingPhone = false;
+      phoneScreen.classList.remove('is-dragging');
+      if (phoneScreen.hasPointerCapture(event.pointerId)) {
+        phoneScreen.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    phoneScreen.addEventListener('pointerup', endPhoneDrag);
+    phoneScreen.addEventListener('pointercancel', endPhoneDrag);
+  }
+
 
   /* ── Navigation ────────────────────────────────────── */
   const nav = document.querySelector('.nav');

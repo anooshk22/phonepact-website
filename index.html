@@ -84,15 +84,41 @@
       <div class="phone-frame phone-frame--hero">
         <div class="phone-frame__speaker" aria-hidden="true"></div>
         <div class="phone-ui">
-          <p class="phone-ui__eyebrow">Today’s pact</p>
-          <p class="phone-ui__time">2h 30m</p>
-          <p class="phone-ui__copy">not a lock.</p>
-          <div class="phone-ui__progress" aria-hidden="true"><span></span></div>
-          <div class="phone-ui__circle">
-            <span>H</span><span>M</span><span>A</span>
-            <small>Your Circle</small>
+          <div class="phone-ui__bar">
+            <span><i aria-hidden="true"></i>At home</span>
+            <span>Sun &middot; 28 Jun</span>
           </div>
-          <div class="phone-ui__note">“Checking in gently. Would you like the notify the group?”</div>
+          <div class="phone-ui__body">
+            <p class="phone-ui__greeting">Good evening, Hank</p>
+            <p class="phone-ui__time"><span>1</span><small>h</small> <span>47</span><small>m</small></p>
+            <p class="phone-ui__copy">on your phone so far today</p>
+            <p class="phone-ui__goal">of the 2h 30m you&rsquo;d like to keep</p>
+
+            <div class="phone-ui__arc" aria-label="1 hour 47 minutes used out of a 2 hour 30 minute intention">
+              <svg viewBox="0 0 260 140" aria-hidden="true">
+                <path d="M 16 116 A 114 114 0 0 1 244 116" class="phone-ui__arc-track"/>
+                <path d="M 16 116 A 114 114 0 0 1 200.8 26.6" class="phone-ui__arc-fill"/>
+                <circle cx="49.4" cy="35.4" r="2.4" class="phone-ui__arc-marker"/>
+                <circle cx="130" cy="2" r="2.4" class="phone-ui__arc-marker"/>
+                <circle cx="200.8" cy="26.6" r="4" class="phone-ui__arc-now"/>
+                <g class="phone-ui__arc-labels">
+                  <text x="16" y="132" text-anchor="middle">0</text>
+                  <text x="130" y="-5" text-anchor="middle">1.3h</text>
+                  <text x="244" y="132" text-anchor="middle">2.5h</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="phone-ui__request">
+              <div class="phone-ui__request-head">
+                <span><i aria-hidden="true"></i>A change is being asked</span>
+                <span>Just now</span>
+              </div>
+              <p class="phone-ui__request-copy"><em>Sam &rarr; you</em> asks to move our pact from <i>two hours</i> to <i>two hours and thirty.</i></p>
+              <blockquote>my new job has been brutal. i need messages and email on my phone more than i&rsquo;d like. i&rsquo;d rather raise it honestly than quietly miss it. up to you all &mdash; i&rsquo;ll keep whatever we land on.</blockquote>
+              <p class="phone-ui__resolved"><em>Agreed.</em> The pact has moved to two hours, thirty.</p>
+            </div>
+          </div>
         </div>
       </div>
       <p class="hero__product-caption">Concept preview · interface in development</p>
