@@ -258,11 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
       waitlistStatus.textContent = 'Saving your place…';
 
       try {
-        const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
+        await fetch(GOOGLE_SHEETS_ENDPOINT, {
           method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
           body: JSON.stringify(payload)
         });
-        if (!response.ok) throw new Error('Submission rejected');
         waitlistForm.hidden = true;
         waitlistSuccess.classList.add('active');
         waitlistSuccess.setAttribute('tabindex', '-1');
@@ -374,11 +377,14 @@ document.addEventListener('DOMContentLoaded', () => {
       button.textContent = 'Sending…';
       feedbackStatus.textContent = 'Sending your feedback…';
       try {
-        const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
+        await fetch(GOOGLE_SHEETS_ENDPOINT, {
           method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
           body: JSON.stringify(feedbackData)
         });
-        if (!response.ok) throw new Error('Submission rejected');
         feedbackForm.hidden = true;
         if (feedbackSuccess) feedbackSuccess.classList.add('active');
       } catch (error) {
