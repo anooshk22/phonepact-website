@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── Google Sheets Endpoint (Apps Script Web App) ──── */
-  const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzSYxjGT8TAIJqiGYogd7KgwHnhx-b9eOQN1xK_yoFDDwFdQ8BipGFwbhuV7d-Yo6qKMQ/exec';
+  const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxz7_9OMzQhUseW3L-FUZkKv1Hwy3M1m5HL3PCk_mypZJVxvYZUyOBRA3VpBSZRTEiNVw/exec';
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
