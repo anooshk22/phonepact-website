@@ -206,30 +206,70 @@
     <div class="product-flow reveal stagger-2" id="how-it-works">
       <article class="product-step">
         <span class="product-step__number">01</span>
-        <div class="mini-phone" aria-hidden="true">
-          <p>Daily intention</p>
-          <strong>2h 30m</strong>
-          <span class="mini-phone__button">Set my pact</span>
+        <div class="mini-phone mini-phone--intention">
+          <p class="mini-phone__eyebrow">Daily intention</p>
+          <div class="demo-intention__value" id="demo-intention-value" aria-live="polite">2h 30m</div>
+          <div class="demo-stepper" aria-label="Adjust daily intention">
+            <button type="button" data-intention-delta="-15" aria-label="Reduce intention by 15 minutes">&minus;</button>
+            <span>adjust gently</span>
+            <button type="button" data-intention-delta="15" aria-label="Increase intention by 15 minutes">+</button>
+          </div>
+          <button type="button" class="mini-phone__primary" id="demo-intention-set">Set my pact</button>
+          <p class="mini-phone__status" id="demo-intention-status" role="status"></p>
         </div>
         <h3>Choose your goal</h3>
         <p>Set a realistic daily intention that you control and can revise.</p>
       </article>
       <article class="product-step">
         <span class="product-step__number">02</span>
-        <div class="mini-phone" aria-hidden="true">
-          <p>Awareness check-in</p>
-          <strong>2h 20m</strong>
-          <span class="mini-phone__message">Pause or continue?</span>
+        <div class="mini-phone mini-phone--checkin">
+          <p class="mini-phone__eyebrow">Awareness check-in</p>
+          <div class="demo-checkin__time">2h 20m</div>
+          <div class="demo-checkin__arc" aria-hidden="true">
+            <svg viewBox="0 0 220 112">
+              <path d="M 14 98 A 96 96 0 0 1 206 98" class="demo-arc__track"/>
+              <path d="M 14 98 A 96 96 0 0 1 203.9 78.0" class="demo-arc__fill"/>
+              <circle cx="203.9" cy="78.0" r="4" class="demo-arc__now"/>
+              <text x="14" y="110">0</text>
+              <text x="206" y="110" text-anchor="end">2.5h</text>
+            </svg>
+          </div>
+          <div class="demo-checkin__prompt" id="demo-checkin-prompt">
+            <p>You&rsquo;re approaching the time you&rsquo;d like to keep.</p>
+            <div class="mini-phone__actions">
+              <button type="button" class="is-primary" data-checkin-choice="pause">Pause</button>
+              <button type="button" data-checkin-choice="continue">Continue</button>
+            </div>
+          </div>
+          <div class="mini-phone__outcome" id="demo-checkin-outcome" role="status" tabindex="-1" hidden>
+            <p id="demo-checkin-message"></p>
+            <button type="button" class="mini-phone__reset" id="demo-checkin-reset">Try again</button>
+          </div>
         </div>
         <h3>Notice the moment</h3>
         <p>Get calm reminders of time passed without alarms, shame, or a hard lock.</p>
       </article>
       <article class="product-step">
         <span class="product-step__number">03</span>
-        <div class="mini-phone" aria-hidden="true">
-          <p>Your circle</p>
-          <div class="mini-phone__avatars"><span>H</span><span>M</span><span>A</span></div>
-          <span class="mini-phone__message">Maya sent support</span>
+        <div class="mini-phone mini-phone--circle">
+          <p class="mini-phone__eyebrow">Your circle</p>
+          <div class="mini-phone__request" id="demo-circle-request">
+            <div class="mini-phone__request-head">
+              <span><i aria-hidden="true"></i>A change is being asked</span>
+              <span>Just now</span>
+            </div>
+            <p><em>Sam &rarr; you</em> asks to move the pact from <i>two hours</i> to <i>two hours and thirty.</i></p>
+            <blockquote>My new job has been brutal. I&rsquo;d rather raise it honestly than quietly miss it.</blockquote>
+            <div class="mini-phone__actions">
+              <button type="button" class="is-primary" data-circle-choice="agree">Agree</button>
+              <button type="button" data-circle-choice="talk">Talk</button>
+            </div>
+          </div>
+          <div class="mini-phone__outcome" id="demo-circle-outcome" role="status" tabindex="-1" hidden>
+            <p id="demo-circle-message"></p>
+            <div class="demo-circle__reply" id="demo-circle-reply" hidden>Hey Sam, about the pact change&hellip;</div>
+            <button type="button" class="mini-phone__reset" id="demo-circle-reset">Reset request</button>
+          </div>
         </div>
         <h3>Lean on your circle</h3>
         <p>Choose circle members to be notified when you exceed your goal</p>
@@ -250,7 +290,7 @@
       <p class="waitlist__prompt">Email is all we need. Phone updates are optional.</p>
     </div>
 
-    <form class="form-container waitlist-form reveal stagger-2" id="waitlist-form" novalidate>
+    <form class="form-container waitlist-form reveal stagger-2" id="waitlist-form" action="https://formspree.io/f/xlgynzzl" method="POST" novalidate>
       <div class="form-field">
         <label for="email-input">Email address <span aria-hidden="true">*</span></label>
         <input type="email" class="form-input" id="email-input" name="email" autocomplete="email" required aria-describedby="email-error">
@@ -325,14 +365,34 @@
       </div>
       <div class="about__commitments reveal stagger-4">
         <p class="about__commitments-header">Our Commitments</p>
-        <ul class="about__commitment-list">
-          <li>We will never display advertisements to our users.</li>
-          <li>We will never sell user data.</li>
-          <li>The $1 subscription price will never increase.</li>
-          <li>10% of all profits are donated to charity.</li>
-          <li>30-day free test run, no payment required up front. <br></li>
-        </ul>
-	<p><span class="issue__emphasis"> If it works, keep it; if it doesn't, uninstall.</span></p>
+        <ol class="about__commitment-list">
+          <li>
+            <span class="about__commitment-number">01</span>
+            <span>
+              <strong>No advertising</strong>
+              <span>We will never display advertisements to our users.</span>
+            </span>
+          </li>
+          <li>
+            <span class="about__commitment-number">02</span>
+            <span>
+              <strong>Data sovereignty</strong>
+              <span>We will never sell your personal data.</span>
+            </span>
+          </li>
+          <li>
+            <span class="about__commitment-number">03</span>
+            <span>
+              <strong>Shared good</strong>
+              <span>We donate 10% of profits to charity.</span>
+            </span>
+          </li>
+        </ol>
+        <div class="about__trial">
+          <span class="about__trial-label">Try it for 30 days</span>
+          <p>No payment required upfront.</p>
+          <em>If it helps, keep it. If it doesn&rsquo;t, walk away.</em>
+        </div>
       </div>
     </div>
   </div>

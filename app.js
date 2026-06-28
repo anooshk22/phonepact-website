@@ -62,6 +62,106 @@ document.addEventListener('DOMContentLoaded', () => {
     phoneScreen.addEventListener('pointercancel', endPhoneDrag);
   }
 
+  /* ── How PhonePact Works Demos ────────────────────── */
+  const formatDemoMinutes = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainder = minutes % 60;
+    if (!hours) return `${remainder}m`;
+    return remainder ? `${hours}h ${remainder}m` : `${hours}h`;
+  };
+
+  const intentionValue = document.getElementById('demo-intention-value');
+  const intentionSet = document.getElementById('demo-intention-set');
+  const intentionStatus = document.getElementById('demo-intention-status');
+  const intentionControls = [...document.querySelectorAll('[data-intention-delta]')];
+  let intentionMinutes = 150;
+
+  const renderIntentionDemo = () => {
+    if (!intentionValue) return;
+    intentionValue.textContent = formatDemoMinutes(intentionMinutes);
+    intentionControls.forEach((control) => {
+      const delta = Number(control.dataset.intentionDelta);
+      control.disabled = (delta < 0 && intentionMinutes === 30) || (delta > 0 && intentionMinutes === 720);
+    });
+  };
+
+  intentionControls.forEach((control) => {
+    control.addEventListener('click', () => {
+      intentionMinutes = Math.max(30, Math.min(720, intentionMinutes + Number(control.dataset.intentionDelta)));
+      intentionSet?.classList.remove('is-set');
+      if (intentionSet) intentionSet.textContent = 'Set my pact';
+      if (intentionStatus) intentionStatus.textContent = '';
+      renderIntentionDemo();
+    });
+  });
+
+  intentionSet?.addEventListener('click', () => {
+    intentionSet.classList.add('is-set');
+    intentionSet.textContent = `Pact set · ${formatDemoMinutes(intentionMinutes)}`;
+    if (intentionStatus) intentionStatus.textContent = 'Your intention remains yours to change.';
+  });
+
+  renderIntentionDemo();
+
+  const checkinPrompt = document.getElementById('demo-checkin-prompt');
+  const checkinOutcome = document.getElementById('demo-checkin-outcome');
+  const checkinMessage = document.getElementById('demo-checkin-message');
+  const checkinChoices = document.querySelectorAll('[data-checkin-choice]');
+
+  checkinChoices.forEach((control) => {
+    control.addEventListener('click', () => {
+      const paused = control.dataset.checkinChoice === 'pause';
+      if (checkinMessage) {
+        checkinMessage.textContent = paused
+          ? 'A pause, chosen in your own time.'
+          : 'You continued. The choice stays visible, without judgment.';
+      }
+      if (checkinPrompt) checkinPrompt.hidden = true;
+      if (checkinOutcome) {
+        checkinOutcome.hidden = false;
+        checkinOutcome.focus();
+      }
+    });
+  });
+
+  document.getElementById('demo-checkin-reset')?.addEventListener('click', () => {
+    if (checkinPrompt) checkinPrompt.hidden = false;
+    if (checkinOutcome) checkinOutcome.hidden = true;
+    if (checkinMessage) checkinMessage.textContent = '';
+    document.querySelector('[data-checkin-choice="pause"]')?.focus();
+  });
+
+  const circleRequest = document.getElementById('demo-circle-request');
+  const circleOutcome = document.getElementById('demo-circle-outcome');
+  const circleMessage = document.getElementById('demo-circle-message');
+  const circleReply = document.getElementById('demo-circle-reply');
+  const circleChoices = document.querySelectorAll('[data-circle-choice]');
+
+  circleChoices.forEach((control) => {
+    control.addEventListener('click', () => {
+      const agreed = control.dataset.circleChoice === 'agree';
+      if (circleMessage) {
+        circleMessage.textContent = agreed
+          ? 'Agreed. The pact has moved to two hours, thirty.'
+          : 'A conversation is ready in the room.';
+      }
+      if (circleReply) circleReply.hidden = agreed;
+      if (circleRequest) circleRequest.hidden = true;
+      if (circleOutcome) {
+        circleOutcome.hidden = false;
+        circleOutcome.focus();
+      }
+    });
+  });
+
+  document.getElementById('demo-circle-reset')?.addEventListener('click', () => {
+    if (circleRequest) circleRequest.hidden = false;
+    if (circleOutcome) circleOutcome.hidden = true;
+    if (circleReply) circleReply.hidden = true;
+    if (circleMessage) circleMessage.textContent = '';
+    document.querySelector('[data-circle-choice="agree"]')?.focus();
+  });
+
 
   /* ── Navigation ────────────────────────────────────── */
   const nav = document.querySelector('.nav');
@@ -96,7 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── Formspree Waitlist Form ───────────────────────── */
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdqlaad';
+  const WAITLIST_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgynzzl';
+  const FEEDBACK_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdqlaad';
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
@@ -144,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
       waitlistStatus.textContent = 'Saving your place…';
 
       try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
+        const response = await fetch(WAITLIST_FORMSPREE_ENDPOINT, {
           method: 'POST',
           headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
@@ -260,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.textContent = 'Sending…';
       feedbackStatus.textContent = 'Sending your feedback…';
       try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
+        const response = await fetch(FEEDBACK_FORMSPREE_ENDPOINT, {
           method: 'POST',
           headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
           body: JSON.stringify(feedbackData)
