@@ -2260,6 +2260,7 @@ blockquote {
   height: 608px;
   aspect-ratio: 0.51;
   padding: 12px;
+  position: relative;
   border: 1px solid var(--deep-green);
   border-radius: 40px;
   background: var(--deep-green);
@@ -2268,13 +2269,17 @@ blockquote {
 }
 
 .phone-frame__speaker {
-  width: 32%;
+  width: 30%;
   height: 18px;
-  margin: 2px auto -20px;
-  border-radius: 0 0 12px 12px;
+  margin: 0;
+  border-radius: 0 0 14px 14px;
   background: var(--deep-green);
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 4;
+  transform: translateX(-50%);
+  box-shadow: 0 -6px 0 2px var(--deep-green);
 }
 
 .phone-ui {
@@ -2299,9 +2304,9 @@ blockquote {
   min-height: 30px;
   padding: 0 14px;
   border-bottom: 1px solid var(--ledger-line);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32% minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   font-family: var(--font-mono);
   font-size: 0.48rem;
   letter-spacing: 0.14em;
@@ -2311,6 +2316,13 @@ blockquote {
   top: 0;
   z-index: 2;
   background: var(--pearl-warm);
+}
+
+.phone-ui__bar > span:first-child { grid-column: 1; }
+.phone-ui__bar > span:last-child {
+  grid-column: 3;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .phone-ui__bar i {
@@ -3387,14 +3399,24 @@ blockquote {
   .hero__actions { flex-direction: column; }
   .hero__actions .btn { width: 100%; justify-content: center; }
   .hero__proof { flex-direction: column; align-items: center; }
-  .hero__product { max-height: 320px; overflow: hidden; }
+  .hero__product {
+    max-height: none;
+    padding-bottom: 1rem;
+    overflow: visible;
+  }
   .hero__product-caption { display: none; }
   .phone-frame {
     width: min(220px, 70vw);
     height: min(431px, 137.25vw);
     transform: none;
   }
-  .phone-ui__bar { min-height: 24px; padding: 0 10px; font-size: 0.38rem; }
+  .phone-frame__speaker { width: 28%; height: 15px; }
+  .phone-ui__bar {
+    min-height: 24px;
+    padding: 0 9px;
+    grid-template-columns: minmax(0, 1fr) 30% minmax(0, 1fr);
+    font-size: 0.38rem;
+  }
   .phone-ui__body { padding: 1.6rem 0.9rem 1rem; }
   .phone-ui__greeting { margin-bottom: 1.1rem; font-size: 0.56rem; }
   .phone-ui__time { font-size: 3.8rem; }

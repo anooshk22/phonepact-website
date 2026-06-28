@@ -33,6 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let draggingPhone = false;
     let dragStartY = 0;
     let dragStartScroll = 0;
+    const mobileHeroQuery = window.matchMedia('(max-width: 600px)');
+
+    phoneScreen.scrollTop = 0;
+
+    const resetPhonePosition = () => {
+      phoneScreen.scrollTop = 0;
+    };
+
+    if (mobileHeroQuery.addEventListener) {
+      mobileHeroQuery.addEventListener('change', resetPhonePosition);
+    } else {
+      mobileHeroQuery.addListener(resetPhonePosition);
+    }
 
     phoneScreen.addEventListener('pointerdown', (event) => {
       if (event.pointerType !== 'mouse' || event.button !== 0) return;
