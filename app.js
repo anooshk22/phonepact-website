@@ -208,9 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ── Formspree Waitlist Form ───────────────────────── */
-  const WAITLIST_FORMSPREE_ENDPOINT = 'https://formspree.io/f/xlgynzzl';
-  const FEEDBACK_FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnjkvror';
+  /* ── Google Sheets Endpoint (Apps Script Web App) ──── */
+  const GOOGLE_SHEETS_ENDPOINT = 'YOUR_GOOGLE_SHEETS_WEB_APP_URL_HERE';
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
@@ -253,14 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = Object.fromEntries(new FormData(waitlistForm).entries());
       payload.timestamp = new Date().toISOString();
       payload.sms_consent = phone.value ? 'CONSENTED' : 'NOT_REQUESTED';
+      payload.form_type = 'waitlist';
       submitButton.disabled = true;
       submitButton.textContent = 'Joining…';
       waitlistStatus.textContent = 'Saving your place…';
 
       try {
-        const response = await fetch(WAITLIST_FORMSPREE_ENDPOINT, {
+        const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
           method: 'POST',
-          headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
         });
         if (!response.ok) throw new Error('Submission rejected');
@@ -369,14 +368,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const feedbackData = Object.fromEntries(new FormData(feedbackForm).entries());
       feedbackData.timestamp = new Date().toISOString();
+      feedbackData.form_type = 'feedback';
       const button = feedbackForm.querySelector('button[type="submit"]');
       button.disabled = true;
       button.textContent = 'Sending…';
       feedbackStatus.textContent = 'Sending your feedback…';
       try {
-        const response = await fetch(FEEDBACK_FORMSPREE_ENDPOINT, {
+        const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
           method: 'POST',
-          headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
           body: JSON.stringify(feedbackData)
         });
         if (!response.ok) throw new Error('Submission rejected');
