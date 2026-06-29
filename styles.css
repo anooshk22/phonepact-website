@@ -2739,10 +2739,21 @@ blockquote {
 .form-status, .form-privacy { text-align: center; opacity: 0.65; }
 .form-honeypot { position: absolute !important; left: -9999px !important; }
 
-.sms-details { border-top: 1px dashed var(--ledger-line); border-bottom: 1px dashed var(--ledger-line); padding: 0.9rem 0; }
-.sms-details summary { cursor: pointer; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 600; }
-.sms-details__body { display: grid; gap: 0.7rem; padding-top: 1rem; }
-.sms-details .tcpa-wrapper { margin-top: 0; padding-top: 0; border-top: 0; }
+.sms-fields {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px dashed var(--ledger-line);
+  border-bottom: 1px dashed var(--ledger-line);
+  padding: 0.9rem 0;
+}
+.sms-fields__title {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+.sms-fields .tcpa-wrapper { margin-top: 0; padding-top: 0; border-top: 0; }
 .feedback__form { gap: 0.55rem; }
 .feedback__form .form-input + label { margin-top: 0.55rem; }
 
