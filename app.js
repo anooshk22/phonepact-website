@@ -218,15 +218,24 @@ document.addEventListener('DOMContentLoaded', () => {
     waitlistForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       const email = document.getElementById('email-input');
+      const device = document.getElementById('device-select');
+      const partner = document.getElementById('partner-select');
+      const inviteEmail = document.getElementById('invite-email');
       const phone = document.getElementById('phone-number');
       const consent = document.getElementById('tcpa-checkbox');
       const emailError = document.getElementById('email-error');
+      const deviceError = document.getElementById('device-error');
+      const partnerError = document.getElementById('partner-error');
+      const inviteError = document.getElementById('invite-error');
       const phoneError = document.getElementById('phone-error');
       const consentError = document.getElementById('consent-error');
       const submitButton = document.getElementById('submit-btn');
       const phoneDigits = phone.value.replace(/\D/g, '');
 
       emailError.textContent = '';
+      deviceError.textContent = '';
+      partnerError.textContent = '';
+      inviteError.textContent = '';
       phoneError.textContent = '';
       consentError.textContent = '';
       waitlistStatus.textContent = '';
@@ -234,6 +243,18 @@ document.addEventListener('DOMContentLoaded', () => {
       let valid = true;
       if (!email.validity.valid) {
         emailError.textContent = 'Enter a valid email address.';
+        valid = false;
+      }
+      if (!device.value) {
+        deviceError.textContent = 'Please select which phone you use.';
+        valid = false;
+      }
+      if (!partner.value) {
+        partnerError.textContent = 'Please select a pact partner choice.';
+        valid = false;
+      }
+      if (inviteEmail.value && !inviteEmail.validity.valid) {
+        inviteError.textContent = 'Enter a valid email address or leave blank.';
         valid = false;
       }
       if (phone.value && (phoneDigits.length < 8 || phoneDigits.length > 15)) {

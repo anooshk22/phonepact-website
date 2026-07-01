@@ -48,7 +48,7 @@
      ═══════════════════════════════════════════════════ -->
 <nav class="nav" id="main-nav" role="navigation" aria-label="Main navigation">
   <a href="#hero" class="nav__logo" aria-label="PhonePact home">
-    <img src="assets/Phone%20Pact%20Side%20Logo%20(transparent).png" alt="PhonePact Logo" class="nav__logo-img">
+    <span class="nav__wordmark" aria-hidden="true">PhonePact</span>
   </a>
   <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav-links">
     <span></span><span></span><span></span>
@@ -297,15 +297,34 @@
         <p class="form-error" id="email-error" role="alert"></p>
       </div>
       <div class="form-field">
-        <label for="reason-reduce">What would you most like help with?</label>
-        <select class="form-select" id="reason-reduce" name="goal">
+        <label for="device-select">Which phone do you use? <span aria-hidden="true">*</span></label>
+        <select class="form-select" id="device-select" name="device" required aria-describedby="device-error">
           <option value="">Choose one</option>
-          <option value="focus">Focus and productivity</option>
-          <option value="sleep">Better sleep</option>
-          <option value="presence">Relationships and presence</option>
-          <option value="habit">A healthier phone habit</option>
-          <option value="family">Supporting my child or family</option>
+          <option value="iphone">iPhone</option>
+          <option value="android">Android</option>
+          <option value="both">Both</option>
         </select>
+        <p class="form-error" id="device-error" role="alert"></p>
+      </div>
+      <div class="form-field">
+        <label for="partner-select">Who would you make a PhonePact with? <span aria-hidden="true">*</span></label>
+        <select class="form-select" id="partner-select" name="partner" required aria-describedby="partner-error">
+          <option value="">Choose one</option>
+          <option value="friend">Friend</option>
+          <option value="partner">Partner</option>
+          <option value="roommate">Roommate</option>
+          <option value="sibling">Sibling</option>
+          <option value="parent">Parent</option>
+          <option value="classmate">Classmate</option>
+          <option value="coworker">Coworker</option>
+          <option value="not_sure">Not sure yet</option>
+        </select>
+        <p class="form-error" id="partner-error" role="alert"></p>
+      </div>
+      <div class="form-field">
+        <label for="invite-email">Want to invite them? <span class="form-optional">(enter email, optional)</span></label>
+        <input type="email" class="form-input" id="invite-email" name="invite_email" placeholder="their-email@domain.com" aria-describedby="invite-error">
+        <p class="form-error" id="invite-error" role="alert"></p>
       </div>
       <div class="sms-fields">
         <div class="form-field">
