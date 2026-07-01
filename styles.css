@@ -140,7 +140,7 @@ input, select, textarea {
 }
 
 .nav__logo-img {
-  height: 28px;
+  height: 22px;
   width: auto;
   display: block;
 }
@@ -3510,4 +3510,63 @@ blockquote {
     max-width: 200px;
     max-height: 100px;
   }
+}
+
+/* ── Success Share Card ─────────────────────────────── */
+.share-card {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--card-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.share-card__title {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+.share-card__text {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  opacity: 0.8;
+  margin-bottom: 1.2rem;
+  color: var(--text-color);
+}
+.share-card__box {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+.share-card__input {
+  flex: 1;
+  font-size: 0.78rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  text-overflow: ellipsis;
+}
+.share-card__btn {
+  font-size: 0.78rem;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+}
+.share-card__btn-native {
+  width: 100%;
+  margin-top: 0.4rem;
+}
+.share-card__hint {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+  font-weight: 500;
 }

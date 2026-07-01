@@ -220,13 +220,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('email-input');
       const device = document.getElementById('device-select');
       const partner = document.getElementById('partner-select');
-      const inviteEmail = document.getElementById('invite-email');
       const phone = document.getElementById('phone-number');
       const consent = document.getElementById('tcpa-checkbox');
       const emailError = document.getElementById('email-error');
       const deviceError = document.getElementById('device-error');
       const partnerError = document.getElementById('partner-error');
-      const inviteError = document.getElementById('invite-error');
       const phoneError = document.getElementById('phone-error');
       const consentError = document.getElementById('consent-error');
       const submitButton = document.getElementById('submit-btn');
@@ -235,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
       emailError.textContent = '';
       deviceError.textContent = '';
       partnerError.textContent = '';
-      inviteError.textContent = '';
       phoneError.textContent = '';
       consentError.textContent = '';
       waitlistStatus.textContent = '';
@@ -251,10 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (!partner.value) {
         partnerError.textContent = 'Please select a pact partner choice.';
-        valid = false;
-      }
-      if (inviteEmail.value && !inviteEmail.validity.valid) {
-        inviteError.textContent = 'Enter a valid email address or leave blank.';
         valid = false;
       }
       if (phone.value && (phoneDigits.length < 8 || phoneDigits.length > 15)) {
@@ -297,6 +290,49 @@ document.addEventListener('DOMContentLoaded', () => {
         waitlistStatus.textContent = 'We could not save your place. Please try again.';
       }
     });
+  }
+
+  /* ── Waitlist Share Card Setup ── */
+  const copyShareBtn = document.getElementById('copy-share-btn');
+  const nativeShareBtn = document.getElementById('native-share-btn');
+  const shareStatus = document.getElementById('share-status');
+  
+  const shareMessage = "Hey! I just signed up for PhonePact to reduce screen time and want to start an accountability circle with you. Want to make a pact? Join the waitlist here: https://getphonepact.com";
+  const shareUrl = "https://getphonepact.com";
+  const shareTextOnly = "Hey! I just signed up for PhonePact to reduce screen time and want to start an accountability circle with you. Want to make a pact?";
+
+  if (copyShareBtn) {
+    copyShareBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shareMessage);
+        shareStatus.textContent = 'Invite copied to clipboard!';
+        shareStatus.style.color = '#5b8266'; // PhonePact theme green
+        setTimeout(() => { shareStatus.textContent = ''; }, 3000);
+      } catch (err) {
+        shareStatus.textContent = 'Failed to copy link. Please manually select and copy.';
+        shareStatus.style.color = '#7a2d2d';
+      }
+    });
+  }
+
+  if (nativeShareBtn) {
+    if (!navigator.share) {
+      nativeShareBtn.style.display = 'none';
+    } else {
+      nativeShareBtn.addEventListener('click', async () => {
+        try {
+          await navigator.share({
+            title: 'PhonePact Accountability',
+            text: shareTextOnly,
+            url: shareUrl
+          });
+          shareStatus.textContent = 'Shared successfully!';
+          setTimeout(() => { shareStatus.textContent = ''; }, 3000);
+        } catch (err) {
+          console.log('Share failed or cancelled', err);
+        }
+      });
+    }
   }
 
   /* ── Modal System ──────────────────────────────────── */
