@@ -23,7 +23,7 @@
 <!-- Navigation -->
 <nav class="nav nav--scrolled" id="main-nav" role="navigation" aria-label="Main navigation">
   <a href="./" class="nav__logo">
-    <img src="assets/Phone%20Pact%20Side%20Logo%20(transparent).png" alt="PhonePact Logo" class="nav__logo-img">
+    <span class="nav__wordmark">PhonePact</span>
   </a>
   <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="ethos-nav-links">
     <span></span><span></span><span></span>
@@ -100,9 +100,9 @@
         <h3>The Parental Trap</h3>
         <p>Screen regulation often begins with parents confiscating devices as punishment. This is not a way to help a young person practice their own self-regulation when external control is absent.</p>
         
-        <h3>The Failure of Blocker Apps</h3>
+        <h3>Why Blocker Apps Fall Short</h3>
         <p>As adults, we realize the problem and try to solve it. In a moment of clarity, we install app blockers, buy physical phone vaults, or use gadgets to lock ourselves out. But this system is fundamentally built on a lack of trust in our future self.</p>
-        <p>When access returns, old habits return with it. People can interpret that as a failure of their own willpower, even when the tool never helped them grow their awareness, flexibility, or self-directed regulation in the first place.</p>
+        <p>When access returns, old habits return with it. People can interpret that as a judgment on their own willpower, even when the tool never helped them grow their awareness, flexibility, or self-directed regulation in the first place.</p>
         <p><strong>The point is not to take the phone away. The point is to build the mental muscle of conscious choice.</strong></p>
       </div>
     </div>
@@ -188,33 +188,46 @@
       </div>
       <div class="ethos-grid__content">
         <figure class="ethos-visual ethos-visual--mechanics" aria-labelledby="mechanics-visual-caption">
-          <img src="assets/mechanics_graphic.svg" alt="A simplified interface showing screen time progress, visual ring, and set duration of 2h 30m" class="ethos-graphic">
-          <figcaption id="mechanics-visual-caption">PhonePact follows four states: set an intention, notice progress, make a conscious choice, and involve the circle only as agreed.</figcaption>
+          <img src="assets/mechanics_graphic.svg" alt="A simplified interface showing screen time accumulating upward through private prompts and shared check-ins" class="ethos-graphic">
+          <figcaption id="mechanics-visual-caption">PhonePact counts upward: notice the time, make a conscious choice, and involve trusted circles only at the shared check-ins you agreed to.</figcaption>
         </figure>
         <h3>1. The Onboarding Ritual</h3>
         <p>The onboarding is designed to be intentional:</p>
         <ul>
-          <li><strong>Goal Selection:</strong> You manually dial in your daily target screen time.</li>
+          <li><strong>Pact Point:</strong> You choose the amount of overall screen time on this iPhone that will become your first shared check-in.</li>
           <li><strong>Written Pledge:</strong> You write a specific "Reason for the Circle".</li>
           <li><strong>The Shared Oath:</strong> You physically sign the screen with your finger to commit to the pact.</li>
+          <li><strong>Age &amp; Permission:</strong> The launch MVP is for people 13 and older. Apple may require a parent or guardian to authorize Screen Time access on a family-managed device.</li>
         </ul>
 
-        <h3>2. Ambient Check-Ins</h3>
-        <p>The app keeps you aware of time passed. If you set a 2-hour daily goal, you will receive quiet, text-only notifications at key milestones (e.g., 30m, 1h, 1.5h). These notifications have no alarms or timers; they simply state elapsed time.</p>
+        <h3>2. Overall Screen Time, Counted Upward</h3>
+        <p>PhonePact observes overall app, category, and website activity on the enrolled iPhone. It does not ask you to choose a list of monitored apps. The interface only states time already accumulated—such as <em>"1 hour 50 minutes today"</em>—and never presents a countdown or time remaining.</p>
+        <p>By default, PhonePact sends the person a private, text-only notice every 15 minutes of accumulated screen activity: <em>"45 minutes of screen time today."</em> This private awareness cadence can be changed to every 30 minutes, every 60 minutes, or turned off. These notices stay on the device and are never sent to a circle.</p>
 
-        <h3>3. The Grace Period &amp; Broadcast</h3>
-        <p>Only when you are almost at your time goal, you are asked: <em>"You are almost at 2 hours. Would you like to notify your circle?"</em></p>
-        <p>If you choose <strong>NO</strong>, you are given a 10-minute grace window. If you do not put the phone down or justify the use, a simple, automated message is sent to your circle: <em>"Hank reached 2 hours in screen time just now."</em>  </p>
-        <p>The loop repeats every 30 minutes thereafter, constantly moving the goalpost so there is no utter state of failure. There is always another time goal to look forward to. </p>
+        <h3>3. Private Prompts &amp; Shared Check-Ins</h3>
+        <p>For a two-hour pact point, PhonePact asks privately at 1 hour 50 minutes. The ten-minute grace is measured in additional screen activity, not wall-clock time, so putting the phone down pauses the sequence.</p>
+        <p>If screen activity reaches 2 hours, a simple message is sent to the circles you selected: <em>"Hank reached 2 hours of screen time today."</em> PhonePact asks privately again at 2 hours 20 minutes, shares again at 2 hours 30 minutes, and repeats this upward rhythm for every additional 30 minutes of screen activity.</p>
+        <p>There is no final state and no score. Each shared check-in is simply another moment to notice and choose.</p>
 
         <h3>4. Collaborative Adjustments</h3>
-        <p>If you want to change your goal, permanently or temporarily, you must choose a partner in your circle and request confirmation. They will review your note and approve the change. </p>
+        <p>Any change to the pact point—higher or lower, for today, for several days, or permanently—goes to one chosen partner for approval. The current pact stays active until they approve. Pausing, notification preferences, and which circles receive check-ins remain your own settings.</p>
 
-        <h3>5. Room</h3>
-        <p>There is a chat with the chosen members of your circle with disappearing messages, where you can send encouragement and check in with others. </p>
+        <h3>5. One Pact, Up to Three Circles</h3>
+        <p>Your pact point belongs to you and stays the same across the app. You can belong to as many as three circles, choose which circles receive automatic shared check-ins, and choose an approval partner from any participating circle.</p>
+
+        <h3>6. Rooms That Do Not Accumulate</h3>
+        <p>Every circle has a plain-text room for encouragement and conversation. Messages disappear from the room after 24 hours. Members can delete their own messages, report harmful content, block abusive members, and contact PhonePact support.</p>
       
-        <h3>NOTE</h3>
-        <p>Only when you go beyond your chosen time goal, others are notified. The desire to maintain your silence is what helps you put the phone down.</p>
+        <h3>Our Shared Language</h3>
+        <ul>
+          <li><strong>Pact point:</strong> the screen-time amount chosen for the first shared check-in—not a limit.</li>
+          <li><strong>Screen time today:</strong> time already accumulated on this iPhone—not time remaining.</li>
+          <li><strong>Private prompt:</strong> the quiet invitation that arrives ten usage minutes before a shared check-in.</li>
+          <li><strong>Shared check-in:</strong> a plain duration-only message sent to selected circles.</li>
+        </ul>
+
+        <h3>What Comes Later</h3>
+        <p>We intend to explore letting people exclude specific apps from their overall screen-time total. Apple provides positive activity-selection filters rather than a simple "everything except these apps" control, so PhonePact will not promise exclusions until a technical prototype proves the behavior.</p>
       </div>
     </div>
   </div>
@@ -243,10 +256,10 @@
         <h3>The Mission</h3>
         <p>Our sole goal is to get as many people free from their screen addictions as possible. It isn't to price gouge you or turn a huge profit from your pain. The subscription price of the app is the lowest possible, and it becomes a way to solidify intention while also keeping our operations afloat.</p>
         <h3>The 30-Day Trust Trial</h3>
-        <p>PhonePact is free to download and to invite others. You can use full-featured circles for your first 30 days without entering any credit card details.</p>
+        <p>PhonePact is free to download. Your account's full 30-day trial begins only when you activate your first pact with monitoring and at least one circle. No credit card is required to begin.</p>
 
         <h3>Our Aligned Pledges</h3>
-        <p>Because we charge a flat $1/month commitment, we commit to the following values:</p>
+        <p>After day 30, one $1/month account subscription keeps all of your circles, rooms, approvals, and shared check-ins active. Without a subscription, your private on-device screen-time view and account controls remain available. Because we charge this small recurring commitment, we make the following promises:</p>
         <ul>
           <li><strong>Zero Ads, Ever:</strong> No popups or ad revenue models.</li>
           <li><strong>No Data Selling:</strong> We do not sell your screen time or usage metrics to anyone.</li>
