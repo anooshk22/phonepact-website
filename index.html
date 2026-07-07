@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="styles.css?v=20260627-7">
+  <link rel="stylesheet" href="styles.css?v=20260702-1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -67,16 +67,16 @@
 <section class="hero section" id="hero">
   <div class="hero__layout">
     <div class="hero__copy">
-      <p class="hero__tagline">You were never supposed to fight the algorithm alone.</p>
-      <h1 class="hero__title">Reduce screen time with your circle, without lockouts.</h1>
-      <p class="hero__summary">Join a trusted circle for support. Work together to set your screen time goals to become aware and in control of your habits.</p>
+      <h1 class="hero__tagline">You were never supposed to fight the algorithm alone.</h1>
+      <p class="hero__title">Not another app blocker. A pact with people you trust.</p>
+      <p class="hero__summary">PhonePact helps you use your phone less without lockouts, streaks, or shame. You still choose. You just do not have to choose alone.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
         <a class="hero__text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
       </div>
       <ul class="hero__proof" aria-label="PhonePact principles">
-        <li>Self-directed</li>
-        <li>Community-supported</li>
+        <li>You still choose</li>
+        <li>Shared support</li>
         <li>No ads or data selling</li>
       </ul>
     </div>
@@ -92,9 +92,9 @@
             <p class="phone-ui__greeting">Good evening, Alex</p>
             <p class="phone-ui__time"><span>1</span><small>h</small> <span>47</span><small>m</small></p>
             <p class="phone-ui__copy">on your phone so far today</p>
-            <p class="phone-ui__goal">of the 2h 30m you&rsquo;d like to keep</p>
+            <p class="phone-ui__goal">first shared check-in at 2h 30m</p>
 
-            <div class="phone-ui__arc" aria-label="1 hour 47 minutes used out of a 2 hour 30 minute intention">
+            <div class="phone-ui__arc" aria-label="1 hour 47 minutes of screen time today; first shared check-in at 2 hours 30 minutes">
               <svg viewBox="0 0 260 140" aria-hidden="true">
                 <path d="M 16 116 A 114 114 0 0 1 244 116" class="phone-ui__arc-track"/>
                 <path d="M 16 116 A 114 114 0 0 1 200.8 26.6" class="phone-ui__arc-fill"/>
@@ -286,8 +286,8 @@
   <div class="container">
     <div class="waitlist__intro reveal">
       <h2 class="waitlist__header">Join the Waitlist</h2>
-      <p class="waitlist__subhead">Be first to try a gentler way to reduce screen time.</p>
-      <p class="waitlist__prompt">Email is all we need.</p>
+      <p class="waitlist__subhead">Be first to try a pact, not a punishment.</p>
+      <p class="waitlist__prompt">Tell us a little about the phone pact you would make.</p>
     </div>
 
     <form class="form-container waitlist-form reveal stagger-2" id="waitlist-form" action="https://formspree.io/f/xlgynzzl" method="POST" novalidate>
@@ -321,6 +321,23 @@
         </select>
         <p class="form-error" id="partner-error" role="alert"></p>
       </div>
+      <div class="form-field">
+        <label for="help-goal-select">What would you most like PhonePact to help with? <span class="form-optional">(optional)</span></label>
+        <select class="form-select" id="help-goal-select" name="help_goal" aria-describedby="help-goal-hint">
+          <option value="">Choose one</option>
+          <option value="bypassing_blockers">I keep bypassing blockers</option>
+          <option value="mindless_scrolling">Mindless scrolling</option>
+          <option value="focus">Focus while working or studying</option>
+          <option value="sleep">Phone use in bed or better sleep</option>
+          <option value="presence">Being more present with people</option>
+          <option value="other">Something else</option>
+        </select>
+        <p class="form-hint" id="help-goal-hint">This helps us decide what to build first. It does not affect your place on the waitlist.</p>
+        <div id="help-goal-other-wrap" hidden>
+          <label for="help-goal-other">Tell us in your own words <span class="form-optional">(optional)</span></label>
+          <input type="text" class="form-input" id="help-goal-other" name="help_goal_other" maxlength="160">
+        </div>
+      </div>
 
       <div class="sms-fields">
         <div class="form-field">
@@ -348,11 +365,11 @@
     <div class="form-success">
       <div class="form-success__icon">✦</div>
       <p class="form-success__title">You&rsquo;re on the list.</p>
-      <p class="form-success__text">We&rsquo;ll reach out when PhonePact is ready. Thank you for choosing consciousness over restriction.</p>
+      <p class="form-success__text">We&rsquo;ll reach out when PhonePact is ready. You still choose. You just do not have to choose alone.</p>
       
       <div class="share-card">
         <h3 class="share-card__title">Start your circle</h3>
-        <p class="share-card__text">PhonePact works best with friends. Share this invite to add someone to your accountability circle:</p>
+        <p class="share-card__text">PhonePact begins with people you trust. Invite someone you would want in your trusted circle:</p>
         <div class="share-card__box">
           <input type="text" class="share-card__input" id="share-link-input" readonly value="https://getphonepact.com">
           <button class="btn btn--secondary share-card__btn" id="copy-share-btn">Copy Invite</button>
@@ -730,6 +747,6 @@
 </div>
 
 
-<script src="app.js?v=20260627-6"></script>
+<script src="app.js?v=20260702-1"></script>
 </body>
 </html>

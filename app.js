@@ -213,6 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
+  const helpGoalSelect = document.getElementById('help-goal-select');
+  const helpGoalOtherWrap = document.getElementById('help-goal-other-wrap');
+  const helpGoalOther = document.getElementById('help-goal-other');
+
+  helpGoalSelect?.addEventListener('change', () => {
+    const showOther = helpGoalSelect.value === 'other';
+    if (helpGoalOtherWrap) helpGoalOtherWrap.hidden = !showOther;
+    if (!showOther && helpGoalOther) helpGoalOther.value = '';
+    if (showOther) helpGoalOther?.focus();
+  });
 
   if (waitlistForm) {
     waitlistForm.addEventListener('submit', async (event) => {
@@ -297,9 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const nativeShareBtn = document.getElementById('native-share-btn');
   const shareStatus = document.getElementById('share-status');
   
-  const shareMessage = "Hey! I just signed up for PhonePact to reduce screen time and want to start an accountability circle with you. Want to make a pact? Join the waitlist here: https://getphonepact.com";
+  const shareMessage = "Hey! I just signed up for PhonePact. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact? https://getphonepact.com";
   const shareUrl = "https://getphonepact.com";
-  const shareTextOnly = "Hey! I just signed up for PhonePact to reduce screen time and want to start an accountability circle with you. Want to make a pact?";
+  const shareTextOnly = "Hey! I just signed up for PhonePact. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact?";
 
   if (copyShareBtn) {
     copyShareBtn.addEventListener('click', async () => {
@@ -322,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nativeShareBtn.addEventListener('click', async () => {
         try {
           await navigator.share({
-            title: 'PhonePact Accountability',
+            title: 'Make a PhonePact',
             text: shareTextOnly,
             url: shareUrl
           });

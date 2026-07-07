@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">PhonePact — Reduce screen time without rigid lockouts</title>
+  <title id="title">PhonePact — You were never supposed to fight the algorithm alone</title>
   <desc id="desc">A branded PhonePact social preview with a paper-colored background and a simple phone interface illustration.</desc>
   <rect width="1200" height="630" fill="#F8F6F0"/>
   <path d="M0 72H1200M0 558H1200" stroke="#D6D1C5"/>
   <text x="72" y="112" fill="#2D4A35" font-family="Georgia, serif" font-size="34">PhonePact</text>
-  <text x="72" y="190" fill="#3A6B48" font-family="Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="4">SCREEN-TIME CHANGE, BUILT AROUND AGENCY</text>
+  <text x="72" y="190" fill="#3A6B48" font-family="Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="4">A PACT WITH PEOPLE YOU TRUST</text>
   <text x="72" y="278" fill="#2D4A35" font-family="Georgia, serif" font-size="66" font-style="italic">
-    <tspan x="72" dy="0">Reduce screen time</tspan>
-    <tspan x="72" dy="74">with people you trust—</tspan>
-    <tspan x="72" dy="74">not rigid lockouts.</tspan>
+    <tspan x="72" dy="0">You were never supposed</tspan>
+    <tspan x="72" dy="74">to fight the algorithm</tspan>
+    <tspan x="72" dy="74">alone.</tspan>
   </text>
-  <text x="72" y="530" fill="#2D4A35" opacity=".78" font-family="Arial, sans-serif" font-size="21">Self-directed goals · gentle check-ins · trusted accountability</text>
+  <text x="72" y="530" fill="#2D4A35" opacity=".78" font-family="Arial, sans-serif" font-size="21">A pact, not a punishment · trusted circles · shared check-ins</text>
 
   <g transform="translate(845 78) rotate(3 140 230)">
     <rect width="280" height="480" rx="40" fill="#2D4A35"/>
@@ -18,7 +18,7 @@
     <rect x="96" y="12" width="88" height="22" rx="0 0 12 12" fill="#2D4A35"/>
     <text x="42" y="92" fill="#2D4A35" font-family="Arial, sans-serif" font-size="12" letter-spacing="3">TODAY’S PACT</text>
     <text x="42" y="170" fill="#2D4A35" font-family="Georgia, serif" font-size="54" font-style="italic">2h 30m</text>
-    <text x="42" y="202" fill="#2D4A35" opacity=".65" font-family="Arial, sans-serif" font-size="13">Your intention—not a lock.</text>
+    <text x="42" y="202" fill="#2D4A35" opacity=".65" font-family="Arial, sans-serif" font-size="13">First shared check-in.</text>
     <rect x="42" y="232" width="196" height="5" rx="3" fill="#EFECE3"/>
     <rect x="42" y="232" width="112" height="5" rx="3" fill="#3A6B48"/>
     <circle cx="58" cy="342" r="18" fill="#F8F6F0" stroke="#2D4A35"/>
@@ -30,8 +30,8 @@
     <text x="148" y="347" fill="#2D4A35" font-family="Arial, sans-serif" font-size="12">Circle ready</text>
     <rect x="42" y="385" width="196" height="54" fill="none" stroke="#D6D1C5"/>
     <text x="56" y="407" fill="#2D4A35" font-family="Georgia, serif" font-size="13" font-style="italic">
-      <tspan x="56" dy="0">Checking in gently.</tspan>
-      <tspan x="56" dy="19">What matters next?</tspan>
+      <tspan x="56" dy="0">You still choose.</tspan>
+      <tspan x="56" dy="19">You do not choose alone.</tspan>
     </text>
   </g>
 </svg>
