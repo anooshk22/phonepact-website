@@ -1,0 +1,5 @@
+# Local-only: image sources, strategy docs, and dev config (never deploy)
+growth/
+Blog and Landing Page/
+chatgpt generated blog images/
+.claude/

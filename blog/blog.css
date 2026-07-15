@@ -192,3 +192,7 @@ article ol li{margin:8px 0}
 
 /* ---------- hub page intro ---------- */
 .index-hero + div p{font-size:18px; margin:16px 0; color:var(--ink)}
+
+/* Article hero images + author portrait */
+.post-hero{display:block; width:100%; height:auto; aspect-ratio:1731/909; object-fit:cover; border-radius:14px; border:1px solid var(--hair); margin:0 0 30px}
+.portrait{display:block; width:150px; height:150px; border-radius:50%; object-fit:cover; border:1px solid var(--hair); margin:0 0 22px}
