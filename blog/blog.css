@@ -163,6 +163,7 @@ article li{margin:8px 0}
 /* author box */
 .author-box{margin-top:54px; background:var(--pearl-deep); border:1px solid var(--hair);
   border-radius:22px; padding:24px 28px; display:flex; gap:18px; align-items:flex-start}
+img.avatar{object-fit:cover; display:block}
 .author-box .avatar{width:52px; height:52px; border-radius:50%; background:var(--card);
   border:1px solid var(--hair); display:flex; align-items:center; justify-content:center;
   font-family:var(--mono); font-size:13px; color:var(--ink-2); flex:none}
