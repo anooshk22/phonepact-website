@@ -224,6 +224,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (showOther) helpGoalOther?.focus();
   });
 
+  // Blog personalization loop: a ?p= param (set by the blog Pact Cards) records
+  // where the reader came from and preselects the matching "help with" answer.
+  // Clusters: circle = blocker-bypassers, adhd = ADHD/attention, family = parents.
+  const ctaSourceInput = document.getElementById('cta-source');
+  const P_TO_GOAL = {
+    circle: 'bypassing_blockers',
+    adhd: 'focus',
+    family: 'presence',
+  };
+  const ctaSource = new URLSearchParams(window.location.search).get('p');
+  if (ctaSource) {
+    if (ctaSourceInput) ctaSourceInput.value = ctaSource;
+    const preselect = P_TO_GOAL[ctaSource];
+    if (preselect && helpGoalSelect && !helpGoalSelect.value) {
+      helpGoalSelect.value = preselect;
+    }
+  }
+
   if (waitlistForm) {
     waitlistForm.addEventListener('submit', async (event) => {
       event.preventDefault();
