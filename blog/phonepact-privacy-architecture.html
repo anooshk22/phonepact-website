@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>What PhonePact Measures, and What We Refuse To</title>
+<meta name="description" content="A screen time app you&#x27;d trust has to be built on refusals. Exactly what PhonePact measures, what your circle sees, what expires, and what we never collect."/>
+<link rel="canonical" href="https://getphonepact.com/blog/phonepact-privacy-architecture"/>
+<meta property="og:title" content="What PhonePact Measures, and What We Refuse To"/>
+<meta property="og:description" content="A screen time app you&#x27;d trust has to be built on refusals. Exactly what PhonePact measures, what your circle sees, what expires, and what we never collect."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://getphonepact.com/blog/phonepact-privacy-architecture"/>
+<meta name="theme-color" content="#2d4a35"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/blog/blog.css"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "What PhonePact Measures, and What We Refuse To", "description": "A screen time app you'd trust has to be built on refusals. Exactly what PhonePact measures, what your circle sees, what expires, and what we never collect.", "url": "https://getphonepact.com/blog/phonepact-privacy-architecture", "datePublished": "2026-07-14", "dateModified": "2026-07-14", "author": {"@type": "Person", "@id": "https://getphonepact.com/about-hank#hank", "name": "Hank Yang", "url": "https://getphonepact.com/about-hank", "jobTitle": "Founder, PhonePact", "sameAs": ["https://www.linkedin.com/in/hankyang2/"], "alumniOf": {"@type": "CollegeOrUniversity", "name": "Harvard Divinity School"}, "description": "Founder of PhonePact. He built digital media businesses that reached millions of people, then went to Harvard Divinity School (MTS '26) to study attention and consciousness."}, "publisher": {"@type": "Organization", "name": "PhonePact", "url": "https://getphonepact.com"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does PhonePact see which apps I use?", "acceptedAnswer": {"@type": "Answer", "text": "No. The app measures overall device activity time only, so it can deliver private notices and detect your pact point. App-level, site-level, and content-level data is never collected, which means it can't be shared, leaked, or sold."}}, {"@type": "Question", "name": "What do my circle members see in PhonePact?", "acceptedAnswer": {"@type": "Answer", "text": "One check-in when you reach the point you chose (\"reached 2h 30m today\"), plus any short note you explicitly added. Notes expire after 24 hours. No app lists, no location, no history dashboards, no rankings."}}, {"@type": "Question", "name": "How does PhonePact make money?", "acceptedAnswer": {"@type": "Answer", "text": "A subscription: $0.99 a month after a 30-day free trial. No ads, no data sales, no sponsored content. The business model is the privacy policy."}}, {"@type": "Question", "name": "Can I delete my PhonePact data?", "acceptedAnswer": {"@type": "Answer", "text": "Yes: deleting your account deletes your data, and circle notes are automatically deleted after 24 hours regardless. Cancellation takes two taps, with no retention dark patterns."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Blog", "item": "https://getphonepact.com/blog/"}, {"@type": "ListItem", "position": 2, "name": "Beyond blockers", "item": "https://getphonepact.com/beyond-blockers"}, {"@type": "ListItem", "position": 3, "name": "What PhonePact Measures, and What We Refuse To"}]}</script>
+</head>
+<body data-cluster="beyond-blockers">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="wrap wide">
+  <header class="topnav">
+    <a class="brand" href="/"><span class="mark"></span>PhonePact</a>
+    <nav><a href="/">Home</a><a href="/ethos">Ethos</a><a href="/studies">Studies</a><a href="/blog/" aria-current="page">Blog</a></nav>
+  </header>
+</div>
+<main class="wrap">
+<article>
+
+  <div class="crumbs"><a href="/blog/">Notes on Attention</a> · <a href="/beyond-blockers">Beyond blockers</a></div>
+  <h1>What PhonePact Measures, and What We Refuse To</h1>
+  <div class="byline"><span class="avatar">HY</span><span><strong>Hank Yang</strong> · Built digital media businesses that reached millions, then studied attention at <span class="cred">Harvard Divinity School, MTS '26</span> · Founder of PhonePact</span><span class="date">Updated July 2026</span></div>
+  <div class="bluf"><div class="label">The short answer</div><p>The short answer: PhonePact measures one thing, your overall daily device time, and shares one thing, that you reached the point you chose, with the people you chose. We do not collect which apps you use, what you look at, where you are, or who you talk to. Circle notes expire after 24 hours. There are no ads, no data sales, and no engagement mechanics, because a product about attention that farms your attention would be a contradiction wearing a green icon.</p></div>
+  <p>Most posts on this blog mention our app once, at the end, and earn the rest with useful information. This one is different on purpose: it's the full disclosure document, written in plain language, because "trust us" is not an architecture. If you're evaluating any screen time app, including ours, these are the questions to ask, and here are our answers on the record.</p>
+  <h2>What data does PhonePact actually collect?</h2>
+  <p><strong>Overall device activity time. That's the measurement.</strong> The app needs to know how long your phone has been in use today so it can send you private notices ("you've been on your phone 2 hours today") and know when you've reached your pact point. It does not need to know, and does not record, which apps made up that time, which sites you visited, what you typed, or what you watched. The distinction is structural, not a settings toggle: the granular data never enters our system, so it can't leak, be subpoenaed, be sold, or tempt us later.</p>
+  <p><strong>Your pact configuration.</strong> Your chosen daily point, your circles, and the check-in notes you write. Notes shared with a circle expire and are deleted after 24 hours by design, enforced with automatic time-to-live deletion at the database level rather than by policy promise. Support is supposed to be a conversation, not a permanent exhibit of your worst weeks.</p>
+  <p><strong>Account basics.</strong> What's needed to run a paid service: your login, your subscription status. The subscription is the business model, $0.99 a month after a 30-day trial, and that sentence is the entire revenue section. No ads, no data sales, no "partnerships" that are data sales in a trench coat.</p>
+  <div class="pull">the most trustworthy data policy is the data that was never collected.</div>
+  <h2>What does my circle actually see?</h2>
+  <p>One kind of event: "Alex reached 2h 30m today," at the point you set, with an optional short note if you chose to add one during your Moment (the quiet private prompt ten minutes before). Circle members never see your app list, your browsing, your location, your total-versus-goal history charted over time, or anything you didn't explicitly send. There are no leaderboards, no streaks, no red badges of failure, because ranked shame is a growth mechanic and we don't run growth mechanics on your struggles.</p>
+  <p>Changes to your pact point are visible by design: propose a new goal and one person you pick confirms it. That's the one place we chose visibility over privacy, deliberately, because silent goal-abandonment is the failure mode the entire product exists to prevent, and an openly raised goal is the system working.</p>
+  <h2>What will PhonePact never do?</h2>
+  <p>No selling or sharing data with advertisers or brokers, ever, in any anonymized, aggregated, or otherwise laundered form. No location collection. No message or content scanning. No engagement notifications: nothing we send exists to bring you back to our app, which is a strange sentence for an app company and the whole point. No dark-pattern retention: cancel in two taps, and deleting your account deletes your data. And no quiet policy walkbacks: if any of this ever changes, it changes loudly, in advance, with an easy exit, though the honest plan is that it doesn't change, because the refusals aren't a marketing layer, they're the product spec.</p>
+  <p>We publish this because the screen time category has a trust problem it earned: apps positioned as digital wellness while harvesting granular behavioral data are surveillance with a lavender gradient. The bar you should hold any of them to, including us: what exactly is measured, who sees it, when is it deleted, and how does the company make money? Any app that can't answer all four in plain sentences has answered them.</p>
+  <p>If those answers are why you've hesitated to try accountability at all, the model built on them is here: getphonepact.com. And if you'd rather run a circle with no app and no company involved, genuinely, do it, the <a href="/blog/what-is-a-digital-wellness-circle">group-chat version</a> works and we published the instructions.</p>
+  <aside class="pact-card">
+    <div class="kicker"><span class="dot"></span>PHONEPACT</div>
+    <h3>You've out-smarted every blocker. <em>Try witnesses instead.</em></h3>
+    <p>PhonePact runs your circle automatically: your own daily point, one gentle check-in your people see, notes that fade in 24 hours. Nothing to bypass, because nothing is locked.</p>
+    <a class="btn" href="/?p=circle#waitlist">Start my circle</a>
+    <div class="doubt">FREE FOR 30 DAYS AFTER LAUNCH · THEY SEE TIME, NOTHING ELSE · NO ADS, EVER</div>
+  </aside>
+  <section class="faq">
+    <h2>Questions people ask</h2>
+    <details open><summary>Does PhonePact see which apps I use?</summary><p>No. The app measures overall device activity time only, so it can deliver private notices and detect your pact point. App-level, site-level, and content-level data is never collected, which means it can't be shared, leaked, or sold.</p></details>
+    <details><summary>What do my circle members see in PhonePact?</summary><p>One check-in when you reach the point you chose ("reached 2h 30m today"), plus any short note you explicitly added. Notes expire after 24 hours. No app lists, no location, no history dashboards, no rankings.</p></details>
+    <details><summary>How does PhonePact make money?</summary><p>A subscription: $0.99 a month after a 30-day free trial. No ads, no data sales, no sponsored content. The business model is the privacy policy.</p></details>
+    <details><summary>Can I delete my PhonePact data?</summary><p>Yes: deleting your account deletes your data, and circle notes are automatically deleted after 24 hours regardless. Cancellation takes two taps, with no retention dark patterns.</p></details>
+  </section>
+  <aside class="author-box">
+    <span class="avatar">HY</span>
+    <div>
+      <h4>Hank Yang</h4>
+      <p>He built digital media businesses that reached millions of people, then went to Harvard Divinity School (MTS '26) to study attention and consciousness. He is the founder of PhonePact, and he now works on the other side of the attention economy. <a href="/about-hank">More about Hank</a> · <a href="/studies">What the research suggests</a></p>
+    </div>
+  </aside>
+  <section class="related">
+    <div class="label">Keep reading</div>
+    <div class="toc">
+      <a class="row" href="/blog/what-is-a-digital-wellness-circle"><span class="n">→</span><span class="t">What Is a Digital Wellness Circle? (And How to Start One)</span></a>
+      <a class="row" href="/blog/why-app-blockers-dont-work"><span class="n">→</span><span class="t">Why App Blockers Don&#x27;t Work (From Someone Who Tried Them All)</span></a>
+      <a class="row" href="/blog/reduce-screen-time-without-blocking-apps"><span class="n">→</span><span class="t">How to Reduce Screen Time Without Blocking Apps: 7 Steps That Actually Stick</span></a>
+    </div>
+  </section>
+</article>
+</main>
+<div class="wrap wide">
+  <footer>
+    <span>© 2026 PhonePact LLC</span>
+    <a href="/ethos">Ethos</a><a href="/studies">Studies</a><a href="/#feedback">Feedback</a>
+    <span style="margin-left:auto">A pact, not a punishment.</span>
+  </footer>
+</div>
+<script>
+(function(){var b=document.getElementById('progress'),m={25:0,50:0,75:0,100:0};
+function s(){var d=document.documentElement,p=Math.min(100,Math.round(d.scrollTop/(d.scrollHeight-d.clientHeight)*100));
+b.style.width=p+'%';[25,50,75,100].forEach(function(k){if(p>=k&&!m[k]){m[k]=1;window.plausible&&plausible('scroll-'+k);}});}
+addEventListener('scroll',s,{passive:true});s();})();
+</script>
+</body></html>

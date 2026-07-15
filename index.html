@@ -34,7 +34,36 @@
     "applicationCategory": "HealthApplication",
     "operatingSystem": "iOS",
     "description": "A screen-time reduction app built around self-directed goals and trusted accountability circles.",
-    "offers": {"@type": "Offer", "price": "1.00", "priceCurrency": "USD"}
+    "offers": {"@type": "Offer", "price": "1.00", "priceCurrency": "USD"},
+    "publisher": {"@id": "https://getphonepact.com/#organization"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://getphonepact.com/#organization",
+    "name": "PhonePact",
+    "legalName": "PhonePact LLC",
+    "url": "https://getphonepact.com/",
+    "logo": "https://getphonepact.com/logo.png",
+    "email": "info@getphonepact.com",
+    "description": "PhonePact helps people reduce screen time through self-directed goals, gentle check-ins, and trusted accountability circles, without app lockouts or surveillance.",
+    "founder": {"@id": "https://getphonepact.com/about-hank#hank"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://getphonepact.com/about-hank#hank",
+    "name": "Hank Yang",
+    "url": "https://getphonepact.com/about-hank",
+    "jobTitle": "Founder, PhonePact",
+    "worksFor": {"@id": "https://getphonepact.com/#organization"},
+    "alumniOf": {"@type": "CollegeOrUniversity", "name": "Harvard Divinity School"},
+    "sameAs": ["https://www.linkedin.com/in/hankyang2/"],
+    "description": "Founder of PhonePact. He built digital media businesses that reached millions of people, then went to Harvard Divinity School (MTS '26) to study attention and consciousness."
   }
   </script>
 </head>
@@ -57,6 +86,7 @@
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="ethos">Ethos</a></li>
     <li><a href="studies">Studies</a></li>
+    <li><a href="blog/">Blog</a></li>
     <li><a href="#feedback">Contact</a></li>
   </ul>
 </nav>
@@ -355,6 +385,7 @@
       </div>
       <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="phonepact-website">
+      <input type="hidden" name="cta_source" id="cta-source">
       <input type="hidden" name="_subject" value="New PhonePact waitlist signup">
       <button class="btn btn--primary btn--full" type="submit" id="submit-btn">Join the waitlist</button>
       <p class="form-privacy">No spam. No tracking pixels. Unsubscribe whenever you want.</p>
