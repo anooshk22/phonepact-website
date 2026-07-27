@@ -14,6 +14,11 @@
   --ledger-line:      #D6D1C5;
   --pearl-warm:       #FFFDF8;
   --ink-muted:        #78867b;
+  /* Muted tone for small helper text. --ink-muted is 3.76:1 on --pearl-warm,
+     below the 4.5:1 WCAG AA floor for body-size text, and dimming it further
+     with opacity pushed several labels under 3:1. This is 4.78:1 on the same
+     ground — use it instead of opacity wherever muted text must stay legible. */
+  --ink-muted-strong: #66756A;
 
   /* Typography */
   --font-serif:    'Newsreader', Georgia, 'Times New Roman', serif;
@@ -2300,7 +2305,7 @@ blockquote {
   font-size: 0.65rem;
 }
 
-.hero__product-caption { margin-top: 1rem; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; }
+.hero__product-caption { margin-top: 1rem; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted-strong); }
 
 .product-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; margin-bottom: var(--space-lg); align-items: stretch; }
 .product-step { position: relative; padding: 0.9rem; border: 1px solid var(--ledger-line); background: var(--pearl-warm); display: flex; flex-direction: column; }
@@ -2561,13 +2566,13 @@ blockquote {
 .waitlist-form { display: grid; gap: 1.15rem; }
 .form-field { display: grid; gap: 0.45rem; }
 .form-field > label, .feedback__form > label { font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; }
-.form-optional { font-weight: 400; opacity: 0.55; }
+.form-optional { font-weight: 400; color: var(--ink-muted-strong); }
 .form-hint { margin: 0; color: var(--ink-muted); font-size: 0.72rem; line-height: 1.45; }
 #help-goal-other-wrap { display: grid; gap: 0.45rem; margin-top: 0.35rem; }
 #help-goal-other-wrap[hidden] { display: none; }
 .form-error, .form-status, .form-privacy { font-family: var(--font-sans); font-size: 0.74rem; line-height: 1.45; }
 .form-error { min-height: 1em; color: #7a2d2d; }
-.form-status, .form-privacy { text-align: center; opacity: 0.65; }
+.form-status, .form-privacy { text-align: center; color: var(--ink-muted-strong); }
 .form-honeypot { position: absolute !important; left: -9999px !important; }
 
 .sms-fields {

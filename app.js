@@ -210,6 +210,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Google Sheets Endpoint (Apps Script Web App) ──── */
   const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxz7_9OMzQhUseW3L-FUZkKv1Hwy3M1m5HL3PCk_mypZJVxvYZUyOBRA3VpBSZRTEiNVw/exec';
+
+  /* Send a form payload to the Apps Script endpoint.
+     A plain `no-cors` POST always yields an opaque response, so a server-side
+     failure is indistinguishable from success — the visitor would be told
+     "You're on the list" while nothing was written. Try a readable request
+     first so an error status can actually be reported. If the browser refuses
+     it (an Apps Script deployment that returns no CORS headers rejects the
+     request before it leaves), fall back to `no-cors`, which still delivers
+     the POST but tells us nothing about its fate.
+     Resolves true when delivered (or delivered blind), false when the server
+     explicitly rejected it; throws when the network is unreachable, since in
+     that case neither attempt got through. */
+  async function postFormPayload(payload) {
+    const body = JSON.stringify(payload);
+    const headers = { 'Content-Type': 'text/plain;charset=utf-8' };
+    try {
+      const response = await fetch(GOOGLE_SHEETS_ENDPOINT, { method: 'POST', headers, body });
+      return response.ok;
+    } catch (unreadable) {
+      await fetch(GOOGLE_SHEETS_ENDPOINT, { method: 'POST', mode: 'no-cors', headers, body });
+      return true;
+    }
+  }
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
@@ -300,14 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
       waitlistStatus.textContent = 'Saving your place…';
 
       try {
-        await fetch(GOOGLE_SHEETS_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-          body: JSON.stringify(payload)
-        });
+        const delivered = await postFormPayload(payload);
+        if (!delivered) throw new Error('The waitlist endpoint rejected the submission.');
         waitlistForm.hidden = true;
         waitlistSuccess.classList.add('active');
         waitlistSuccess.setAttribute('tabindex', '-1');
@@ -386,14 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
       button.textContent = 'Sending…';
       feedbackStatus.textContent = 'Sending your feedback…';
       try {
-        await fetch(GOOGLE_SHEETS_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-          body: JSON.stringify(feedbackData)
-        });
+        const delivered = await postFormPayload(feedbackData);
+        if (!delivered) throw new Error('The feedback endpoint rejected the submission.');
         feedbackForm.hidden = true;
         if (feedbackSuccess) feedbackSuccess.classList.add('active');
       } catch (error) {
