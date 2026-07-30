@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Unlisted document. Crawlable so the noindex is actually read, but never
+       indexed, never archived, never snippeted, and no links followed out of
+       it. It is linked from nowhere on the site and excluded from sitemap.xml
+       (tools/generate-sitemap.py skips any page carrying robots noindex).
+       Deliberately NOT added to robots.txt: that file is public, so a Disallow
+       line would publish the very URL this page is trying to keep quiet. -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+
+  <title>Reddit → Ad Copy — PhonePact (unlisted)</title>
+  <meta name="description" content="Three sub-audiences, three psychological profiles, fifteen 10-second video hooks, built from 1,995 Reddit threads and 6,205 comments.">
+  <meta property="og:title" content="Reddit → Ad Copy — PhonePact">
+  <meta property="og:description" content="Three sub-audiences, three psychological profiles, fifteen 10-second video hooks.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#2d4a35">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=20260714-1">
+  <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+<div class="grain-overlay" aria-hidden="true"></div>
+<div class="doc-progress" id="doc-progress" aria-hidden="true"></div>
+
+<nav class="nav nav--scrolled" id="main-nav" aria-label="Main navigation">
+  <a href="/" class="nav__logo" aria-label="PhonePact home"><span class="nav__wordmark">PhonePact</span></a>
+  <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="doc-nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav__links" id="doc-nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/ethos">Ethos</a></li>
+    <li><a href="/studies">Studies</a></li>
+    <li><a href="/blog/">Blog</a></li>
+  </ul>
+</nav>
+
+<main>
+  <header class="doc-hero section">
+    <div class="container doc-hero__inner">
+      <a href="/" class="studies-back reveal">&larr; Back to PhonePact</a>
+      <p class="doc-badge reveal stagger-1">Unlisted &middot; internal working document</p>
+      <h1 class="studies-hero__title reveal stagger-2">Reddit&nbsp;&rarr; Ad&nbsp;Copy</h1>
+      <p class="doc-hero__dek reveal stagger-3">Three sub-audiences, three psychological profiles, and fifteen ten-second video hooks — every quotation in it taken verbatim from someone who wrote it about themselves.</p>
+      <p class="doc-byline reveal stagger-4">
+        <span>Built 29 July 2026</span>
+        <span>Marcus Burke “Reddit → Ad Copy” workflow</span>
+        <span>15 hooks · 3 slices</span>
+      </p>
+      <div class="doc-actions reveal stagger-5">
+        <a class="btn btn--primary" href="PhonePact-Reddit-to-Ad-Copy.pdf">Download the PDF</a>
+        <a class="btn btn--secondary" href="#priority">Jump to the priority set</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="section__ledger"></div>
+
+  <section class="section" id="corpus" aria-labelledby="corpus-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">00 / Provenance</p>
+        <h2 id="corpus-title">What this is built on</h2>
+      </div>
+
+      <div class="doc-ledger reveal">
+        <div>
+          <span class="doc-ledger__label">Threads mined</span>
+          <span class="doc-ledger__value">1,995<small>High-engagement posts.</small></span>
+        </div>
+        <div>
+          <span class="doc-ledger__label">Comments mined</span>
+          <span class="doc-ledger__value">6,205<small>Verbatim comment bodies.</small></span>
+        </div>
+        <div>
+          <span class="doc-ledger__label">Subreddits</span>
+          <span class="doc-ledger__value">46<small>Across eight audience slices.</small></span>
+        </div>
+        <div>
+          <span class="doc-ledger__label">Engagement floor</span>
+          <span class="doc-ledger__value">25↑<small>Minimum upvotes for inclusion.</small></span>
+        </div>
+      </div>
+
+      <div class="doc-ledger doc-ledger--wide reveal">
+        <div>
+          <span class="doc-ledger__label">Top threads</span>
+          <span class="doc-ledger__value">1,000–4,000↑ with 100–855 comments. The heaviest single thread in the corpus is a question whose answer is the product.</span>
+        </div>
+        <div>
+          <span class="doc-ledger__label">Method</span>
+          <span class="doc-ledger__value">Eight parallel miners, one per audience slice → segmentation → three copywriters → two adversarial verifiers.</span>
+        </div>
+      </div>
+
+      <p class="doc-note reveal">
+        <span class="doc-note__label">Access note</span>
+        reddit.com is blocked to both the standard web crawler and the browser tool, so collection ran through the Arctic Shift and PullPush Reddit archives — real threads, real scores, rate-limited to roughly one request every three seconds.
+      </p>
+
+      <p class="doc-note reveal">
+        <span class="doc-note__label">Verification</span>
+        Every quote below was re-checked with a literal string search against the corpus files. Quotes that could not be located were cut, and three fabrications the copywriters introduced were caught and removed (detailed in <a href="#verification">§5</a>). <strong>Every quotation in this document is real.</strong>
+      </p>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+  <section class="section" id="contents" aria-labelledby="contents-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">Contents</p>
+        <h2 id="contents-title">Three slices, three wounds</h2>
+        <p class="doc-heading__dek">Each one was chosen because it cannot leave the smartphone behind — and because it had already reached PhonePact’s conclusion on its own.</p>
+      </div>
+
+      <div class="doc-toc">
+        <a class="doc-toc__card reveal stagger-1" href="#empty-room">
+          <span class="doc-toc__num">01</span>
+          <span class="doc-toc__name">The Empty Room</span>
+          <span class="doc-toc__who">Remote workers, devs and solo builders who discovered they were never disciplined — just observed.</span>
+          <span class="doc-toc__count">5 hooks · E1–E5</span>
+        </a>
+        <a class="doc-toc__card reveal stagger-2" href="#look-with-your-face">
+          <span class="doc-toc__num">02</span>
+          <span class="doc-toc__name">Look With Your Face</span>
+          <span class="doc-toc__who">Parents whose own scrolling got named out loud by their own child.</span>
+          <span class="doc-toc__count">5 hooks · P1–P5</span>
+        </a>
+        <a class="doc-toc__card reveal stagger-3" href="#parented-by-an-app">
+          <span class="doc-toc__num">03</span>
+          <span class="doc-toc__name">Parented By An App</span>
+          <span class="doc-toc__who">ADHD and AuDHD adults who have defeated every blocker they ever installed.</span>
+          <span class="doc-toc__count">5 hooks · A1–A5</span>
+        </a>
+      </div>
+
+      <nav class="research-path reveal" aria-label="Document sections">
+        <a href="#corpus">00 · What this is built on</a>
+        <a href="#priority">04 · Priority test set</a>
+        <a href="#verification">05 · Verification log</a>
+      </nav>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+
+  <!-- ══════════════ 1. THE EMPTY ROOM ══════════════ -->
+  <section class="section section--spacious research-chapter" id="empty-room" aria-labelledby="empty-room-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">01 / Sub-audience</p>
+        <h2 id="empty-room-title">The Empty Room</h2>
+        <p class="doc-heading__dek">Remote workers, devs and solo builders who discovered they were never disciplined — just observed.</p>
+      </div>
+
+      <p class="doc-lede reveal">They figured out that the only thing that ever stopped them scrolling was another human being in the room. Then that human went away.</p>
+
+      <h3 class="doc-h3 reveal">Who they are</h3>
+      <p class="doc-body reveal">22–40. Works from home or hybrid. Developer, designer, analyst, grad student, solo founder. Lives on the device for work, so removing the phone is not an option. Diagnoses their own behavior like an engineer — <em>loop</em>, <em>friction</em>, <em>reflex</em>, <em>autopilot</em>. They were fine in the office. They are not fine now.</p>
+
+      <h3 class="doc-h3 reveal">The core wound</h3>
+      <p class="doc-body reveal">The office had someone sitting next to them, and <em>that person</em> — not discipline — was what kept them working. Now nobody is watching, and it turns out they were never disciplined at all. They were just observed. <strong>Admitting that feels like discovering they have no self.</strong></p>
+
+      <blockquote class="doc-quote reveal">
+        “While I was in the office I sat next to my boss so that kept me very accountable. Now a whole day can go by and I feel like I got nothing done.”
+        <cite>r/workfromhome</cite>
+      </blockquote>
+
+      <blockquote class="doc-quote reveal">
+        “I have no one looking over my shoulder like I would at the office.”
+        <cite>r/workfromhome</cite>
+      </blockquote>
+
+      <h3 class="doc-h3 reveal">Biggest pains</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>They hold their own key.</strong> Every lock they install, they unlock — at 11pm, by a weaker version of themselves.</span></li>
+        <li><span><strong>The reach happens before the decision does.</strong> “I sit down to code or study, and within 5 minutes, my hand automatically reaches for the phone.”</span></li>
+        <li><span><strong>The dashboard is a receipt, not an intervention.</strong> It arrives after the damage, produces revulsion, changes nothing.</span></li>
+        <li><span><strong>It isn’t even fun anymore.</strong> “The scary part is that I don’t even enjoy scrolling anymore. I just keep doing it automatically.” / “It stopped being fun a long time ago and turned into pure reflex.”</span></li>
+        <li><span><strong>Nobody treats it as real.</strong> Say your screen time is out of control and people say “same” and laugh. So they carry it alone.</span></li>
+        <li><span><strong>Career dread.</strong> The deliverable is late, the interview is in two weeks, and the day already went.</span></li>
+      </ol>
+
+      <h3 class="doc-h3 reveal">Self-diagnostic vocabulary</h3>
+      <ul class="doc-lexicon reveal">
+        <li>brain rot</li><li>cooked</li><li>fried / dopamine receptors fried</li><li>doom scrolling</li>
+        <li>autopilot</li><li>pure reflex</li><li>popcorn brain</li><li>fake tired</li><li>the loop</li>
+        <li>stuck in this loop</li><li>brain is not braining</li><li>overstimulated</li>
+        <li>shell of a human</li><li>goldfish-level attention span</li><li>chokehold</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">How they write — mirror these patterns</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>Timestamped numeric confession.</strong> An exact figure offered as evidence against themselves: <em>“9 hours 43 minutes.”</em></li>
+        <li><strong>Failed-solution litany in rhythm.</strong> Three attempts, three one-line defeats, no commentary.</li>
+        <li><strong>Lowercase self-contempt.</strong> No capitals, no punctuation — muttered rather than posted.</li>
+        <li><strong>Engineer-register self-diagnosis.</strong> They explain the mechanism instead of complaining: <em>“a promise is you vs you at your weakest moment. friction is just physics.”</em></li>
+        <li><strong>Confessional aside that pre-empts judgment.</strong> “not proud of it but that’s the truth”, “lol”, “I guess”.</li>
+        <li><strong>Second-person universalizing</strong> at the end of a personal confession, to check if anyone else is like this.</li>
+      </ul>
+
+      <div class="doc-states reveal">
+        <div>
+          <h4>Now</h4>
+          <p>11–14 hours screen time on a working day. Sits down to work, phone in hand within five minutes with no memory of picking it up. Scrolling is pure reflex on content they cannot recall.</p>
+        </div>
+        <div>
+          <h4>Wants</h4>
+          <p>Not monk mode. Not a dumbphone. <strong>The office back, without the office</strong> — a reason to stay conscious, so a working day produces work and an evening feels like rest.</p>
+        </div>
+      </div>
+
+      <h3 class="doc-h3 reveal">What they already tried</h3>
+      <p class="doc-body reveal">Apple Screen Time (“I turn it off in mo[ments]”) · deleting apps (“i legit uninstalled insta like 4 times n still ended [up back]”) · one-sec-style delay apps (desensitized) · grayscale (lasted two days) · phone across the room (they got up and got it) · <strong>a friend holding a passcode — the closest thing to a social solution, and it failed because it was built as a lock:</strong></p>
+
+      <blockquote class="doc-quote reveal">
+        “I even had a friend set a secret passcode, but I used the ‘Forgot Passcode’ option to reset it to bypass the restrictions.”
+        <cite>r/productivity</cite>
+      </blockquote>
+
+      <h3 class="doc-h3 reveal">Objections you must clear</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>Surveillance recoil</strong> — loudest objection in this slice. They will not hand a coworker a window into their day.</span></li>
+        <li><span><strong>Autonomy above all</strong> — <em>“I’m too attached to my free will (aka screen addiction).”</em> They refuse hard blockers on principle. A product that takes agency is dead on arrival.</span></li>
+        <li><span><strong>Category fatigue</strong> — <em>“no blocker tool was ever going to fix my phone addiction.”</em></span></li>
+        <li><span><strong>Mechanic scepticism</strong> — <em>“it’s a text message? That’s it?”</em> The Café Effect must be <strong>shown</strong>, not asserted.</span></li>
+        <li><span><strong>Social cost of asking</strong> — putting someone in your circle means admitting it out loud to a named human.</span></li>
+        <li><span><strong>“Will they see what I was doing?”</strong> Until <em>never which apps</em> is explicit, they assume the worst.</span></li>
+      </ol>
+
+      <div class="doc-panel reveal">
+        <h4>Why PhonePact fits</h4>
+        <p>This is the only segment that <strong>independently derived PhonePact’s thesis and then complained the product doesn’t exist.</strong> They don’t need the Café Effect explained — they lived it and lost it. <em>“I have no one looking over my shoulder like I would at the office”</em> is the product brief.</p>
+        <div class="doc-metrics">
+          <div><b>645↑</b><span>r/workfromhome — “I can’t get off my phone when working from home”</span></div>
+          <div><b>855</b><span>comments on a post whose title is the question the product answers</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+  <section class="section" aria-labelledby="empty-room-hooks-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">01 / Hooks &amp; ad copy</p>
+        <h2 id="empty-room-hooks-title">Hooks — The Empty Room</h2>
+      </div>
+
+      <details class="doc-collapse reveal" id="hooks-empty-room">
+        <summary class="doc-collapse__summary">
+          <span class="doc-collapse__text">
+            <span class="doc-collapse__title">Open the 5 video hooks &amp; ad copy</span>
+            <span class="doc-collapse__meta">E1–E5 · storyboards, visuals, CTAs, category contrast</span>
+          </span>
+          <span class="doc-collapse__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="doc-collapse__body">
+
+      <div class="doc-hooks">
+
+        <article class="hook hook--pick reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">E1</span>
+              <span class="hook__technique">Failed-solution autopsy</span>
+              <span class="hook__pick">★ Top pick</span>
+            </div>
+            <h3 class="hook__name">“Forgot Passcode”</h3>
+            <p class="hook__note">Their exact failure, corrected at the mechanism level. Engineer-register.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.4s</span><span class="hook__span" style="--s:0;--w:24"></span><span class="hook__copy">i gave a friend a passcode to lock me out</span></div>
+            <div class="hook__card"><span class="hook__time">2.4–4.4s</span><span class="hook__span" style="--s:24;--w:20"></span><span class="hook__copy">i hit “forgot passcode” at 11pm</span></div>
+            <div class="hook__card"><span class="hook__time">4.4–6.2s</span><span class="hook__span" style="--s:44;--w:18"></span><span class="hook__copy">friends make terrible locks</span></div>
+            <div class="hook__card"><span class="hook__time">6.2–10.0s</span><span class="hook__span" style="--s:62;--w:38"></span><span class="hook__copy">so this one doesn’t lock anything. nothing to bypass. she just gets a text when i hit my number</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Phone held one-handed in bed, dark room, face lit blue. Card 2 sits over an actual <em>Settings › Screen Time › Forgot Passcode?</em> screen being tapped.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">a witness, not a lock. getphonepact.com — 30 days free, no card.</span></div>
+            <div><span class="hook__label">Category contrast</span><span class="hook__value">Ends on <em>“nothing to bypass”</em> — the sentence that indicts the entire blocker category.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“I even had a friend set a secret passcode, but I used the ‘Forgot Passcode’ option to reset it to bypass the restrictions.”</span></div>
+          </div>
+        </article>
+
+        <article class="hook hook--pick reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">E2</span>
+              <span class="hook__technique">Numeric confession → failed-solution litany → the missing variable</span>
+              <span class="hook__pick">★ Top pick</span>
+            </div>
+            <h3 class="hook__name">The Graveyard</h3>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.2s</span><span class="hook__span" style="--s:0;--w:22"></span><span class="hook__copy">9 hours 43 minutes. awake for 16</span></div>
+            <div class="hook__card"><span class="hook__time">2.2–4.2s</span><span class="hook__span" style="--s:22;--w:20"></span><span class="hook__copy">deleted the blocker. bought the lockbox. left it in a drawer</span></div>
+            <div class="hook__card"><span class="hook__time">4.2–5.8s</span><span class="hook__span" style="--s:42;--w:16"></span><span class="hook__copy">none of them were a person</span></div>
+            <div class="hook__card"><span class="hook__time">5.8–10.0s</span><span class="hook__span" style="--s:58;--w:42"></span><span class="hook__copy">now one friend gets a text when i hit my number. nothing blocked</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Open on a real screen-time report, thumb hovering, not tapping. Card 2 over a fast swipe past a folder of dead productivity apps. Card 3 on an empty second chair at a desk, held two beats.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">what would you do with three hours back? getphonepact.com — $1/month, 30 days free, no card.</span></div>
+            <div><span class="hook__label">Category contrast</span><span class="hook__value">Names the corpses, then states the missing variable was a human.</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">E3</span>
+              <span class="hook__technique">Autonomy protection / negative definition</span>
+            </div>
+            <h3 class="hook__name">Free Will Intact</h3>
+            <p class="hook__note">The smartest visual in the deck: it <strong>demonstrates</strong> the claim instead of asserting it.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.2s</span><span class="hook__span" style="--s:0;--w:22"></span><span class="hook__copy">i’m too attached to my free will for blockers</span></div>
+            <div class="hook__card"><span class="hook__time">2.2–4.0s</span><span class="hook__span" style="--s:22;--w:18"></span><span class="hook__copy">so this doesn’t block anything</span></div>
+            <div class="hook__card"><span class="hook__time">4.0–6.0s</span><span class="hook__span" style="--s:40;--w:20"></span><span class="hook__copy">keep scrolling. nothing stops you</span></div>
+            <div class="hook__card"><span class="hook__time">6.0–10.0s</span><span class="hook__span" style="--s:60;--w:40"></span><span class="hook__copy">someone you chose just knows you hit your number</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Unbroken thumb-scrolling on a real feed for the full ten seconds. Never cut away, never freeze the scroll, never dim the screen. Text floats over a scroll that keeps going.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">you still choose. you just don’t choose alone. getphonepact.com</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“I’m too attached to my free will (aka screen addiction).”</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">E4</span>
+              <span class="hook__technique">Surveillance disarm via full disclosure</span>
+            </div>
+            <h3 class="hook__name">This Is All They See</h3>
+            <p class="hook__note">Scored <strong>10/10 on product truth.</strong> Rewritten to open on the wound, not the setup.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.0s</span><span class="hook__span" style="--s:0;--w:20"></span><span class="hook__copy">11 hours yesterday. i can’t tell you what i saw</span></div>
+            <div class="hook__card"><span class="hook__time">2.0–3.6s</span><span class="hook__span" style="--s:20;--w:16"></span><span class="hook__copy">so i let one friend see this:</span></div>
+            <div class="hook__card"><span class="hook__time">3.6–6.8s</span><span class="hook__span" style="--s:36;--w:32"></span><span class="hook__copy">“Hank reached 2 hours of screen time today.”</span></div>
+            <div class="hook__card"><span class="hook__time">6.8–10.0s</span><span class="hook__span" style="--s:68;--w:32"></span><span class="hook__copy">that’s the whole thing. never which apps. nothing blocked</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Card 3 is a real notification banner on a friend’s lock screen, filmed on a second phone so it reads as genuine rather than a UI render. Hold long enough to read it twice. No dashboard, no graph, no red.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">they see a number. never an app. getphonepact.com</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">E5</span>
+              <span class="hook__technique">The isolation angle</span>
+            </div>
+            <h3 class="hook__name">Same</h3>
+            <p class="hook__note">The only hook in the deck about being dismissed.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.6s</span><span class="hook__span" style="--s:0;--w:26"></span><span class="hook__copy">i told people my screen time was out of control</span></div>
+            <div class="hook__card"><span class="hook__time">2.6–4.2s</span><span class="hook__span" style="--s:26;--w:16"></span><span class="hook__copy">they said “same” and laughed</span></div>
+            <div class="hook__card"><span class="hook__time">4.2–6.4s</span><span class="hook__span" style="--s:42;--w:22"></span><span class="hook__copy">it wasn’t the same</span></div>
+            <div class="hook__card"><span class="hook__time">6.4–10.0s</span><span class="hook__span" style="--s:64;--w:36"></span><span class="hook__copy">one person who actually takes it seriously. that’s the whole app</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">A group chat scrolling past with “same 😭” replies. Then cut to a single message thread with one name in it.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">you were never supposed to fight the algorithm alone. getphonepact.com</span></div>
+            <div><span class="hook__label">Why it’s here</span><span class="hook__value">The other four are about the mechanic. This one is about <em>being taken seriously</em>, which is the untouched emotional territory in this slice.</span></div>
+          </div>
+        </article>
+
+      </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+
+  <!-- ══════════════ 2. LOOK WITH YOUR FACE ══════════════ -->
+  <section class="section section--spacious research-chapter" id="look-with-your-face" aria-labelledby="parents-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">02 / Sub-audience</p>
+        <h2 id="parents-title">Look With Your Face</h2>
+        <p class="doc-heading__dek">Parents whose own scrolling got named out loud by their own child.</p>
+      </div>
+
+      <p class="doc-lede reveal">They cannot go dumbphone because school, GPS and childcare live on the device — and they already invented PhonePact by hand.</p>
+
+      <h3 class="doc-h3 reveal">Who they are</h3>
+      <p class="doc-body reveal">28–45, one to three kids under twelve, usually the default parent. Depleted, often ADHD. The phone is not a distraction <em>from</em> the mental load — it <strong>is</strong> the mental load: groceries, bills, the parent-teacher app, the school nurse, GPS.</p>
+
+      <h3 class="doc-h3 reveal">The core wound</h3>
+      <p class="doc-body reveal">The person who caught them was four years old. Not a boss, not a partner, not a dashboard — <strong>their own child, asking to be looked at with a face.</strong> They are becoming the thing they are trying to protect the kid from, and they believe the kid will inherit it and that it will be their fault.</p>
+
+      <blockquote class="doc-quote doc-quote--loud reveal">
+        “Daddy, can you look with your face?”
+        <cite>r/daddit</cite>
+      </blockquote>
+
+      <blockquote class="doc-quote reveal">
+        “‘Look with your face’ is going to haunt me for a while.”
+        <cite>r/daddit</cite>
+      </blockquote>
+
+      <blockquote class="doc-quote reveal">
+        “‘you’re on your screen too dad.’ I had absolutely nothing. Zero defense. Just sat there like an idiot.”
+        <cite>r/Parenting</cite>
+      </blockquote>
+
+      <h3 class="doc-h3 reveal">Biggest pains</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>The hypocrisy trap with no defense.</strong> Every rule they set for the child indicts them.</span></li>
+        <li><span><strong>Terror of transmission.</strong> They believe the habit is contagious and they are the vector.</span></li>
+        <li><span><strong>The post-bedtime zombie hour.</strong> Their only “me time” is 2–4 hours of pleasureless scrolling that leaves them emptier.</span></li>
+        <li><span><strong>The escape hatches are structurally closed.</strong> <em>“I want to throw my phone in a lake or buy a dumb phone but then I need GPS and I can’t use the parent teacher app on a dumb phone.”</em></span></li>
+        <li><span><strong>Guilt has outgrown the behavior</strong> — and the shame produces more scrolling, not less.</span></li>
+        <li><span><strong>250 pickups a day = 250 small exits</strong> from the room their child is in. Not one blockable session.</span></li>
+        <li><span><strong>Raising it with a partner becomes a fight about who’s worse,</strong> so nothing changes for years.</span></li>
+      </ol>
+
+      <h3 class="doc-h3 reveal">Self-diagnostic vocabulary</h3>
+      <ul class="doc-lexicon reveal">
+        <li>phone zombie</li><li>zombified state</li><li>brain rot</li>
+        <li>doom scroll <em>(the verb in their own homemade pact)</em></li>
+        <li>iPad kid / iPad Adult</li><li>default parent</li><li>touched out</li><li>depleted</li>
+        <li>in the trenches</li><li>screen time guilt</li><li>hypocritical parents</li><li>trance</li>
+        <li>zoned out</li><li>veg out</li><li>crash out</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">How they write — mirror these patterns</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>Direct quotation of the child as the emotional payload.</strong> The line is spoken by a toddler, not the parent.</li>
+        <li><strong>Self-indictment with no self-defense and no request for sympathy.</strong></li>
+        <li><strong>Staging and scene-setting</strong> — the specific room, the specific hour, the specific object (the plate, the foyer, the couch at 9pm).</li>
+        <li><strong>Loop-as-list resignation with an ellipsis.</strong> <em>“that is my life...work, daughter, clean, laundry, scroll my phone, repeat”</em>.</li>
+        <li><strong>Defensive pre-emption before confessing.</strong> <em>“I’m not one of those dads who is never around, I do bedtime, daycare pickup, snacks, all that.”</em></li>
+        <li><strong>Naming the standard rather than the failure.</strong> <em>“being physically in the room is not the same as being present.”</em></li>
+      </ul>
+
+      <div class="doc-states reveal">
+        <div>
+          <h4>Now</h4>
+          <p>Kids down by 8:30, phone in hand by 8:35 in a zombified state — not enjoying it, not even choosing content.</p>
+          <blockquote>“I don’t even want to be on the phone. I don’t care what I’m looking at. I am just basically holding the phone in my hand as a way to feel ‘soothed’.”</blockquote>
+        </div>
+        <div>
+          <h4>Wants</h4>
+          <p>Not zero screens — they explicitly reject perfection. They want the kid to know when they have the parent’s <strong>whole face</strong>, and the evening back as something restorative instead of numbing.</p>
+        </div>
+      </div>
+
+      <h3 class="doc-h3 reveal">What they already tried</h3>
+      <blockquote class="doc-quote reveal">
+        “I’ve tried Brick and BePresent and screen time limits. I even bought a lockbox with a timer for it once. <strong>They’ve all worked for a little bit, but never lasted.</strong>”
+        <cite>r/Parenting</cite>
+      </blockquote>
+      <p class="doc-body reveal">Note the word: not <em>failed</em> — <strong>decayed.</strong> That’s the pattern to name.</p>
+
+      <div class="doc-panel reveal">
+        <h4>Two households already invented PhonePact, with no product involved</h4>
+        <p>“A few months ago we made a pact that we would not ‘doom scroll’ around our kids.”</p>
+        <p>“the rule is that you can use your phone as much as you want but you have to stand there in that spot”</p>
+      </div>
+
+      <h3 class="doc-h3 reveal">Objections you must clear</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>“Is this parental controls for adults?”</strong> They spend their lives administering parental controls and will recoil from being managed by their spouse.</span></li>
+        <li><span><strong>Shame fear, acute.</strong> The guilt already outweighs the behavior. A notification a partner sees will be pre-experienced as a nightly public failure <em>in their own home</em>.</span></li>
+        <li><span><strong>“Another app I’ll abandon.”</strong> They have the lockbox in the drawer to prove it.</span></li>
+        <li><span><strong>Parent-specific surveillance fear.</strong> The phone holds the school portal, the pediatrician, the group chats, the shopping they hide from their partner.</span></li>
+        <li><span><strong>The evening is sacred.</strong> If it reads as taking away their only two hours, they won’t finish the video. Frame as <strong>protecting</strong> the evening.</span></li>
+        <li><span><strong>“My partner will use this against me.”</strong></span></li>
+      </ol>
+
+      <div class="doc-panel reveal">
+        <h4>Market evidence</h4>
+        <div class="doc-metrics">
+          <div><b>1,096↑</b><span>r/daddit — “To all the dads that comment put your phone down — thank you”</span></div>
+          <div><b>764↑</b><span>r/Mommit — “Scrolling TikTok on loud while in a pediatric surgery waiting room”</span></div>
+          <div><b>Heaviest</b><span>adult-phone-use volume of any slice in the corpus</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+  <section class="section" aria-labelledby="parents-hooks-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">02 / Hooks &amp; ad copy</p>
+        <h2 id="parents-hooks-title">Hooks — Look With Your Face</h2>
+      </div>
+
+      <details class="doc-collapse reveal" id="hooks-look-with-your-face">
+        <summary class="doc-collapse__summary">
+          <span class="doc-collapse__text">
+            <span class="doc-collapse__title">Open the 5 video hooks &amp; ad copy</span>
+            <span class="doc-collapse__meta">P1–P5 · storyboards, visuals, CTAs, category contrast</span>
+          </span>
+          <span class="doc-collapse__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="doc-collapse__body">
+
+      <div class="doc-hooks">
+
+        <article class="hook hook--pick reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">P1</span>
+              <span class="hook__technique">The child’s verbatim line as cold open</span>
+              <span class="hook__pick">★ Top pick</span>
+            </div>
+            <h3 class="hook__name">Look With Your Face</h3>
+            <p class="hook__note">Highest scroll-stop score in the entire deck (9.0).</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–3.6s</span><span class="hook__span" style="--s:0;--w:36"></span><span class="hook__copy">“Daddy, can you look with your face?”</span></div>
+            <div class="hook__card"><span class="hook__time">3.6–5.4s</span><span class="hook__span" style="--s:36;--w:18"></span><span class="hook__copy">he was four</span></div>
+            <div class="hook__card"><span class="hook__time">5.4–7.4s</span><span class="hook__span" style="--s:54;--w:20"></span><span class="hook__copy">i didn’t need an app to lock my phone</span></div>
+            <div class="hook__card"><span class="hook__time">7.4–10.0s</span><span class="hook__span" style="--s:74;--w:26"></span><span class="hook__copy">i needed someone to notice. nothing blocks — my wife just gets one text</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Static phone-shot from a couch at adult eye level, looking down at a toddler’s hand tugging a sleeve at the frame edge. Face never shown — no actor performance required.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">PhonePact — reduce screen time without lockouts. getphonepact.com</span></div>
+            <div><span class="hook__label">Fix applied</span><span class="hook__value">The original read <em>“It just makes you visible”</em> — which never said visible <strong>to whom</strong> or <strong>how</strong>, and to a parent hiding shopping from a spouse, “visible” is a threat. Now scoped explicitly.</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">P2</span>
+              <span class="hook__technique">The decay pattern, named</span>
+            </div>
+            <h3 class="hook__name">Never Lasted</h3>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.8s</span><span class="hook__span" style="--s:0;--w:28"></span><span class="hook__copy">lockbox with a timer. app blocker. screen time limits.</span></div>
+            <div class="hook__card"><span class="hook__time">2.8–4.6s</span><span class="hook__span" style="--s:28;--w:18"></span><span class="hook__copy">they all worked for a little bit</span></div>
+            <div class="hook__card"><span class="hook__time">4.6–6.2s</span><span class="hook__span" style="--s:46;--w:16"></span><span class="hook__copy">none of them lasted</span></div>
+            <div class="hook__card"><span class="hook__time">6.2–10.0s</span><span class="hook__span" style="--s:62;--w:38"></span><span class="hook__copy">nothing here to quit. one person gets one text: “Hank reached 2 hours of screen time today.”</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">A junk drawer pulled open — timed lockbox, dead charger, a tangle of cables. One-second hold. Drawer shut. Cut to a real message screen: one grey bubble, one line of text, nothing else.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">One text. Nothing blocked. $1/month, 30 days free, no card. getphonepact.com</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“They’ve all worked for a little bit, but never lasted.”</span></div>
+            <div><span class="hook__label">Fix applied</span><span class="hook__value">Competitor brand names removed from on-screen copy (brand-safety); canonical check-in wording restored.</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">P3</span>
+              <span class="hook__technique">Kills the “parental controls for adults” objection</span>
+            </div>
+            <h3 class="hook__name">Not A Nanny</h3>
+            <p class="hook__note"><strong>Replaces the original hook here, which was cut</strong> — it opened <em>“My husband sees my screen time,”</em> which is factually false about the mechanic and indistinguishable from spousal monitoring.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.6s</span><span class="hook__span" style="--s:0;--w:26"></span><span class="hook__copy">i set screen limits for my kid all day</span></div>
+            <div class="hook__card"><span class="hook__time">2.6–4.4s</span><span class="hook__span" style="--s:26;--w:18"></span><span class="hook__copy">i’m not putting one on myself</span></div>
+            <div class="hook__card"><span class="hook__time">4.4–6.4s</span><span class="hook__span" style="--s:44;--w:20"></span><span class="hook__copy">so there’s no limit. nothing locks.</span></div>
+            <div class="hook__card"><span class="hook__time">6.4–10.0s</span><span class="hook__span" style="--s:64;--w:36"></span><span class="hook__copy">i picked a number. when i hit it, my sister gets a text. that’s it</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Parent’s thumb setting a time limit inside a kid’s tablet settings. Then the same thumb closing the settings app entirely. Rest is plain text.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">not parental controls. a pact. getphonepact.com</span></div>
+            <div><span class="hook__label">Category contrast</span><span class="hook__value">Explicitly refuses the limit-setting frame the entire category is built on.</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">P4</span>
+              <span class="hook__technique">The zombie hour, framed as protecting the evening</span>
+            </div>
+            <h3 class="hook__name">8:30 / 8:35</h3>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.4s</span><span class="hook__span" style="--s:0;--w:24"></span><span class="hook__copy">kids down 8:30. phone up 8:35.</span></div>
+            <div class="hook__card"><span class="hook__time">2.4–4.2s</span><span class="hook__span" style="--s:24;--w:18"></span><span class="hook__copy">zombie until 1am</span></div>
+            <div class="hook__card"><span class="hook__time">4.2–6.4s</span><span class="hook__span" style="--s:42;--w:22"></span><span class="hook__copy">i don’t want my evening taken away</span></div>
+            <div class="hook__card"><span class="hook__time">6.4–10.0s</span><span class="hook__span" style="--s:64;--w:36"></span><span class="hook__copy">nothing locks. i just picked a number, and one person knows when i hit it</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Locked-off shot of a dark living room, TV off, only phone glow on a face turned away. Small corner timestamp ticking 8:35 → 11:40 → 12:58 across cards 1–2.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">Get the evening back. Not taken away. getphonepact.com</span></div>
+            <div><span class="hook__label">Fix applied</span><span class="hook__value"><em>“One text at my number”</em> parsed as a text sent <strong>to</strong> a phone number — i.e. a timer alert. Recipient now explicit.</span></div>
+          </div>
+        </article>
+
+        <article class="hook hook--pick reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">P5</span>
+              <span class="hook__technique">The pact they invented by hand</span>
+              <span class="hook__pick">★ Top pick</span>
+            </div>
+            <h3 class="hook__name">We Already Made One</h3>
+            <p class="hook__note">Sells <strong>recognition, not novelty</strong> — to an audience that abandons novelty in nine days.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.6s</span><span class="hook__span" style="--s:0;--w:26"></span><span class="hook__copy">“you’re on your screen too, dad”</span></div>
+            <div class="hook__card"><span class="hook__time">2.6–4.4s</span><span class="hook__span" style="--s:26;--w:18"></span><span class="hook__copy">nothing to say back</span></div>
+            <div class="hook__card"><span class="hook__time">4.4–6.4s</span><span class="hook__span" style="--s:44;--w:20"></span><span class="hook__copy">so we made a pact</span></div>
+            <div class="hook__card"><span class="hook__time">6.4–10.0s</span><span class="hook__span" style="--s:64;--w:36"></span><span class="hook__copy">not a blocker. we each picked a number, and we tell each other</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">A kid’s cereal bowl and a phone face-up on the table, morning light, adult hand frozen mid-reach — Reddit-screenshot energy, plain white text. Second shot: same frame, hand withdrawn.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">You still choose. You just don’t choose alone. getphonepact.com — 30 days free, no card.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">The r/Parenting confession above, plus “we made a pact that we would not ‘doom scroll’ around our kids.”</span></div>
+          </div>
+        </article>
+
+      </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+
+  <!-- ══════════════ 3. PARENTED BY AN APP ══════════════ -->
+  <section class="section section--spacious research-chapter" id="parented-by-an-app" aria-labelledby="adhd-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">03 / Sub-audience</p>
+        <h2 id="adhd-title">Parented By An App</h2>
+        <p class="doc-heading__dek">ADHD and AuDHD adults who have defeated every blocker they ever installed.</p>
+      </div>
+
+      <p class="doc-lede reveal">Their only working solution so far was asking their husband for the passcode like a child.</p>
+
+      <h3 class="doc-h3 reveal">Who they are</h3>
+      <p class="doc-body reveal">20–40, skewing women (r/adhdwomen, r/ADHD, r/AutisticAdults). Diagnosed or self-identified, many medicated and still stuck. Highly literate about their own condition — they use <em>executive dysfunction</em>, <em>time blindness</em>, <em>hyperfocus</em> correctly and unironically. They run businesses from their phones, teach, parent, study.</p>
+
+      <h3 class="doc-h3 reveal">The core wound</h3>
+      <p class="doc-body reveal">The only intervention that ever held required being treated like a toddler. They asked another adult to hold a PIN, it worked, <strong>and it cost them their dignity every time they had to ask for it back.</strong> So the choice they believe they face is: stay broken, or be parented.</p>
+
+      <blockquote class="doc-quote reveal">
+        “At first, I felt embarrassed. Even now, if I need to access social media for work (I run a business from my phone), I have to ask my husband for the code, <strong>which is humbling in itself.</strong>”
+        <cite>r/adhdwomen</cite>
+      </blockquote>
+
+      <blockquote class="doc-quote reveal">
+        “A grown ass adult who needs parental controls on their damn phone while still being able to do grown up things on the phone”
+        <cite>r/ADHD</cite>
+      </blockquote>
+
+      <p class="doc-body reveal">Underneath it sits the question they actually post: <strong>“Is this like… a normal ADHD thing or am I just broken lol”</strong></p>
+
+      <h3 class="doc-h3 reveal">Biggest pains</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>Every lock defeated in seconds</strong> — and the defeat becomes self-hatred, not a verdict on the tool:
+          <blockquote>“I added a blocker for my WiFi for a while, but I’d just turn the WiFi off on my phone and use 4g. So I added a blocker on my phone and <strong>that takes 2 seconds to uninstall</strong> when you want to get round it. <strong>Why am I so useless?</strong>”</blockquote>
+        </span></li>
+        <li><span><strong>The dignity cost of the only thing that works.</strong></span></li>
+        <li><span><strong>Shame is the engine, not the brake.</strong> The guilt produces more scrolling. One poster now avoids her own therapist from embarrassment.</span></li>
+        <li><span><strong>Total exhaustion of the solution space:</strong>
+          <blockquote>“I always either disable them or find some kind of workaround, and eventually they end up in the <strong>‘well-being app’ graveyard</strong> along with all the other apps that were supposed to change my life.”</blockquote>
+        </span></li>
+        <li><span><strong>Standard advice is built for a brain they don’t have.</strong> <em>“This isn’t a ‘delete all the apps’ moment. I’ve done that.”</em></span></li>
+        <li><span><strong>Physical wreckage narrated with dark humour.</strong> <em>“My eyes are burning, my phone is falling on my face, and I’m still like ‘one more scroll’.”</em></span></li>
+        <li><span><strong>Active hostility to how this category markets to them</strong> — see objections.</span></li>
+      </ol>
+
+      <h3 class="doc-h3 reveal">Self-diagnostic vocabulary</h3>
+      <ul class="doc-lexicon reveal">
+        <li>scrolling paralysis</li><li>ADHD paralysis / paralysis mode / freeze mode</li>
+        <li>executive dysfunction</li><li>time blindness</li><li>hyperfocus / hyperfixation</li>
+        <li>AuDHD</li><li>doomscrolling</li><li>brain rot</li><li>un-rot my brain</li>
+        <li>bed rotting</li><li>fried</li><li>dopamine hit / chase / menu</li><li>dopamine-hijacked</li>
+        <li>guilt spiral</li><li>chronically online</li><li>RSD / rejection sensitive dysphoria</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">How they write — mirror these patterns</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>Catastrophic content delivered with a deflecting “lol”</strong> — the lol does the emotional work: <em>“my life is a living hell basically lol”</em>.</li>
+        <li><strong>Self-blame as a rhetorical question aimed at themselves.</strong> <em>“Why am I so useless?”</em></li>
+        <li><strong>Pre-emptive rejection of the obvious advice</strong> before anyone can offer it.</li>
+        <li><strong>Clinical vocabulary applied to a mundane moment</strong> — how they signal they’re not being dramatic.</li>
+        <li><strong>ALL-CAPS on one word</strong> inside otherwise lowercase text: <em>“my brain is FUCKING QUIET”</em>, <em>“I WANT to do the thing”</em>.</li>
+        <li><strong>Live real-time distress posts</strong> rather than retrospectives — written from <em>inside</em> the loop, at hour eight.</li>
+        <li><strong>Body-as-evidence reporting</strong> — neck hurts, eyes burning, haven’t eaten, phone hitting their face.</li>
+        <li><strong>Systemic blame stated with precision</strong> — they already hold the asymmetry frame: <em>“The algorithm is designed to make us addicted but for ADHD people[…]”</em></li>
+      </ul>
+
+      <div class="doc-states reveal">
+        <div>
+          <h4>Now</h4>
+          <p>Six to eleven hours a day. Days that vanish with nothing completed and nothing eaten. Refreshing a feed they know is empty.</p>
+        </div>
+        <div>
+          <h4>Wants</h4>
+          <p>Not productivity — <strong>quiet.</strong> To stop living in the comment section. To be present for their kids and their partner.</p>
+          <blockquote>“my brain is FUCKING QUIET.”</blockquote>
+        </div>
+      </div>
+
+      <h3 class="doc-h3 reveal">Objections you must clear — the most hostile slice, and the most worth winning</h3>
+      <ol class="doc-list reveal">
+        <li><span><strong>“This is just parental controls with extra steps.”</strong> Sharpest objection in the entire corpus, and it comes from exactly here.</span></li>
+        <li><span><strong>“I don’t want my friends policing me.”</strong> Being seen is the mechanic, and this audience has documented, RSD-inflected terror of being perceived failing.</span></li>
+        <li><span><strong>Shame allergy — and they organise against it.</strong> A 154↑ thread exists specifically to report a screen-time ad for shaming them: <em>“The last thing we need is to be manipulated by shame to buy into your corpo[rate]…”</em> <strong>A shaming hook aimed at this segment will get mass-reported.</strong></span></li>
+        <li><span><strong>“Another app won’t fix me”</strong> — and worse, they believe the failure is theirs, so a new app is a new opportunity to fail.</span></li>
+        <li><span><strong>“I’ll bypass this too.”</strong> They will hunt for the loophole <em>in the ad copy itself</em>. The answer must be that there is nothing to bypass.</span></li>
+        <li><span><strong>“This is designed for neurotypical brains again.”</strong></span></li>
+      </ol>
+
+      <div class="doc-panel reveal">
+        <h4>Why PhonePact fits</h4>
+        <p>This segment already proved <strong>a human works and software doesn’t</strong> — in the most humiliating way available. PhonePact keeps the human and removes the humiliation: no PIN to ask for, no permission to request, no lockout. The circle sees a number, never an app, and the user can revise the pact themselves.</p>
+        <div class="doc-metrics">
+          <div><b>1,416↑</b><span>r/adhdwomen — “What have you replaced excessive scrolling social media with?” (671 comments)</span></div>
+          <div><b>817↑</b><span>“Any women here delete social media to help alleviate symptoms?” (251 comments)</span></div>
+          <div><b>775↑</b><span>r/ADHD — “DELETE YOUR SOCIAL MEDIA!” (165 comments)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+  <section class="section" aria-labelledby="adhd-hooks-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">03 / Hooks &amp; ad copy</p>
+        <h2 id="adhd-hooks-title">Hooks — Parented By An App</h2>
+      </div>
+
+      <details class="doc-collapse reveal" id="hooks-parented-by-an-app">
+        <summary class="doc-collapse__summary">
+          <span class="doc-collapse__text">
+            <span class="doc-collapse__title">Open the 5 video hooks &amp; ad copy</span>
+            <span class="doc-collapse__meta">A1–A5 · storyboards, visuals, CTAs, category contrast</span>
+          </span>
+          <span class="doc-collapse__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="doc-collapse__body">
+
+      <div class="doc-hooks">
+
+        <article class="hook hook--pick reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">A1</span>
+              <span class="hook__technique">Dignity reversal</span>
+              <span class="hook__pick">★ Top pick</span>
+            </div>
+            <h3 class="hook__name">Humbling</h3>
+            <p class="hook__note"><strong>Fix applied:</strong> the original ran the spouse-PIN story unqualified for 4.6 seconds — anyone dropping at 5s left believing PhonePact is spousal lockout software. Distancing now lands at 2.8s.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.8s</span><span class="hook__span" style="--s:0;--w:28"></span><span class="hook__copy">the only thing that ever worked was my husband holding my passcode</span></div>
+            <div class="hook__card"><span class="hook__time">2.8–4.6s</span><span class="hook__span" style="--s:28;--w:18"></span><span class="hook__copy">it worked. i had to ask him for it like a child.</span></div>
+            <div class="hook__card"><span class="hook__time">4.6–7.4s</span><span class="hook__span" style="--s:46;--w:28"></span><span class="hook__copy">this one has no passcode. no lock. nothing to ask for.</span></div>
+            <div class="hook__card"><span class="hook__time">7.4–10.0s</span><span class="hook__span" style="--s:74;--w:26"></span><span class="hook__copy">i pick the number. when i hit it, he just gets a text</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Static handheld, slightly off-centre: a woman in a kitchen at night, phone face-down on the counter, one hand resting on it. No movement except breathing.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">getphonepact.com — 30 days free, no card upfront. $1/month if you keep it.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“if I need to access social media for work… I have to ask my husband for the code, which is humbling in itself.”</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">A2</span>
+              <span class="hook__technique">Absolution of the bypass</span>
+            </div>
+            <h3 class="hook__name">You’re Not</h3>
+            <p class="hook__note">Contains the two best words in the deck: <strong>“you’re not.”</strong> It contradicts the self-blame <em>before</em> selling anything — the only way in with this segment. <strong>Fix applied:</strong> the original was 100% negative definition and never mentioned a person, a text, or a number; the cynic finished the ad not knowing what it was.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–3.0s</span><span class="hook__span" style="--s:0;--w:30"></span><span class="hook__copy">“takes 2 seconds to uninstall. why am I so useless?”</span></div>
+            <div class="hook__card"><span class="hook__time">3.0–5.4s</span><span class="hook__span" style="--s:30;--w:24"></span><span class="hook__copy">you’re not. timers don’t work when you hold the control.</span></div>
+            <div class="hook__card"><span class="hook__time">5.4–7.2s</span><span class="hook__span" style="--s:54;--w:18"></span><span class="hook__copy">so this doesn’t lock anything</span></div>
+            <div class="hook__card"><span class="hook__time">7.2–10.0s</span><span class="hook__span" style="--s:72;--w:28"></span><span class="hook__copy">one person you picked gets one text at your number. nothing to uninstall your way out of</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Card 1 styled as a plain Reddit-comment screenshot on a dim screen, thumb hovering. Cards 2–4 clean text, no phone in frame. Deliberately unpolished.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">getphonepact.com — 30 days free.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“that takes 2 seconds to uninstall when you want to get round it. Why am I so useless?” (r/ADHD) and “Timers don’t work when you have the control.” (r/GetStudying)</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">A3</span>
+              <span class="hook__technique">Category autopsy</span>
+            </div>
+            <h3 class="hook__name">The Graveyard</h3>
+            <p class="hook__note">Contains the single clearest category-exit line written: <strong>“all of them were software. none of them were a person.”</strong></p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–2.4s</span><span class="hook__span" style="--s:0;--w:24"></span><span class="hook__copy">my “well-being app” graveyard:</span></div>
+            <div class="hook__card"><span class="hook__time">2.4–5.0s</span><span class="hook__span" style="--s:24;--w:26"></span><span class="hook__copy">the blocker. the timer. the lockbox.</span></div>
+            <div class="hook__card"><span class="hook__time">5.0–7.6s</span><span class="hook__span" style="--s:50;--w:26"></span><span class="hook__copy">all of them were software. none of them were a person.</span></div>
+            <div class="hook__card"><span class="hook__time">7.6–10.0s</span><span class="hook__span" style="--s:76;--w:24"></span><span class="hook__copy">PhonePact: one human. no lock.</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">A real home-screen folder opening on a cluster of half-dead wellness apps, one badge count, one clearly untouched for a year. Thumb scrolls past slowly. Cut to plain text.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">getphonepact.com — not another app that locks you out. 30 days free, no card.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“they end up in the ‘well-being app’ graveyard along with all the other apps that were supposed to change my life.”</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">A4</span>
+              <span class="hook__technique">Answers the question they actually post</span>
+            </div>
+            <h3 class="hook__name">Not Broken</h3>
+            <p class="hook__note"><strong>Replaces the original hook here</strong> — it opened by voicing an objection in fake quotation marks (the most recognisable ad structure there is) and duplicated E4.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–3.0s</span><span class="hook__span" style="--s:0;--w:30"></span><span class="hook__copy">“is this a normal ADHD thing or am i just broken lol”</span></div>
+            <div class="hook__card"><span class="hook__time">3.0–5.0s</span><span class="hook__span" style="--s:30;--w:20"></span><span class="hook__copy">you’re not broken. you’re alone with it.</span></div>
+            <div class="hook__card"><span class="hook__time">5.0–7.0s</span><span class="hook__span" style="--s:50;--w:20"></span><span class="hook__copy">that’s a different problem</span></div>
+            <div class="hook__card"><span class="hook__time">7.0–10.0s</span><span class="hook__span" style="--s:70;--w:30"></span><span class="hook__copy">nothing gets blocked. one person you trust just knows</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Card 1 as a real post-title screenshot. Cards 2–3 plain text on soft neutral. Card 4 over a single message thread with one name.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">you were never supposed to fight the algorithm alone. getphonepact.com</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“Is this like… a normal ADHD thing or am I just broken lol” (r/ADHD)</span></div>
+          </div>
+        </article>
+
+        <article class="hook reveal">
+          <header class="hook__head">
+            <div class="hook__id">
+              <span class="hook__code">A5</span>
+              <span class="hook__technique">Outcome and aspiration</span>
+            </div>
+            <h3 class="hook__name">Quiet</h3>
+            <p class="hook__note"><strong>Fix applied:</strong> the original CTA <em>“come back to your life”</em> is brand philosophy in exactly the register this segment reports as manipulative. Replaced with their own word.</p>
+          </header>
+          <div class="hook__board">
+            <div class="hook__ruler"><span>0s</span><span>On screen</span><span>10s</span></div>
+            <div class="hook__card"><span class="hook__time">0.0–3.0s</span><span class="hook__span" style="--s:0;--w:30"></span><span class="hook__copy">6 hours today. nothing eaten. nothing done.</span></div>
+            <div class="hook__card"><span class="hook__time">3.0–5.4s</span><span class="hook__span" style="--s:30;--w:24"></span><span class="hook__copy">i didn’t want productivity. i wanted quiet.</span></div>
+            <div class="hook__card"><span class="hook__time">5.4–7.4s</span><span class="hook__span" style="--s:54;--w:20"></span><span class="hook__copy">nothing blocked. no streaks. no lockouts.</span></div>
+            <div class="hook__card"><span class="hook__time">7.4–10.0s</span><span class="hook__span" style="--s:74;--w:26"></span><span class="hook__copy">you pick the number. one person you trust gets a text when you reach it</span></div>
+          </div>
+          <div class="hook__meta">
+            <div><span class="hook__label">Visual</span><span class="hook__value">Card 1 over a dim bedroom ceiling shot, phone glow on a face, phone slipping. Card 2 over the same room in daylight, phone across the table, a child’s voice off camera. Card 3 plain text, high contrast.</span></div>
+            <div><span class="hook__label">CTA</span><span class="hook__value hook__value--cta">getphonepact.com — 30 days free, $1/month.</span></div>
+            <div><span class="hook__label">Built from</span><span class="hook__value hook__value--quote">“my brain is FUCKING QUIET” and the six-hours-nothing-eaten confessions in r/adhdwomen.</span></div>
+          </div>
+        </article>
+
+      </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+
+  <!-- ══════════════ 4. PRIORITY TEST SET ══════════════ -->
+  <section class="section section--spacious research-chapter" aria-labelledby="priority-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">04 / Run these first</p>
+        <h2 id="priority-title">Priority test set</h2>
+        <p class="doc-heading__dek">Highest combined scroll-stop, language authenticity and category differentiation — and between them they cover three distinct mechanics of persuasion.</p>
+      </div>
+
+      <details class="doc-collapse reveal" id="priority">
+        <summary class="doc-collapse__summary">
+          <span class="doc-collapse__text">
+            <span class="doc-collapse__title">Open the priority test set</span>
+            <span class="doc-collapse__meta">5 ranked hooks · which to run first, and why</span>
+          </span>
+          <span class="doc-collapse__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="doc-collapse__body">
+
+      <div class="doc-tablewrap reveal">
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Hook</th>
+              <th scope="col">Audience</th>
+              <th scope="col">Why first</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doc-table__rank">01</td>
+              <td class="doc-table__hook">E1 · Forgot Passcode</td>
+              <td class="doc-table__aud">Empty Room</td>
+              <td class="doc-table__why">Best-written in the set. Names a specific button at a specific hour. <em>“Nothing to bypass”</em> indicts the whole category.</td>
+            </tr>
+            <tr>
+              <td class="doc-table__rank">02</td>
+              <td class="doc-table__hook">P1 · Look With Your Face</td>
+              <td class="doc-table__aud">Parents</td>
+              <td class="doc-table__why">Highest scroll-stop score (9.0). The child’s line is the strongest single asset produced.</td>
+            </tr>
+            <tr>
+              <td class="doc-table__rank">03</td>
+              <td class="doc-table__hook">A3 · The Graveyard</td>
+              <td class="doc-table__aud">ADHD</td>
+              <td class="doc-table__why">Clearest category-exit line: <em>“all of them were software. none of them were a person.”</em></td>
+            </tr>
+            <tr>
+              <td class="doc-table__rank">04</td>
+              <td class="doc-table__hook">P5 · We Already Made One</td>
+              <td class="doc-table__aud">Parents</td>
+              <td class="doc-table__why">Sells recognition rather than novelty — to an audience that abandons novelty in nine days.</td>
+            </tr>
+            <tr>
+              <td class="doc-table__rank">05</td>
+              <td class="doc-table__hook">E3 · Free Will Intact</td>
+              <td class="doc-table__aud">Empty Room</td>
+              <td class="doc-table__why">The only hook that <em>demonstrates</em> the claim instead of asserting it: the scroll never stops.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="doc-note reveal">
+        <span class="doc-note__label">Portfolio note</span>
+        E2 and A3 are structurally the same ad (the graveyard) aimed at different segments. Don’t run both against overlapping audiences in the same flight.
+      </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+
+  <!-- ══════════════ 5. VERIFICATION LOG ══════════════ -->
+  <section class="section section--spacious research-chapter research-principles" aria-labelledby="verification-title">
+    <div class="container">
+      <div class="doc-heading reveal">
+        <p class="research-kicker">05 / Adversarial review</p>
+        <h2 id="verification-title">Verification log</h2>
+        <p class="doc-heading__dek">Two verifiers reviewed all fifteen hooks. One re-checked every claimed Reddit quote by literal string search against the corpus. This is what they found.</p>
+      </div>
+
+      <details class="doc-collapse reveal" id="verification">
+        <summary class="doc-collapse__summary">
+          <span class="doc-collapse__text">
+            <span class="doc-collapse__title">Open the verification log</span>
+            <span class="doc-collapse__meta">Fabrications caught, product-truth fixes, honest limitations</span>
+          </span>
+          <span class="doc-collapse__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="doc-collapse__body">
+
+      <h3 class="doc-h3 reveal">Fabricated language — caught and removed</h3>
+      <div class="doc-tablewrap reveal">
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th scope="col">Claimed as Reddit language</th>
+              <th scope="col">Verdict</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>“I don’t want my friends policing me”</td>
+              <td class="doc-table__verdict">Not in corpus</td>
+              <td>Zero matches. Cut.</td>
+            </tr>
+            <tr>
+              <td>“Only the time, never the apps”</td>
+              <td class="doc-table__verdict">Not in corpus</td>
+              <td>It is PhonePact’s own product copy, presented as user language. Cut.</td>
+            </tr>
+            <tr>
+              <td>“the 3am spirals, the RSD comment wars”</td>
+              <td class="doc-table__verdict">Not in corpus</td>
+              <td>Cut.</td>
+            </tr>
+            <tr>
+              <td>“let the tree die” (Forest reference)</td>
+              <td class="doc-table__verdict">Not in corpus</td>
+              <td>Forest is never mentioned in 1,995 threads. Replaced with verified hardware language (lockbox, blocker).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="doc-body reveal" style="margin-top:2rem">Two further phrases initially failed the check and turned out to be <strong>real</strong>, with different wording than the copywriters used. Both were restored to their true form:</p>
+      <ul class="doc-plainlist reveal">
+        <li>“husband holding my passcode” → actually <em>“I asked my husband to set a parent lock… and create a PIN that only he knows”</em></li>
+        <li>“well-being app graveyard” → actually <em>“well-being app” graveyard</em> (internal quote marks)</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">Product-truth violations — fixed</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>One hook was cut entirely.</strong> It opened <em>“My husband sees my screen time”</em> — false about the mechanic (the circle receives one milestone message, not a live screen-time view), indistinguishable from spousal monitoring, and it failed the swap test against Apple Screen Time family sharing. Replaced with <strong>P3 · Not A Nanny</strong>.</li>
+        <li><strong>“One text at my number”</strong> (two hooks) parsed on first read as a text sent <em>to</em> your phone number — i.e. a timer alert, which is a different product. Recipient made explicit.</li>
+        <li><strong>Check-in wording</strong> standardised to the canonical <em>“Hank reached 2 hours of screen time today.”</em></li>
+        <li><strong>Competitor brand names</strong> removed from on-screen copy.</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">Craft notes applied</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>Antithesis overuse.</strong> Four of fifteen hooks used the same “not X, but Y” construction. At that density it stops reading as speech and starts reading as a copywriter’s signature. Reduced and varied.</li>
+        <li><strong>Mid-roll drop risk.</strong> Two hooks spent 4.4–4.6s describing a <em>lockout</em> before the negation landed. Anyone dropping at 5s left believing PhonePact is a lockout app. Distancing front-loaded.</li>
+        <li><strong>Duplicate hooks.</strong> E4 and the original ADHD hook 3 were near-identical. One rewritten.</li>
+      </ul>
+
+      <h3 class="doc-h3 reveal">Honest limitations</h3>
+      <ul class="doc-plainlist reveal">
+        <li><strong>The Café Effect is under-evidenced in the corpus.</strong> Roughly eight explicit instances of “another person seeing me is what worked” across 1,995 threads. What <em>is</em> abundant is the failure of every solo solution. The copy leads with the failure and offers the witness as the answer — which is the honest ordering.</li>
+        <li><strong>No PhonePact user quotes exist</strong> because the product is pre-launch. Nothing in this document is presented as a testimonial. Beta or waitlist feedback would support a proof-led variant.</li>
+        <li><strong>Students and teens were deliberately rejected</strong> despite the deepest pain in the corpus — monetisation and mechanic fit. Same for the digital-minimalism / dumbphone crowd, whose in-group identity is built on renunciation and who would read “keep your smartphone” as ideological compromise.</li>
+      </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="section__ledger"></div>
+
+  <section class="doc-colophon">
+    <div class="container">
+      <p class="reveal">Corpus files: <code>corpus_{detox, compulsive, neuro, parents, students, pro, relational, mental}.md</code> in the session scratchpad. Raw data: <code>reddit_posts.json</code> (1,995 threads), <code>reddit_comments.json</code> (6,205 comments).</p>
+      <p class="reveal">Unlisted page — excluded from search engines and from the sitemap, and linked from nowhere on getphonepact.com. Anyone holding this URL can read it. <a href="PhonePact-Reddit-to-Ad-Copy.pdf">Download the PDF</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__legal">
+      <p class="footer__copyright">&copy; 2026 PhonePact LLC. All rights reserved.</p>
+      <p>Internal working document. Quotations are reproduced from public Reddit threads for research purposes. Questions: <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.add('js');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  const mobileToggle = document.querySelector('.nav__mobile-toggle');
+  const navLinks = document.querySelector('.nav__links');
+  mobileToggle?.addEventListener('click', () => {
+    mobileToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    mobileToggle.setAttribute('aria-expanded', String(navLinks.classList.contains('open')));
+  });
+  navLinks?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    mobileToggle?.classList.remove('active');
+    navLinks.classList.remove('open');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Hooks/priority/verification live inside <details>, closed by default.
+  // Force the target open when a link (nav, hero CTA, TOC) points inside one,
+  // then re-run scrollIntoView since opening it shifts the layout.
+  const openTargetDetails = () => {
+    const id = decodeURIComponent(location.hash || '').slice(1);
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const details = el.closest('details');
+    if (details) details.open = true;
+    // Always re-scroll, even if it was already open: the browser's own
+    // scroll-to-fragment may have landed before the CSS finished hiding
+    // the closed state, so the target's position can still be stale.
+    requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+  };
+  window.addEventListener('hashchange', openTargetDetails);
+  openTargetDetails();
+
+  // Reading progress. rAF-throttled so a long document still scrolls smoothly.
+  const bar = document.getElementById('doc-progress');
+  let queued = false;
+  const paint = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = scrollable > 0
+      ? (Math.min(window.scrollY / scrollable, 1) * 100) + '%'
+      : '0%';
+    queued = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  paint();
+});
+</script>
+</body>
+</html>
