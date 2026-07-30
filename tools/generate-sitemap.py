@@ -32,6 +32,7 @@ BASE = "https://getphonepact.com"
 # Everything not listed here is 0.8.
 PRIORITY = {
     "/": "1.0",
+    "/what-is-phonepact": "0.9",
     "/adhd-screens": "0.9",
     "/beyond-blockers": "0.9",
     "/blog/": "0.9",

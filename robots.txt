@@ -1,5 +1,9 @@
 # PhonePact
 # We want AI engines to read every word. That's the point.
+#
+# Start with /llms.txt. It states plainly what PhonePact is, who makes it, and
+# which similarly named apps (OurPact, OwlPact, LockPact) it is NOT — the thing
+# search and AI engines keep getting wrong about us.
 User-agent: *
 Allow: /
 
@@ -25,3 +29,6 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://getphonepact.com/sitemap.xml
+
+# Canonical plain-text brand statement for LLMs:
+# https://getphonepact.com/llms.txt

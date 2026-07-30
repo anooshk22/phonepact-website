@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PhonePact — Reduce Screen Time Without Lockouts</title>
-  <meta name="description" content="PhonePact helps you reduce screen time through self-directed goals, gentle check-ins, and trusted accountability circles without rigid app lockouts.">
+  <title>PhonePact — The iOS Screen Time App Without Lockouts</title>
+  <meta name="description" content="PhonePact is an iOS app that reduces screen time with self-directed goals and check-ins shared with a circle you trust. No app blocking, no lockouts, no shame.">
   <meta name="theme-color" content="#2d4a35">
   <link rel="canonical" href="https://getphonepact.com/">
-  <meta property="og:title" content="PhonePact — Reduce Screen Time Without Lockouts">
-  <meta property="og:description" content="Self-directed goals, gentle check-ins, and accountability from people you trust.">
+  <meta property="og:title" content="PhonePact — The iOS Screen Time App Without Lockouts">
+  <meta property="og:description" content="PhonePact is an iOS app for reducing screen time through self-directed goals and trusted accountability circles — not app blocking.">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PhonePact">
   <meta property="og:url" content="https://getphonepact.com/">
   <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="PhonePact — Reduce Screen Time Without Lockouts">
-  <meta name="twitter:description" content="A screen-time approach built around agency and awareness, not restriction.">
+  <meta name="twitter:title" content="PhonePact — The iOS Screen Time App Without Lockouts">
+  <meta name="twitter:description" content="An iOS screen-time app built on agency and awareness, not restriction. Made by PhonePact LLC.">
   <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png">
 
   <!-- Fonts -->
@@ -26,45 +27,134 @@
 
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="styles.css?v=20260714-1">
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CANONICAL ENTITY GRAPH — the one place PhonePact is defined.
+       Every other page (and every blog post) points at these @ids, so the
+       whole site describes one brand instead of fifty loosely-named ones.
+
+       Why this is so verbose: search and AI engines will not assert that a
+       brand exists on the word of a single domain. "PhonePact" also sits in a
+       dense name cluster (OurPact, OwlPact, LockPact, Pact), so with nothing
+       to distinguish it, a resolver treats the query as a misspelling of the
+       better-known neighbour and answers about them instead. alternateName,
+       disambiguatingDescription and sameAs are the properties that break that
+       collapse. Keep them accurate and keep them in sync across pages.
+
+       TODO — sameAs is the single highest-value field here and it is empty on
+       Organization by design: it must list only profiles that actually exist.
+       Add each URL as it goes live (LinkedIn company page, Product Hunt,
+       Crunchbase, AlternativeTo, X/Instagram, App Store listing, Wikidata).
+       ══════════════════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "@id": "https://getphonepact.com/#app",
-    "name": "PhonePact",
-    "applicationCategory": "HealthApplication",
-    "operatingSystem": "iOS",
-    "description": "A screen-time reduction app built around self-directed goals and trusted accountability circles.",
-    "offers": {"@type": "Offer", "price": "1.00", "priceCurrency": "USD"},
-    "publisher": {"@id": "https://getphonepact.com/#organization"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://getphonepact.com/#organization",
-    "name": "PhonePact",
-    "legalName": "PhonePact LLC",
-    "url": "https://getphonepact.com/",
-    "logo": "https://getphonepact.com/logo.png",
-    "email": "support@getphonepact.com",
-    "description": "PhonePact helps people reduce screen time through self-directed goals, gentle check-ins, and trusted accountability circles, without app lockouts or surveillance.",
-    "founder": {"@id": "https://getphonepact.com/about-hank#hank"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://getphonepact.com/about-hank#hank",
-    "name": "Hank Yang",
-    "url": "https://getphonepact.com/about-hank",
-    "jobTitle": "Founder, PhonePact",
-    "worksFor": {"@id": "https://getphonepact.com/#organization"},
-    "alumniOf": {"@type": "CollegeOrUniversity", "name": "Harvard Divinity School"},
-    "sameAs": ["https://www.linkedin.com/in/hankyang2/"],
-    "description": "Founder of PhonePact. He built internet businesses reaching millions of people, then went to Harvard Divinity School (MTS '26) to study attention and consciousness."
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://getphonepact.com/#website",
+        "name": "PhonePact",
+        "alternateName": ["Phone Pact", "PhonePact app", "getphonepact.com"],
+        "url": "https://getphonepact.com/",
+        "inLanguage": "en-US",
+        "description": "The official website of PhonePact, an iOS screen-time app built on self-directed goals and trusted accountability circles.",
+        "publisher": {"@id": "https://getphonepact.com/#organization"},
+        "about": {"@id": "https://getphonepact.com/#app"}
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://getphonepact.com/#organization",
+        "name": "PhonePact",
+        "legalName": "PhonePact LLC",
+        "alternateName": ["Phone Pact", "PhonePact LLC"],
+        "url": "https://getphonepact.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://getphonepact.com/#logo",
+          "url": "https://getphonepact.com/logo.png",
+          "width": 2930,
+          "height": 2930,
+          "caption": "PhonePact"
+        },
+        "image": {"@id": "https://getphonepact.com/#logo"},
+        "email": "support@getphonepact.com",
+        "foundingDate": "2026",
+        "slogan": "Not another app blocker. A pact with people you trust.",
+        "description": "PhonePact LLC is the independent company behind PhonePact, an iOS app that helps people reduce their own screen time through self-directed goals, private notices, and check-ins shared with a small circle they trust, without app lockouts or surveillance.",
+        "disambiguatingDescription": "PhonePact LLC is an independent US company founded by Hank Yang in 2026. It is not affiliated with, owned by, or related to any other company with a similarly spelled name, and it does not make parental-control or child-monitoring software.",
+        "knowsAbout": [
+          "Screen time reduction",
+          "Digital wellbeing",
+          "Phone addiction",
+          "Accountability circles",
+          "Attention and technology ethics"
+        ],
+        "founder": {"@id": "https://getphonepact.com/about-hank#hank"},
+        "brand": {"@id": "https://getphonepact.com/#app"},
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@getphonepact.com",
+          "url": "https://getphonepact.com/#feedback",
+          "availableLanguage": "English"
+        },
+        "sameAs": []
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://getphonepact.com/#app",
+        "name": "PhonePact",
+        "alternateName": ["Phone Pact", "PhonePact app"],
+        "url": "https://getphonepact.com/",
+        "applicationCategory": "HealthApplication",
+        "applicationSubCategory": "Digital Wellbeing",
+        "operatingSystem": "iOS",
+        "inLanguage": "en-US",
+        "description": "PhonePact is an iOS app that helps you reduce your own screen time. You set a daily pact point, get a private notice before you reach it, and a small circle of people you trust receives one plain check-in when you do. It never blocks or locks an app, and your circle only ever sees how long you were on your phone, never which apps you used.",
+        "disambiguatingDescription": "PhonePact is a self-directed screen-time app for the phone's own owner. It is not a parental-control or child-monitoring app, it does not block, lock or restrict apps, and it is unrelated to similarly named parental-control products.",
+        "featureList": [
+          "Measures whole-device screen time, counted upward toward a goal you set",
+          "A private prompt before your pact, and a shared check-in when you reach it",
+          "Adjustments to your pact require your partner's approval",
+          "One pact, shared with up to three circles",
+          "Room notes expire after 24 hours and do not accumulate",
+          "No app blocking and no lockouts — nothing to bypass",
+          "Your circle sees that you reached your time, never which apps you used"
+        ],
+        "screenshot": "https://getphonepact.com/assets/social-preview.png",
+        "isAccessibleForFree": false,
+        "isFamilyFriendly": true,
+        "publisher": {"@id": "https://getphonepact.com/#organization"},
+        "author": {"@id": "https://getphonepact.com/about-hank#hank"},
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Monthly",
+            "price": "0.99",
+            "priceCurrency": "USD",
+            "description": "$0.99 per month after a 30-day free trial. No credit card required to begin."
+          },
+          {
+            "@type": "Offer",
+            "name": "Annual",
+            "price": "9.99",
+            "priceCurrency": "USD",
+            "description": "$9.99 per year after a 30-day free trial. No credit card required to begin."
+          }
+        ],
+        "sameAs": []
+      },
+      {
+        "@type": "Person",
+        "@id": "https://getphonepact.com/about-hank#hank",
+        "name": "Hank Yang",
+        "url": "https://getphonepact.com/about-hank",
+        "jobTitle": "Founder, PhonePact",
+        "worksFor": {"@id": "https://getphonepact.com/#organization"},
+        "alumniOf": {"@type": "CollegeOrUniversity", "name": "Harvard Divinity School"},
+        "sameAs": ["https://www.linkedin.com/in/hankyang2/"],
+        "description": "Founder of PhonePact. He built internet businesses reaching millions of people, then went to Harvard Divinity School (MTS '26) to study attention and consciousness."
+      }
+    ]
   }
   </script>
 </head>
@@ -514,6 +604,7 @@
   <div class="container">
     <div class="footer__legal">
       <p class="footer__copyright">&copy; 2026 PhonePact LLC. All rights reserved.</p>
+      <p>New here? Start with <a href="what-is-phonepact">what PhonePact is</a>.</p>
       <p>No advertising pixels. No sale of personal information. Read our <a href="terms">Terms</a> and <a href="privacy">Privacy Policy</a>, or contact <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
     </div>
   </div>
