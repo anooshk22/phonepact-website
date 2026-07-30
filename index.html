@@ -40,10 +40,13 @@
        disambiguatingDescription and sameAs are the properties that break that
        collapse. Keep them accurate and keep them in sync across pages.
 
-       TODO — sameAs is the single highest-value field here and it is empty on
-       Organization by design: it must list only profiles that actually exist.
-       Add each URL as it goes live (LinkedIn company page, Product Hunt,
-       Crunchbase, AlternativeTo, X/Instagram, App Store listing, Wikidata).
+       sameAs is the single highest-value field here, and it must list only
+       profiles that actually exist and actually link back — an unverifiable
+       claim is worse than an absent one. Organization currently has the
+       LinkedIn company page. Add each further URL as it goes live: Product
+       Hunt, Crunchbase, AlternativeTo, X/Instagram, Wikidata. The App Store
+       listing goes on SoftwareApplication.sameAs (still empty, pre-launch)
+       along with installUrl/downloadUrl.
        ══════════════════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -97,7 +100,7 @@
           "url": "https://getphonepact.com/#feedback",
           "availableLanguage": "English"
         },
-        "sameAs": []
+        "sameAs": ["https://www.linkedin.com/company/phonepact-llc"]
       },
       {
         "@type": "SoftwareApplication",
