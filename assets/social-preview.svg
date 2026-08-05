@@ -1,21 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">PhonePact — You were never supposed to fight the algorithm alone</title>
-  <desc id="desc">A branded PhonePact social preview with a paper-colored background and a simple phone interface illustration.</desc>
+  <title id="title">PhonePact — Your circle sees the pact you kept, never the apps</title>
+  <desc id="desc">A branded PhonePact social preview on a paper-coloured background. The headline reads "Your circle sees the pact you kept. Never the apps." beside a phone showing today's pact of 2h 30m, a first shared check-in, three circle members, and the line "You still choose. You do not choose alone."</desc>
   <rect width="1200" height="630" fill="#F8F6F0"/>
   <path d="M0 72H1200M0 558H1200" stroke="#D6D1C5"/>
   <text x="72" y="112" fill="#2D4A35" font-family="Georgia, serif" font-size="34">PhonePact</text>
   <text x="72" y="190" fill="#3A6B48" font-family="Arial, sans-serif" font-size="15" font-weight="600" letter-spacing="4">A PACT WITH PEOPLE YOU TRUST</text>
+  <!-- The claim is checked against the backend, not the design doc: a shared
+       check-in carries that the pact was reached and its duration in minutes.
+       It never carries app-level detail. So "never the apps" is exact, and the
+       line deliberately does NOT say "never how much" — that would be false. -->
   <text x="72" y="278" fill="#2D4A35" font-family="Georgia, serif" font-size="66" font-style="italic">
-    <tspan x="72" dy="0">You were never supposed</tspan>
-    <tspan x="72" dy="74">to fight the algorithm</tspan>
-    <tspan x="72" dy="74">alone.</tspan>
+    <tspan x="72" dy="0">Your circle sees</tspan>
+    <tspan x="72" dy="74">the pact you kept.</tspan>
+    <tspan x="72" dy="74">Never the apps.</tspan>
   </text>
-  <text x="72" y="530" fill="#2D4A35" opacity=".78" font-family="Arial, sans-serif" font-size="21">A pact, not a punishment · trusted circles · shared check-ins</text>
+  <text x="72" y="530" fill="#2D4A35" opacity=".78" font-family="Arial, sans-serif" font-size="21">A pact, not a punishment · no lockouts · shared check-ins</text>
 
   <g transform="translate(845 78) rotate(3 140 230)">
     <rect width="280" height="480" rx="40" fill="#2D4A35"/>
     <rect x="12" y="12" width="256" height="456" rx="30" fill="#FFFDF8"/>
-    <rect x="96" y="12" width="88" height="22" rx="0 0 12 12" fill="#2D4A35"/>
+    <!-- Notch: bottom corners round, top corners square. The previous
+         rx="0 0 12 12" was not valid SVG — rx takes a single length, not a
+         four-corner shorthand — so renderers ignored it and drew a plain bar. -->
+    <path d="M96 12 H184 V22 A12 12 0 0 1 172 34 H108 A12 12 0 0 1 96 22 Z" fill="#2D4A35"/>
     <text x="42" y="92" fill="#2D4A35" font-family="Arial, sans-serif" font-size="12" letter-spacing="3">TODAY’S PACT</text>
     <text x="42" y="170" fill="#2D4A35" font-family="Georgia, serif" font-size="54" font-style="italic">2h 30m</text>
     <text x="42" y="202" fill="#2D4A35" opacity=".65" font-family="Arial, sans-serif" font-size="13">First shared check-in.</text>
