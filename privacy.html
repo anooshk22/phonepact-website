@@ -53,7 +53,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 30 July 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 12 August 2026</p>
   </div>
 </section>
 
@@ -64,8 +64,9 @@
 
     <p class="lede"><strong>The short version.</strong> PhonePact helps you use your phone less, with
     support from a small circle you choose. We keep the data we collect small and we never sell it.
-    Your circle only ever sees a simple duration check-in (for example, &ldquo;reached 2h today&rdquo;) &mdash;
-    never the apps you use, the websites you visit, or your browsing history. You can ask us to access
+    Duration is the only usage information in a shared check-in (for example, &ldquo;reached 2h today&rdquo;).
+    A member and short phone label identify it, and a short note may be added deliberately, but your circles never
+    see the apps you use, the websites you visit, or your browsing history. You can ask us to access
     or delete your data at any time.</p>
 
     <p>This Privacy Policy explains how <strong>PhonePact LLC</strong> (&ldquo;PhonePact,&rdquo; &ldquo;we,&rdquo;
@@ -82,33 +83,40 @@
       <li><strong>Your hand-drawn signature</strong> — saved to personalize your &ldquo;Phone Pact.&rdquo; We treat this as sensitive personal information and store it only for that purpose.</li>
       <li><strong>Your pact answers &amp; goals</strong> — the intentions and settings you enter during onboarding, used to set up your pact and personalize the App.</li>
       <li><strong>Circle &amp; membership data</strong> — the circles you create or join and who is in them.</li>
-      <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. <strong>These automatically disappear after 24 hours</strong>, unless one is reported &mdash; see <em>Data retention</em> below.</li>
+      <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. These are scheduled for deletion after 24 hours, unless one is reported &mdash; see <em>Data retention</em> below.</li>
     </ul>
 
-    <h3>Screen Time information</h3>
-    <p>With your permission, PhonePact uses Apple&rsquo;s Screen Time / Family Controls / Device Activity
-    features to measure your overall phone-usage duration. <strong>This usage data stays on your device.</strong>
-    We do not receive the names of apps you use, the websites you visit, or your browsing history. Only a
-    duration &ldquo;check-in&rdquo; (for example, &ldquo;reached 2h today&rdquo;) is shared with your circle, and
-    only when you reach a point you set.</p>
+    <h3>Screen-usage information</h3>
+    <p>With your permission, PhonePact uses the screen-usage system provided by your phone. On iPhone,
+    Apple&rsquo;s Screen Time / Family Controls / Device Activity features count the scope you select during setup;
+    that may be the whole device or selected apps, categories, and websites. The Android development build uses
+    Android Usage Access to count whole-device foreground usage and does not currently offer an app picker.
+    Android makes per-app usage available to PhonePact on the phone, but <strong>PhonePact does not send app or
+    package identities, exact per-app details, websites, or browsing history to our servers or your circle.</strong>
+    Those details stay on your device. Coarse duration check-ins (for example, &ldquo;Hank&rsquo;s iPhone reached 2h
+    today&rdquo;) go to your circle when a threshold is recorded. If you use PhonePact on more than one phone, each
+    phone has its own pact and up to seven daily aggregate totals in its own private device record; only you can
+    read those totals.</p>
 
     <h3>Information collected automatically</h3>
     <ul>
-      <li><strong>Push notification token</strong> — via Firebase Cloud Messaging, so we can send the private prompts and check-ins you enable.</li>
+      <li><strong>Push notification token</strong> — via Firebase Cloud Messaging, so we can send remote circle, pact-request, and shared-check-in notices. Private notices and Moment prompts are scheduled locally on your phone and do not use this token.</li>
       <li><strong>Diagnostics &amp; crash data</strong> — via Firebase Crashlytics, to find and fix bugs. This may include device model, operating-system version, and technical details about a crash.</li>
-      <li><strong>Basic device &amp; log data</strong> — such as app version and general device information used to operate and secure the service.</li>
+      <li><strong>Basic device &amp; log data</strong> — such as app version and general device information used to operate and secure the service. PhonePact also creates a random installation identifier and a short label such as &ldquo;iPhone A1B2&rdquo; so two phones on one account keep separate pacts and histories. This is not a hardware serial number, advertising identifier, or device fingerprint.</li>
     </ul>
 
     <h3>Purchases</h3>
-    <p>Subscriptions are sold through Apple&rsquo;s In-App Purchase. <strong>Apple processes your payment — we
-    never see or store your credit-card or payment details.</strong> We receive only your subscription status
-    (for example, active, trial, or expired) so we can unlock features.</p>
+    <p>When paid subscriptions are enabled, purchases will be sold through the applicable app store.
+    <strong>The store processes your payment; we do not see or store your credit-card or payment details.</strong>
+    We receive only purchase status (for example, active or expired) so we can unlock features. PhonePact is
+    free for now during launch and beta. Pricing may change later; any paid plan and its terms will be shown
+    before purchase.</p>
 
     <h2>2. How we use your information</h2>
     <ul>
       <li>To provide, operate, and maintain the App and your pact.</li>
       <li>To enable your circle features — check-ins, the room, and change requests.</li>
-      <li>To send the notifications and prompts you turn on.</li>
+      <li>To send remote circle and pact notices, and to schedule the private notices you turn on locally.</li>
       <li>To keep the service secure and prevent abuse.</li>
       <li>To diagnose problems and improve the App.</li>
       <li>To comply with law and enforce our <a href="terms">Terms of Use</a>.</li>
@@ -127,25 +135,24 @@
 
     <h2>3. How we share information</h2>
     <ul>
-      <li><strong>With your circle</strong> — your name, avatar, pact point, presence, duration check-ins, and any room messages you send are visible to members of the circle you choose. This is the core purpose of the App.</li>
-      <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor,&rdquo; and Apple provides In-App Purchases, Sign in with Apple, and Screen Time features. <strong>RevenueCat</strong> manages subscription state on our behalf; it receives your account identifier and your purchase status, and never receives your screen-time data. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a>, <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>, and <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>.</li>
+      <li><strong>With your circle</strong> — your name, avatar, each registered phone&rsquo;s short label and pact point, coarse duration check-ins attributed to the phone that measured them, and any room messages you send are visible to members of the circle you choose. PhonePact does not share a live presence signal.</li>
+      <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor.&rdquo; Apple provides Sign in with Apple, Screen Time, and iPhone purchase services; Google Play may provide Android purchase services when billing is enabled. <strong>RevenueCat</strong> manages supported purchase status on our behalf; it receives your account identifier and purchase status, and never receives app/site identities or per-app screen-time detail. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a>, <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>, and <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>.</li>
       <li><strong>For legal reasons</strong> — if required by law, or to protect the rights, safety, or property of our users or us.</li>
       <li><strong>Business transfers</strong> — if we are involved in a merger, acquisition, or sale of assets, your information may be transferred, subject to this Policy.</li>
     </ul>
 
     <h2>4. Data retention</h2>
     <ul>
-      <li><strong>Room messages</strong> — automatically deleted after 24 hours.</li>
+      <li><strong>Room messages</strong> — an hourly scheduled cleanup deletes rows once they are at least 24 hours old. Deleting your account immediately deletes ordinary room notes and check-in rows attributed to you, and scrubs reply excerpts and names that quote those rows.</li>
       <li><strong>Reported messages</strong> — if someone reports a message, a copy of that message is
         kept with the report so we can review it. <strong>This copy does not disappear after 24
         hours</strong>, because a report we cannot read is a report we cannot act on. It is deleted
         90 days after we finish reviewing it. A report that is still open is kept until it has been
-        looked at.</li>
+        looked at. If the reported author deletes their account, their copied text is scrubbed from the retained report.</li>
       <li><strong>Reports you make</strong> — deleted when you delete your account.</li>
-      <li><strong>Reports about you</strong> — kept, but your account identifier is replaced with an
-        anonymous value when you delete your account, so the safety record remains without
-        identifying you. This is deliberate: otherwise deleting an account would erase complaints
-        made about it.</li>
+      <li><strong>Reports about you</strong> — kept as safety records, but your account identifier is replaced
+        with an anonymous value and copied text attributed to you is scrubbed when you delete your account.
+        This is deliberate: otherwise deleting an account would erase the existence of complaints made about it.</li>
       <li><strong>Account &amp; profile data</strong> (name, email, photo, signature, pact settings, circles) — kept while your account is active, and deleted when you delete your account, subject to any short backup or legal-retention period.</li>
       <li><strong>Diagnostics</strong> — retained by Crashlytics for a limited period per Google&rsquo;s defaults.</li>
     </ul>
@@ -153,8 +160,8 @@
     <h2>5. Your choices and rights</h2>
     <ul>
       <li><strong>Access, correct, or delete</strong> your personal information.</li>
-      <li><strong>Delete your account</strong> and all associated data from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. You can also email us to request deletion.</li>
-      <li><strong>Turn off</strong> Screen Time access and notifications in your iOS Settings at any time.</li>
+      <li><strong>Delete your account</strong> from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. Account data, ordinary room notes and check-in rows attributed to you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list references tied to your account are scrubbed. Reports about you may be retained as anonymized safety records, with copied text attributed to you scrubbed. You can also email us to request deletion.</li>
+      <li><strong>Turn off</strong> screen-usage access and notifications in your phone settings at any time.</li>
     </ul>
     <p><strong>EU/UK (GDPR):</strong> you also have the right to portability, to object to or restrict processing,
     to withdraw consent, and to lodge a complaint with your local data-protection authority.</p>
@@ -190,8 +197,8 @@
     on the website, we collect the email address you submit (and, only if you opt in to SMS updates, your
     mobile number and consent) along with any message you send. These submissions are processed on our
     behalf by <strong>Google Apps Script</strong>, which records them to a Google Sheet; if your browser has
-    JavaScript disabled, the waitlist form falls back to <strong>Formspree</strong>, which processes that
-    submission instead. <strong>Google Fonts</strong> may receive basic request
+    JavaScript disabled, or if the primary submission cannot be confirmed and you choose the displayed
+    backup form, <strong>Formspree</strong> processes that submission instead. <strong>Google Fonts</strong> may receive basic request
     information when your browser loads the site&rsquo;s fonts. We use this only to manage the waitlist, send
     updates you asked for, and respond to you — never for advertising, and we never sell it. You can
     unsubscribe from emails at any time, and reply <strong>STOP</strong> to opt out of SMS. To access or delete

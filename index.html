@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PhonePact — The iOS Screen Time App Without Lockouts</title>
-  <meta name="description" content="PhonePact is an iOS app that reduces screen time with self-directed goals and check-ins shared with a circle you trust. No app blocking, no lockouts, no shame.">
+  <meta name="description" content="PhonePact is a mobile screen-time app built on trust, not restrictions. The iPhone app is in private TestFlight testing and Android is in development.">
   <meta name="theme-color" content="#2d4a35">
   <link rel="canonical" href="https://getphonepact.com/">
   <meta property="og:title" content="PhonePact — The iOS Screen Time App Without Lockouts">
-  <meta property="og:description" content="You set a pact point. Your circle sees a shared check-in when you reach it — never which apps you used. iOS screen time without blocking, lockouts, or shame.">
+  <meta property="og:description" content="You set a pact point. Trusted circles can receive duration-only shared check-ins when the app syncs them — never which apps you used. No blocking, lockouts, or shame.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="PhonePact">
   <meta property="og:url" content="https://getphonepact.com/">
@@ -17,7 +17,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="PhonePact — The iOS Screen Time App Without Lockouts">
-  <meta name="twitter:description" content="Your circle sees the pact you kept, never the apps you opened. An iOS screen-time app built on agency, not restriction.">
+  <meta name="twitter:description" content="Trusted circles can receive duration-only pact check-ins when the app syncs. Exact app and site activity stays on your device.">
   <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
 
   <!-- Fonts -->
@@ -82,7 +82,7 @@
         "email": "support@getphonepact.com",
         "foundingDate": "2026",
         "slogan": "Not another app blocker. A pact with people you trust.",
-        "description": "PhonePact LLC is the independent company behind PhonePact, an iOS app that helps people reduce their own screen time through self-directed goals, private notices, and check-ins shared with a small circle they trust, without app lockouts or surveillance.",
+        "description": "PhonePact LLC is the independent company behind PhonePact, a mobile app in private iPhone testing with an Android version in development. It uses self-directed goals, private notices, and check-ins shared with trusted circles, without app lockouts or surveillance.",
         "disambiguatingDescription": "PhonePact LLC is an independent US company founded by Hank Yang in 2026. It is not affiliated with, owned by, or related to any other company with a similarly spelled name, and it does not make parental-control or child-monitoring software.",
         "knowsAbout": [
           "Screen time reduction",
@@ -110,40 +110,24 @@
         "url": "https://getphonepact.com/",
         "applicationCategory": "HealthApplication",
         "applicationSubCategory": "Digital Wellbeing",
-        "operatingSystem": "iOS",
+        "operatingSystem": "iOS, Android",
         "inLanguage": "en-US",
-        "description": "PhonePact is an iOS app that helps you reduce your own screen time. You set a daily pact point, get a private notice before you reach it, and a small circle of people you trust receives one plain check-in when you do. It never blocks or locks an app, and your circle only ever sees how long you were on your phone, never which apps you used.",
+        "description": "PhonePact helps you reduce your own screen time. Each registered phone has its own daily pact point and private notices, and trusted circles can receive duration-only shared check-ins attributed to that phone when it syncs that point and later milestones. It never blocks or locks an app, and your circles never see which apps you used.",
         "disambiguatingDescription": "PhonePact is a self-directed screen-time app for the phone's own owner. It is not a parental-control or child-monitoring app, it does not block, lock or restrict apps, and it is unrelated to similarly named parental-control products.",
         "featureList": [
-          "Measures whole-device screen time, counted upward toward a goal you set",
-          "A private prompt before your pact, and a shared check-in when you reach it",
-          "Adjustments to your pact require your partner's approval",
-          "One pact, shared with up to ten circles",
-          "Room notes expire after 24 hours and do not accumulate",
+          "Counts the Apple Screen Time scope selected on iPhone; the Android development build currently counts whole-device usage",
+          "A locally scheduled private prompt before your pact, and duration-only shared check-ins routed when synced",
+          "Lowering is yours; raising requires approval once you have a circle mate",
+          "Each phone's pact, shared with up to ten circles",
+          "Room rows are swept hourly after they are 24 hours old",
           "No app blocking and no lockouts — nothing to bypass",
-          "Your circle sees that you reached your time, never which apps you used"
+          "Your circles can receive duration-only check-ins when the app syncs; exact app and site activity stays on your device"
         ],
         "screenshot": "https://getphonepact.com/assets/social-preview.png",
-        "isAccessibleForFree": false,
+        "isAccessibleForFree": true,
         "isFamilyFriendly": true,
         "publisher": {"@id": "https://getphonepact.com/#organization"},
         "author": {"@id": "https://getphonepact.com/about-hank#hank"},
-        "offers": [
-          {
-            "@type": "Offer",
-            "name": "Monthly",
-            "price": "0.99",
-            "priceCurrency": "USD",
-            "description": "$0.99 per month after a 30-day free trial. No credit card required to begin."
-          },
-          {
-            "@type": "Offer",
-            "name": "Annual",
-            "price": "9.99",
-            "priceCurrency": "USD",
-            "description": "$9.99 per year after a 30-day free trial. No credit card required to begin."
-          }
-        ],
         "sameAs": []
       },
       {
@@ -334,9 +318,9 @@
           <p class="mini-phone__eyebrow">Daily intention</p>
           <div class="demo-intention__value" id="demo-intention-value" aria-live="polite">2h 30m</div>
           <div class="demo-stepper" aria-label="Adjust daily intention">
-            <button type="button" data-intention-delta="-15" aria-label="Reduce intention by 15 minutes">&minus;</button>
+            <button type="button" data-intention-delta="-30" aria-label="Reduce intention by 30 minutes">&minus;</button>
             <span>adjust gently</span>
-            <button type="button" data-intention-delta="15" aria-label="Increase intention by 15 minutes">+</button>
+            <button type="button" data-intention-delta="30" aria-label="Increase intention by 30 minutes">+</button>
           </div>
           <button type="button" class="mini-phone__primary" id="demo-intention-set">Set my pact</button>
           <p class="mini-phone__status" id="demo-intention-status" role="status"></p>
@@ -396,7 +380,7 @@
           </div>
         </div>
         <h3>Lean on your circle</h3>
-        <p>Choose the people who see one plain check-in when you reach your pact point.</p>
+        <p>Choose the people who can see duration-only shared check-ins at your pact point and up to six later milestones.</p>
       </article>
     </div>
   </div>
@@ -484,6 +468,7 @@
       <button class="btn btn--primary btn--full" type="submit" id="submit-btn">Join the waitlist</button>
       <p class="form-privacy">No spam. No tracking pixels. Unsubscribe whenever you want.</p>
       <p class="form-status" id="waitlist-status" aria-live="polite"></p>
+      <button class="btn btn--secondary btn--full" type="button" id="waitlist-backup" hidden>Use the backup form</button>
     </form>
 
     <!-- Success State -->
@@ -547,7 +532,7 @@
           </li>
         </ol>
         <div class="about__trial">
-          <span class="about__trial-label">Try it for 30 days. No payment required upfront.</span>
+          <span class="about__trial-label">PhonePact is free for now during launch and beta. Pricing may change later; any paid plan and its terms will be shown before purchase.</span>
           
           <em>If it helps, keep it. If it doesn&rsquo;t, walk away.</em>
         </div>
@@ -565,7 +550,7 @@
     <div class="feedback__layout reveal">
       <h2 class="feedback__header">Feedback</h2>
       <p class="feedback__subhead">We&rsquo;d love to hear your thoughts.</p>
-      <form class="feedback__form" id="feedback-form" novalidate>
+      <form class="feedback__form" id="feedback-form" action="https://formspree.io/f/xlgynzzl" method="POST" novalidate>
         <label for="feedback-name">Your name</label>
         <input type="text" class="form-input" id="feedback-name" name="name" autocomplete="name">
         <label for="feedback-email">Email <span class="form-optional">(optional)</span></label>
@@ -577,6 +562,7 @@
         <input type="hidden" name="_subject" value="New PhonePact website feedback">
         <button type="submit" class="btn btn--primary btn--full">Send Feedback</button>
         <p class="form-status" id="feedback-status" aria-live="polite"></p>
+        <button class="btn btn--secondary btn--full" type="button" id="feedback-backup" hidden>Use the backup form</button>
       </form>
       <div class="feedback__success">
         <p>✦ &ensp;Thank you. We&rsquo;ve received your thoughts.</p>

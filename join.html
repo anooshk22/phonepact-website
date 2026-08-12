@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="styles.css?v=20260714-1">
   <style>
     /* The code itself — the one thing this page exists to hand over. Mono and
-       widely tracked so six characters can be read aloud over a phone without
+       widely tracked so a generated six-character code can be read aloud without
        anyone mishearing a letter. */
     .join-code {
       font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -168,9 +168,10 @@
       <h2>If you don&rsquo;t have it yet</h2>
       <ol class="join-steps">
         <li>Copy the code above &mdash; you&rsquo;ll need it in a minute.</li>
-        <li>Get PhonePact on your phone. <span id="join-store-slot">It isn&rsquo;t in the app stores
-        just yet &mdash; we&rsquo;re days away, on iPhone and Android both. <a href="./#waitlist">Leave
-        your email</a> and we&rsquo;ll tell you the moment it&rsquo;s live.</span></li>
+        <li>Get PhonePact on your phone. <span id="join-store-slot">The iPhone app is in private
+        TestFlight testing and is not yet public on the App Store. The Android app is still in
+        development and is not publicly available. <a href="./#waitlist">Leave your email</a> and
+        we&rsquo;ll tell you when your version is ready.</span></li>
         <li>Open it and walk through the intro. Near the end you&rsquo;ll see
         <em>&ldquo;Invited by a friend? Enter their code&rdquo;</em> &mdash; that&rsquo;s where this
         goes.</li>
@@ -183,7 +184,8 @@
     <div id="join-no-code" class="join-nocode" hidden>
       <p class="lede">This link is missing its invite code.</p>
       <p>Ask whoever invited you to send it again &mdash; their code is on the Circle tab in
-      PhonePact, under <em>share</em>. A code is six characters, like <code>K4T9BX</code>.</p>
+      PhonePact, under <em>share</em>. New codes are six characters, like <code>K4T9BX</code>;
+      compatible older codes can be four to twelve characters.</p>
       <p><a href="./">Read about PhonePact</a> &middot; <a href="support">Get help</a></p>
     </div>
 
@@ -216,7 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // can't be a code must never be echoed back into the page.
   const params = new URLSearchParams(window.location.search);
   const raw = params.get('c') || params.get('code') || '';
-  const code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+  const sanitizedCode = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+  // The mobile clients accept 4–12 alphanumeric characters for legacy
+  // compatibility. New backend-generated codes are always six characters.
+  const code = sanitizedCode.length >= 4 ? sanitizedCode : '';
 
   const hasCode = document.getElementById('join-has-code');
   const noCode = document.getElementById('join-no-code');

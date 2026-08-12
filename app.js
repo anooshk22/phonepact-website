@@ -210,32 +210,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Google Sheets Endpoint (Apps Script Web App) ──── */
   const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxz7_9OMzQhUseW3L-FUZkKv1Hwy3M1m5HL3PCk_mypZJVxvYZUyOBRA3VpBSZRTEiNVw/exec';
+  const FORM_REQUEST_TIMEOUT_MS = 10000;
 
   /* Send a form payload to the Apps Script endpoint.
-     A plain `no-cors` POST always yields an opaque response, so a server-side
-     failure is indistinguishable from success — the visitor would be told
-     "You're on the list" while nothing was written. Try a readable request
-     first so an error status can actually be reported. If the browser refuses
-     it (an Apps Script deployment that returns no CORS headers rejects the
-     request before it leaves), fall back to `no-cors`, which still delivers
-     the POST but tells us nothing about its fate.
-     Resolves true when delivered (or delivered blind), false when the server
-     explicitly rejected it; throws when the network is unreachable, since in
-     that case neither attempt got through. */
+     Success must mean a readable 2xx response. An opaque `no-cors` response
+     cannot distinguish a saved row from a server error, so it is never treated
+     as delivery. Each form exposes its ordinary HTML action as a visitor-chosen
+     backup when this request cannot be confirmed. */
   async function postFormPayload(payload) {
     const body = JSON.stringify(payload);
     const headers = { 'Content-Type': 'text/plain;charset=utf-8' };
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), FORM_REQUEST_TIMEOUT_MS);
     try {
-      const response = await fetch(GOOGLE_SHEETS_ENDPOINT, { method: 'POST', headers, body });
+      const response = await fetch(GOOGLE_SHEETS_ENDPOINT, {
+        method: 'POST',
+        headers,
+        body,
+        signal: controller.signal,
+      });
       return response.ok;
-    } catch (unreadable) {
-      await fetch(GOOGLE_SHEETS_ENDPOINT, { method: 'POST', mode: 'no-cors', headers, body });
-      return true;
+    } finally {
+      window.clearTimeout(timeout);
     }
   }
   const waitlistForm = document.getElementById('waitlist-form');
   const waitlistSuccess = document.querySelector('.form-success');
   const waitlistStatus = document.getElementById('waitlist-status');
+  const waitlistBackup = document.getElementById('waitlist-backup');
   const helpGoalSelect = document.getElementById('help-goal-select');
   const helpGoalOtherWrap = document.getElementById('help-goal-other-wrap');
   const helpGoalOther = document.getElementById('help-goal-other');
@@ -321,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitButton.disabled = true;
       submitButton.textContent = 'Joining…';
       waitlistStatus.textContent = 'Saving your place…';
+      if (waitlistBackup) waitlistBackup.hidden = true;
 
       try {
         const delivered = await postFormPayload(payload);
@@ -332,8 +335,16 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         submitButton.disabled = false;
         submitButton.textContent = 'Join the waitlist';
-        waitlistStatus.textContent = 'We could not save your place. Please try again.';
+        waitlistStatus.textContent = 'We could not confirm that your place was saved. Try again or use the backup form.';
+        if (waitlistBackup) waitlistBackup.hidden = false;
       }
+    });
+
+    waitlistBackup?.addEventListener('click', () => {
+      // Bypass this submit listener and use the form's Formspree action. The
+      // visitor sees Formspree's acknowledged result instead of a guessed
+      // success state on this page.
+      HTMLFormElement.prototype.submit.call(waitlistForm);
     });
   }
 
@@ -384,6 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const feedbackForm = document.getElementById('feedback-form');
   const feedbackSuccess = document.querySelector('.feedback__success');
   const feedbackStatus = document.getElementById('feedback-status');
+  const feedbackBackup = document.getElementById('feedback-backup');
 
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', async (e) => {
@@ -402,6 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.disabled = true;
       button.textContent = 'Sending…';
       feedbackStatus.textContent = 'Sending your feedback…';
+      if (feedbackBackup) feedbackBackup.hidden = true;
       try {
         const delivered = await postFormPayload(feedbackData);
         if (!delivered) throw new Error('The feedback endpoint rejected the submission.');
@@ -410,8 +423,13 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         button.disabled = false;
         button.textContent = 'Send Feedback';
-        feedbackStatus.textContent = 'We could not send your feedback. Please try again.';
+        feedbackStatus.textContent = 'We could not confirm that your feedback was sent. Try again or use the backup form.';
+        if (feedbackBackup) feedbackBackup.hidden = false;
       }
+    });
+
+    feedbackBackup?.addEventListener('click', () => {
+      HTMLFormElement.prototype.submit.call(feedbackForm);
     });
   }
 

@@ -64,7 +64,7 @@
         "email": "support@getphonepact.com",
         "foundingDate": "2026",
         "slogan": "Not another app blocker. A pact with people you trust.",
-        "description": "PhonePact LLC is the independent company behind PhonePact, an iOS app that helps people reduce their own screen time through self-directed goals, private notices, and check-ins shared with a small circle they trust, without app lockouts or surveillance.",
+        "description": "PhonePact LLC is the independent company behind PhonePact, a mobile app in private iPhone testing with an Android version in development. It uses self-directed goals, private notices, and duration-only check-ins shared with trusted circles, without app lockouts or surveillance.",
         "disambiguatingDescription": "PhonePact LLC is an independent US company founded by Hank Yang in 2026. It is not affiliated with, owned by, or related to any other company with a similarly spelled name, and it does not make parental-control or child-monitoring software.",
         "knowsAbout": [
           "Screen time reduction",
@@ -92,40 +92,24 @@
         "url": "https://getphonepact.com/",
         "applicationCategory": "HealthApplication",
         "applicationSubCategory": "Digital Wellbeing",
-        "operatingSystem": "iOS",
+        "operatingSystem": "iOS, Android",
         "inLanguage": "en-US",
-        "description": "PhonePact is an iOS app that helps you reduce your own screen time. You set a daily pact point, get a private notice before you reach it, and a small circle of people you trust receives one plain check-in when you do. It never blocks or locks an app, and your circle only ever sees how long you were on your phone, never which apps you used.",
+        "description": "PhonePact helps you reduce your own screen time. Each registered phone has its own daily pact point and private notices, and trusted circles can receive duration-only shared check-ins attributed to that phone when it syncs that point and later milestones. It never blocks or locks an app, and your circles never see which apps you used.",
         "disambiguatingDescription": "PhonePact is a self-directed screen-time app for the phone's own owner. It is not a parental-control or child-monitoring app, it does not block, lock or restrict apps, and it is unrelated to similarly named parental-control products.",
         "featureList": [
-          "Measures whole-device screen time, counted upward toward a goal you set",
-          "A private prompt before your pact, and a shared check-in when you reach it",
-          "Adjustments to your pact require your partner's approval",
-          "One pact, shared with up to ten circles",
-          "Room notes expire after 24 hours and do not accumulate",
+          "On iPhone, counts the Apple Screen Time scope you select; the Android development build counts whole-device foreground usage through Usage Access with no app picker",
+          "A locally scheduled private prompt before your pact, and duration-only shared check-ins routed when synced",
+          "Lowering is yours; raising requires approval once you have a circle mate",
+          "Each phone's pact, shared with up to ten circles",
+          "Room rows are swept hourly after they are 24 hours old",
           "No app blocking and no lockouts — nothing to bypass",
-          "Your circle sees that you reached your time, never which apps you used"
+          "Your circles can receive duration-only check-ins when the app syncs; exact app and site activity stays on your device"
         ],
         "screenshot": "https://getphonepact.com/assets/social-preview.png",
-        "isAccessibleForFree": false,
+        "isAccessibleForFree": true,
         "isFamilyFriendly": true,
         "publisher": {"@id": "https://getphonepact.com/#organization"},
         "author": {"@id": "https://getphonepact.com/about-hank#hank"},
-        "offers": [
-          {
-            "@type": "Offer",
-            "name": "Monthly",
-            "price": "0.99",
-            "priceCurrency": "USD",
-            "description": "$0.99 per month after a 30-day free trial. No credit card required to begin."
-          },
-          {
-            "@type": "Offer",
-            "name": "Annual",
-            "price": "9.99",
-            "priceCurrency": "USD",
-            "description": "$9.99 per year after a 30-day free trial. No credit card required to begin."
-          }
-        ],
         "sameAs": []
       },
       {
@@ -328,27 +312,27 @@
           <li><strong>Orientation:</strong> Three short cards explain private awareness, shared check-ins, and support without lockouts or punishment.</li>
           <li><strong>Personal Context:</strong> The person can describe their current stage of life and the screen habit they most want to change. These answers remain private.</li>
           <li><strong>Permissions:</strong> Screen Time authorization is explained before the system sheet appears. Notifications are requested separately with an example of the duration-only private notice.</li>
-          <li><strong>Pact Point:</strong> You choose the amount of overall screen time on this iPhone that will become your first shared check-in.</li>
+          <li><strong>Pact Point:</strong> You choose the amount of activity this phone counts that will become your first shared check-in.</li>
           <li><strong>Written Pledge:</strong> You write a specific "Reason for the Circle".</li>
           <li><strong>The Shared Oath:</strong> You physically sign the screen with your finger to commit to the pact.</li>
           <li><strong>Age &amp; Permission:</strong> The launch MVP is for people 13 and older. Apple may require a parent or guardian to authorize Screen Time access on a family-managed device.</li>
           <li><strong>Private Pulse Check:</strong> Near the end, PhonePact asks whether the approach feels supportive. This is product feedback, not an App Store rating and never blocks setup.</li>
         </ul>
 
-        <h3>2. Overall Screen Time, Counted Upward</h3>
-        <p>PhonePact reads the overall screen time on the enrolled iPhone—the same daily total you would see in Settings. Apple requires that the check-in points be attached to activity you enroll through its own picker, so setup asks you to select everything; that one step is what lets the pact watch the whole device rather than a shortlist. Your selection never leaves the iPhone, and your circle never sees what you used. The interface only states time already accumulated—such as <em>"1 hour 50 minutes today"</em>—and never presents a countdown or time remaining.</p>
-        <p>During setup you choose how often a private, text-only notice finds you — every 10, 15, 20, or 30 minutes of accumulated screen activity: <em>"45 minutes of screen time today."</em> You can change that cadence later, or turn the notices off entirely, from inside the app. These notices stay on the device and are never sent to a circle.</p>
+        <h3>2. Platform-Specific Screen Activity, Counted Upward</h3>
+        <p>On iPhone, PhonePact counts activity from the apps, categories, and websites you enroll through Apple&rsquo;s picker. Selecting everything approximates a whole-device total; a smaller selection counts only that scope. On Android, the development build counts whole-device foreground usage through Android&rsquo;s Usage Access and does not offer an app picker. Apple selection tokens and the app, site, category, and per-app details used for measurement stay on the phone; your circles never see what you used. The interface only states time already accumulated—such as <em>"1 hour 50 minutes today"</em>—and never presents a countdown or time remaining.</p>
+        <p>During setup you choose how often a private, text-only notice finds you — every 20, 30, 45, or 60 minutes of accumulated screen activity: <em>"45 minutes of screen time today."</em> You can change that cadence later, or turn the notices off entirely, from inside the app. These notices are scheduled locally on the device and are never sent to a circle.</p>
 
         <h3>3. Private Prompts &amp; Shared Check-Ins</h3>
         <p>For a two-hour pact point, PhonePact asks privately at 1 hour 50 minutes. The ten-minute grace is measured in additional screen activity, not wall-clock time, so putting the phone down pauses the sequence.</p>
-        <p>If screen activity reaches 2 hours, a simple message is sent to every circle the person belongs to: <em>"Hank reached 2 hours of screen time today."</em> It shares again at 2 hours 30 minutes, and continues that upward rhythm every additional 30 minutes—up to six further check-ins in a day. A private prompt arrives ten usage minutes before each shared check-in — before your pact point, and before every milestone past it.</p>
+        <p>If screen activity reaches 2 hours, a simple message attributed to the phone that measured it is prepared for every circle the person belongs to: <em>"Hank's iPhone A1B2 reached 2 hours of screen time today."</em> It can share again at 2 hours 30 minutes, and continue that upward rhythm every additional 30 minutes—up to six further check-ins, for as many as seven in a day. A private prompt is scheduled locally ten usage minutes before each shared check-in — before that phone's pact point, and before every milestone past it.</p>
         <p>There is no final state and no score. Each shared check-in is simply another moment to notice and choose.</p>
 
         <h3>4. Collaborative Adjustments</h3>
-        <p>Any change to the pact point—higher or lower—must specify how long it lasts: today only, a chosen number of days, or permanently. The proposal cannot be sent without that duration. It then goes to one chosen partner for approval, and the current pact stays active until they approve. Pausing and private notification preferences remain user-controlled.</p>
+        <p>Lowering a pact point is yours alone. Raising one must specify how long it lasts: today only, a chosen number of days, or permanently. You can ask eligible people across your circles—including everyone with one tap—and the first yes or talk-first answer settles the request for all of them. Hiding every mate does not create a bypass; only someone with no real circle mates can raise a pact alone. Pausing and private notification preferences remain user-controlled.</p>
 
         <h3>5. One Pact, Up to Ten Circles</h3>
-        <p>Your pact point belongs to you and stays the same across the app. You can belong to as many as ten circles, and every circle automatically receives the same duration-only shared check-ins. There is no per-circle routing switch. You can choose the approval partner for a proposed pact change from any circle.</p>
+        <p>Each registered phone has its own pact point and private seven-day history. You can belong to as many as ten circles, and a phone's duration-only shared check-ins are attributed to that phone and routed to every circle when the app syncs them. There is no per-circle routing switch. You can choose eligible approvers for a proposed raise from any circle.</p>
 
         <h3>6. Rooms That Do Not Accumulate</h3>
         <p>Every circle has a plain-text room for encouragement and conversation. Messages disappear from the room after 24 hours. Members can delete their own messages, report harmful content, block abusive members, and contact PhonePact support.</p>
@@ -358,7 +342,7 @@
           <li><strong>Pact point:</strong> the screen-time amount chosen for the first shared check-in—not a limit.</li>
           <li><strong>Screen time today:</strong> time already accumulated on this iPhone—not time remaining.</li>
           <li><strong>Private prompt:</strong> the quiet invitation that arrives ten usage minutes before a shared check-in.</li>
-          <li><strong>Shared check-in:</strong> a plain duration-only message sent automatically to every circle the person belongs to.</li>
+          <li><strong>Shared check-in:</strong> a plain duration-only message routed to every circle the person belongs to when it is synced.</li>
         </ul>
 
         <h3>What Comes Later</h3>
@@ -384,17 +368,17 @@
       </div>
       <div class="ethos-grid__content">
         <figure class="ethos-visual ethos-visual--pledge" aria-labelledby="pledge-visual-caption">
-          <img src="assets/pricing_ethics_graphic.png" alt="A scale balancing a one dollar token and a green leaf representing alignment of price and ethics" class="ethos-graphic ethos-graphic--small">
+          <img src="assets/pricing_ethics_graphic.png" alt="A scale balancing a contribution and a green leaf representing alignment of pricing and ethics" class="ethos-graphic ethos-graphic--small">
           <figcaption id="pledge-visual-caption">The business model is intended to align revenue with a small commitment from users, not by capturing more of their attention.</figcaption>
         </figure>
 
         <h3>The Mission</h3>
-        <p>Our sole goal is to get as many people free from their screen addictions as possible. It isn't to price gouge you or turn a huge profit from your pain. The subscription price of the app is the lowest possible, and it becomes a way to solidify intention while also keeping our operations afloat.</p>
-        <h3>The 30-Day Trust Trial</h3>
-        <p>PhonePact is free to download. Your account's full 30-day trial begins only when you activate your first pact with monitoring and at least one circle. No credit card is required to begin.</p>
+        <p>Our goal is to help as many people as possible reclaim their attention without turning their pain into an attention-extraction business. Any future pricing should support the service while staying clear and fair.</p>
+        <h3>Launch and Beta</h3>
+        <p>PhonePact is free for now during launch and beta. Pricing may change later; any paid plan and its terms will be shown before purchase.</p>
 
         <h3>Our Aligned Pledges</h3>
-        <p>After day 30, one account subscription — $0.99/month, or $9.99 for the year — keeps all of your circles, rooms, approvals, and shared check-ins active. Without a subscription, your private on-device screen-time view and account controls remain available. Because we charge this small recurring commitment, we make the following promises:</p>
+        <p>If PhonePact later offers a paid plan, its included features, price, renewal terms, and cancellation terms will be clear before purchase. Whatever the model, these promises apply:</p>
         <ul>
           <li><strong>Zero Ads, Ever:</strong> No popups or ad revenue models.</li>
           <li><strong>No Data Selling:</strong> We do not sell your screen time or usage metrics to anyone.</li>

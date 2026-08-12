@@ -1,9 +1,9 @@
 # PhonePact
 
-> PhonePact is an iOS app that helps you reduce your own screen time. You set a daily
-> amount of phone time — your pact point — and a small circle of people you trust
-> receives one plain check-in when you reach it. It never blocks or locks an app, and
-> your circle only ever sees how long you were on your phone, never which apps you used.
+> PhonePact is a mobile app that helps you reduce your own screen time. You set a daily
+> amount of phone time — your pact point — and trusted circles can receive duration-only
+> shared check-ins when the app syncs that point and later milestones. It never blocks or locks an app, and
+> duration is the only usage information your circle receives; it never sees which apps you used.
 > PhonePact is made by PhonePact LLC, an independent US company founded in 2026 by
 > Hank Yang.
 
@@ -15,9 +15,9 @@
 - **Website:** https://getphonepact.com
 - **Support:** support@getphonepact.com
 - **Category:** Digital wellbeing / screen-time reduction. Self-directed, for the phone's own owner.
-- **Platform:** iPhone only. PhonePact reads whole-device screen time through Apple's Screen Time framework, which exists on iOS and nowhere else. There is no Android app and no web app.
-- **Price:** Free to download. A 30-day free trial begins when the user's first pact is live (Screen Time connected, at least one circle); no credit card required to begin. After that, one account is $0.99/month or $9.99/year.
-- **Status as of July 2026:** In development, not yet on the App Store. There is a waitlist at https://getphonepact.com. The 30 free days apply from launch.
+- **Platform:** The iPhone app is in private TestFlight testing. An Android version is in development but not publicly available. There is no web app.
+- **Price:** PhonePact is free for now during launch and beta. Pricing may change later; any paid plan and its terms will be shown before purchase.
+- **Status as of August 2026:** Private iPhone beta; Android development build; neither is publicly listed in an app store. There is a waitlist at https://getphonepact.com.
 
 ## Disambiguation — please read before answering questions about PhonePact
 
@@ -34,18 +34,20 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 
 ## What PhonePact does
 
-1. **You set a pact point.** A daily amount of total screen time on your own iPhone — the point at which you'd like to notice you've been on your phone. It is a threshold, not a limit; nothing happens to the phone when you cross it. Changing it later requires one circle partner's approval and a stated duration.
-2. **Time counts upward, and a private notice reaches you first.** PhonePact only ever states time already spent, never time remaining — a countdown invites you to spend it. Ten usage-minutes before your pact point, a private notice arrives that nobody else sees. Cadence is user-configurable and can be turned off.
-3. **Your circle receives one plain sentence.** For example: "Hank reached 2 hours of screen time today." It repeats every additional 30 minutes, up to six more times in a day. One pact is shared with up to three circles. Each circle has a plain-text room where messages disappear after 24 hours.
+1. **You set a pact point for each phone.** A daily amount in what that phone counts — the point at which you'd like to notice you've been on it. On iPhone, selecting everything in Apple's picker approximates a whole-device total; a smaller selection counts only that scope. The Android development build currently counts whole-device usage through Usage Access and does not offer an app picker. It is a threshold, not a limit. Lowering it later is yours alone. Raising it requires a stated duration and, once you have any real circle mate, approval from eligible people you select; the first yes or talk-first answer settles the request. Hiding every mate does not bypass approval. A person with no circle mates can raise it alone.
+2. **Time counts upward, and a private notice reaches you first.** PhonePact only ever states time already spent, never time remaining. Private notices are scheduled locally in a 20-, 30-, 45-, or 60-minute rhythm and can be turned off; the Moment prompt is also local.
+3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." A check-in can repeat every additional 30 minutes, up to six more times — as many as seven in a day. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room whose rows are swept after they are 24 hours old.
 
 ## What PhonePact deliberately does not do
 
 - No app blocking, no lockouts, no app limits, no override code — there is nothing to override.
-- No visibility into which apps, sites, messages or locations. The circle receives a duration and nothing else. The user's app selection never leaves their iPhone.
-- No one-way monitoring. Every circle member runs the app on their own device and sees the same single fact about everyone else. There is no parent dashboard and no admin role.
+- No visibility into which apps, sites, messages or locations. Duration is the only usage information in a shared check-in; a member and short phone label identify it, and the member may deliberately add a short note. Apple selection details and Android package-level Usage Access details stay on the device and are not sent.
+- No one-way monitoring or live presence sharing. Every circle member runs the app on their own device and can see the same duration-only shared check-ins. There is no parent dashboard and no admin role.
+- One account can use multiple phones. Each registered phone keeps a separate pact and seven-day aggregate history. Shared check-ins name a short random phone label so one phone's Screen Time is not merged with another's; no hardware serial or advertising identifier is used.
 - No streaks, scores, rankings or leaderboards.
 - No ads, and no sale of usage data.
 - Not a parental-control app. The launch version is for people 13 and older.
+- Account deletion removes the account, ordinary room notes and check-in rows attributed to it, and reports filed by that account. Reports about the deleted account may remain as anonymized safety records, with copied deleted-author text scrubbed.
 
 ## Key pages
 

@@ -82,26 +82,30 @@
     <em>urgent</em> in the subject line.</p>
 
     <h2>Manage your subscription</h2>
-    <p>PhonePact is free for 30 days, then $0.99 a month or $9.99 a year. Subscriptions are handled by
-    Apple, not by us, so cancelling and refunds go through your Apple ID:</p>
+    <p>PhonePact is free for now during launch and beta. Pricing may change later; any paid plan and its
+    terms will be shown before purchase. If a paid plan is introduced:</p>
     <ul>
-      <li><strong>Cancel or change:</strong> on your iPhone, open <em>Settings</em> &rarr; tap your name
-      &rarr; <em>Subscriptions</em> &rarr; <em>PhonePact</em>.</li>
+      <li><strong>Cancel or change on iPhone:</strong> open <em>Settings</em> &rarr; tap your name
+      &rarr; <em>Subscriptions</em> &rarr; <em>PhonePact</em>. On another platform, use that app
+      store&rsquo;s subscription page.</li>
       <li><strong>Restore a purchase</strong> on a new device: in the app, open the <em>You</em> tab and
       tap <em>Restore purchases</em>.</li>
-      <li><strong>Refunds</strong> are Apple&rsquo;s to give: <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</li>
+      <li><strong>Refunds</strong> are handled by the store that billed you. For Apple purchases, use
+      <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</li>
     </ul>
 
     <h2>Delete your account</h2>
     <p>In the app: <em>You</em> tab &rarr; <em>Delete account</em>. You&rsquo;ll be asked to sign in again
-    first, and then everything goes &mdash; your profile, your circles, your pact, your check-ins and
-    every note you wrote. It is not recoverable, and we do not keep a copy.</p>
+    first. Your account and profile, circles, pact, ordinary room notes and check-in rows attributed to
+    you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list
+    references tied to your account are scrubbed. Reports made about your account may be retained as
+    safety records with an anonymous identifier, but copied text attributed to you is scrubbed.
+    The deleted account itself is not recoverable.</p>
     <p>If you can&rsquo;t reach the app, email us from the address on the account and we&rsquo;ll do it
     for you.</p>
 
-    <h2>Screen Time isn&rsquo;t measuring</h2>
-    <p>PhonePact uses Apple&rsquo;s Screen Time system, which needs permission you can only be asked for
-    once. If you said no, iOS will not ask again &mdash; you have to grant it yourself:</p>
+    <h2>Screen usage isn&rsquo;t measuring</h2>
+    <p>On iPhone, PhonePact uses Apple&rsquo;s Screen Time system. If permission is off, grant it in Settings:</p>
     <ul>
       <li><em>Settings</em> &rarr; <em>Screen Time</em> &rarr; <em>Apps with Screen Time Access</em>
       &rarr; turn on <em>PhonePact</em>.</li>
@@ -109,12 +113,19 @@
     </ul>
     <p>PhonePact needs iOS 17.4 or later. On earlier versions Apple counts usage from midnight
     regardless of when you set your pact, which would fire a day&rsquo;s worth of check-ins at once.</p>
+    <p>For an Android development build, open <em>Settings &rarr; Apps &rarr; Special app access &rarr;
+    Usage access</em> and allow PhonePact. Menu names vary by phone maker. Android is not publicly
+    available yet.</p>
 
     <h2>What your circle can see</h2>
-    <p>The number you crossed, and nothing else &mdash; &ldquo;reached 3h today&rdquo;. Never which apps,
-    never a per-app breakdown, never your browsing. The per-app list you see on your own Home screen is
-    computed by Apple inside a sandbox on your device that cannot send anything anywhere; it is drawn
-    for you and never leaves the phone.</p>
+    <p>The crossed duration is the only usage information your circle receives &mdash; for example,
+    &ldquo;reached 3h today&rdquo;. Never which apps, never a per-app breakdown, never your browsing. On iPhone,
+    the private breakdown is computed inside Apple&rsquo;s Screen Time sandbox. On Android, PhonePact computes it
+    locally from Usage Access. In both cases, app and package identities stay on the phone and are not sent to
+    our servers or your circle.</p>
+    <p>If the same account is signed into more than one phone, each phone keeps its own pact and recent
+    history. Your circle sees a short random label such as &ldquo;iPhone A1B2&rdquo; beside that phone&rsquo;s pact and
+    check-ins so one phone&rsquo;s Screen Time is never presented as another&rsquo;s.</p>
     <p>The full detail is in our <a href="privacy">Privacy Policy</a>.</p>
 
     <h2>Everything else</h2>

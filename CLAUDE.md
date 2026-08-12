@@ -27,6 +27,7 @@ The same `noindex` signal gates the post from the blog index and from
 
 ```bash
 python tools/generate-sitemap.py
+python tools/generate-sitemap.py --check
 ```
 
 The generator deliberately does **not** rewrite whitespace. An earlier
@@ -35,10 +36,11 @@ out-of-tree generator ran `replace(" ", "")` over its output, collapsing
 reject such a file entirely, they do not skip the bad line. `check_wellformed()`
 guards against a recurrence.
 
-**It derives `lastmod` from file mtime, and this repo lives in OneDrive**, which
-rewrites mtimes on sync. Re-running it therefore churns every date in
-`sitemap.xml` without any page having changed. Only run it when a post is
-actually being published, and read the diff before committing.
+It uses today's date for a dirty page so `--check` catches a content edit before
+commit, then that file's latest Git commit date once clean. It falls back to
+mtime only for a file Git has never committed. OneDrive can rewrite mtimes, so
+a brand-new uncommitted page can still churn until its first commit. Unknown
+arguments fail instead of silently generating.
 
 ## Accuracy
 
@@ -46,3 +48,7 @@ Site and blog copy has repeatedly gone wrong by describing intent instead of
 behaviour. Check any claim about mechanics — cadences, the grace period,
 milestones, pricing, what the circle sees — against the shipped app or the
 backend, not against the design doc, which is stale.
+
+Run `python tools/check-site.py` after copy or form changes. It checks internal
+references, JSON-LD, acknowledged form success/fallbacks, and the public claims
+that have previously drifted from the shipped product.

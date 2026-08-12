@@ -10,6 +10,7 @@ gates it from the blog index -- so publishing a post is:
     3. run this script
 
 Run from anywhere:  python tools/generate-sitemap.py
+Check without writing:  python tools/generate-sitemap.py --check
 
 Note for whoever edits this next: an earlier generator lived outside version
 control and ran replace(" ", "") over its output, which collapsed
@@ -19,6 +20,7 @@ rewrites whitespace, and check_wellformed() below will catch it if that ever
 creeps back in.
 """
 
+import argparse
 import os
 import re
 import subprocess
@@ -58,8 +60,15 @@ def url_for(relpath):
 
 
 def lastmod(relpath):
-    """Last commit date for the file, falling back to mtime for new files."""
+    """Today's date for dirty files; otherwise commit date, then mtime."""
     try:
+        dirty = subprocess.run(
+            ["git", "status", "--porcelain", "--", relpath],
+            cwd=REPO, capture_output=True, text=True, check=True,
+        ).stdout.strip()
+        if dirty:
+            return date.today().isoformat()
+
         out = subprocess.run(
             ["git", "log", "-1", "--format=%cs", "--", relpath],
             cwd=REPO, capture_output=True, text=True, check=True,
@@ -83,7 +92,27 @@ def check_wellformed(path):
     ET.parse(path)
 
 
-def main():
+def render_sitemap(published):
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for priority, url, mod in published:
+        lines.append(
+            f"  <url><loc>{BASE}{url}</loc><lastmod>{mod}</lastmod>"
+            f"<priority>{priority}</priority></url>"
+        )
+    lines.append("</urlset>")
+    return "\n".join(lines) + "\n"
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Generate PhonePact's public sitemap.")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="verify sitemap.xml is current and well formed without rewriting it",
+    )
+    args = parser.parse_args(argv)
+
     published, skipped = [], []
     for relpath in html_files():
         with open(os.path.join(REPO, relpath), encoding="utf-8", errors="ignore") as fh:
@@ -95,22 +124,30 @@ def main():
 
     published.sort(key=lambda row: (-float(row[0]), row[1]))
 
-    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
-             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for priority, url, mod in published:
-        lines.append(
-            f"  <url><loc>{BASE}{url}</loc><lastmod>{mod}</lastmod>"
-            f"<priority>{priority}</priority></url>"
-        )
-    lines.append("</urlset>")
-
     out = os.path.join(REPO, "sitemap.xml")
-    with open(out, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write("\n".join(lines) + "\n")
+    rendered = render_sitemap(published)
 
-    check_wellformed(out)
+    if args.check:
+        try:
+            check_wellformed(out)
+            with open(out, encoding="utf-8") as fh:
+                current = fh.read()
+        except (FileNotFoundError, ET.ParseError) as error:
+            print(f"sitemap.xml check failed: {error}", file=sys.stderr)
+            return 1
+        if current != rendered:
+            print(
+                "sitemap.xml is out of date; run python tools/generate-sitemap.py",
+                file=sys.stderr,
+            )
+            return 1
+    else:
+        with open(out, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(rendered)
+        check_wellformed(out)
 
-    print(f"sitemap.xml: {len(published)} published URLs")
+    action = "checked" if args.check else "wrote"
+    print(f"sitemap.xml: {len(published)} published URLs ({action})")
     print(f"skipped {len(skipped)} noindex page(s) -- they join the sitemap when published:")
     for relpath in skipped:
         print(f"  {relpath}")
