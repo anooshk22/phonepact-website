@@ -53,7 +53,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 12 August 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 15 August 2026</p>
   </div>
 </section>
 
@@ -84,6 +84,7 @@
       <li><strong>Your pact answers &amp; goals</strong> — the intentions and settings you enter during onboarding, used to set up your pact and personalize the App.</li>
       <li><strong>Circle &amp; membership data</strong> — the circles you create or join and who is in them.</li>
       <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. These are scheduled for deletion after 24 hours, unless one is reported &mdash; see <em>Data retention</em> below.</li>
+      <li><strong>Private conversation messages</strong> — text you send one-to-one to a current member of a circle you share, including a pact discussion started through <em>Talk first</em>. Ordinary messages expire after 24 hours. Either participant can visibly choose <em>Keep in chat</em>, which extends that message to 30 days. Reported copies follow the safety-retention rules below.</li>
     </ul>
 
     <h3>Screen-usage information</h3>
@@ -100,7 +101,7 @@
 
     <h3>Information collected automatically</h3>
     <ul>
-      <li><strong>Push notification token</strong> — via Firebase Cloud Messaging, so we can send remote circle, pact-request, and shared-check-in notices. Private notices and Moment prompts are scheduled locally on your phone and do not use this token.</li>
+      <li><strong>Push notification token</strong> — via Firebase Cloud Messaging, so we can send remote circle, pact-request, private-conversation, and shared-check-in notices. Private-conversation notifications identify the sender but do not include the message text. Private notices and Moment prompts are scheduled locally on your phone and do not use this token.</li>
       <li><strong>Diagnostics &amp; crash data</strong> — via Firebase Crashlytics, to find and fix bugs. This may include device model, operating-system version, and technical details about a crash.</li>
       <li><strong>Basic device &amp; log data</strong> — such as app version and general device information used to operate and secure the service. PhonePact also creates a random installation identifier and a short label such as &ldquo;iPhone A1B2&rdquo; so two phones on one account keep separate pacts and histories. This is not a hardware serial number, advertising identifier, or device fingerprint.</li>
     </ul>
@@ -115,7 +116,7 @@
     <h2>2. How we use your information</h2>
     <ul>
       <li>To provide, operate, and maintain the App and your pact.</li>
-      <li>To enable your circle features — check-ins, the room, and change requests.</li>
+      <li>To enable your circle features — check-ins, rooms, one-to-one private conversations, and change requests.</li>
       <li>To send remote circle and pact notices, and to schedule the private notices you turn on locally.</li>
       <li>To keep the service secure and prevent abuse.</li>
       <li>To diagnose problems and improve the App.</li>
@@ -136,6 +137,7 @@
     <h2>3. How we share information</h2>
     <ul>
       <li><strong>With your circle</strong> — your name, avatar, each registered phone&rsquo;s short label and pact point, coarse duration check-ins attributed to the phone that measured them, and any room messages you send are visible to members of the circle you choose. PhonePact does not share a live presence signal.</li>
+      <li><strong>With a private-conversation participant</strong> — a one-to-one message and its pact context, if any, are visible only to you and the current shared-circle member in that conversation. Other members of either circle cannot read it.</li>
       <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor.&rdquo; Apple provides Sign in with Apple, Screen Time, and iPhone purchase services; Google Play may provide Android purchase services when billing is enabled. <strong>RevenueCat</strong> manages supported purchase status on our behalf; it receives your account identifier and purchase status, and never receives app/site identities or per-app screen-time detail. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a>, <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>, and <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>.</li>
       <li><strong>For legal reasons</strong> — if required by law, or to protect the rights, safety, or property of our users or us.</li>
       <li><strong>Business transfers</strong> — if we are involved in a merger, acquisition, or sale of assets, your information may be transferred, subject to this Policy.</li>
@@ -144,6 +146,7 @@
     <h2>4. Data retention</h2>
     <ul>
       <li><strong>Room messages</strong> — an hourly scheduled cleanup deletes rows once they are at least 24 hours old. Deleting your account immediately deletes ordinary room notes and check-in rows attributed to you, and scrubs reply excerpts and names that quote those rows.</li>
+      <li><strong>Private conversations</strong> — ordinary messages expire after 24 hours. A message visibly kept by either participant expires 30 days after it was sent. Empty conversation records are later removed. Deleting either participant&rsquo;s account immediately deletes the entire private conversation and its messages.</li>
       <li><strong>Reported messages</strong> — if someone reports a message, a copy of that message is
         kept with the report so we can review it. <strong>This copy does not disappear after 24
         hours</strong>, because a report we cannot read is a report we cannot act on. It is deleted
@@ -160,7 +163,7 @@
     <h2>5. Your choices and rights</h2>
     <ul>
       <li><strong>Access, correct, or delete</strong> your personal information.</li>
-      <li><strong>Delete your account</strong> from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. Account data, ordinary room notes and check-in rows attributed to you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list references tied to your account are scrubbed. Reports about you may be retained as anonymized safety records, with copied text attributed to you scrubbed. You can also email us to request deletion.</li>
+      <li><strong>Delete your account</strong> from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. Account data, private conversations, ordinary room notes and check-in rows attributed to you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list references tied to your account are scrubbed. Reports about you may be retained as anonymized safety records, with copied text attributed to you scrubbed. You can also email us to request deletion.</li>
       <li><strong>Turn off</strong> screen-usage access and notifications in your phone settings at any time.</li>
     </ul>
     <p><strong>EU/UK (GDPR):</strong> you also have the right to portability, to object to or restrict processing,

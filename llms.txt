@@ -34,9 +34,9 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 
 ## What PhonePact does
 
-1. **You set a pact point for each phone.** A daily amount in what that phone counts — the point at which you'd like to notice you've been on it. On iPhone, selecting everything in Apple's picker approximates a whole-device total; a smaller selection counts only that scope. The Android development build currently counts whole-device usage through Usage Access and does not offer an app picker. It is a threshold, not a limit. Lowering it later is yours alone. Raising it requires a stated duration and, once you have any real circle mate, approval from eligible people you select; the first yes or talk-first answer settles the request. Hiding every mate does not bypass approval. A person with no circle mates can raise it alone.
+1. **You set a pact point for each phone.** A daily amount in what that phone counts — the point at which you'd like to notice you've been on it. On iPhone, selecting everything in Apple's picker approximates a whole-device total; a smaller selection counts only that scope. The Android development build currently counts whole-device usage through Usage Access and does not offer an app picker. It is a threshold, not a limit. Lowering it later is yours alone. Raising it requires a stated duration and, once you have any real circle mate, approval from eligible people you select. The first yes settles it; the first Talk first response claims a one-to-one pact discussion and pauses everyone else until that responder decides or the request closes. Hiding every mate does not bypass approval. A person with no circle mates can raise it alone.
 2. **Time counts upward, and a private notice reaches you first.** PhonePact only ever states time already spent, never time remaining. Private notices are scheduled locally in a 20-, 30-, 45-, or 60-minute rhythm and can be turned off; the Moment prompt is also local.
-3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." A check-in can repeat every additional 30 minutes, up to six more times — as many as seven in a day. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room whose rows are swept after they are 24 hours old.
+3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." A check-in can repeat every additional 30 minutes, up to six more times — as many as seven in a day. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room whose rows are swept after they are 24 hours old. Current shared-circle members can also open one-to-one private conversations; ordinary messages fade after 24 hours and a visibly kept message lasts 30 days.
 
 ## What PhonePact deliberately does not do
 
@@ -47,7 +47,7 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 - No streaks, scores, rankings or leaderboards.
 - No ads, and no sale of usage data.
 - Not a parental-control app. The launch version is for people 13 and older.
-- Account deletion removes the account, ordinary room notes and check-in rows attributed to it, and reports filed by that account. Reports about the deleted account may remain as anonymized safety records, with copied deleted-author text scrubbed.
+- Account deletion removes the account, all of its private conversations, ordinary room notes and check-in rows attributed to it, and reports filed by that account. Reports about the deleted account may remain as anonymized safety records, with copied deleted-author text scrubbed.
 
 ## Key pages
 
