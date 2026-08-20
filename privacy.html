@@ -83,18 +83,19 @@
       <li><strong>Your hand-drawn signature</strong> — saved to personalize your &ldquo;Phone Pact.&rdquo; We treat this as sensitive personal information and store it only for that purpose.</li>
       <li><strong>Your pact answers &amp; goals</strong> — the intentions and settings you enter during onboarding, used to set up your pact and personalize the App.</li>
       <li><strong>Circle &amp; membership data</strong> — the circles you create or join and who is in them.</li>
-      <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. These are scheduled for deletion after 24 hours, unless one is reported &mdash; see <em>Data retention</em> below.</li>
+      <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. Ordinary messages expire after 24 hours. Any current circle member can visibly choose <em>Keep</em> on a member-written message, which extends that message for everyone to no more than 30 days after it was sent. Reported copies follow the safety-retention rules below.</li>
       <li><strong>Private conversation messages</strong> — text you send one-to-one to a current member of a circle you share, including a pact discussion started through <em>Talk first</em>. Ordinary messages expire after 24 hours. Either participant can visibly choose <em>Keep in chat</em>, which extends that message to 30 days. Reported copies follow the safety-retention rules below.</li>
     </ul>
 
     <h3>Screen-usage information</h3>
     <p>With your permission, PhonePact uses the screen-usage system provided by your phone. On iPhone,
     Apple&rsquo;s Screen Time / Family Controls / Device Activity features count the scope you select during setup;
-    that may be the whole device or selected apps, categories, and websites. The Android development build uses
-    Android Usage Access to count whole-device foreground usage and does not currently offer an app picker.
-    Android makes per-app usage available to PhonePact on the phone, but <strong>PhonePact does not send app or
-    package identities, exact per-app details, websites, or browsing history to our servers or your circle.</strong>
-    Those details stay on your device. Coarse duration check-ins (for example, &ldquo;Hank&rsquo;s iPhone reached 2h
+    that may be the whole device or selected apps, categories, and websites. On Android, PhonePact uses Usage
+    Access and lets you choose the whole phone or individual launchable apps in a private on-device picker.
+    Home can show you a private &ldquo;Where it went&rdquo; summary of up to five selected apps used for at least one
+    minute today. <strong>PhonePact does not send app or package identities, exact per-app details, websites, or
+    browsing history to our servers or your circle.</strong> Those details stay on your device. Coarse duration
+    check-ins (for example, &ldquo;Hank&rsquo;s iPhone reached 2h
     today&rdquo;) go to your circle when a threshold is recorded. If you use PhonePact on more than one phone, each
     phone has its own pact and up to seven daily aggregate totals in its own private device record; only you can
     read those totals.</p>
@@ -110,7 +111,7 @@
     <p>When paid subscriptions are enabled, purchases will be sold through the applicable app store.
     <strong>The store processes your payment; we do not see or store your credit-card or payment details.</strong>
     We receive only purchase status (for example, active or expired) so we can unlock features. PhonePact is
-    free for now during launch and beta. Pricing may change later; any paid plan and its terms will be shown
+    free for now during launch. Pricing may change later; any paid plan and its terms will be shown
     before purchase.</p>
 
     <h2>2. How we use your information</h2>
@@ -145,7 +146,7 @@
 
     <h2>4. Data retention</h2>
     <ul>
-      <li><strong>Room messages</strong> — an hourly scheduled cleanup deletes rows once they are at least 24 hours old. Deleting your account immediately deletes ordinary room notes and check-in rows attributed to you, and scrubs reply excerpts and names that quote those rows.</li>
+      <li><strong>Room messages</strong> — ordinary rows expire after 24 hours. A member-written message visibly kept by at least one current circle member expires no later than 30 days after it was sent; releasing the last Keep restores its ordinary expiry without reviving an already expired message. Deleting your account immediately deletes room notes and check-in rows attributed to you, and scrubs reply excerpts, reactions, Keep attribution, and names tied to those rows.</li>
       <li><strong>Private conversations</strong> — ordinary messages expire after 24 hours. A message visibly kept by either participant expires 30 days after it was sent. Empty conversation records are later removed. Deleting either participant&rsquo;s account immediately deletes the entire private conversation and its messages.</li>
       <li><strong>Reported messages</strong> — if someone reports a message, a copy of that message is
         kept with the report so we can review it. <strong>This copy does not disappear after 24

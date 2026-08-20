@@ -173,7 +173,6 @@ def main():
         "unsupported automatic check-ins": "PhonePact automate the measuring and check-ins",
         "unsupported automatic circle delivery": "every circle automatically receives",
         "unsupported automatic product delivery": "PhonePact to automate",
-        "false exact room expiry": "Room notes expire after 24 hours and do not accumulate",
         "stale post-deletion room persistence": "authored room rows can remain",
         "retired structured-data offer": '"offers":',
         "retired preorder availability": "schema.org/PreOrder",
@@ -183,10 +182,46 @@ def main():
         "retired launch trial": "free for 30 days after launch",
         "retired paywall copy": "paywall",
         "retired post-beta pricing": "post-beta",
+        "retired Android no-picker claim": "has no app picker",
+        "retired Android no-picker policy claim": "does not offer an app picker",
+        "retired Android no-picker current claim": "does not currently offer an app picker",
+        "retired Android whole-device-only claim": "currently counts whole-device usage",
     }
     for label, phrase in banned.items():
         if phrase.lower() in public_text.lower():
             failures.append(f"source-truth regression: {label}")
+
+    for relative in ("privacy.html", "terms.html"):
+        policy_text = (REPO / relative).read_text(encoding="utf-8", errors="replace").lower()
+        if "current circle member" not in policy_text or "30 days" not in policy_text:
+            failures.append(f"retention disclosure missing from {relative}")
+
+    android_picker_pages = (
+        "privacy.html",
+        "terms.html",
+        "ethos.html",
+        "what-is-phonepact.html",
+        "llms.txt",
+    )
+    for relative in android_picker_pages:
+        text = (REPO / relative).read_text(encoding="utf-8", errors="replace").lower()
+        if "individual launchable apps" not in text:
+            failures.append(f"Android picker disclosure missing from {relative}")
+
+    private_breakdown_pages = (
+        "privacy.html",
+        "support.html",
+        "ethos.html",
+        "what-is-phonepact.html",
+        "llms.txt",
+        "blog/phonepact-privacy-architecture.html",
+    )
+    for relative in private_breakdown_pages:
+        text = (REPO / relative).read_text(encoding="utf-8", errors="replace").lower()
+        if "where it went" not in text or (
+            "stay" not in text and "private" not in text
+        ):
+            failures.append(f"private breakdown disclosure missing from {relative}")
 
     retired_annual_price = re.compile(
         r"(?:PhonePact[^\r\n]*\$9\.99|\$9\.99[^\r\n]*PhonePact|"
