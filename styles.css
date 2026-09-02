@@ -2557,6 +2557,168 @@ blockquote {
 .product-step h3 { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
 .product-step > p { margin-top: 0.65rem; line-height: 1.55; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   "How PhonePact Works" — the three steps.
+
+   Every value below is an existing :root token. No new hues are introduced;
+   the section was not short of colour, it was short of structure.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ONE FRAME PER STEP, NOT TWO. The step was a bordered card containing a
+   bordered mock — two nested boxes competing to be the object, which is what
+   made a careful layout read as busy. The mock is the object; the step around
+   it is now just space, so the eye lands on the product instead of on a
+   rectangle drawn around the product. */
+/* NOTE: grid-template-columns is deliberately NOT restated here. styles.css
+   already sets three columns, and the max-width:900px rule collapses them to
+   one. Repeating the desktop value in a later rule silently beat that media
+   query and ran the cards off the side of every phone. */
+.product-flow {
+  gap: 2.5rem;
+  align-items: start;
+}
+.product-step {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* The step number was a small figure floating in a corner, carrying no weight
+   and joining nothing. It becomes a ledger marker — the same hairline device
+   the section dividers already use — so the three steps read as a sequence
+   rather than as three unrelated cards that happen to be adjacent. */
+.product-step__number {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--accent-active);
+}
+.product-step__number::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ledger-line);
+}
+
+/* A full-strength --deep-green hairline at this size reads as a drawn box.
+   The frame only has to say where the screen stops; a tint of the same green
+   plus a shallow lift does that and lets the type inside carry the card. The
+   gradient is two existing paper tokens, warm at the top edge where light
+   would fall. */
+.mini-phone {
+  height: 292px;
+  min-height: 292px;
+  margin: 0 0 1.35rem;
+  padding: 1.15rem 1.15rem 1.1rem;
+  border: 1px solid rgba(45, 74, 53, 0.15);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--pearl-warm) 0%, var(--ancient-pearl) 100%);
+  box-shadow:
+    0 1px 2px rgba(45, 74, 53, 0.045),
+    0 14px 30px -20px rgba(45, 74, 53, 0.3);
+}
+
+.mini-phone__eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-muted-strong);
+}
+
+/* THE ACTION ROW IS THE ALIGNMENT LINE. Three mocks of different internal
+   shape previously ended wherever their content happened to stop, so the
+   buttons sat at three different heights and the set looked assembled rather
+   than designed. Pinning every action row to the same baseline is the single
+   change that makes them read as one family. */
+.demo-checkin__prompt,
+.mini-phone__request .mini-phone__actions { margin-top: auto; }
+
+/* TWO ALIGNMENT LINES, TOP AND BOTTOM. Every eyebrow sits on one and every
+   action row on the other, so both hero figures land at the same height and
+   the slack each step has left over collects in the middle, where it reads as
+   breathing room rather than as a hole. Centring step 1's figure instead was
+   the obvious move and the wrong one — it put the two big serif numbers at
+   two different heights, which is the one misalignment nobody can miss. */
+.mini-phone--intention .mini-phone__primary { margin-top: auto; }
+
+/* The hero figure is the best thing in this section and was the smallest it
+   could afford to be. */
+.demo-intention__value,
+.demo-checkin__time {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(2.3rem, 3.9vw, 2.9rem);
+  letter-spacing: -0.015em;
+}
+
+.demo-stepper { margin: 0.5rem 0 0; gap: 1rem; }
+.demo-stepper button {
+  width: 40px;
+  height: 40px;
+  border-color: rgba(45, 74, 53, 0.2);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.demo-stepper button:hover { border-color: var(--accent-active); background: rgba(200, 219, 197, 0.28); }
+.demo-stepper span { font-size: 0.5rem; letter-spacing: 0.14em; color: var(--ink-muted-strong); }
+
+.mini-phone__primary { border-radius: 10px; letter-spacing: 0.02em; }
+.mini-phone__actions { gap: 0.55rem; }
+.mini-phone__actions button { border-radius: 10px; border-color: rgba(45, 74, 53, 0.22); }
+.mini-phone__actions button.is-primary { border-color: var(--deep-green); }
+
+/* The arc carried the one number in step 2 that explains the whole idea and
+   was rendered at half the width available to it. */
+.demo-checkin__arc { width: 62%; margin: 0.1rem auto 0.15rem; }
+.demo-arc__track { stroke: rgba(45, 74, 53, 0.16); }
+.demo-arc__track, .demo-arc__fill { stroke-width: 2; stroke-linecap: round; }
+.demo-arc__now { r: 4.5; }
+.demo-checkin__arc text { font-size: 0.42rem; letter-spacing: 0.1em; fill: var(--ink-muted-strong); }
+.demo-checkin__prompt > p { line-height: 1.45; }
+
+/* Step 3 held the most words in the same box and paid for it in 0.43rem type —
+   below anything anyone reads. The eyebrow row and the quote both come up to a
+   legible size; the room comes from the tighter frame around them. */
+.mini-phone__request-head { font-size: 0.5rem; letter-spacing: 0.1em; color: var(--ink-muted-strong); }
+.mini-phone__request > p { font-size: 0.9rem; line-height: 1.5; }
+.mini-phone__request > p em { font-size: 0.68rem; color: var(--ink-muted-strong); }
+.mini-phone__request blockquote {
+  margin: 0 0 0.7rem;
+  padding-left: 0.75rem;
+  border-left-color: rgba(58, 107, 72, 0.45);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink-muted-strong);
+}
+
+/* The caption is the step's title and was set smaller than the body text it
+   titled. */
+.product-step h3 {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--deep-green);
+}
+.product-step > p {
+  margin-top: 0.55rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-muted-strong);
+}
+
+@media (max-width: 900px) {
+  .product-flow { gap: 2.75rem; }
+}
+
+/* The status line reads out what "Set my pact" just did. Left after the button
+   it sat in the flow and lifted the button a status-height above the other two
+   action rows — a twenty-pixel misalignment on the one line the eye uses to
+   read the three steps as a set. Above the button it reserves the same space,
+   says the same thing, and the baseline holds. */
+.mini-phone__status { margin: 0 0 0.5rem; min-height: 0.95rem; }
+
 @media (prefers-reduced-motion: reduce) {
   .mini-phone__primary,
   .mini-phone__actions button,
