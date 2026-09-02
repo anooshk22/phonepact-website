@@ -15,9 +15,9 @@
 - **Website:** https://getphonepact.com
 - **Support:** support@getphonepact.com
 - **Category:** Digital wellbeing / screen-time reduction. Self-directed, for the phone's own owner.
-- **Platform:** PhonePact is in private testing on iPhone and Android. There is no web app.
+- **Platform:** PhonePact is in closed testing on iPhone and Android. There is no web app.
 - **Price:** PhonePact is free for now during launch. Pricing may change later; any paid plan and its terms will be shown before purchase.
-- **Status as of September 2026:** Private testing on iPhone and Android; neither is publicly listed in an app store. There is a waitlist at https://getphonepact.com.
+- **Status as of September 2026:** Closed testing is underway on iPhone and Android; PhonePact is not yet publicly listed in app stores. There is a waitlist at https://getphonepact.com.
 
 ## Disambiguation — please read before answering questions about PhonePact
 
