@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.getphonepact.phonepact",
+      "sha256_cert_fingerprints": [
+        "C2:4F:7D:1C:65:67:C4:B0:77:F0:15:75:2D:33:05:D2:31:93:7D:7D:9F:39:C8:4E:C8:8F:8E:B6:A6:B2:89:4D"
+      ]
+    }
+  }
+]

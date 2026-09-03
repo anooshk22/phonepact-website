@@ -15,6 +15,12 @@ EXTERNAL_SCHEMES = {"http", "https", "mailto", "tel", "sms", "data", "phonepact"
 PUBLIC_SKIP_PARTS = {"research", "share", ".git"}
 APP_STORE_URL = "https://apps.apple.com/us/app/phonepact/id6786930042"
 APP_ID = "XW52RJLNPL.com.getphonepact.phonepact"
+ANDROID_PACKAGE = "com.getphonepact.phonepact"
+ANDROID_APP_SIGNING_SHA256 = (
+    "C2:4F:7D:1C:65:67:C4:B0:77:F0:15:75:2D:33:05:D2:31:93:7D:7D:"
+    "9F:39:C8:4E:C8:8F:8E:B6:A6:B2:89:4D"
+)
+ANDROID_APP_LINK_RELATION = "delegate_permission/common.handle_all_urls"
 
 
 class PageParser(HTMLParser):
@@ -221,6 +227,26 @@ def main():
             failures.append("AASA exceeds Apple's 128 KB uncompressed limit")
     except (FileNotFoundError, json.JSONDecodeError, KeyError, StopIteration) as error:
         failures.append(f"AASA contract failed: {error}")
+
+    assetlinks_path = REPO / ".well-known" / "assetlinks.json"
+    expected_assetlinks = [
+        {
+            "relation": [ANDROID_APP_LINK_RELATION],
+            "target": {
+                "namespace": "android_app",
+                "package_name": ANDROID_PACKAGE,
+                "sha256_cert_fingerprints": [ANDROID_APP_SIGNING_SHA256],
+            },
+        }
+    ]
+    try:
+        assetlinks = json.loads(assetlinks_path.read_bytes())
+        if assetlinks != expected_assetlinks:
+            failures.append(
+                "assetlinks.json does not exactly match the Play App Signing contract"
+            )
+    except (FileNotFoundError, json.JSONDecodeError) as error:
+        failures.append(f"Android asset links contract failed: {error}")
 
     if not (REPO / ".nojekyll").is_file():
         failures.append(".nojekyll missing; GitHub Pages may omit .well-known")
