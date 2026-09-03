@@ -2754,7 +2754,22 @@ blockquote {
 
 /* The arc carried the one number in step 2 that explains the whole idea and
    was rendered at half the width available to it. */
-.demo-checkin__arc { width: 62%; margin: 0.1rem auto 0.15rem; }
+/* WIDTH-PROPORTIONAL ART INSIDE A FIXED-HEIGHT CARD. The svg keeps its
+   viewBox ratio, so its HEIGHT is a function of the card's WIDTH — and the card
+   more than doubles in width (222px to 480px) the moment .product-flow collapses
+   to one column and takes its 480px cap. The arc went 58px to 139px with it and
+   pushed 14px of content through the bottom of a 292px card: at roughly
+   520-900px the Pause and Continue buttons hung outside the rounded frame.
+   
+   A percentage alone cannot express "as wide as there is room for, but never
+   tall enough to burst the card". The cap is what makes both true, and it is in
+   px on purpose — the constraint being expressed is about the card's fixed
+   height, which is also in px. */
+.demo-checkin__arc {
+  width: 62%;
+  max-width: 190px;
+  margin: 0.1rem auto 0.15rem;
+}
 .demo-arc__track { stroke: rgba(45, 74, 53, 0.16); }
 .demo-arc__track, .demo-arc__fill { stroke-width: 2; stroke-linecap: round; }
 .demo-arc__now { r: 4.5; }
