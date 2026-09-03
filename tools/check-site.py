@@ -13,6 +13,8 @@ from urllib.parse import unquote, urlsplit
 REPO = Path(__file__).resolve().parent.parent
 EXTERNAL_SCHEMES = {"http", "https", "mailto", "tel", "sms", "data", "phonepact"}
 PUBLIC_SKIP_PARTS = {"research", "share", ".git"}
+APP_STORE_URL = "https://apps.apple.com/us/app/phonepact/id6786930042"
+APP_ID = "XW52RJLNPL.com.getphonepact.phonepact"
 
 
 class PageParser(HTMLParser):
@@ -157,6 +159,72 @@ def main():
         if not passed:
             failures.append(f"form contract failed: {label}")
 
+    # The public launch state and invitation fallback are easy to regress: a
+    # generic store redirect would lose the invitation code, while a generic
+    # Smart App Banner on /join would open the app without that code. Keep the
+    # homepage download-first and the invitation page code-first.
+    index_text = (REPO / "index.html").read_text(encoding="utf-8", errors="replace")
+    join_text = (REPO / "join.html").read_text(encoding="utf-8", errors="replace")
+    llms_text = (REPO / "llms.txt").read_text(encoding="utf-8", errors="replace")
+    launch_contracts = {
+        "homepage App Store listing": APP_STORE_URL in index_text,
+        "homepage official App Store badge": (
+            "toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/"
+            in index_text
+        ),
+        "homepage Smart App Banner": (
+            'name="apple-itunes-app" content="app-id=6786930042"' in index_text
+        ),
+        "homepage Android test is secondary": (
+            "Join Android testing" in index_text and "phonepact-website-android-test" in index_text
+        ),
+        "invite page App Store fallback": APP_STORE_URL in join_text,
+        "invite page custom-scheme fallback": "phonepact://join?c=" in join_text,
+        "invite page copy control": 'id="join-copy"' in join_text,
+        "invite page does not leak invite referrer": (
+            'name="referrer" content="no-referrer"' in join_text
+        ),
+        "invite page has no code-dropping Smart App Banner": (
+            'name="apple-itunes-app"' not in join_text
+        ),
+        "invite codes use production alphabet": (
+            "^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$" in join_text
+        ),
+        "machine-readable launch status": (
+            APP_STORE_URL in llms_text and "closed testing on Android" in llms_text
+        ),
+    }
+    for label, passed in launch_contracts.items():
+        if not passed:
+            failures.append(f"launch contract failed: {label}")
+
+    aasa_path = REPO / ".well-known" / "apple-app-site-association"
+    try:
+        aasa_bytes = aasa_path.read_bytes()
+        aasa = json.loads(aasa_bytes)
+        details = aasa["applinks"]["details"]
+        components = next(
+            item["components"] for item in details if APP_ID in item.get("appIDs", [])
+        )
+        query_contracts = {
+            tuple(sorted(component.get("?", {}).items()))
+            for component in components
+            if component.get("/") == "/join"
+        }
+        if (("c", "??????"),) not in query_contracts:
+            failures.append("AASA missing exact /join?c=<six characters> route")
+        if (("code", "??????"),) not in query_contracts:
+            failures.append("AASA missing exact /join?code=<six characters> route")
+        if any(component.get("/") != "/join" for component in components):
+            failures.append("AASA contains an app-link route outside canonical /join")
+        if len(aasa_bytes) >= 128 * 1024:
+            failures.append("AASA exceeds Apple's 128 KB uncompressed limit")
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, StopIteration) as error:
+        failures.append(f"AASA contract failed: {error}")
+
+    if not (REPO / ".nojekyll").is_file():
+        failures.append(".nojekyll missing; GitHub Pages may omit .well-known")
+
     public_text = "\n".join(
         path.read_text(encoding="utf-8", errors="replace")
         for pattern in ("*.html", "*.txt")
@@ -186,6 +254,10 @@ def main():
         "retired Android no-picker policy claim": "does not offer an app picker",
         "retired Android no-picker current claim": "does not currently offer an app picker",
         "retired Android whole-device-only claim": "currently counts whole-device usage",
+        "stale launch waitlist CTA": "join the waitlist",
+        "stale interface status": "interface in development",
+        "stale public-listing status": "not yet publicly listed",
+        "stale dual-platform test status": "closed testing on iPhone and Android",
     }
     for label, phrase in banned.items():
         if phrase.lower() in public_text.lower():

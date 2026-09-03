@@ -319,23 +319,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = Object.fromEntries(new FormData(waitlistForm).entries());
       payload.timestamp = new Date().toISOString();
       payload.sms_consent = phone.value ? 'CONSENTED' : 'NOT_REQUESTED';
-      payload.form_type = 'waitlist';
+      payload.form_type = 'android_closed_test';
       submitButton.disabled = true;
-      submitButton.textContent = 'Joining…';
-      waitlistStatus.textContent = 'Saving your place…';
+      submitButton.textContent = 'Joining test…';
+      waitlistStatus.textContent = 'Sending your request…';
       if (waitlistBackup) waitlistBackup.hidden = true;
 
       try {
         const delivered = await postFormPayload(payload);
-        if (!delivered) throw new Error('The waitlist endpoint rejected the submission.');
+        if (!delivered) throw new Error('The Android testing endpoint rejected the submission.');
         waitlistForm.hidden = true;
         waitlistSuccess.classList.add('active');
         waitlistSuccess.setAttribute('tabindex', '-1');
         waitlistSuccess.focus();
       } catch (error) {
         submitButton.disabled = false;
-        submitButton.textContent = 'Join the waitlist';
-        waitlistStatus.textContent = 'We could not confirm that your place was saved. Try again or use the backup form.';
+        submitButton.textContent = 'Join Android testing';
+        waitlistStatus.textContent = 'We could not confirm your testing request. Try again or use the backup form.';
         if (waitlistBackup) waitlistBackup.hidden = false;
       }
     });
@@ -348,14 +348,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Waitlist Share Card Setup ── */
+  /* ── Post-signup Share Card Setup ── */
   const copyShareBtn = document.getElementById('copy-share-btn');
   const nativeShareBtn = document.getElementById('native-share-btn');
   const shareStatus = document.getElementById('share-status');
   
-  const shareMessage = "Hey! I just signed up for PhonePact. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact? https://getphonepact.com";
+  const shareMessage = "PhonePact is live on iPhone. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact? https://getphonepact.com";
   const shareUrl = "https://getphonepact.com";
-  const shareTextOnly = "Hey! I just signed up for PhonePact. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact?";
+  const shareTextOnly = "PhonePact is live on iPhone. It helps us use our phones less through a pact with people we trust—without lockouts or shame. Want to make a pact?";
 
   if (copyShareBtn) {
     copyShareBtn.addEventListener('click', async () => {

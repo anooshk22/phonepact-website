@@ -12,13 +12,16 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="PhonePact">
   <meta property="og:url" content="https://getphonepact.com/">
-  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PhonePact — a screen-time pact with people you trust">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="PhonePact — The Screen Time App Without Lockouts">
   <meta name="twitter:description" content="You set your screen time. Trusted circles receive duration-only check-ins when you reach it. No blocking, lockouts, or shame.">
-  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
+  <meta name="twitter:image:alt" content="PhonePact — a screen-time pact with people you trust">
+  <meta name="apple-itunes-app" content="app-id=6786930042">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +48,7 @@
        claim is worse than an absent one. Organization currently has the
        LinkedIn company page. Add each further URL as it goes live: Product
        Hunt, Crunchbase, AlternativeTo, X/Instagram, Wikidata. The App Store
-       listing goes on SoftwareApplication.sameAs (still empty, pre-launch)
-       along with installUrl/downloadUrl.
+       listing goes on SoftwareApplication.sameAs, installUrl, and downloadUrl.
        ══════════════════════════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -82,7 +84,7 @@
         "email": "support@getphonepact.com",
         "foundingDate": "2026",
         "slogan": "Not another app blocker. A pact with people you trust.",
-        "description": "PhonePact LLC is the independent company behind PhonePact, a mobile app for iPhone and Android currently in closed testing. It uses self-directed goals, private notices, and check-ins shared with trusted circles, without app lockouts or surveillance.",
+        "description": "PhonePact LLC is the independent company behind PhonePact, a mobile app available on iPhone and in closed testing on Android. It uses self-directed goals, private notices, and check-ins shared with trusted circles, without app lockouts or surveillance.",
         "disambiguatingDescription": "PhonePact LLC is an independent US company founded by Hank Yang in 2026. It is not affiliated with, owned by, or related to any other company with a similarly spelled name, and it does not make parental-control or child-monitoring software.",
         "knowsAbout": [
           "Screen time reduction",
@@ -129,7 +131,9 @@
         "isFamilyFriendly": true,
         "publisher": {"@id": "https://getphonepact.com/#organization"},
         "author": {"@id": "https://getphonepact.com/about-hank#hank"},
-        "sameAs": []
+        "installUrl": "https://apps.apple.com/us/app/phonepact/id6786930042",
+        "downloadUrl": "https://apps.apple.com/us/app/phonepact/id6786930042",
+        "sameAs": ["https://apps.apple.com/us/app/phonepact/id6786930042"]
       },
       {
         "@type": "Person",
@@ -180,16 +184,19 @@
       <p class="hero__title">Not another app blocker. A pact with people you trust.</p>
       <p class="hero__summary">Work together to set your screen time goals. Learn to use your phone less without lockouts, streaks, or shame. </p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
+        <a class="app-store-badge-link" href="https://apps.apple.com/us/app/phonepact/id6786930042" aria-label="Download PhonePact on the App Store">
+          <img class="app-store-badge" src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="180" height="60">
+        </a>
         <a class="hero__text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
       </div>
+      <p class="hero__availability">Available now on iPhone <span aria-hidden="true">·</span> Android is in closed testing</p>
       <ul class="hero__proof" aria-label="PhonePact principles">
         <li>Self-directed</li>
         <li>Community support</li>
         <li>No ads or data selling</li>
       </ul>
     </div>
-    <div class="hero__product" aria-label="Concept preview of the PhonePact daily intention screen">
+    <div class="hero__product" aria-label="Preview of the PhonePact daily intention screen">
       <div class="phone-frame phone-frame--hero">
         <div class="phone-frame__speaker" aria-hidden="true"></div>
         <div class="phone-ui">
@@ -230,7 +237,7 @@
           </div>
         </div>
       </div>
-      <p class="hero__product-caption">Concept preview · interface in development</p>
+      <p class="hero__product-caption">A glimpse inside PhonePact</p>
     </div>
   </div>
 </section>
@@ -251,7 +258,7 @@
 		
           <p>Restriction helps in the moment, but it doesn't teach true self-regulation.</p>
           <p>PhonePact explores another path: <span class="issue__emphasis">strengthening</span> awareness and agency with support from people you trust.</p>
-		<p>We are building PhonePact around that design thesis.</p>
+		<p>We built PhonePact around that design thesis.</p>
         </div>
       </div>
       <div class="issue__cards reveal stagger-3">
@@ -389,32 +396,36 @@
 
 
 <!-- ═══════════════════════════════════════════════════
-     SECTION D: WAITLIST FORM
+     SECTION D: GET PHONEPACT
      ═══════════════════════════════════════════════════ -->
-<section class="section section--spacious waitlist" id="waitlist">
+<section class="section section--spacious waitlist" id="get-phonepact">
+  <!-- Keeps old shared #waitlist links from breaking while the public site and
+       search caches move to #get-phonepact. -->
+  <span id="waitlist" class="anchor-alias" aria-hidden="true"></span>
   <div class="container">
     <div class="waitlist__intro reveal">
-      <h2 class="waitlist__header">Join the Waitlist</h2>
-      <p class="waitlist__subhead">Be first to try a pact, not a punishment.</p>
-      <p class="waitlist__prompt">Tell us a little about the phone pact you would make.</p>
+      <h2 class="waitlist__header">Get PhonePact</h2>
+      <p class="waitlist__subhead">A pact, not a punishment.</p>
+      <p class="waitlist__prompt">PhonePact is available now on iPhone.</p>
+      <a class="app-store-badge-link app-store-badge-link--section" href="https://apps.apple.com/us/app/phonepact/id6786930042" aria-label="Download PhonePact on the App Store">
+        <img class="app-store-badge" src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="180" height="60" loading="lazy">
+      </a>
+      <p class="download-note">Free for now during launch. Pricing may change later; any paid plan and its terms will be shown before purchase.</p>
     </div>
 
     <form class="form-container waitlist-form reveal stagger-2" id="waitlist-form" action="https://formspree.io/f/xlgynzzl" method="POST" novalidate>
+      <div class="android-test-intro">
+        <p class="android-test-intro__label">Android</p>
+        <h3>Help test PhonePact</h3>
+        <p>Android is still in closed testing. Leave your email and we&rsquo;ll send access as testing opens.</p>
+      </div>
       <div class="form-field">
         <label for="email-input">Email address <span aria-hidden="true">*</span></label>
         <input type="email" class="form-input" id="email-input" name="email" autocomplete="email" required aria-describedby="email-error">
         <p class="form-error" id="email-error" role="alert"></p>
       </div>
-      <div class="form-field">
-        <label for="device-select">Which phone do you use? <span aria-hidden="true">*</span></label>
-        <select class="form-select" id="device-select" name="device" required aria-describedby="device-error">
-          <option value="">Choose one</option>
-          <option value="iphone">iPhone</option>
-          <option value="android">Android</option>
-          <option value="both">Both</option>
-        </select>
-        <p class="form-error" id="device-error" role="alert"></p>
-      </div>
+      <input type="hidden" id="device-select" name="device" value="android">
+      <p class="form-error" id="device-error" role="alert" hidden></p>
       <div class="form-field">
         <label for="partner-select">Who would you make a PhonePact with? <span aria-hidden="true">*</span></label>
         <select class="form-select" id="partner-select" name="partner" required aria-describedby="partner-error">
@@ -441,7 +452,7 @@
           <option value="presence">Being more present with people</option>
           <option value="other">Something else</option>
         </select>
-        <p class="form-hint" id="help-goal-hint">This helps us decide what to build first. It does not affect your place on the waitlist.</p>
+        <p class="form-hint" id="help-goal-hint">This helps us prioritize the Android test. It does not affect access order.</p>
         <div id="help-goal-other-wrap" hidden>
           <label for="help-goal-other">Tell us in your own words <span class="form-optional">(optional)</span></label>
           <input type="text" class="form-input" id="help-goal-other" name="help_goal_other" maxlength="160">
@@ -457,16 +468,16 @@
         <div class="tcpa-wrapper">
           <label class="tcpa-label" for="tcpa-checkbox">
             <input type="checkbox" class="tcpa-checkbox" id="tcpa-checkbox" name="sms_consent" value="yes">
-            <span class="tcpa-text">I agree to receive automated PhonePact launch and beta text messages. Consent is optional. Message and data rates may apply. Reply STOP to opt out. View our <a href="privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms" target="_blank" rel="noopener">Terms.</a></span>
+            <span class="tcpa-text">I agree to receive automated PhonePact Android testing text messages. Consent is optional. Message and data rates may apply. Reply STOP to opt out. View our <a href="privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms" target="_blank" rel="noopener">Terms.</a></span>
           </label>
           <p class="form-error" id="consent-error" role="alert"></p>
         </div>
       </div>
       <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <input type="hidden" name="source" value="phonepact-website">
+      <input type="hidden" name="source" value="phonepact-website-android-test">
       <input type="hidden" name="cta_source" id="cta-source">
-      <input type="hidden" name="_subject" value="New PhonePact waitlist signup">
-      <button class="btn btn--primary btn--full" type="submit" id="submit-btn">Join the waitlist</button>
+      <input type="hidden" name="_subject" value="New PhonePact Android testing signup">
+      <button class="btn btn--primary btn--full" type="submit" id="submit-btn">Join Android testing</button>
       <p class="form-privacy">No spam. No tracking pixels. Unsubscribe whenever you want.</p>
       <p class="form-status" id="waitlist-status" aria-live="polite"></p>
       <button class="btn btn--secondary btn--full" type="button" id="waitlist-backup" hidden>Use the backup form</button>
@@ -475,17 +486,17 @@
     <!-- Success State -->
     <div class="form-success">
       <div class="form-success__icon">✦</div>
-      <p class="form-success__title">You&rsquo;re on the list.</p>
-      <p class="form-success__text">We&rsquo;ll reach out when PhonePact is ready. You still choose. You just do not have to choose alone.</p>
+      <p class="form-success__title">You&rsquo;re on the Android testing list.</p>
+      <p class="form-success__text">We&rsquo;ll reach out when testing access opens for you. You still choose. You just do not have to choose alone.</p>
       
       <div class="share-card">
-        <h3 class="share-card__title">Start your circle</h3>
-        <p class="share-card__text">PhonePact begins with people you trust. Invite someone you would want in your trusted circle:</p>
+        <h3 class="share-card__title">PhonePact is live on iPhone</h3>
+        <p class="share-card__text">Know someone with an iPhone who would make a pact with you? Send them PhonePact:</p>
         <div class="share-card__box">
           <input type="text" class="share-card__input" id="share-link-input" readonly aria-label="Invite link to share" value="https://getphonepact.com">
           <button class="btn btn--secondary share-card__btn" id="copy-share-btn">Copy Invite</button>
         </div>
-        <button class="btn btn--primary share-card__btn-native" id="native-share-btn">Share via Message</button>
+        <button class="btn btn--primary share-card__btn-native" id="native-share-btn">Share PhonePact</button>
         <p class="share-card__hint" id="share-status" aria-live="polite"></p>
       </div>
     </div>
@@ -596,6 +607,7 @@
       <p class="footer__copyright">&copy; 2026 PhonePact LLC. All rights reserved.</p>
       <p>New here? Start with <a href="what-is-phonepact">what PhonePact is</a>.</p>
       <p>No advertising pixels. No sale of personal information. Read our <a href="terms">Terms</a> and <a href="privacy">Privacy Policy</a>, or contact <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
+      <p>Apple and the Apple logo are trademarks of Apple Inc. App Store is a service mark of Apple Inc.</p>
     </div>
   </div>
 </footer>

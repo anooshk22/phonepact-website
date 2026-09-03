@@ -1,0 +1,27 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "XW52RJLNPL.com.getphonepact.phonepact"
+        ],
+        "components": [
+          {
+            "/": "/join",
+            "?": {
+              "c": "??????"
+            },
+            "comment": "PhonePact circle invitations using the canonical c parameter."
+          },
+          {
+            "/": "/join",
+            "?": {
+              "code": "??????"
+            },
+            "comment": "PhonePact circle invitations using the compatible code parameter."
+          }
+        ]
+      }
+    ]
+  }
+}

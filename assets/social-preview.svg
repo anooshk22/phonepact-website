@@ -6,8 +6,8 @@
        and twitter:image point at it, cache-busted with ?v=). Nothing serves
        this SVG. Re-render after editing:
 
-         chrome --headless --disable-gpu --screenshot="social-preview.png" \
-                --window-size=1200,630 --virtual-time-budget=10000 \
+         chrome with headless, disable-gpu, screenshot, window-size=1200,630,
+                and virtual-time-budget=10000 options
                 "file:///…/render.html"
 
        where render.html inlines this markup with `html,body{margin:0}`. The
@@ -27,13 +27,13 @@
     .mono   { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; }
   </style>
 
-  <!-- --ancient-pearl -->
+  <!-- ancient-pearl background token -->
   <rect width="1200" height="630" fill="#F8F6F0"/>
 
   <!-- The nav wordmark, top left, where the site puts it. -->
   <text class="serif" x="72" y="96" fill="#2d4a35" font-size="30" letter-spacing="-0.5">PhonePact</text>
 
-  <!-- .hero__tagline — Inter 600, 0.28em tracking, uppercase, --accent-active.
+  <!-- .hero__tagline — Inter 600, 0.28em tracking, uppercase, accent-active.
        The hero's first line, verbatim. -->
   <text class="sans" x="72" y="172" fill="#3a6b48" font-size="13" font-weight="600" letter-spacing="3.6">YOU WERE NEVER SUPPOSED TO FIGHT THE ALGORITHM ALONE.</text>
 
@@ -74,7 +74,7 @@
     <text x="464" y="524" fill="#2d4a35">NO ADS OR DATA SELLING</text>
   </g>
 
-  <!-- The phone, built to .phone-frame: --deep-green body, 40px radius, the
+  <!-- The phone, built to .phone-frame: deep-green body, 40px radius, the
        SPEAKER PILL the hero uses (square top corners, 14px bottom) rather than
        the notch the old card drew, and the hero's own 2deg tilt. -->
   <g transform="translate(818 62) rotate(2 150 252)">
@@ -113,13 +113,7 @@
       </g>
     </g>
 
-    <!-- .hero__product-caption, the hero's wording in full. The card labels this
-         screen a concept because the hero does and because it is true: a card
-         showing an unshipped interface unlabelled would be claiming a product
-         that does not exist yet. Set at 8.5 rather than 9 so the whole sentence
-         fits — "CONCEPT PREVIEW" alone reads as "a preview of the concept",
-         which is not the disclaimer; "INTERFACE IN DEVELOPMENT" is the half that
-         does the work, so it is the half that must not be cut. -->
-    <text class="mono" x="150" y="464" fill="#78867b" font-size="7.8" letter-spacing="0.85" text-anchor="middle">CONCEPT PREVIEW · INTERFACE IN DEVELOPMENT</text>
+    <!-- Launch status: iPhone is public; Android remains in closed testing. -->
+    <text class="mono" x="150" y="464" fill="#78867b" font-size="7.8" letter-spacing="0.85" text-anchor="middle">AVAILABLE ON IPHONE · ANDROID IN CLOSED TESTING</text>
   </g>
 </svg>

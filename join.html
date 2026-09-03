@@ -8,18 +8,23 @@
   <meta property="og:description" content="Someone wants you to keep a pact with them about phone use. Here's the code and where to get the app.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getphonepact.com/join">
-  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PhonePact — a screen-time pact with people you trust">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="You've been invited to a PhonePact circle">
   <meta name="twitter:description" content="Someone wants you to keep a pact with them about phone use. Here's the code and where to get the app.">
-  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
+  <meta name="twitter:image:alt" content="PhonePact — a screen-time pact with people you trust">
   <meta name="description" content="Redeem a PhonePact circle invite code.">
   <meta name="theme-color" content="#2d4a35">
   <!-- Not indexed: every visit here is personal and code-specific, and an
        invite page in search results is noise at best. -->
   <meta name="robots" content="noindex">
+  <!-- The query contains a circle invitation capability. Never send it as a
+       referrer to fonts, badge artwork, or any other external request. -->
+  <meta name="referrer" content="no-referrer">
   <link rel="canonical" href="https://getphonepact.com/join">
   <link rel="icon" href="favicon.ico">
 
@@ -106,6 +111,25 @@
       letter-spacing: 0.1em;
       opacity: 0.6;
     }
+    .join-store-badge-link {
+      display: inline-flex;
+      padding: 15px;
+      margin: 0.4rem 0 0.2rem -15px;
+      border-radius: 12px;
+      line-height: 0;
+    }
+    .join-store-badge-link:hover { opacity: 0.88; }
+    .join-store-badge {
+      display: block;
+      width: auto;
+      height: 56px;
+    }
+    .join-platform-note {
+      display: block;
+      margin-top: 0.5rem;
+      color: var(--ink-muted-strong, #5f6a61);
+      font-size: 0.9rem;
+    }
     .join-nocode { text-align: center; }
     /* Shown only when JS has confirmed there is no code in the URL, so the
        page never flashes "no code" at someone who has one. */
@@ -168,23 +192,32 @@
       <h2>If you don&rsquo;t have it yet</h2>
       <ol class="join-steps">
         <li>Copy the code above &mdash; you&rsquo;ll need it in a minute.</li>
-        <li>Get PhonePact on your phone. <span id="join-store-slot">PhonePact is currently in
-        closed testing on iPhone and Android, and is not yet publicly listed in an app store.
-        <a href="./#waitlist">Leave your email</a> and we&rsquo;ll tell you when your version is ready.</span></li>
+        <li>Get PhonePact on your iPhone.<br>
+          <a class="join-store-badge-link" href="https://apps.apple.com/us/app/phonepact/id6786930042" aria-label="Download PhonePact on the App Store">
+            <img class="join-store-badge" src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="168" height="56">
+          </a>
+          <span class="join-platform-note">Using Android? PhonePact is in closed testing there; <a href="./#get-phonepact">join the Android test</a>.</span>
+        </li>
         <li>Open it and walk through the intro. Near the end you&rsquo;ll see
         <em>&ldquo;Invited by a friend? Enter their code&rdquo;</em> &mdash; that&rsquo;s where this
         goes.</li>
       </ol>
-      <p>Or just come back and tap this same link once the app is installed &mdash; it will take you
-      straight there.</p>
+      <p>After installation, come back to this page and tap <strong>Open in PhonePact</strong>. The
+      invite code will be carried into the app.</p>
     </div>
+
+    <noscript>
+      <div class="join-nocode">
+        <p class="lede">Turn on JavaScript to reveal and copy this invitation code.</p>
+        <p>The code stays in this page&rsquo;s address. If you prefer, ask the person who invited you to send the six-character code separately.</p>
+      </div>
+    </noscript>
 
     <!-- Reached without a code -->
     <div id="join-no-code" class="join-nocode" hidden>
       <p class="lede">This link is missing its invite code.</p>
       <p>Ask whoever invited you to send it again &mdash; their code is on the Circle tab in
-      PhonePact, under <em>share</em>. New codes are six characters, like <code>K4T9BX</code>;
-      compatible older codes can be four to twelve characters.</p>
+      PhonePact, under <em>share</em>. Every invite code is six characters, like <code>K4T9BX</code>.</p>
       <p><a href="./">Read about PhonePact</a> &middot; <a href="support">Get help</a></p>
     </div>
 
@@ -202,6 +235,7 @@
     <div class="footer__legal">
       <p class="footer__copyright">&copy; 2026 PhonePact LLC. All rights reserved.</p>
       <p><a href="privacy">Privacy Policy</a> &middot; <a href="terms">Terms of Use</a> &middot; <a href="support">Support</a> &middot; Questions: <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
+      <p>Apple and the Apple logo are trademarks of Apple Inc. App Store is a service mark of Apple Inc.</p>
     </div>
   </div>
 </footer>
@@ -211,16 +245,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.add('js');
 
   // --- The code ---------------------------------------------------------
-  // Accepts ?c=CODE (what the app sends) and ?code=CODE (what a human might
-  // hand-write). Uppercased and stripped to alphanumerics: a code pasted with
-  // a trailing full stop or a stray space should still work, and anything that
-  // can't be a code must never be echoed back into the page.
+  // Accepts ?c=CODE (what the app sends) and ?code=CODE (the compatible query
+  // key). Codes use the backend's unambiguous six-character alphabet. Spaces
+  // and hyphens may be formatting, but arbitrary punctuation must not be
+  // silently rewritten into a different invitation.
   const params = new URLSearchParams(window.location.search);
   const raw = params.get('c') || params.get('code') || '';
-  const sanitizedCode = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
-  // The mobile clients accept 4–12 alphanumeric characters for legacy
-  // compatibility. New backend-generated codes are always six characters.
-  const code = sanitizedCode.length >= 4 ? sanitizedCode : '';
+  const normalizedCode = raw.toUpperCase().replace(/[\s-]/g, '');
+  const code = /^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/.test(normalizedCode)
+    ? normalizedCode
+    : '';
 
   const hasCode = document.getElementById('join-has-code');
   const noCode = document.getElementById('join-no-code');

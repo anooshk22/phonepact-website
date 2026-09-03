@@ -624,6 +624,7 @@ a.floating-card {
 
 /* ── Waitlist ──────────────────────────────────────── */
 .waitlist {
+  position: relative;
   background: var(--pearl-deep);
   border-top: 1px solid var(--ledger-line);
   border-bottom: 1px solid var(--ledger-line);
@@ -2062,6 +2063,29 @@ blockquote {
 }
 
 .hero__actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.app-store-badge-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 12px;
+  line-height: 0;
+}
+.app-store-badge-link:hover { opacity: 0.88; }
+.app-store-badge {
+  display: block;
+  width: auto;
+  height: 60px;
+}
+.hero__availability {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-muted-strong);
+}
 .hero__text-link {
   font-family: var(--font-sans);
   font-size: 0.78rem;
@@ -2726,6 +2750,45 @@ blockquote {
 }
 
 .waitlist-form { display: grid; gap: 1.15rem; }
+.anchor-alias {
+  position: absolute;
+  inset-block-start: 0;
+}
+.app-store-badge-link--section {
+  margin: 0.9rem auto 0;
+}
+.download-note {
+  max-width: 540px;
+  margin: 0.25rem auto 0;
+  color: var(--ink-muted-strong);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.android-test-intro {
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--ledger-line);
+  text-align: center;
+}
+.android-test-intro__label {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-active);
+}
+.android-test-intro h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 4vw, 2.2rem);
+  font-weight: 400;
+}
+.android-test-intro p:last-child {
+  max-width: 480px;
+  margin: 0.55rem auto 0;
+  color: var(--ink-muted-strong);
+  line-height: 1.55;
+}
 .form-field { display: grid; gap: 0.45rem; }
 .form-field > label, .feedback__form > label { font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; }
 .form-optional { font-weight: 400; color: var(--ink-muted-strong); }
@@ -3410,6 +3473,8 @@ blockquote {
   .hero__title { font-size: clamp(2.7rem, 13vw, 3.8rem); }
   .hero__actions { flex-direction: column; }
   .hero__actions .btn { width: 100%; justify-content: center; }
+  .hero__availability { max-width: 24rem; margin-inline: auto; }
+  .app-store-badge { height: 56px; }
   .hero__proof { flex-direction: column; align-items: center; }
   .hero__product {
     max-height: none;
