@@ -2298,6 +2298,65 @@ blockquote {
 }
 
 .phone-ui__request-copy i { font-weight: 400; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   The hero phone — dimension, and room for the screen it is holding.
+
+   Colours are --deep-green mixed toward white or black with color-mix, the
+   way .phone-ui__request already tints --pearl-warm. No new hues.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* A FLAT SLAB WAS BEING ASKED TO READ AS A DEVICE. The frame painted one solid
+   --deep-green and outlined it with a 1px border of the same colour — a border
+   that could not be seen, over a fill with no light in it. A bezel is a curved
+   object: it catches light along the top edge and loses it at the bottom, and
+   three stops of the existing green are enough to say so. */
+.phone-frame {
+  border: 0;
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--deep-green) 84%, white) 0%,
+    var(--deep-green) 46%,
+    color-mix(in srgb, var(--deep-green) 88%, black) 100%
+  );
+  /* Two shadows, not one. The old single 80px blur at 0.16 read as haze under
+     the whole phone; a tight contact shadow plus a wide soft one is what makes
+     an object look like it is resting on the page rather than floating over it. */
+  box-shadow:
+    0 2px 6px -2px rgba(45, 74, 53, 0.28),
+    0 34px 64px -26px rgba(45, 74, 53, 0.42);
+}
+
+/* Where the glass meets the bezel. Without it the screen is pasted onto the
+   frame; one hairline of shadow is the whole difference between the two. */
+.phone-frame::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 29px;
+  box-shadow: 0 0 0 1px rgba(20, 38, 26, 0.32);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* THE SCREEN IS SCROLLABLE ON PURPOSE — app.js drags it by scrollTop — so this
+   tightens the rhythm rather than shrinking anything: the caption, the checked
+   line and the arc were spaced as if the screen were endless, which pushed the
+   request card almost entirely below the fold. It is the part that shows what
+   the app is FOR, and it should be reachable without dragging. */
+.phone-ui__copy { margin-top: 1.7rem; }
+.phone-ui__arc { margin-top: 1.5rem; }
+.phone-ui__request { margin-top: 1.6rem; }
+
+/* 0.42rem is about 6.7px. Nothing is read at that size; it is texture standing
+   where a label should be — the same fault the step mocks had.
+   
+   0.5rem does not fit: the row is nowrap and space-between inside a 212px card,
+   and at 8px the two labels measure 232px together. Tightening the tracking is
+   what buys the size back — the letters were carrying 0.1em, which at this
+   scale is spacing for its own sake. */
+.phone-ui__request-head { font-size: 0.46rem; letter-spacing: 0.06em; }
+.phone-ui__arc-labels { font-size: 10px; }
 .phone-ui__request blockquote {
   margin: 0 0 0.8rem;
   padding-left: 0.75rem;
