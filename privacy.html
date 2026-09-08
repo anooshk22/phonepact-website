@@ -8,13 +8,13 @@
   <meta property="og:description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getphonepact.com/privacy">
-  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy Policy — PhonePact">
   <meta name="twitter:description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
-  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=3">
+  <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
   <meta name="description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
   <meta name="theme-color" content="#2d4a35">
   <link rel="canonical" href="https://getphonepact.com/privacy">
@@ -53,7 +53,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 15 August 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 3 September 2026</p>
   </div>
 </section>
 
@@ -98,8 +98,25 @@
     browsing history to our servers or your circle.</strong> Those details stay on your device. Coarse duration
     check-ins (for example, &ldquo;Hank&rsquo;s iPhone reached 2h
     today&rdquo;) go to your circle when a threshold is recorded. If you use PhonePact on more than one phone, each
-    phone has its own pact and up to seven daily aggregate totals in its own private device record; only you can
-    read those totals.</p>
+    phone has its own pact and up to seven recent recorded days of aggregate totals in its own private device
+    record in our Firebase backend. Circle members cannot read those totals.</p>
+
+    <h3 id="planned-insights">Personal insights &mdash; planned</h3>
+    <p>We are planning optional supporter insights: longer-term usage trends, comparisons with your own earlier
+    weeks, pact consistency, weekday and weekend patterns, and a weekly report with a suggested experiment.
+    <strong>These supporter insights and longer history are not available in the current free version.</strong></p>
+    <p>The planned insights would use dated aggregate screen-usage totals for each phone, the pact point that
+    applied at the time, and information about missing measurements or changes to what counts. This context
+    would help avoid treating a missing day as zero usage or a changed selection as an improvement. Selection
+    details and app identities would remain on your phone. Insights would describe your own recorded patterns;
+    they would not establish why your usage changed.</p>
+    <p>Personal totals and reports would be private to your account, processed on your phone and, where needed
+    to save or restore them, through our backend service providers. They would not be added to circle check-ins,
+    used to rank members, or sent to RevenueCat. The initial insights plan does not use room or private-message
+    text, reflection tags, time-of-day activity histories, or an external AI service to generate reports.
+    Before introducing longer history, we will explain its storage location, retention period, and deletion
+    controls here and in the App, and obtain any required consent. This preview does not change current
+    collection or retention.</p>
 
     <h3>Information collected automatically</h3>
     <ul>
@@ -109,15 +126,23 @@
     </ul>
 
     <h3>Purchases</h3>
-    <p>When paid subscriptions are enabled, purchases will be sold through the applicable app store.
+    <p><strong>There are no purchases or RevenueCat purchase processing in the current free version.</strong>
+    We plan to offer optional PhonePact Supporter purchases that help fund the core service and unlock personal
+    insights. If introduced, purchases will be sold through the applicable app store and managed using
+    <strong>RevenueCat</strong>.
     <strong>The store processes your payment; we do not see or store your credit-card or payment details.</strong>
-    We receive only purchase status (for example, active or expired) so we can unlock features. PhonePact is
-    free for now during launch. Pricing may change later; any paid plan and its terms will be shown
-    before purchase.</p>
+    PhonePact and RevenueCat would process an account-linked purchase identifier, product and transaction
+    records, purchase dates, subscription or entitlement status, and relevant app/device information to
+    validate purchases, restore access, handle billing support, and understand supporter purchases.
+    Screen-usage totals, pact history, reports, messages, and app-selection details would not be sent to
+    RevenueCat. PhonePact is free for now during launch. Pricing may change later; any paid plan and its
+    terms will be shown before purchase.</p>
 
     <h2>2. How we use your information</h2>
     <ul>
       <li>To provide, operate, and maintain the App and your pact.</li>
+      <li>To show your private recent usage history and, if introduced and enabled, provide the personal insights described above.</li>
+      <li>If supporter purchases are introduced, to validate and restore purchased access and provide billing support.</li>
       <li>To enable your circle features — check-ins, rooms, one-to-one private conversations, and change requests.</li>
       <li>To send remote circle and pact notices, and to schedule the private notices you turn on locally.</li>
       <li>To keep the service secure and prevent abuse.</li>
@@ -140,13 +165,15 @@
     <ul>
       <li><strong>With your circle</strong> — your name, avatar, each registered phone&rsquo;s short label and pact point, coarse duration check-ins attributed to the phone that measured them, and any room messages you send are visible to members of the circle you choose. PhonePact does not share a live presence signal.</li>
       <li><strong>With a private-conversation participant</strong> — a one-to-one message and its pact context, if any, are visible only to you and the current shared-circle member in that conversation. Other members of either circle cannot read it.</li>
-      <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor.&rdquo; Apple provides Sign in with Apple and Screen Time. If paid features are enabled later, Apple or Google Play will process the applicable in-app purchase. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a> and <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>.</li>
+      <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor.&rdquo; Apple provides Sign in with Apple and Screen Time. If supporter purchases are introduced, Apple or Google Play will process the payment and RevenueCat will process the purchase-related information described above. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a>, <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>, <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>, and <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>.</li>
       <li><strong>For legal reasons</strong> — if required by law, or to protect the rights, safety, or property of our users or us.</li>
       <li><strong>Business transfers</strong> — if we are involved in a merger, acquisition, or sale of assets, your information may be transferred, subject to this Policy.</li>
     </ul>
 
     <h2>4. Data retention</h2>
     <ul>
+      <li><strong>Private aggregate usage history</strong> — the current version keeps up to seven recent recorded days per phone. Older entries are removed as newer days replace them; this is a limited number of records, not a promise that an inactive phone&rsquo;s records disappear after seven calendar days. Server-side device histories are deleted with your account. Longer supporter history is planned only; its retention and deletion controls will be disclosed before it starts.</li>
+      <li><strong>Source check-in events</strong> — coarse duration events used to operate shared check-ins are retained until account deletion, separately from the short-lived messages displayed in the Room. They do not contain app identities or exact per-app usage and are not a complete daily usage history.</li>
       <li><strong>Room messages</strong> — ordinary rows expire after 24 hours. A member-written message visibly kept by at least one current circle member expires no later than 30 days after it was sent; releasing the last Keep restores its ordinary expiry without reviving an already expired message. Deleting your account immediately deletes room notes and check-in rows attributed to you, and scrubs reply excerpts, reactions, Keep attribution, and names tied to those rows.</li>
       <li><strong>Private conversations</strong> — ordinary messages expire after 24 hours. A message visibly kept by either participant expires 30 days after it was sent. Empty conversation records are later removed. Deleting either participant&rsquo;s account immediately deletes the entire private conversation and its messages.</li>
       <li><strong>Reported messages</strong> — if someone reports a message, a copy of that message is
@@ -160,6 +187,7 @@
         This is deliberate: otherwise deleting an account would erase the existence of complaints made about it.</li>
       <li><strong>Account &amp; profile data</strong> (name, email, photo, signature, pact settings, circles) — kept while your account is active, and deleted when you delete your account, subject to any short backup or legal-retention period.</li>
       <li><strong>Diagnostics</strong> — retained by Crashlytics for a limited period per Google&rsquo;s defaults.</li>
+      <li><strong>Future purchase records</strong> — if supporter purchases are introduced, purchase records may need to remain after account deletion for transaction, refund, fraud-prevention, or legal requirements. The applicable store and RevenueCat may retain records under their policies and obligations. We will explain the implemented purchase-data deletion process before billing begins; we do not promise that deleting an app account erases store transaction records.</li>
     </ul>
 
     <h2>5. Your choices and rights</h2>
@@ -168,6 +196,10 @@
       <li><strong>Delete your account</strong> from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. Account data, private conversations, ordinary room notes and check-in rows attributed to you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list references tied to your account are scrubbed. Reports about you may be retained as anonymized safety records, with copied text attributed to you scrubbed. You can also email us to request deletion.</li>
       <li><strong>Turn off</strong> screen-usage access, notifications, exact-alarm access, live-status display, or PhonePact&rsquo;s optional Do Not Disturb exception in your phone settings at any time.</li>
     </ul>
+    <p>Turning off screen-usage permission stops new measurement; it does not by itself delete previously
+    saved history. Use the access or deletion options above for that history. If subscriptions are introduced,
+    canceling one will stop its renewal under the store&rsquo;s terms; it will not itself delete your account or
+    history. Deleting your account or uninstalling the App will not itself cancel a store subscription.</p>
     <p><strong>EU/UK (GDPR):</strong> you also have the right to portability, to object to or restrict processing,
     to withdraw consent, and to lodge a complaint with your local data-protection authority.</p>
     <p><strong>California (CCPA/CPRA):</strong> you have the right to know, access, correct, and delete your
@@ -197,14 +229,14 @@
     <p>We may update this Policy from time to time. We will post the new version here and update the
     &ldquo;Last updated&rdquo; date, and, for material changes, provide additional notice in the App.</p>
 
-    <h2>10. Our website and waitlist</h2>
-    <p>This Policy also covers <strong>getphonepact.com</strong>. If you join our waitlist or send feedback
+    <h2>10. Our website and testing signups</h2>
+    <p>This Policy also covers <strong>getphonepact.com</strong>. If you previously joined Android testing or our launch waitlist, or send feedback
     on the website, we collect the email address you submit (and, only if you opt in to SMS updates, your
     mobile number and consent) along with any message you send. These submissions are processed on our
     behalf by <strong>Google Apps Script</strong>, which records them to a Google Sheet; if your browser has
     JavaScript disabled, or if the primary submission cannot be confirmed and you choose the displayed
     backup form, <strong>Formspree</strong> processes that submission instead. <strong>Google Fonts</strong> may receive basic request
-    information when your browser loads the site&rsquo;s fonts. We use this only to manage the waitlist, send
+    information when your browser loads the site&rsquo;s fonts. We use this only to manage Android testing and prior waitlist records, send
     updates you asked for, and respond to you — never for advertising, and we never sell it. You can
     unsubscribe from emails at any time, and reply <strong>STOP</strong> to opt out of SMS. To access or delete
     anything you submitted on the website, email <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>

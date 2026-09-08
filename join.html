@@ -119,10 +119,21 @@
       line-height: 0;
     }
     .join-store-badge-link:hover { opacity: 0.88; }
+    .join-store-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+    }
     .join-store-badge {
       display: block;
       width: auto;
       height: 56px;
+    }
+    .join-store-badge--google {
+      height: 74px;
+      margin: -9px -7px;
     }
     .join-platform-note {
       display: block;
@@ -172,7 +183,7 @@
 
     <!-- With a code in the URL -->
     <div id="join-has-code" hidden>
-      <p class="lede">A circle is two or more people who each set a limit on their own phone use.
+      <p class="lede">A circle is two or more people who each choose a pact point for their own phone use.
       When someone reaches theirs, the others are told the number they crossed &mdash; never which
       apps, never what they were doing. That&rsquo;s the whole thing.</p>
 
@@ -180,30 +191,33 @@
         <p class="join-label">Your invite code</p>
         <p class="join-code" id="join-code-value">&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
         <div class="join-actions">
-          <button class="join-btn join-btn--primary" id="join-copy" type="button">Copy code</button>
-          <a class="join-btn" id="join-open" href="#">Open in PhonePact</a>
+          <a class="join-btn join-btn--primary" id="join-open" href="#">Open PhonePact</a>
+          <button class="join-btn" id="join-copy" type="button">Copy code</button>
         </div>
       </div>
 
       <h2>If you already have PhonePact</h2>
-      <p>Tap <strong>Open in PhonePact</strong> above. If nothing happens, open the app and enter the
-      code on the invite screen.</p>
+      <p>Tap <strong>Open PhonePact</strong> above. If your browser stays here, open PhonePact yourself and
+      enter the code shown above.</p>
 
       <h2>If you don&rsquo;t have it yet</h2>
       <ol class="join-steps">
-        <li>Copy the code above &mdash; you&rsquo;ll need it in a minute.</li>
-        <li>Get PhonePact on your iPhone.<br>
-          <a class="join-store-badge-link" href="https://apps.apple.com/us/app/phonepact/id6786930042" aria-label="Download PhonePact on the App Store">
-            <img class="join-store-badge" src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="168" height="56">
-          </a>
-          <span class="join-platform-note">Using Android? PhonePact is in closed testing there; <a href="./#get-phonepact">join the Android test</a>.</span>
+        <li>Keep this message handy, or copy the code above as a backup.</li>
+        <li>Install PhonePact for your phone.
+          <div class="join-store-links" id="join-store-links">
+            <a class="join-store-badge-link" id="join-ios-store" href="https://apps.apple.com/us/app/phonepact/id6786930042" aria-label="Download PhonePact on the App Store">
+              <img class="join-store-badge" src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" width="168" height="56">
+            </a>
+            <a class="join-store-badge-link" id="join-android-store" href="https://play.google.com/store/apps/details?id=com.getphonepact.phonepact" aria-label="Get PhonePact on Google Play">
+              <img class="join-store-badge join-store-badge--google" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" width="191" height="74">
+            </a>
+          </div>
         </li>
-        <li>Open it and walk through the intro. Near the end you&rsquo;ll see
-        <em>&ldquo;Invited by a friend? Enter their code&rdquo;</em> &mdash; that&rsquo;s where this
-        goes.</li>
+        <li>After installation, tap the original invite link again. If the app does not open
+        automatically, return here, tap <strong>Open PhonePact</strong>, or enter the six-character code.</li>
       </ol>
-      <p>After installation, come back to this page and tap <strong>Open in PhonePact</strong>. The
-      invite code will be carried into the app.</p>
+      <p>You can return to this link at any time. The six-character code above remains the manual fallback if an
+      app or browser does not hand the invite across automatically.</p>
     </div>
 
     <noscript>
@@ -235,7 +249,7 @@
     <div class="footer__legal">
       <p class="footer__copyright">&copy; 2026 PhonePact LLC. All rights reserved.</p>
       <p><a href="privacy">Privacy Policy</a> &middot; <a href="terms">Terms of Use</a> &middot; <a href="support">Support</a> &middot; Questions: <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
-      <p>Apple and the Apple logo are trademarks of Apple Inc. App Store is a service mark of Apple Inc.</p>
+      <p>Apple and the Apple logo are trademarks of Apple Inc. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </div>
 </footer>
@@ -249,9 +263,43 @@ document.addEventListener('DOMContentLoaded', () => {
   // key). Codes use the backend's unambiguous six-character alphabet. Spaces
   // and hyphens may be formatting, but arbitrary punctuation must not be
   // silently rewritten into a different invitation.
-  const params = new URLSearchParams(window.location.search);
-  const raw = params.get('c') || params.get('code') || '';
-  const normalizedCode = raw.toUpperCase().replace(/[\s-]/g, '');
+  // Read the raw query exactly like both apps. URLSearchParams treats `+` as
+  // a space, which made the page accept a code the apps correctly rejected.
+  // Parameter names are case-insensitive, malformed names are ignored, and a
+  // malformed value still counts as present so it cannot fall through to a
+  // second circle named by the compatible `code` alias.
+  const firstQueryValue = (query, wantedName) => {
+    for (const field of query.split('&')) {
+      const separator = field.indexOf('=');
+      const encodedName = separator < 0 ? field : field.slice(0, separator);
+      const encodedValue = separator < 0 ? '' : field.slice(separator + 1);
+      let name;
+      try {
+        name = decodeURIComponent(encodedName).toLowerCase();
+      } catch (_error) {
+        continue;
+      }
+      if (name !== wantedName) continue;
+      try {
+        return { found: true, value: decodeURIComponent(encodedValue) };
+      } catch (_error) {
+        return { found: true, value: null };
+      }
+    }
+    return { found: false, value: null };
+  };
+  const query = window.location.search.startsWith('?')
+    ? window.location.search.slice(1)
+    : window.location.search;
+  const canonical = firstQueryValue(query, 'c');
+  const alias = canonical.found ? null : firstQueryValue(query, 'code');
+  const raw = (canonical.found ? canonical.value : alias?.value) || '';
+  const separatedCode = raw.replace(/[ -]/g, '');
+  // Validate ASCII before casing. Unicode such as ß can expand when uppercased
+  // and must not manufacture a valid-looking six-character capability.
+  const normalizedCode = /^[A-Za-z2-9]+$/.test(separatedCode)
+    ? separatedCode.toUpperCase()
+    : '';
   const code = /^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/.test(normalizedCode)
     ? normalizedCode
     : '';
@@ -268,6 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
     hasCode.hidden = false;
   } else {
     noCode.hidden = false;
+  }
+
+  // Put the visitor's likely store first without hiding the other option.
+  // Installed apps should have claimed the HTTPS link before this page loaded;
+  // this ordering is only a gentle fallback for a new install or in-app browser.
+  const storeLinks = document.getElementById('join-store-links');
+  const androidStore = document.getElementById('join-android-store');
+  const iosStore = document.getElementById('join-ios-store');
+  if (storeLinks && /Android/i.test(navigator.userAgent) && androidStore) {
+    storeLinks.prepend(androidStore);
+  } else if (storeLinks && /iPhone|iPad|iPod/i.test(navigator.userAgent) && iosStore) {
+    storeLinks.prepend(iosStore);
   }
 
   // --- Copy -------------------------------------------------------------

@@ -14,6 +14,7 @@ REPO = Path(__file__).resolve().parent.parent
 EXTERNAL_SCHEMES = {"http", "https", "mailto", "tel", "sms", "data", "phonepact"}
 PUBLIC_SKIP_PARTS = {"research", "share", ".git"}
 APP_STORE_URL = "https://apps.apple.com/us/app/phonepact/id6786930042"
+PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.getphonepact.phonepact"
 APP_ID = "XW52RJLNPL.com.getphonepact.phonepact"
 ANDROID_PACKAGE = "com.getphonepact.phonepact"
 ANDROID_APP_SIGNING_SHA256 = (
@@ -151,12 +152,11 @@ def main():
                 "clearTimeout(timeout)",
             )
         ),
-        "waitlist backup": "waitlist-backup" in app_js,
         "feedback backup": "feedback-backup" in app_js,
     }
     index_parser = pages[(REPO / "index.html").resolve()]
     form_ids = {form.get("id"): form for form in index_parser.forms}
-    for form_id in ("waitlist-form", "feedback-form"):
+    for form_id in ("feedback-form",):
         form = form_ids.get(form_id)
         form_contracts[f"{form_id} fallback action"] = bool(
             form and form.get("method", "").lower() == "post" and form.get("action")
@@ -167,8 +167,8 @@ def main():
 
     # The public launch state and invitation fallback are easy to regress: a
     # generic store redirect would lose the invitation code, while a generic
-    # Smart App Banner on /join would open the app without that code. Keep the
-    # homepage download-first and the invitation page code-first.
+    # Smart App Banner on /join would open the app without that code. Keep both
+    # store listings discoverable and the invitation page code-first.
     index_text = (REPO / "index.html").read_text(encoding="utf-8", errors="replace")
     join_text = (REPO / "join.html").read_text(encoding="utf-8", errors="replace")
     llms_text = (REPO / "llms.txt").read_text(encoding="utf-8", errors="replace")
@@ -178,13 +178,17 @@ def main():
             "toolbox.marketingtools.apple.com/api/badges/download-on-the-app-store/"
             in index_text
         ),
+        "homepage Google Play listing": PLAY_STORE_URL in index_text,
+        "homepage official Google Play badge": (
+            "play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+            in index_text
+        ),
         "homepage Smart App Banner": (
             'name="apple-itunes-app" content="app-id=6786930042"' in index_text
         ),
-        "homepage Android test is secondary": (
-            "Join Android testing" in index_text and "phonepact-website-android-test" in index_text
-        ),
+        "retired Android test form removed": 'id="waitlist-form"' not in index_text,
         "invite page App Store fallback": APP_STORE_URL in join_text,
+        "invite page Google Play fallback": PLAY_STORE_URL in join_text,
         "invite page custom-scheme fallback": "phonepact://join?c=" in join_text,
         "invite page copy control": 'id="join-copy"' in join_text,
         "invite page does not leak invite referrer": (
@@ -196,8 +200,24 @@ def main():
         "invite codes use production alphabet": (
             "^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$" in join_text
         ),
+        "invite page gives canonical c deterministic priority": (
+            "const canonical = firstQueryValue(query, 'c')" in join_text
+            and "canonical.found ? null : firstQueryValue(query, 'code')" in join_text
+            and "canonical.found ? canonical.value : alias?.value" in join_text
+        ),
+        "invite page matches native raw-query decoding": (
+            "decodeURIComponent(encodedName).toLowerCase()" in join_text
+            and "decodeURIComponent(encodedValue)" in join_text
+            and "new URLSearchParams" not in join_text
+        ),
+        "invite page rejects Unicode expansion before casing": (
+            "^[A-Za-z2-9]+$" in join_text
+            and "raw.replace(/[ -]/g, '')" in join_text
+        ),
         "machine-readable launch status": (
-            APP_STORE_URL in llms_text and "closed testing on Android" in llms_text
+            APP_STORE_URL in llms_text
+            and PLAY_STORE_URL in llms_text
+            and "available on Google Play" in llms_text
         ),
     }
     for label, passed in launch_contracts.items():
@@ -284,6 +304,9 @@ def main():
         "stale interface status": "interface in development",
         "stale public-listing status": "not yet publicly listed",
         "stale dual-platform test status": "closed testing on iPhone and Android",
+        "stale Android closed-testing status": "closed testing on Android",
+        "stale Android closed-testing reversal": "Android remains in closed testing",
+        "retired Android testing CTA": "Join Android testing",
     }
     for label, phrase in banned.items():
         if phrase.lower() in public_text.lower():

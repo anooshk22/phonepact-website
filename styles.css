@@ -2062,8 +2062,8 @@ blockquote {
   opacity: 0.82;
 }
 
-.hero__actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
-.app-store-badge-link {
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem 1rem; margin-top: 2rem; }
+.store-badge-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2071,11 +2071,15 @@ blockquote {
   border-radius: 12px;
   line-height: 0;
 }
-.app-store-badge-link:hover { opacity: 0.88; }
-.app-store-badge {
+.store-badge-link:hover { opacity: 0.88; }
+.store-badge {
   display: block;
   width: auto;
   height: 60px;
+}
+.store-badge--google {
+  height: 80px;
+  margin: -10px -8px;
 }
 .hero__availability {
   margin: 0.35rem 0 0;
@@ -2833,8 +2837,16 @@ blockquote {
   position: absolute;
   inset-block-start: 0;
 }
-.app-store-badge-link--section {
+.store-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
   margin: 0.9rem auto 0;
+}
+.store-badge-link--section {
+  margin: 0;
 }
 .download-note {
   max-width: 540px;
@@ -3553,7 +3565,8 @@ blockquote {
   .hero__actions { flex-direction: column; }
   .hero__actions .btn { width: 100%; justify-content: center; }
   .hero__availability { max-width: 24rem; margin-inline: auto; }
-  .app-store-badge { height: 56px; }
+  .store-badge { height: 56px; }
+  .store-badge--google { height: 74px; margin: -9px -8px; }
   .hero__proof { flex-direction: column; align-items: center; }
   .hero__product {
     max-height: none;
