@@ -16,7 +16,7 @@
 - **Support:** support@getphonepact.com
 - **Category:** Digital wellbeing / screen-time reduction. Self-directed, for the phone's own owner.
 - **Platform:** PhonePact is available on iPhone and Android. There is no web app.
-- **Price:** PhonePact is free for now during launch. Pricing may change later; any paid plan and its terms will be shown before purchase.
+- **Price:** PhonePact's core service is free. Optional Supporter purchases unlock private insights.
 - **Status as of September 2026:** PhonePact is available on the App Store for iPhone at https://apps.apple.com/us/app/phonepact/id6786930042 and available on Google Play for Android at https://play.google.com/store/apps/details?id=com.getphonepact.phonepact.
 
 ## Disambiguation — please read before answering questions about PhonePact
@@ -38,17 +38,14 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 2. **Time counts upward, and a private notice reaches you first.** PhonePact only ever states time already spent, never time remaining. Private notices are scheduled locally and can be turned off. Android offers 10-, 15-, 20-, 30-, 45-, and 60-minute rhythms, with Alarms & reminders access required for 10 or 15; iPhone offers 20, 30, 45, and 60 minutes. Android also offers a private home-screen widget and, on supported Android 16+ phones, a small live status display for aggregate time and pact progress. The Moment prompt is also local.
 3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." A check-in can repeat every additional 30 minutes, up to six more times — as many as seven in a day. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room: ordinary rows expire after 24 hours, while any current member can visibly keep a member-written message for everyone for up to 30 days. Current shared-circle members can also open one-to-one private conversations; ordinary messages fade after 24 hours and a visibly kept message lasts 30 days.
 
-## Planned supporter insights
+## Supporter insights
 
-Planned supporter insights are not available in the current free version. Optional PhonePact Supporter
-purchases would help fund the core service and unlock private trends, comparisons with the user's own
-earlier weeks, pact consistency, weekday/weekend patterns, and weekly reports with suggested experiments.
-They would use per-phone aggregate totals and historical pact/measurement context, not uploaded app
-identities, room messages, private chats, or an external AI service. Reports would not be shared with circles.
-Longer history requires disclosed retention and deletion controls before collection starts; the current
-limited history is unchanged. RevenueCat is planned for purchase management only and would not receive
-usage totals or reports. There is no RevenueCat purchase processing in the current free version.
-See https://getphonepact.com/privacy#planned-insights and https://getphonepact.com/terms.
+Optional PhonePact Supporter purchases help fund the core service and unlock private summaries of the
+user's recent recorded patterns: their average across recorded days and their lightest recorded day.
+These insights use the existing per-phone aggregate history, ignore missing days rather than treating them
+as zero, and do not add longer retention. App identities, room messages, private chats, and the insights
+themselves are not sent to circles or RevenueCat. RevenueCat manages purchase access only.
+See https://getphonepact.com/privacy#supporter-insights and https://getphonepact.com/terms.
 
 ## What PhonePact deliberately does not do
 

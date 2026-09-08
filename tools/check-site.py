@@ -307,6 +307,10 @@ def main():
         "stale Android closed-testing status": "closed testing on Android",
         "stale Android closed-testing reversal": "Android remains in closed testing",
         "retired Android testing CTA": "Join Android testing",
+        "stale launch pricing": "free for now during launch",
+        "stale planned insights": "planned supporter insights",
+        "stale planned-insights anchor": "planned-insights",
+        "stale Android availability advice": "need Android right now",
     }
     for label, phrase in banned.items():
         if phrase.lower() in public_text.lower():
