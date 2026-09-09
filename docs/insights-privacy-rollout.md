@@ -1,5 +1,32 @@
 # Supporter insights: disclosure and release contract
 
+## 9 September 2026 — expanded edition supersedes the initial scope below
+
+The owner approved all proposed Deeper Insights except personal experiments.
+Both client repositories now contain the new implementation and
+`docs/DEEPER-INSIGHTS-2026-09-09.md`, the current feature/retention/test contract.
+The older seven-record average/lightest-day scope below is historical, not the
+current feature specification.
+
+The new edition uses protected iPhone reports and explicitly enabled, private
+Android summaries. Usage summaries can accumulate up to 365 days after fresh
+v2 consent. Separately opted-in notification counts retain a rolling 28-day
+local window, with pruning when code next runs,
+no Android backup, and sign-out cleanup. A separate 28-day/300-entry pact
+journal is private to each account/phone and prunes on access. Detailed
+collection is not added to Firebase or RevenueCat. Server seven-record
+aggregate retention is unchanged.
+
+Policy, terms, support, product, ethos, privacy-architecture and machine-readable
+copy are included in the consolidated 9 September tester-release publication.
+The expanded retention is explicitly labeled as the updated tester edition,
+not a capability already shipped to every public-store user. Store processing,
+physical-device checks and purchase/receipt validation remain release gates.
+Neither source implementation nor passing local tests is proof of a completed
+native-app rollout. Record publication and build outcomes in the client release notes.
+
+## Historical initial-edition notes (8 September)
+
 Updated 8 September 2026. This is implementation guidance, not a second privacy
 policy. The canonical public documents remain `privacy.html` and `terms.html`.
 The first supporter implementation uses existing seven-record aggregate history;

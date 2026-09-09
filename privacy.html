@@ -53,7 +53,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 8 September 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 9 September 2026</p>
   </div>
 </section>
 
@@ -102,14 +102,26 @@
     record in our Firebase backend. Circle members cannot read those totals.</p>
 
     <h3 id="supporter-insights">Supporter insights</h3>
-    <p>Optional PhonePact Supporter purchases unlock private summaries of your recent recorded patterns. The
-    current insights show your average across recorded days and your lightest recorded day. They use the same
-    dated aggregate screen-usage totals already used by the App.
-    Missing days are not treated as zero.</p>
-    <p>Supporter insights are private to your account and are calculated in the App. They are not added to
-    circle check-ins, used to rank members, or sent to RevenueCat. They do not use app identities, room or
-    private-message text, reflection tags, time-of-day activity histories, or an external AI service.
-    Insights describe recorded patterns and do not establish why your usage changed.</p>
+    <p>Optional monthly and one-time PhonePact Supporter purchases unlock <strong>Deeper Insights</strong>
+    in You &rarr; Insights. The updated supporter edition includes daily and weekly views, time-of-day
+    patterns, private app details, and a pact journal. Available measurements depend on your phone, software
+    version, permissions, and recorded history. Missing days are not treated as zero; comparisons use
+    matching complete recorded days rather than assuming unavailable history.</p>
+    <p>On iPhone, app and category time, pickups, sessions, notification counts, and website domains when
+    supplied by Apple are displayed inside Apple&rsquo;s protected Screen Time report. PhonePact does not
+    export those detailed report values to its main app or servers. On Android, after you choose to enable
+    private summaries, PhonePact derives usage, app visits, unlocks, sessions, app switches, and screen-off
+    breaks from on-device Android events. Those detailed summaries stay in private files excluded from
+    Android backup. These metrics describe recorded activity, not physical intent, focus, or sleep.</p>
+    <p>Android notification counts require a separate, optional choice and Android&rsquo;s notification
+    access permission. We count notifications by app without reading or storing their text, titles, or
+    senders. Updates, group summaries, and ongoing status notifications are excluded; counts may have
+    gaps when permission or the counting service is unavailable. You can turn counts off and clear them
+    inside Insights, or turn off private usage summaries and clear their files.</p>
+    <p>The private pact journal records settings received and crossings recorded on this phone. It is not
+    a complete approval or delivery history. Deeper Insights do not analyze messages, use AI, rank members,
+    or send app details or reports to circles, RevenueCat, or analytics services. They do not establish why
+    your usage changed. Viewing all screen time is separate from changing what counts toward your pact.</p>
 
     <h3>Information collected automatically</h3>
     <ul>
@@ -162,7 +174,8 @@
 
     <h2>4. Data retention</h2>
     <ul>
-      <li><strong>Private aggregate usage history</strong> — the current version keeps up to seven recent recorded days per phone. Older entries are removed as newer days replace them; this is a limited number of records, not a promise that an inactive phone&rsquo;s records disappear after seven calendar days. Server-side device histories are deleted with your account. Current supporter insights do not add a longer history.</li>
+      <li><strong>Private aggregate usage history on our servers</strong> — up to seven recent recorded days per phone. Older entries are removed as newer days replace them; this is a limited number of records, not a promise that an inactive phone&rsquo;s records disappear after seven calendar days. Server-side device histories are deleted with your account. Deeper Insights does not extend this server history.</li>
+      <li><strong>Private on-device insights</strong> — In the updated tester edition, Android usage summaries can accumulate up to 365 days on this phone after you choose to enable them. Older editions retain up to 28 days; expanding retention requires a fresh choice in the app. Missing history cannot always be recovered from Android. Optional notification counts still cover a rolling 28-day window. Older entries are pruned when Insights next runs or records new data; files on an inactive phone cannot be removed until the app runs again. Turning off private summaries clears these files and stops that optional collection. Signing out clears them as well. iPhone&rsquo;s detailed report history is supplied and retained by Apple, not copied into a PhonePact history store. The local pact journal on both platforms is limited to 28 recent days and 300 entries, prunes on access, and clears at sign-out. Subscription expiry closes access to paid reports; it does not itself delete history or revoke device permissions.</li>
       <li><strong>Source check-in events</strong> — coarse duration events used to operate shared check-ins are retained until account deletion, separately from the short-lived messages displayed in the Room. They do not contain app identities or exact per-app usage and are not a complete daily usage history.</li>
       <li><strong>Room messages</strong> — ordinary rows expire after 24 hours. A member-written message visibly kept by at least one current circle member expires no later than 30 days after it was sent; releasing the last Keep restores its ordinary expiry without reviving an already expired message. Deleting your account immediately deletes room notes and check-in rows attributed to you, and scrubs reply excerpts, reactions, Keep attribution, and names tied to those rows.</li>
       <li><strong>Private conversations</strong> — ordinary messages expire after 24 hours. A message visibly kept by either participant expires 30 days after it was sent. Empty conversation records are later removed. Deleting either participant&rsquo;s account immediately deletes the entire private conversation and its messages.</li>

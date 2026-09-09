@@ -40,11 +40,14 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 
 ## Supporter insights
 
-Optional PhonePact Supporter purchases help fund the core service and unlock private summaries of the
-user's recent recorded patterns: their average across recorded days and their lightest recorded day.
-These insights use the existing per-phone aggregate history, ignore missing days rather than treating them
-as zero, and do not add longer retention. App identities, room messages, private chats, and the insights
-themselves are not sent to circles or RevenueCat. RevenueCat manages purchase access only.
+Monthly and one-time supporters unlock Deeper Insights in You > Insights. The updated supporter edition
+includes daily and weekly views, hourly patterns, private app details, and a pact journal. Measurements
+differ by platform: iPhone uses Apple's protected report; Android derives usage and app visits locally.
+In the updated tester edition, Android's optional private usage summaries can accumulate up to
+365 days after fresh consent; earlier editions retain up to 28 days. Separately opted-in notification
+counts retain 28 days and never read text or senders. This does not extend the server's seven-record aggregate history.
+Missing days are not zero. App details and reports are not sent to circles or RevenueCat. No AI or
+message analysis is used. See the policy for pruning, sign-out, and deletion behavior.
 See https://getphonepact.com/privacy#supporter-insights and https://getphonepact.com/terms.
 
 ## What PhonePact deliberately does not do
