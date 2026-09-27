@@ -82,13 +82,12 @@
 
   /* Open pacts */
   .open { padding-block: 0 clamp(64px, 9vw, 112px); }
-  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: minmax(300px, auto); grid-auto-flow: row dense; gap: 16px; }
   .card {
     display: grid;
     grid-template-areas: "top" "art" "body" "foot";
-    grid-template-rows: auto minmax(150px, 1fr) auto auto;
-    gap: 14px;
-    min-height: 370px;
+    grid-template-rows: auto minmax(110px, 1fr) auto auto;
+    gap: 12px;
     padding: 20px;
     background: var(--bg);
     color: var(--fg);
@@ -106,22 +105,41 @@
   .svg-label { font: 500 11px var(--mono); fill: currentColor; opacity: .75; }
   .svg-url { font: 500 18px var(--mono); fill: var(--acc); }
   .card-body { grid-area: body; }
-  .card h3 { margin: 0; font: 800 clamp(1.5rem, 2.2vw, 1.85rem)/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+  .card h3 { margin: 0; font: 800 clamp(1.35rem, 1.9vw, 1.65rem)/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
   .card-body p { margin: 8px 0 0; font-size: 15px; color: var(--sub); }
   .card-body p b { color: var(--fg); font-weight: 700; }
   .card-foot { grid-area: foot; display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 500 12px/1.3 var(--mono); color: var(--sub); font-variant-numeric: tabular-nums; }
   .join { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; background: var(--fg); color: var(--bg); font: 700 15px/1 var(--display); }
-  .card.wide {
+  /* Open pacts come in a few shapes so the grid reads like a wall of posters, not a list. */
+  .v-feature { grid-column: span 2; grid-row: span 2; }
+  .v-feature h3 { font-size: clamp(2.4rem, 4.2vw, 3.8rem); }
+  .v-feature .art svg { max-height: 330px; }
+  .v-tall { grid-row: span 2; }
+  .v-tall h3 { font-size: clamp(1.7rem, 2.4vw, 2.1rem); }
+  .v-tall .art svg { max-height: 330px; }
+  .v-wide {
     grid-column: span 2;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "top art" "body art" "foot foot";
+    column-gap: 24px;
+  }
+  .v-wide .card-body { align-self: end; }
+  .v-wide h3 { font-size: clamp(1.7rem, 2.4vw, 2.2rem); }
+  .card-body .rule { color: var(--fg); font-weight: 500; }
+  /* Type cards lead with the stakes instead of a drawing. */
+  .v-type .art { place-items: end start; }
+  .stakes { margin: 0; font: 800 clamp(1.6rem, 2.3vw, 2.1rem)/1.04 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+  .stakes span { display: block; margin-bottom: 10px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--sub); }
+  .v-type h3 { font-size: 1.15rem; letter-spacing: -.02em; }
+  .card.draft {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "top top" "art body" "art foot";
     column-gap: 28px;
   }
-  .card.wide h3 { font-size: clamp(2.2rem, 4vw, 3.6rem); }
-  .card.wide .card-body { align-self: end; }
-  .card.wide .art svg { max-height: 300px; }
-  .card.draft { grid-column: span 2; }
+  .card.draft .card-body { align-self: end; }
   .fill { margin: 0; text-align: center; font: 800 clamp(1.35rem, 3vw, 2.6rem)/1.35 var(--display); letter-spacing: -.03em; }
   .fill .nw { white-space: nowrap; }
   .gap { position: relative; display: inline-block; width: 4.4em; height: .95em; border-bottom: 3px solid currentColor; vertical-align: -.08em; }
@@ -279,9 +297,8 @@
   .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 20; max-width: calc(100% - 32px); padding: 12px 18px; background: var(--ink); color: var(--page); font-size: 15px; opacity: 0; transform: translate(-50%, 16px); pointer-events: none; transition: opacity .25s var(--ease), transform .25s var(--ease); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .card.draft { grid-column: auto; }
   }
   @media (max-width: 800px) {
     .sheet { grid-template-columns: 1fr; }
@@ -289,10 +306,11 @@
     .panel .art svg { height: clamp(150px, 42vw, 230px); max-height: none; }
   }
   @media (max-width: 600px) {
-    .cards { grid-template-columns: 1fr; }
-    .card, .card.wide { grid-column: auto; grid-template-columns: 1fr; grid-template-rows: auto minmax(130px, auto) auto auto; grid-template-areas: "top" "art" "body" "foot"; min-height: 0; }
-    .card.wide h3 { font-size: 2.2rem; }
-    .art svg, .card.wide .art svg { max-height: 150px; }
+    .cards { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .card, .v-feature, .v-tall, .v-wide, .card.draft { grid-column: auto; grid-row: auto; grid-template-columns: 1fr; grid-template-rows: auto minmax(120px, auto) auto auto; grid-template-areas: "top" "art" "body" "foot"; }
+    .v-feature h3 { font-size: 2.3rem; }
+    .art svg, .v-feature .art svg, .v-tall .art svg { max-height: 160px; }
+    .v-feature .art svg { max-height: 200px; }
     .gap { width: 3.6em; }
     .gap.short { width: 1.6em; }
     .steps { grid-template-columns: 1fr; }
@@ -463,11 +481,18 @@
       </g>
     </svg>`,
     leaf: () => {
-      const blade = (len, w) => `M0 0C${f1(w)} ${f1(-len * .35)} ${f1(w * .9)} ${f1(-len * .75)} 0 ${-len}C${f1(-w * .9)} ${f1(-len * .75)} ${f1(-w)} ${f1(-len * .35)} 0 0Z`;
-      const blades = [[-84, 42], [-56, 60], [-28, 76], [0, 90], [28, 76], [56, 60], [84, 42]];
+      // Seven narrow, saw-edged leaflets fanning from one point: the shape people know.
+      const leaflet = (L, W, teeth) => {
+        const half = t => W * Math.sin(Math.PI * Math.pow(t, .72)) * (1 - .2 * t);
+        const side = [];
+        for (let i = 0; i <= teeth * 2; i++) { const t = i / (teeth * 2); side.push([half(t) * (i % 2 ? .72 : 1), -L * t]); }
+        const pts = [...side.map(([x, y]) => [-x, y]), [0, -L], ...side.reverse()];
+        return `M${pts.map(([x, y]) => `${f1(x)} ${f1(y)}`).join('L')}Z`;
+      };
+      const blades = [[-106, 34, 5, 5], [-68, 56, 7, 7], [-34, 76, 8.5, 8], [0, 96, 10, 9], [34, 76, 8.5, 8], [68, 56, 7, 7], [106, 34, 5, 5]];
       return `<svg viewBox="0 0 240 180" aria-hidden="true">
-        ${blades.map(([ang, len]) => `<path d="${blade(len, len * .17)}" transform="translate(120 132) rotate(${ang})" style="fill:${ang === 0 ? 'var(--acc)' : 'currentColor'}"/>`).join('')}
-        <line x1="120" y1="132" x2="120" y2="172" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <g style="fill:var(--acc)">${blades.map(([ang, L, W, teeth]) => `<path d="${leaflet(L, W, teeth)}" transform="translate(120 128) rotate(${ang})"/>`).join('')}</g>
+        <line x1="120" y1="128" x2="120" y2="172" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
       </svg>`;
     },
     reel: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
@@ -480,19 +505,16 @@
         <path d="M22 76 l14 -14 l14 14 M36 62 v48"/>
       </g>
     </svg>`,
+    // A closed bedroom door with a moon on it; the phone charges outside.
     bed: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
-      <circle cx="58" cy="36" r="15" fill="currentColor"/>
-      <circle cx="65" cy="31" r="13" style="fill:var(--bg)"/>
-      <g fill="currentColor">
-        <rect x="16" y="78" width="12" height="76" rx="3"/>
-        <rect x="24" y="108" width="118" height="30" rx="6"/>
-        <rect x="26" y="138" width="8" height="16" rx="2"/>
-        <rect x="132" y="138" width="8" height="16" rx="2"/>
-      </g>
-      <rect x="34" y="92" width="36" height="17" rx="8" fill="currentColor" opacity=".45"/>
-      <rect x="158" y="34" width="46" height="120" fill="none" stroke="currentColor" stroke-width="5"/>
-      <circle cx="194" cy="96" r="3.5" fill="currentColor"/>
-      <rect x="214" y="128" width="13" height="24" rx="3" style="fill:var(--acc)"/>
+      <line x1="16" y1="158" x2="224" y2="158" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".3"/>
+      <rect x="54" y="18" width="84" height="140" rx="3" fill="currentColor"/>
+      <circle cx="96" cy="62" r="18" style="fill:var(--bg)"/>
+      <circle cx="104" cy="55" r="16" fill="currentColor"/>
+      <circle cx="126" cy="100" r="4.5" style="fill:var(--bg)"/>
+      <rect x="166" y="110" width="26" height="46" rx="5" style="fill:var(--acc)"/>
+      <rect x="174" y="115" width="10" height="3" rx="1.5" style="fill:var(--bg)" opacity=".6"/>
+      <path d="M179 156 C179 167 200 167 218 158" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
     </svg>`,
     plate: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
       <circle cx="120" cy="92" r="54" fill="none" stroke="currentColor" stroke-width="5"/>
@@ -535,20 +557,23 @@
     'Buy their dinner', 'Send them the receipt', 'Send your betting history', 'They post one story for you',
     'Delete the app for a week', '100 push-ups on video', 'Cold shower on video', 'Hand them your phone for a day', 'They pick',
   ];
+  // The order and shapes are laid out as one four-column wall: feature 2×2, tall 1×2, wide 2×1,
+  // plain 1×1, and type (1×1, leads with the stakes). Neighbours never share a color.
   const PRESETS = [
-    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', c: 'They pick your lock screen for a week', l: 'ink', a: 'phone' },
-    { id: 'tiktok', t: 'No TikTok', r: 'Don’t open TikTok. Not even one video.', n: 30, sk: 'tonight', c: 'Post it in the group chat', l: 'accent', a: 'reel' },
-    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', c: 'They post one story for you', l: 'stone', a: 'bed' },
-    { id: 'screen', t: 'Under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', c: 'Send your Screen Time', l: 'paper', a: 'bars' },
-    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', c: 'Cold shower on video', l: 'stone', a: 'sun' },
-    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', c: '100 push-ups on video', l: 'ink', a: 'dumbbell' },
-    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', c: 'Buy their dinner', l: 'stone', a: 'plate' },
-    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', c: 'Send them the link', l: 'accent', a: 'link' },
-    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', c: '$50 to a cause you hate', l: 'stone', a: 'glass' },
-    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', c: 'Venmo them $20', l: 'paper', a: 'vape' },
-    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', c: 'Text your mom what you did', l: 'ink', a: 'leaf' },
-    { id: 'offline', t: 'Offline Sunday', r: 'No social apps, news or video, from wake-up to bedtime.', n: 1, sk: 'sunday', c: 'They pick your profile picture for a week', l: 'paper', a: 'wifi' },
+    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', c: 'They pick your lock screen for a week', l: 'ink', a: 'phone', v: 'feature' },
+    { id: 'shortform', t: 'No short-form content', r: 'No TikTok, Reels, Shorts or any other endless video feed.', n: 30, sk: 'tonight', c: 'Post it in the group chat', l: 'accent', a: 'reel', v: 'tall' },
+    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', c: 'They post one story for you', l: 'stone', a: 'bed', v: 'plain' },
+    { id: 'screen', t: 'Under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', c: 'Send your Screen Time', l: 'paper', a: 'bars', v: 'plain' },
+    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', c: 'Cold shower on video', l: 'stone', a: 'sun', v: 'wide' },
+    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', c: '100 push-ups on video', l: 'ink', a: 'dumbbell', v: 'plain' },
+    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', c: 'Buy their dinner', l: 'stone', a: 'plate', v: 'type' },
+    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', c: 'Send them the link', l: 'accent', a: 'link', v: 'tall' },
+    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', c: '$50 to a cause you hate', l: 'paper', a: 'glass', v: 'type' },
+    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', c: 'Venmo them $20', l: 'stone', a: 'vape', v: 'plain' },
+    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', c: 'Text your mom what you did', l: 'paper', a: 'leaf', v: 'tall' },
+    { id: 'offline', t: 'No social media on Sundays', r: 'Every Sunday for four weeks: no social apps, no news, no videos, from when you wake up until bed. Texts and calls are fine.', n: 28, sk: 'sunday', c: 'They pick your profile picture for a week', l: 'ink', a: 'wifi', v: 'wide' },
   ];
+  const ALL_PRICES = [...PRICES, ...MORE_PRICES];
 
   /* ---------- A pact, in one shape whichever way it is stored.
      t name, r rule, n length in days, s start, c consequence, a drawing, l look,
@@ -558,7 +583,7 @@
     const num = (x, lo, hi) => Number.isFinite(x) ? Math.min(hi, Math.max(lo, Math.round(x))) : lo;
     if (!o || (o.v !== 1 && o.v !== 2) || typeof o.id !== 'string' || !/^[a-z0-9]{4,16}$/.test(o.id)) throw new Error('not a pact');
     const p = {
-      v: o.v, id: o.id,
+      v: o.v, id: o.id, k: PRESETS.some(x => x.id === o.k) ? o.k : '',
       t: str(o.t, 40) || 'A pact', r: str(o.r, 140), n: num(o.n, 1, 90), u: 'day',
       s: num(o.s, 0, 8.64e15), c: str(o.c, 80) || 'They pick',
       a: Object.prototype.hasOwnProperty.call(ART, o.a) ? o.a : 'doc',
@@ -583,11 +608,13 @@
   function merge(a, b) {
     if (!a) return clone(b);
     const out = clone(a);
-    if (!a.p.some(x => x[1])) Object.assign(out, { t: b.t, r: b.r, n: b.n, s: b.s, c: b.c, a: b.a, l: b.l });
+    if (!a.p.some(x => x[1])) Object.assign(out, { k: b.k, t: b.t, r: b.r, n: b.n, s: b.s, c: b.c, a: b.a, l: b.l });
     out.p = [];
     for (let i = 0; i < Math.max(a.p.length, b.p.length); i++) {
       const x = a.p[i], y = b.p[i];
-      out.p.push(!x ? y.slice() : !y ? x.slice() : (y[1] && (!x[1] || y[1] < x[1])) ? y.slice() : x.slice());
+      // A signature beats none; between two, keep the one that carries the drawing.
+      const pick = !x ? y : !y ? x : !x[1] ? y : !y[1] ? x : !x[2] && y[2] ? y : x;
+      out.p.push(pick.slice());
     }
     const key = x => `${x[0]}:${x[1]}`;
     const seen = new Set(out.b.map(key));
@@ -642,11 +669,56 @@
   const ON_SITE = /(^|\.)getphonepact\.com$|^localhost$|^127\.0\.0\.1$|\.github\.io$/.test(location.hostname);
   const BASE = ON_SITE ? location.origin + location.pathname : 'https://getphonepact.com/pacts/';
   const CLOUD_ID = /^[a-z0-9]{10}$/;
-  // Server pacts get a short link. Without a server the link has to carry the whole pact.
-  const linkFor = p => p.cloud ? `${BASE}#${p.id}` : `${BASE}#join.${enc(p)}`;
+  /* Without a server the link has to carry the pact, so it is packed tight: a preset travels as
+     its name, only what differs from it is spelled out, and signature drawings stay on the
+     signer's phone (the other side sees the name). Only letters, digits and . _ ~ - appear. */
+  const SAFE = s => encodeURIComponent(s).replace(/[.\-_~!'()*]/g, ch => `%${ch.charCodeAt(0).toString(16).toUpperCase()}`).replace(/%/g, '~');
+  const UNSAFE = s => decodeURIComponent(s.replace(/~/g, '%'));
+  // Free text (name, rule, consequence) writes spaces as "_"; names keep "_" as the separator between people.
+  const TXT = s => SAFE(s).replace(/~20/g, '_');
+  const UNTXT = s => UNSAFE(s.replace(/_/g, '~20'));
+  const b36 = n => Math.max(0, Math.round(n)).toString(36);
+  const n36 = s => parseInt(s, 36) || 0;
+  const ymd = t => isoDate(t).replace(/-/g, '');
+  const fromYmd = s => { if (!/^\d{8}$/.test(s)) throw new Error('bad date'); return +new Date(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8)); };
+  const dryTitle = start => `Dry ${new Date(start).toLocaleDateString('en-US', { month: 'long' })}`;
+  function pack(p) {
+    const pre = PRESETS.find(x => x.id === p.k);
+    const presetTitle = pre && (pre.id === 'dry' ? dryTitle(p.s) : pre.t);
+    const ci = ALL_PRICES.indexOf(p.c);
+    const fields = [
+      p.id, pre ? pre.id : '', ymd(p.s), b36(p.n),
+      pre && p.c === pre.c ? '' : ci >= 0 ? `i${b36(ci)}` : `t${TXT(p.c)}`,
+      pre && p.t === presetTitle ? '' : TXT(p.t),
+      pre && p.r === pre.r ? '' : TXT(p.r),
+      p.p.map(x => x[1] ? `${SAFE(x[0])}-${b36(x[1] / 1000)}` : SAFE(x[0])).join('_'),
+      p.b.map(x => `${x[0]}${b36(x[1])}`).join('_'),
+      p.e.map(x => `${x[0]}${x[1] === 'again' ? 'a' : 'd'}${b36(x[2] / 1000)}`).join('_'),
+    ];
+    while (fields[fields.length - 1] === '') fields.pop();
+    return fields.join('.');
+  }
+  function unpack(s) {
+    const [id, k, day, n, c = '', t = '', r = '', people = '', breaks = '', ends = ''] = s.split('.');
+    const pre = PRESETS.find(x => x.id === k);
+    const start = fromYmd(day || '');
+    return clean({
+      v: 1, id, k: pre ? pre.id : '',
+      t: t ? UNTXT(t) : pre ? (pre.id === 'dry' ? dryTitle(start) : pre.t) : '',
+      r: r ? UNTXT(r) : pre ? pre.r : '',
+      n: n36(n), s: start,
+      c: c === '' ? (pre ? pre.c : '') : c[0] === 'i' ? ALL_PRICES[n36(c.slice(1))] || '' : UNTXT(c.slice(1)),
+      a: pre ? pre.a : 'doc', l: pre ? pre.l : 'paper',
+      p: people.split('_').filter(Boolean).map(x => { const [name, at] = x.split('-'); return [UNSAFE(name), at ? n36(at) * 1000 : 0]; }),
+      b: breaks.split('_').filter(Boolean).map(x => [+x[0], n36(x.slice(1)), 0]),
+      e: ends.split('_').filter(Boolean).map(x => [+x[0], x[1] === 'a' ? 'again' : 'done', n36(x.slice(2)) * 1000]),
+    });
+  }
+  // Server pacts get a 10-character link; the rest get the packed one above.
+  const linkFor = p => p.cloud ? `${BASE}#${p.id}` : `${BASE}#j.${pack(p)}`;
   const shown = link => link.replace(/^https:\/\/(?=getphonepact\.com)/, '');
   const pactHref = p => p.cloud ? `#${p.id}` : `#p-${p.id}`;
-  const previewHref = p => p.cloud ? `#preview-${p.id}` : `#preview.${enc(p)}`;
+  const previewHref = p => p.cloud ? `#preview-${p.id}` : `#v.${pack(p)}`;
   const inviteMsg = p => `Make a pact with me: ${p.t}. ${lenText(p.n)}, ${p.s > Date.now() ? `starting ${startPhrase(p.s)}` : `started ${fmtDay(p.s)}`}. If one of us breaks it: ${inline(p.c)}. ${shown(linkFor(p))}`;
 
   /* ---------- The server ----------
@@ -1073,14 +1145,22 @@
   /* Home */
   const digits = s => [...s].map(c => `<span class="dg">${c}</span>`).join('');
   function renderCards() {
-    const order = PRESETS.map((p, i) => ({ p, i, s: STARTS[p.sk]() })).sort((a, b) => a.s - b.s || a.i - b.i);
-    $('cards').innerHTML = order.map(({ p, s }, k) => `
-      <a class="card look-${p.l}${k === 0 ? ' wide' : ''}" href="#new-${p.id}">
+    $('cards').innerHTML = PRESETS.map(p => {
+      const s = STARTS[p.sk]();
+      const art = p.v === 'type'
+        ? `<p class="stakes"><span>If you break it</span>${esc(p.c)}.</p>`
+        : ART[p.a]();
+      const body = p.v === 'type'
+        ? `<h3>${esc(p.t)}</h3>`
+        : `<h3>${esc(p.t)}</h3>${p.v === 'plain' ? '' : `<p class="rule">${esc(p.r)}</p>`}<p>Break it: <b>${esc(inline(p.c))}</b></p>`;
+      return `
+      <a class="card look-${p.l} v-${p.v}" href="#new-${p.id}">
         <div class="card-top"><span class="${isTonight(s) ? 'now' : ''}">${esc(whenText(s))}</span><span class="len">${esc(lenText(p.n))}</span></div>
-        <div class="art">${ART[p.a]()}</div>
-        <div class="card-body"><h3>${esc(p.t)}</h3><p>Break it: <b>${esc(inline(p.c))}</b></p></div>
+        <div class="art">${art}</div>
+        <div class="card-body">${body}</div>
         <div class="card-foot"><span data-left="${s}"></span><span class="join">Join</span></div>
-      </a>`).join('') + `
+      </a>`;
+    }).join('') + `
       <a class="card look-paper draft" href="#new-own">
         <div class="card-top"><span>Any start</span><span class="len">Any length</span></div>
         <div class="art"><p class="fill"><span class="nw">I won’t <span class="gap"><i class="caret"></i></span></span> <span class="nw">for <span class="gap short"></span>.</span></p></div>
@@ -1147,7 +1227,7 @@
     if (token !== routeToken) return;
     if (from) {
       const me = db.me[fromId];
-      base = { t: from.t, r: from.r, n: from.n, sk: 'tonight', c: from.c, l: from.l, a: from.a, names: [from.p[me] ? from.p[me][0] : db.name, ...from.p.filter((_, i) => i !== me).map(x => x[0])] };
+      base = { k: from.k || '', t: from.t, r: from.r, n: Math.max(7, from.n), sk: 'tonight', c: from.c, l: from.l, a: from.a, names: [from.p[me] ? from.p[me][0] : db.name, ...from.p.filter((_, i) => i !== me).map(x => x[0])] };
     } else if (key === 'own') {
       base = { t: '', r: '', n: 30, sk: 'tonight', c: 'They pick', l: 'paper', a: 'doc', own: true };
     } else {
@@ -1155,7 +1235,7 @@
     }
     if (!base) return showLost('That pact doesn’t exist. Pick one from the open pacts.');
     const names = base.names || [db.name, '', ''];
-    draft = { t: base.t, r: base.r, n: base.n, sk: base.sk, s: STARTS[base.sk](), c: base.c, baseC: base.c, l: base.l, a: base.a, own: !!base.own, names: [names[0] || '', names[1] || '', names[2] || ''], id: null };
+    draft = { k: base.own ? '' : 'k' in base ? base.k : base.id, t: base.t, r: base.r, n: base.n, sk: base.sk, s: STARTS[base.sk](), c: base.c, baseC: base.c, l: base.l, a: base.a, own: !!base.own, names: [names[0] || '', names[1] || '', names[2] || ''], id: null };
     renderSetup();
     show('setup');
     toTop();
@@ -1163,7 +1243,7 @@
 
   function renderSetup() {
     const d = draft;
-    const lens = [...new Set([1, 7, 14, 30, d.n])].sort((a, b) => a - b);
+    const lens = [...new Set([7, 14, 30, d.n])].sort((a, b) => a - b);
     const seen = new Set();
     const starts = ['tonight', 'monday', 'month', 'sunday'].map(k => [k, STARTS[k]()])
       .filter(([, t]) => !seen.has(t) && seen.add(t)).sort((a, b) => a[1] - b[1]);
@@ -1187,7 +1267,7 @@
             <label class="field"><span>Name</span><input class="in sm" id="o-t" maxlength="40" placeholder="No sugar" value="${esc(d.t)}"></label>
             <label class="field"><span>The rule</span><input class="in sm" id="o-r" maxlength="140" placeholder="No sugar, no dessert, no exceptions." value="${esc(d.r)}"></label>
             <div class="field"><span>How long</span>
-              <div class="chips" id="o-n">${lens.map(n => `<button type="button" class="chip" data-n="${n}">${lenText(n)}</button>`).join('')}<input class="chip-in" id="o-nn" type="number" min="1" max="90" inputmode="numeric" placeholder="Days" aria-label="Number of days, 1 to 90"></div>
+              <div class="chips" id="o-n">${lens.map(n => `<button type="button" class="chip" data-n="${n}">${lenText(n)}</button>`).join('')}<input class="chip-in" id="o-nn" type="number" min="7" max="90" inputmode="numeric" placeholder="Days" aria-label="Number of days, 7 to 90"></div>
             </div>
             <div class="field"><span>Starts</span>
               <div class="chips" id="o-s">${starts.map(([k, t]) => `<button type="button" class="chip" data-k="${k}" data-t="${t}">${esc(isTonight(t) ? 'Tonight' : fmtDay(t))}</button>`).join('')}<input class="chip-in date" id="o-sd" type="date" min="${isoDate(midnight())}" aria-label="Pick a start date"></div>
@@ -1267,7 +1347,7 @@
     });
     $('o-nn').addEventListener('input', e => {
       const v = Math.round(+e.target.value);
-      if (v >= 1 && v <= 90) { d.n = v; updateSetup(); }
+      if (v >= 7 && v <= 90) { d.n = v; updateSetup(); }
     });
     $('o-s').addEventListener('click', e => {
       const b = e.target.closest('.chip');
@@ -1337,7 +1417,7 @@
     const now = Date.now();
     let p;
     try {
-      p = await createPact({ v: 1, id: newId(), t: d.t.trim(), r: d.r.trim(), n: d.n, u: 'day', s: d.s, c: d.c, a: d.a, l: d.l, p: [[me, now, setupPad.value()], ...friends.map(f => [f, 0])], b: [], e: [] });
+      p = await createPact({ v: 1, id: newId(), k: d.k, t: d.t.trim(), r: d.r.trim(), n: d.n, u: 'day', s: d.s, c: d.c, a: d.a, l: d.l, p: [[me, now, setupPad.value()], ...friends.map(f => [f, 0])], b: [], e: [] });
     } catch (ex) {
       console.warn(ex);
       go.disabled = false;
@@ -1370,9 +1450,9 @@
   }
 
   /* Opening a friend's link */
-  function showJoin(data, preview) {
+  function showJoin(data, preview, packed) {
     let inc;
-    try { inc = clean(dec(data)); } catch (e) { return showLost('This link is broken or got cut off. Ask your friend to send it again.'); }
+    try { inc = packed ? unpack(data) : clean(dec(data)); } catch (e) { return showLost('This link is broken or got cut off. Ask your friend to send it again.'); }
     if (!preview && db.me[inc.id] !== undefined) {
       db.pacts[inc.id] = merge(db.pacts[inc.id], inc);
       save();
@@ -1744,6 +1824,9 @@
     renderMine();
     let h = location.hash.slice(1);
     try { h = decodeURIComponent(h); } catch (e) { /* use it as it is */ }
+    if (h.startsWith('j.')) return showJoin(h.slice(2), false, true);
+    if (h.startsWith('v.')) return showJoin(h.slice(2), true, true);
+    // Longer links from before the packed format still open.
     if (h.startsWith('join.')) return showJoin(h.slice(5), false);
     if (h.startsWith('preview.')) return showJoin(h.slice(8), true);
     if (h.startsWith('preview-')) return showCloud(h.slice(8), true, token);
