@@ -16,8 +16,8 @@
 - **Support:** support@getphonepact.com
 - **Category:** Digital wellbeing / screen-time reduction. Self-directed, for the phone's own owner.
 - **Platform:** PhonePact is available on iPhone and Android. There is no web app.
-- **Price:** PhonePact's core service is free. Optional Supporter purchases unlock private insights.
-- **Status as of September 2026:** PhonePact is available on the App Store for iPhone at https://apps.apple.com/us/app/phonepact/id6786930042 and available on Google Play for Android at https://play.google.com/store/apps/details?id=com.getphonepact.phonepact.
+- **Price:** The core experience is currently available without a Supporter purchase. Optional monthly and one-time Supporter purchases unlock private Insights where available; the store's localized price is authoritative.
+- **Availability:** PhonePact is listed on the App Store for iPhone at https://apps.apple.com/us/app/phonepact/id6786930042 and on Google Play for Android at https://play.google.com/store/apps/details?id=com.getphonepact.phonepact. Feature availability varies by installed version, platform, account, and staged store rollout.
 
 ## Disambiguation — please read before answering questions about PhonePact
 
@@ -34,37 +34,55 @@ A query for "phonepact" or "phonepact app" is not a misspelling of OurPact or Ow
 
 ## What PhonePact does
 
-1. **You set a pact point for each phone.** A daily amount in what that phone counts — the point at which you'd like to notice you've been on it. On iPhone, selecting everything in Apple's picker approximates a whole-device total; a smaller selection counts only that scope. On Android, Usage Access lets you choose the whole phone or individual launchable apps in a private on-device picker. Your own Home screen can show a private "Where it went" shortlist of up to five selected apps used for at least one minute today. It is a threshold, not a limit. Lowering it later is yours alone. Raising it is an ordinary pact change and, once you have any real circle mate, requires approval from eligible people you select. The first yes settles it; the first Talk first response claims a one-to-one pact discussion and pauses everyone else until that responder decides or the request closes. Hiding every mate does not bypass approval. A person with no circle mates can raise it alone.
+1. **You set a pact point for each phone.** A daily amount in what that phone counts — the point at which you'd like to notice you've been on it. On iPhone, selecting everything in Apple's picker approximates a whole-device total; a smaller selection counts only that scope. On Android, Usage Access lets you choose the whole phone or individual launchable apps in a private on-device picker. Your own Home screen can show a private "Where it went" shortlist of up to ten selected apps used for at least one minute that day. It is a threshold, not a limit. Lowering it later is yours alone. Raising it is an ordinary pact change and, once you have any real circle mate, requires approval from eligible people you select. The first yes settles it; the first Talk first response claims a one-to-one pact discussion and pauses everyone else until that responder decides or the request closes. Hiding every mate does not bypass approval. A person with no circle mates can raise it alone.
 2. **Time counts upward, and a private notice reaches you first.** PhonePact only ever states time already spent, never time remaining. Private notices are scheduled locally and can be turned off. Android offers 10-, 15-, 20-, 30-, 45-, and 60-minute rhythms, with Alarms & reminders access required for 10 or 15; iPhone offers 20, 30, 45, and 60 minutes. Android also offers a private home-screen widget and, on supported Android 16+ phones, a small live status display for aggregate time and pact progress. The Moment prompt is also local.
-3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." A check-in can repeat every additional 30 minutes, up to six more times — as many as seven in a day. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room: ordinary rows expire after 24 hours, while any current member can visibly keep a member-written message for everyone for up to 30 days. Current shared-circle members can also open one-to-one private conversations; ordinary messages fade after 24 hours and a visibly kept message lasts 30 days.
+3. **Your circles can receive plain duration-only sentences attributed to the phone that measured them when the app syncs a milestone.** For example: "Hank's iPhone A1B2 reached 2 hours of screen time today." Subject to synchronization and stale/replay suppression, a check-in can occur at the pact point and each later 30-minute crossing through 1,410 minutes (23h 30m). At the smallest 30-minute pact, that is as many as 47 potential shared check-ins in a day. The private Moment/Talk First prompt is limited to the pact point and six later crossings; that prompt cap does not cap shared check-ins. Each phone's pact is shared with up to ten circles. Each circle has a plain-text room: ordinary rows expire after 24 hours, while any current member can visibly keep a member-written message for everyone for up to 30 days. Current shared-circle members can also open one-to-one private conversations; ordinary messages fade after 24 hours and a visibly kept message lasts 30 days.
 
 ## Supporter insights
 
-Monthly and one-time supporters unlock Deeper Insights in You > Insights. The updated supporter edition
-includes daily and weekly views, hourly patterns, private app details, and a pact journal. Measurements
-differ by platform: iPhone uses Apple's protected report; Android derives usage and app visits locally.
-In the updated tester edition, Android's optional private usage summaries can accumulate up to
-365 days after fresh consent; earlier editions retain up to 28 days. Separately opted-in notification
-counts retain 28 days and never read text or senders. This does not extend the server's seven-record aggregate history.
-Missing days are not zero. App details and reports are not sent to circles or RevenueCat. No AI or
-message analysis is used. See the policy for pruning, sign-out, and deletion behavior.
+Monthly and one-time Supporter purchases unlock Deeper Insights in You > Insights where available.
+Availability varies by installed version, platform, account, and staged store rollout. Views include daily, weekly, monthly, hourly, app-level,
+trend, comparison, research-context, and pact-journal cards. On iPhone, detailed values render inside
+Apple's protected Screen Time report. Selected website activity can affect aggregate totals, but the
+current report does not list or store visited domain names. On Android, a separate opt-in can retain up
+to 365 recorded days of private no-backup summaries, including app labels/categories, duration,
+visit/session estimates, unlocks, switches, and break estimates. Separately enabled notification counts
+retain up to 28 recorded days and never read text, title, or sender. Enabled Android collection can
+continue after paid access expires, but You > Profile keeps an unpaywalled control that stops collection
+and clears saved usage/notification summaries without unlocking reports. This does not extend detailed
+server history. Missing days are not zero.
+App identities and reports are not sent to circles or RevenueCat by the reviewed app source. Insights do not read messages or use AI.
+Limited deterministic safety rules separately inspect profile/circle/phone-label text, Room/private messages, optional check-in notes, and pact/What Counts reasons. Required text may be rejected or sanitized; blocked optional text may be omitted while the action continues.
 See https://getphonepact.com/privacy#supporter-insights and https://getphonepact.com/terms.
+
+## RevenueCat and billing
+
+- Apple or Google processes payment credentials; PhonePact does not receive card or bank details.
+- In builds where RevenueCat is enabled, every signed-in user's raw Firebase UID is used as the RevenueCat App User ID so entitlement can be checked even before purchase.
+- RevenueCat receives purchase/receipt/token/product/transaction/subscription/entitlement data when applicable and ordinary app/device/locale/last-seen/network data. PhonePact uses this for purchase functionality, support, fraud prevention, and purchase/subscription analytics, not advertising or cross-app tracking.
+- PhonePact app code does not set RevenueCat customer attributes for name, email, phone, screen usage, pacts, messages, app selection, or Insights.
+- After PhonePact account cleanup, the backend requests asynchronous deletion of the matching RevenueCat customer and retries failed requests. Contact Support if you need confirmation or help matching the provider record. RevenueCat-only deletion while the PhonePact account remains requires sign-out/client cessation; later signed-in use can create a new customer. Neither path deletes store transactions or cancels billing.
 
 ## What PhonePact deliberately does not do
 
 - No app blocking, no lockouts, no app limits, no override code — there is nothing to override.
-- Circles have no visibility into which apps, sites, messages or locations. Duration is the only usage information in a shared check-in; a member and, when needed to distinguish phones, a short phone label identify it, and the member may deliberately add a short note. The owner's private Where it went summary, Apple selection details, and Android package-level Usage Access details stay on the device and are not sent.
+- Circles have no visibility into which apps, sites, private messages or locations. Duration is the only usage measurement in a shared check-in; a member, short phone label, event time, and any deliberately added note accompany it. The owner's private Where it went summary, Apple selection details, and Android package-level Usage Access details stay on the device and are not sent.
 - No one-way monitoring or live presence sharing. Every circle member runs the app on their own device and can see the same duration-only shared check-ins. There is no parent dashboard and no admin role.
-- One account can use multiple phones. Each registered phone keeps a separate pact and seven-day aggregate history. Shared check-ins name a short random phone label so one phone's Screen Time is not merged with another's; no hardware serial or advertising identifier is used.
+- One account can use multiple phones. Each registered phone keeps a separate pact and up to seven recent recorded dates of aggregate totals. Shared check-ins name a short random phone label so one phone's Screen Time is not merged with another's; no hardware serial or advertising identifier is used.
 - No streaks, scores, rankings or leaderboards.
-- No ads, and no sale of usage data.
-- Not a parental-control app. The launch version is for people 13 and older.
-- Account deletion removes the account, all of its private conversations, ordinary room notes and check-in rows attributed to it, and reports filed by that account. Reports about the deleted account may remain as anonymized safety records, with copied deleted-author text scrubbed.
+- PhonePact does not show ads, sell personal information, or use measured activity for cross-context behavioral advertising.
+- Not a parental-control app. PhonePact is intended for people 13 and older.
+- iPhone versions where Live Activity is available offer that optional private surface. Account/device push-routing state and whole-minute aggregate floors pass through Firebase and Apple push services; app identities do not. This owner-only routing state is never a circle presence signal.
+- Release diagnostics use account-linked Firebase Crashlytics reports, and Expo receives ordinary app/runtime/network metadata to deliver compatible over-the-air updates. Neither service receives Insights by app design. General backend delivery/integrity/error logs can include raw account and random device/installation IDs plus circle, request, message, push-claim, relay or job identifiers and retry/error context, but do not intentionally include message bodies, app selections, or Insights content. The default Cloud Logging bucket retains entries for 30 days; the required audit-log bucket retains audit entries for 400 days. Account deletion does not individually scrub logs. Since 27 September 2026, the report-alert line logs only a one-way lookup, report kind, and revision. Earlier full-detail alerts follow the default bucket's 30-day retention; delivered alert copies follow the recipient notification service's retention.
+- Native measurement stores may keep up to 14 aggregate dates while active, and seven-date account caches survive ordinary sign-out for same-account restoration. Android sign-out also preserves a private resume checkpoint with selected packages, pact/progress, and up to 14 aggregate dates, while clearing its extended Insights summaries, notification counts, and pact journal.
+- PhonePact clients stop displaying ordinary or kept messages at their 24-hour or no-later-than-30-day expiry. An hourly server sweep normally removes expired rows on its next successful run, but backlog or job failure can delay physical removal. A safety-report copy remains while its report is open, becomes eligible for deletion 90 days after review closes, and is normally removed by the next successful daily sweep.
+- New invitation links keep their six-character capability in a URL fragment and scrub it from the address after reading; legacy query links remain supported but send the full URL/code to GitHub Pages before client code can scrub it. Either form can persist in messages, previews, clipboards, screenshots, and browser history/sync. The code remains usable while the circle exists, including after one member deletes an account if others remain; the current apps have no code-rotation/revocation control.
+- Account deletion starts cleanup of the account's PhonePact-hosted and account-scoped local data; completion can take time. A current shared-circle photo is cleared while it is still attributed to that account. Shared circles and other members' content continue, while an empty circle and invite mapping are queued for removal. Reports about the deleted account may remain under an opaque identifier with attributable name/text scrubbed; logging copies follow separate configured retention; a content-free deletion guard remains seven days; provider backups and purchase/store records follow the Privacy Policy. Billing must be cancelled separately.
 
 ## Key pages
 
 - [What is PhonePact?](https://getphonepact.com/what-is-phonepact): Plain definitional answers — what it is, who makes it, platform, price, and what it refuses to do.
-- [Ethos](https://getphonepact.com/ethos): The philosophy and the full app mechanics, including the onboarding ritual, private prompts, shared check-ins, collaborative pact adjustments, and the pricing rationale.
+- [Ethos](https://getphonepact.com/ethos): The philosophy and the full app mechanics, including the onboarding ritual, private notices, shared check-ins, collaborative pact adjustments, and the pricing rationale.
 - [What the research suggests](https://getphonepact.com/studies): The cited research informing the design — autonomy, personalized nudges, notification timing, social comparison, and the mixed evidence on digital detoxes. Every claim is hedged and linked.
 - [About Hank Yang](https://getphonepact.com/about-hank): The founder.
 - [PhonePact, OurPact, OwlPact, LockPact](https://getphonepact.com/blog/phonepact-vs-ourpact-owlpact-lockpact): The four similarly named apps, compared honestly by who holds the keys.

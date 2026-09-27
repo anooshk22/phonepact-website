@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260714-1">
+  <link rel="stylesheet" href="styles.css?v=20260927-1">
 </head>
 <body>
 
@@ -48,6 +48,7 @@
   </ul>
 </nav>
 
+<main id="main-content">
 <section class="studies-hero section" id="support-top">
   <div class="container">
     <p class="studies-hero__label reveal stagger-1">Help</p>
@@ -82,30 +83,105 @@
     <em>urgent</em> in the subject line.</p>
 
     <h2>Supporter insights</h2>
-    <p>PhonePact&rsquo;s core service is free. Monthly and one-time supporters unlock Deeper Insights in <strong>You &rarr; Insights</strong>. The updated tester edition includes weekly views, a monthly calendar, private app details, and a separate pact journal. Measurements differ on iPhone and Android, and missing history is never treated as zero. App details stay on your phone and messages are not analyzed. See <a href="privacy#supporter-insights">Supporter insights and privacy</a>.</p>
+    <p>The core experience is currently available without a Supporter purchase. Monthly and one-time Supporter
+    purchases unlock Deeper Insights in <strong>You &rarr; Insights</strong> where available. Feature availability
+    can vary by installed version, platform, account, and staged store rollout. Deeper Insights includes daily/weekly/monthly and time-of-day
+    views, private app details, trends and comparisons, research context, and a separate pact journal. Measurements
+    differ on iPhone and Android, and missing history is never treated as zero. App details stay on the phone;
+    Insights do not read messages or use AI. Limited deterministic safety rules separately inspect profile/circle/
+    phone-label text, messages, optional check-in notes, and pact/What Counts reasons for blocked terms or patterns;
+    required text may be rejected or sanitized, while blocked optional text may be omitted. See
+    <a href="privacy#supporter-insights">Supporter Insights and privacy</a>.</p>
+
+    <h3>Private Insights controls</h3>
+    <ul>
+      <li><strong>iPhone:</strong> Apple renders detailed values inside its protected Screen Time report. PhonePact
+      does not keep a separate detailed iPhone history file or list visited domain names. Turn off PhonePact under
+      <em>Settings &rarr; Screen Time &rarr; Apps with Screen Time Access</em> to stop new report access; that does not
+      erase Screen Time history held by iOS.</li>
+      <li><strong>Android:</strong> <em>Save your history</em> is a separate opt-in. It can keep up to 365 recorded days
+      of private usage summaries in no-backup storage on that phone. Use <em>You &rarr; Profile &rarr; Private Insights
+      data</em> to stop collection and delete the usage summaries and optional notification counts without deleting
+      your pact journal.</li>
+      <li><strong>After Supporter access ends:</strong> paid reports close, but an Android history option that was
+      already enabled can continue refreshing until it is turned off. The Profile control above remains available
+      without paid access and does not unlock reports. You can also revoke Usage Access and Notification Access in
+      Android Settings to stop new access, or sign out, clear PhonePact&rsquo;s app data, uninstall, delete the account,
+      or email us for help.</li>
+      <li><strong>Ordinary sign-out:</strong> pauses measurement and clears extended Android Insights summaries,
+      notification counts, and the pact journal, but recent account-scoped aggregate/resume data can remain on that
+      installation for restoration to the same account. Deleting the account or clearing app data removes that
+      saved local resume data; the private-history control alone clears extended Insights, not the resume checkpoint.</li>
+      <li><strong>Pact journal:</strong> keeps up to 28 recent days and 300 phone-recorded pact/crossing entries. It
+      clears at sign-out and is not a complete approval or delivery record.</li>
+    </ul>
 
     <h2>Manage Supporter purchases</h2>
-    <p>Supporter purchases are managed through the app store and RevenueCat. A one-time purchase does not renew; monthly support renews until you cancel it through the store.</p>
+    <p>Supporter purchases are managed through the app store and RevenueCat. The localized amount displayed by the
+    store is authoritative. A one-time purchase does not renew; monthly support renews until you cancel through the
+    store.</p>
     <ul>
-      <li><strong>Cancel or change on iPhone:</strong> open <em>Settings</em> &rarr; tap your name
-      &rarr; <em>Subscriptions</em> &rarr; <em>PhonePact</em>. On another platform, use that app
-      store&rsquo;s subscription page.</li>
+      <li><strong>Cancel or change on iPhone:</strong> use PhonePact&rsquo;s <em>Manage subscription</em> link, visit
+      <a href="https://apps.apple.com/account/subscriptions" rel="noopener">Apple Subscriptions</a>, or open
+      <em>Settings &rarr; your name &rarr; Subscriptions &rarr; PhonePact</em>.</li>
+      <li><strong>Cancel or change on Android:</strong> use PhonePact&rsquo;s <em>Manage subscription</em> link, visit
+      <a href="https://play.google.com/store/account/subscriptions?package=com.getphonepact.phonepact" rel="noopener">Google Play Subscriptions</a>,
+      or open <em>Google Play &rarr; profile &rarr; Payments &amp; subscriptions &rarr; Subscriptions</em>.</li>
       <li><strong>Restore a purchase:</strong> use the restore option in PhonePact while signed in to the PhonePact and store accounts associated with your purchase.</li>
       <li><strong>Refunds</strong> are handled by the store that billed you. For Apple purchases, use
-      <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</li>
+      <a href="https://reportaproblem.apple.com" rel="noopener">reportaproblem.apple.com</a>. For Google Play,
+      use Google&rsquo;s <a href="https://support.google.com/googleplay/workflow/9813244?hl=en" rel="noopener">refund request flow</a>.</li>
     </ul>
     <p>Canceling a subscription normally preserves access until the paid period ends. Deleting your account or uninstalling PhonePact does not cancel a store subscription.
     Cancellation and data deletion are separate; contact us to access or delete saved history.</p>
 
-    <h2>Delete your account</h2>
-    <p>In the app: <em>You</em> tab &rarr; <em>Delete account</em>. You&rsquo;ll be asked to sign in again
-    first. Your account and profile, circles, pact, private aggregate usage history, private conversations, ordinary room notes and check-in rows attributed to
-    you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list
-    references tied to your account are scrubbed. Reports made about your account may be retained as
-    safety records with an anonymous identifier, but copied text attributed to you is scrubbed.
-    The deleted account itself is not recoverable.</p>
+    <h2>Delete your account or purchase-provider data</h2>
+    <p>In the app: <em>You &rarr; Profile &rarr; Delete account</em>. On iPhone, an Apple-linked account first asks you
+    to reauthenticate and attempts Apple token revocation; cancelling that sheet cancels deletion, while another
+    revocation error does not trap you in an account you asked to remove. Other accounts are asked to reauthenticate
+    when Firebase requires a recent sign-in.
+    This starts PhonePact-hosted cleanup, which can take time. It covers account/profile data, your circle memberships
+    and pacts, private aggregate usage history, private conversations, ordinary Room notes/check-in rows attributed
+    to or about you, feedback, and reports you filed. It also clears a current shared-circle photo while that photo is
+    still attributed to your account. A shared circle and content belonging to its remaining members continue; if
+    nobody remains, its circle and invite-code mapping are queued for removal. Local Android
+    Insights files and the pact journal clear during account teardown. Reply excerpts, reaction/Keep attributions,
+    and block references are scrubbed. Reports made about you may remain as safety records under an opaque identifier,
+    with copied name/text attributable to you removed. A content-free deletion guard remains for seven days so a
+    delayed device cannot recreate the account. The deleted account is not recoverable.</p>
+    <p>After PhonePact account cleanup, our backend requests deletion of the matching RevenueCat customer and
+    retries requests that fail. If you need confirmation or the automatic request cannot be matched, email us with
+    <em>Privacy request</em> in the subject. If the account is
+    already gone, include the exact production Google transaction ID or eligible Apple order ID from your store
+    receipt; email alone may not locate the customer because PhonePact sends RevenueCat no email attribute.</p>
+    <p>RevenueCat processes deletion asynchronously. Its customer deletion does not erase an app store&rsquo;s transaction
+    record and does not cancel billing; the provider or store may retain records required for entitlement, refunds,
+    fraud, accounting, tax, or law. Cancel any monthly subscription separately. If you request only RevenueCat
+    deletion while keeping your PhonePact account, sign out and keep the App closed until we confirm completion:
+    signing in again or restoring a purchase causes the SDK to use the same PhonePact account ID and can create a new
+    RevenueCat customer. Future purchase use can likewise create a new provider record.</p>
     <p>If you can&rsquo;t reach the app, email us from the address on the account and we&rsquo;ll do it
     for you.</p>
+
+    <h2>Account security and sign-in methods</h2>
+    <p>Open <em>You</em>, then tap the top-right account settings button to verify your email or link supported Google, Apple, and
+    email/password sign-in methods to the same PhonePact account. Each link requires your action and proof that you
+    control the provider account. Matching email addresses do not automatically merge two separate PhonePact accounts.
+    If a verification email does not arrive, check spam, confirm the address shown, and use resend. For a wrong email,
+    use the corrected-email verification flow in the app. Never send us a password or a sign-in code.</p>
+
+    <h2>Protect or remove an invite link</h2>
+    <p>An invite code can add someone to its circle, so treat it like a temporary access capability. New links keep
+    the code after <code>#</code>, which browsers do not send in the initial request to GitHub Pages; the join page
+    removes it from the visible address after reading it. Older <code>?c=</code> links still work, but their full URL
+    reaches GitHub Pages before the page can remove the query. Either kind can remain in messages, link previews,
+    clipboards, screenshots, or browser history/sync.</p>
+    <p>For least exposure, share the six-character code without a link and enter it directly in PhonePact. Delete any
+    message, clipboard, screenshot, and browser-history/sync copies you control. Those steps do not erase hosting logs
+    or copies held by someone else, and they do not revoke the code. A code remains usable while its circle exists;
+    the current App has no rotate/revoke control, and deleting one member&rsquo;s account does not remove a circle that
+    still has other members. If an invite may have reached the wrong person, do not rely on clearing your history;
+    contact <a href="mailto:support@getphonepact.com">support@getphonepact.com</a> for help.</p>
 
     <h2>Private conversations and kept messages</h2>
     <p>Tap a current member in the Circle tab and choose <em>Message privately</em>, or choose <em>Talk first</em> on a pact request. These chats are one-to-one and live in the Room tab. You must still share a circle, and blocking either account stops new messages.</p>
@@ -125,26 +201,44 @@
     Usage access</em> and allow PhonePact. Menu names vary by phone maker. You can install the current
     Android release from <a href="https://play.google.com/store/apps/details?id=com.getphonepact.phonepact">Google Play</a>.</p>
 
-    <h2>Android private reminders are not appearing on screen</h2>
+    <h2>Android private notices are not appearing on screen</h2>
     <p>Open PhonePact Home and follow the setup strip at the top. It can take you directly to the
     Android setting that is hiding awareness: notification permission, the <em>Private notices</em>
     channel&rsquo;s banner setting, Bedtime or Do Not Disturb, Live Updates on supported Android 16+
     phones, or Alarms &amp; reminders access for a 10- or 15-minute rhythm. PhonePact&rsquo;s private
-    reminders have no sound or vibration, but the banner should appear at the top when Android allows it.</p>
+    notices have no sound or vibration, but the banner should appear at the top when Android allows it.</p>
     <p>You can also add PhonePact&rsquo;s optional private screen-time widget from your launcher&rsquo;s
     widget picker. It shows only your aggregate time and pact progress; it does not show app names.</p>
 
     <h2>What your circle can see</h2>
     <p>The crossed duration is the only usage information your circle receives &mdash; for example,
     &ldquo;reached 3h today&rdquo;. Never which apps, never your private per-app breakdown, never your browsing. Your
-    own Home screen can show a private &ldquo;Where it went&rdquo; shortlist: up to five selected apps used for at least
+    own Home screen can show a private &ldquo;Where it went&rdquo; shortlist: up to ten selected apps used for at least
     one minute today. On iPhone, Apple computes that inside its Screen Time sandbox. On Android, PhonePact
     computes it locally from Usage Access. In both cases, app and package identities stay on the phone and are
     not sent to our servers or your circle.</p>
+    <p>Subject to synchronization and stale/replay suppression, the phone can share at its pact point and at each later
+    30-minute crossing through 23h 30m. A 30-minute pact can therefore produce as many as 47 potential shared check-ins
+    in one day. The private Moment/Talk First prompt stops after the pact point and six later crossings; that prompt
+    cap is not a cap on shared check-ins.</p>
     <p>If the same account is signed into more than one phone, each phone keeps its own pact and recent
     history. Your circle sees a short random label such as &ldquo;iPhone A1B2&rdquo; beside that phone&rsquo;s pact and
     check-ins so one phone&rsquo;s Screen Time is never presented as another&rsquo;s.</p>
     <p>The full detail is in our <a href="privacy">Privacy Policy</a>.</p>
+
+    <h2>iPhone Live Activity is delayed or stale</h2>
+    <p>Live Activity is optional. It shows confirmed aggregate usage for the same selected scope as Home, not a
+    stopwatch. Home can receive fresher Screen Time information before the card updates. Treat an <em>At least</em>
+    number as a confirmed minimum, and check the displayed update time where available; do not expect minute-by-minute
+    background updates. Network loss, delayed iOS measurement or push delivery, and system power management can
+    leave the card behind.</p>
+    <p>Confirm that Live Activities are allowed for PhonePact in iOS Settings, then reopen PhonePact. If the card has
+    ended or been dismissed, use <em>Show again</em> where available. Apple limits an active Live Activity to eight
+    hours; starting a fresh card does not reset the day&rsquo;s measured usage. An iPhone 13 has no Dynamic Island:
+    look on the Lock Screen. Dynamic Island presentation requires a model that has one.</p>
+    <p>The card never shares app names with a circle and is not the authority for shared check-ins. If the values
+    still disagree, send Support screenshots taken close together, plus your iOS version, PhonePact build number,
+    and whether the app had been open. Avoid including private messages or other people&rsquo;s information.</p>
 
     <h2>Everything else</h2>
     <p><a href="mailto:support@getphonepact.com">support@getphonepact.com</a>. Bugs, ideas, complaints,
@@ -153,6 +247,7 @@
   </div>
 </section>
 
+</main>
 <!-- Footer -->
 <footer class="footer">
   <div class="container">

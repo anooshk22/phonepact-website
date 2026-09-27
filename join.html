@@ -22,7 +22,7 @@
   <!-- Not indexed: every visit here is personal and code-specific, and an
        invite page in search results is noise at best. -->
   <meta name="robots" content="noindex">
-  <!-- The query contains a circle invitation capability. Never send it as a
+  <!-- The invite URL can contain a circle capability. Never send it as a
        referrer to fonts, badge artwork, or any other external request. -->
   <meta name="referrer" content="no-referrer">
   <link rel="canonical" href="https://getphonepact.com/join">
@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260714-1">
+  <link rel="stylesheet" href="styles.css?v=20260927-1">
   <style>
     /* The code itself — the one thing this page exists to hand over. Mono and
        widely tracked so a generated six-character code can be read aloud without
@@ -90,7 +90,8 @@
       font-size: 0.625rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.65;
+      color: var(--ink-muted-strong, #536158);
+      opacity: 1;
       text-align: center;
       margin: 0 0 0.75rem;
     }
@@ -109,7 +110,8 @@
       font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 0.75rem;
       letter-spacing: 0.1em;
-      opacity: 0.6;
+      color: var(--ink-muted-strong, #536158);
+      opacity: 1;
     }
     .join-store-badge-link {
       display: inline-flex;
@@ -168,6 +170,7 @@
   </ul>
 </nav>
 
+<main id="main-content">
 <section class="studies-hero section">
   <div class="container">
     <p class="studies-hero__label reveal stagger-1">Invitation</p>
@@ -184,17 +187,30 @@
     <!-- With a code in the URL -->
     <div id="join-has-code" hidden>
       <p class="lede">A circle is two or more people who each choose a pact point for their own phone use.
-      When someone reaches theirs, the others are told the number they crossed &mdash; never which
-      apps, never what they were doing. That&rsquo;s the whole thing.</p>
+      When the app syncs someone&rsquo;s point or a later 30-minute crossing, the shared check-in identifies
+      the member and phone and includes the duration and event time; the member may also add an
+      optional note. Apps, websites, and the private per-app breakdown are not shared.</p>
 
       <div class="join-codebox">
         <p class="join-label">Your invite code</p>
         <p class="join-code" id="join-code-value">&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</p>
         <div class="join-actions">
           <a class="join-btn join-btn--primary" id="join-open" href="#">Open PhonePact</a>
-          <button class="join-btn" id="join-copy" type="button">Copy code</button>
+          <button class="join-btn" id="join-copy" type="button" aria-live="polite">Copy code</button>
         </div>
       </div>
+
+      <h2>Protect this invite</h2>
+      <p>This code can add someone to the circle. New invite links keep it after <code>#</code>, so the browser does
+      not send the fragment in its initial request to GitHub Pages; after reading the code, this page removes it from
+      the visible address. Older <code>?c=</code> links still work, but their full URL and code reach GitHub Pages
+      before the page can remove the query. Removing either form from the address cannot erase a hosting log or a
+      copy already made.</p>
+      <p>Either kind of link can remain in messages, link previews, the clipboard, screenshots, or browser history/
+      sync. For least exposure, copy the six-character code, enter it directly in PhonePact, and delete those copies
+      you control. Clearing them does not revoke the code: it remains usable while the circle exists, including when
+      one member deletes an account but other members keep the circle. The current App has no code-rotation or
+      revocation control. See the <a href="privacy#website-forms-network">Privacy Policy</a> for details.</p>
 
       <h2>If you already have PhonePact</h2>
       <p>Tap <strong>Open PhonePact</strong> above. If your browser stays here, open PhonePact yourself and
@@ -223,7 +239,10 @@
     <noscript>
       <div class="join-nocode">
         <p class="lede">Turn on JavaScript to reveal and copy this invitation code.</p>
-        <p>The code stays in this page&rsquo;s address. If you prefer, ask the person who invited you to send the six-character code separately.</p>
+        <p>With JavaScript off, this page cannot remove the code from the visible address. A new <code>#</code> fragment
+        is not sent in the initial request to GitHub Pages; an older <code>?c=</code> query is. Either may remain in
+        messages or browser history/sync. For least exposure, ask the person who invited you to send the six-character
+        code separately and enter it directly in PhonePact.</p>
       </div>
     </noscript>
 
@@ -236,13 +255,16 @@
     </div>
 
     <h2>What you&rsquo;re agreeing to</h2>
-    <p>Your circle sees the number you crossed and nothing else. Not which apps, not a per-app
-    breakdown, not your browsing. The detail you see on your own screen is worked out on your phone
-    and never leaves it. The full version is in our <a href="privacy">Privacy Policy</a>.</p>
+    <p>Joining makes your profile, circle membership, phone label, pact activity, and content you choose
+    to write visible to the circle as described in our <a href="privacy">Privacy Policy</a>. A shared usage
+    check-in identifies you and your phone and includes the duration and event time, with an optional
+    note if you add one. It never includes which apps or websites you used or your private per-app
+    breakdown; those details are worked out on your phone and stay there.</p>
 
   </div>
 </section>
 
+</main>
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
@@ -259,12 +281,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.add('js');
 
   // --- The code ---------------------------------------------------------
-  // Accepts ?c=CODE (what the app sends) and ?code=CODE (the compatible query
-  // key). Codes use the backend's unambiguous six-character alphabet. Spaces
-  // and hyphens may be formatting, but arbitrary punctuation must not be
-  // silently rewritten into a different invitation.
-  // Read the raw query exactly like both apps. URLSearchParams treats `+` as
-  // a space, which made the page accept a code the apps correctly rejected.
+  // New invitations put c=CODE in the fragment so the circle capability is
+  // never sent with the HTTP request. Already-sent ?c=CODE and ?code=CODE
+  // query links remain compatible. Codes use the backend's unambiguous
+  // six-character alphabet. Spaces and hyphens may be formatting, but arbitrary
+  // punctuation must not be silently rewritten into a different invitation.
+  // Read the raw parameters exactly like both apps. URLSearchParams treats `+`
+  // as a space, which made the page accept a code the apps correctly rejected.
   // Parameter names are case-insensitive, malformed names are ignored, and a
   // malformed value still counts as present so it cannot fall through to a
   // second circle named by the compatible `code` alias.
@@ -288,12 +311,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return { found: false, value: null };
   };
-  const query = window.location.search.startsWith('?')
+  const inviteValue = (parameters) => {
+    const canonical = firstQueryValue(parameters, 'c');
+    return canonical.found ? canonical : firstQueryValue(parameters, 'code');
+  };
+  const fragmentParameters = window.location.hash.startsWith('#')
+    ? window.location.hash.slice(1)
+    : window.location.hash;
+  const legacyQueryParameters = window.location.search.startsWith('?')
     ? window.location.search.slice(1)
     : window.location.search;
-  const canonical = firstQueryValue(query, 'c');
-  const alias = canonical.found ? null : firstQueryValue(query, 'code');
-  const raw = (canonical.found ? canonical.value : alias?.value) || '';
+  const fragmentInvite = inviteValue(fragmentParameters);
+  const selectedInvite = fragmentInvite.found
+    ? fragmentInvite
+    : inviteValue(legacyQueryParameters);
+  const raw = (selectedInvite.found ? selectedInvite.value : '') || '';
+  // The values above are copied before changing the address. Scrub both new
+  // fragments and compatible legacy queries from this history entry so a later
+  // copy, screenshot, or browser-history view exposes only the canonical page.
+  try {
+    window.history.replaceState(window.history.state, '', '/join');
+  } catch (_error) {
+    // A restricted embedded browser may deny History API writes. The strict
+    // no-referrer policy above still prevents this page's outbound requests
+    // from carrying the original URL.
+  }
   const separatedCode = raw.replace(/[ -]/g, '');
   // Validate ASCII before casing. Unicode such as ß can expand when uppercased
   // and must not manufacture a valid-looking six-character capability.
@@ -312,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // The custom scheme is what an installed app answers on. Set via JS (not
     // in the markup) so the button can never point at a scheme with no code
     // behind it.
-    document.getElementById('join-open').href = 'phonepact://join?c=' + encodeURIComponent(code);
+    document.getElementById('join-open').href = 'phonepact://join#c=' + encodeURIComponent(code);
     hasCode.hidden = false;
   } else {
     noCode.hidden = false;
@@ -334,8 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('join-copy');
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
+      let status = 'Code selected — copy it';
       try {
         await navigator.clipboard.writeText(code);
+        status = 'Copied';
       } catch (err) {
         // Clipboard blocked (older Safari, insecure context). Select it
         // instead so a long-press copy still works.
@@ -345,9 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sel.removeAllRanges();
         sel.addRange(range);
       }
-      const was = copyBtn.textContent;
-      copyBtn.textContent = 'Copied';
-      setTimeout(() => { copyBtn.textContent = was; }, 2200);
+      copyBtn.textContent = status;
+      setTimeout(() => { copyBtn.textContent = 'Copy code'; }, 2200);
     });
   }
 

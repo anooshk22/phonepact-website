@@ -8,17 +8,27 @@
         "components": [
           {
             "/": "/join",
+            "#": "c=??????",
+            "comment": "PhonePact circle invitations using the canonical fragment capability."
+          },
+          {
+            "/": "/join",
+            "#": "code=??????",
+            "comment": "PhonePact circle invitations using the compatible fragment parameter."
+          },
+          {
+            "/": "/join",
             "?": {
               "c": "??????"
             },
-            "comment": "PhonePact circle invitations using the canonical c parameter."
+            "comment": "Legacy PhonePact circle invitations using the canonical query parameter."
           },
           {
             "/": "/join",
             "?": {
               "code": "??????"
             },
-            "comment": "PhonePact circle invitations using the compatible code parameter."
+            "comment": "Legacy PhonePact circle invitations using the compatible query parameter."
           }
         ]
       }

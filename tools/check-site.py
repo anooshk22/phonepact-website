@@ -31,9 +31,11 @@ class PageParser(HTMLParser):
         self.ids = set()
         self.json_ld = []
         self.forms = []
+        self.tags = {}
         self._json_chunks = None
 
     def handle_starttag(self, tag, attrs):
+        self.tags[tag] = self.tags.get(tag, 0) + 1
         values = dict(attrs)
         if values.get("id"):
             self.ids.add(values["id"])
@@ -114,6 +116,10 @@ def main():
     reference_count = 0
 
     for source, parser in pages.items():
+        if parser.tags.get("main", 0) != 1:
+            failures.append(
+                f"{source.relative_to(REPO)}: expected exactly one main landmark"
+            )
         for index, payload in enumerate(parser.json_ld, start=1):
             try:
                 json.loads(payload)
@@ -121,6 +127,10 @@ def main():
                 failures.append(f"{source.relative_to(REPO)} JSON-LD #{index}: {error}")
 
         for _tag, _attr, raw in parser.references:
+            if raw == "/blog/blog.css":
+                failures.append(
+                    f"{source.relative_to(REPO)}: unversioned blog stylesheet reference"
+                )
             local = local_target(source, raw)
             if local is None:
                 continue
@@ -171,6 +181,7 @@ def main():
     # store listings discoverable and the invitation page code-first.
     index_text = (REPO / "index.html").read_text(encoding="utf-8", errors="replace")
     join_text = (REPO / "join.html").read_text(encoding="utf-8", errors="replace")
+    join_normalized = " ".join(join_text.lower().split())
     llms_text = (REPO / "llms.txt").read_text(encoding="utf-8", errors="replace")
     launch_contracts = {
         "homepage App Store listing": APP_STORE_URL in index_text,
@@ -189,10 +200,18 @@ def main():
         "retired Android test form removed": 'id="waitlist-form"' not in index_text,
         "invite page App Store fallback": APP_STORE_URL in join_text,
         "invite page Google Play fallback": PLAY_STORE_URL in join_text,
-        "invite page custom-scheme fallback": "phonepact://join?c=" in join_text,
+        "invite page fragment custom-scheme fallback": "phonepact://join#c=" in join_text,
         "invite page copy control": 'id="join-copy"' in join_text,
         "invite page does not leak invite referrer": (
             'name="referrer" content="no-referrer"' in join_text
+        ),
+        "invite page scrubs fragment and legacy query from history": (
+            "window.history.replaceState(window.history.state, '', '/join')" in join_text
+            and "catch (_error)" in join_text
+            and 0
+            <= join_text.find("const raw =")
+            < join_text.find("window.history.replaceState")
+            < join_text.find("const separatedCode =")
         ),
         "invite page has no code-dropping Smart App Banner": (
             'name="apple-itunes-app"' not in join_text
@@ -200,12 +219,14 @@ def main():
         "invite codes use production alphabet": (
             "^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$" in join_text
         ),
-        "invite page gives canonical c deterministic priority": (
-            "const canonical = firstQueryValue(query, 'c')" in join_text
-            and "canonical.found ? null : firstQueryValue(query, 'code')" in join_text
-            and "canonical.found ? canonical.value : alias?.value" in join_text
+        "invite page prefers fragment and gives c deterministic priority": (
+            "const canonical = firstQueryValue(parameters, 'c')" in join_text
+            and "canonical.found ? canonical : firstQueryValue(parameters, 'code')" in join_text
+            and "const fragmentInvite = inviteValue(fragmentParameters)" in join_text
+            and "fragmentInvite.found" in join_text
+            and ": inviteValue(legacyQueryParameters)" in join_text
         ),
-        "invite page matches native raw-query decoding": (
+        "invite page matches native raw-parameter decoding": (
             "decodeURIComponent(encodedName).toLowerCase()" in join_text
             and "decodeURIComponent(encodedValue)" in join_text
             and "new URLSearchParams" not in join_text
@@ -214,10 +235,31 @@ def main():
             "^[A-Za-z2-9]+$" in join_text
             and "raw.replace(/[ -]/g, '')" in join_text
         ),
+        "invite page accurately describes shared check-in context": all(
+            token in join_normalized
+            for token in (
+                "identifies the member and phone",
+                "duration and event time",
+                "optional note",
+                "profile, circle membership, phone label, pact activity",
+                "never includes which apps or websites",
+            )
+        ),
+        "invite page explains fragment, legacy query, and history limits": all(
+            token in join_normalized
+            for token in (
+                "does not send the fragment in its initial request to github pages",
+                "older <code>?c=</code> links still work",
+                "browser history/ sync",
+                "clearing them does not revoke the code",
+                "no code-rotation or revocation control",
+            )
+        ),
         "machine-readable launch status": (
             APP_STORE_URL in llms_text
             and PLAY_STORE_URL in llms_text
-            and "available on Google Play" in llms_text
+            and "PhonePact is listed on the App Store" in llms_text
+            and "Feature availability varies by installed version, platform, account, and staged store rollout" in llms_text
         ),
     }
     for label, passed in launch_contracts.items():
@@ -241,6 +283,15 @@ def main():
             failures.append("AASA missing exact /join?c=<six characters> route")
         if (("code", "??????"),) not in query_contracts:
             failures.append("AASA missing exact /join?code=<six characters> route")
+        fragment_contracts = {
+            component.get("#")
+            for component in components
+            if component.get("/") == "/join" and isinstance(component.get("#"), str)
+        }
+        if "c=??????" not in fragment_contracts:
+            failures.append("AASA missing exact /join#c=<six characters> route")
+        if "code=??????" not in fragment_contracts:
+            failures.append("AASA missing exact /join#code=<six characters> route")
         if any(component.get("/") != "/join" for component in components):
             failures.append("AASA contains an app-link route outside canonical /join")
         if len(aasa_bytes) >= 128 * 1024:
@@ -311,10 +362,40 @@ def main():
         "stale planned insights": "planned supporter insights",
         "stale planned-insights anchor": "planned-insights",
         "stale Android availability advice": "need Android right now",
+        "stale five-app private breakdown": "up to five selected apps",
+        "stale top-five private breakdown": "top-five &ldquo;Where it went&rdquo;",
+        "stale hypothetical subscriptions": "If subscriptions are introduced",
+        "false iPhone domain display claim": "website domains when supplied by Apple are displayed",
+        "retired generic private-prompt term": "private prompt before your pact",
+        "stale seven-check-in cap": "as many as seven shared check-ins",
+        "stale six-later shared cap": "up to six more times",
+        "stale six-milestone shared cap": "up to six later milestones",
+        "false no-message-processing claim": "messages are never analyzed",
+        "false blanket message-analysis claim": "no ai or message analysis",
+        "unsupported signed OTA claim": "deliver signed updates",
+        "unsupported signed app-update claim": "signed app-update",
+        "anonymous safety-record overclaim": "anonymized safety records",
+        "synchronous deletion overclaim": "immediately deletes your private",
+        "unconfirmed RevenueCat deletion promise": "support handles a verified revenuecat deletion request",
+        "evergreen core-free promise": "core service is free",
+        "evergreen core-remains-free promise": "core service remains free",
+        "stale launch-age wording": "launch version is for people 13 and older",
     }
     for label, phrase in banned.items():
-        if phrase.lower() in public_text.lower():
+        matched = (
+            re.search(r"\bpaywall\b", public_text, re.IGNORECASE) is not None
+            if label == "retired paywall copy"
+            else phrase.lower() in public_text.lower()
+        )
+        if matched:
             failures.append(f"source-truth regression: {label}")
+
+    stale_shared_cap = re.compile(
+        r"up to six later(?:\s+[a-z-]+){0,3}\s+milestones",
+        re.IGNORECASE,
+    )
+    if stale_shared_cap.search(public_text):
+        failures.append("source-truth regression: stale six-later shared-cap variant")
 
     for relative in ("privacy.html", "terms.html"):
         policy_text = (REPO / relative).read_text(encoding="utf-8", errors="replace").lower()
@@ -348,6 +429,136 @@ def main():
         ):
             failures.append(f"private breakdown disclosure missing from {relative}")
 
+    # The September supporter build changes several legally material boundaries.
+    # Pin the public source to executable claims so a later copy pass cannot
+    # silently restore the pre-RevenueCat or pre-Live-Activity story.
+    compact = lambda value: re.sub(r"\s+", " ", value.lower())
+    privacy_text = compact((REPO / "privacy.html").read_text(encoding="utf-8", errors="replace"))
+    terms_text = compact((REPO / "terms.html").read_text(encoding="utf-8", errors="replace"))
+    support_text = compact((REPO / "support.html").read_text(encoding="utf-8", errors="replace"))
+    article_text = compact((REPO / "blog" / "phonepact-privacy-architecture.html").read_text(
+        encoding="utf-8", errors="replace"
+    ))
+    current_release_contracts = {
+        "ten-app privacy disclosure": "up to ten selected apps" in privacy_text,
+        "ten-app product disclosure": "up to ten selected apps" in (
+            REPO / "what-is-phonepact.html"
+        ).read_text(encoding="utf-8", errors="replace").lower(),
+        "RevenueCat signed-in account disclosure": all(
+            token in privacy_text
+            for token in ("raw firebase account id", "even if that user has not purchased")
+        ),
+        "RevenueCat purchase analytics disclosure": all(
+            token in privacy_text
+            for token in ("purchase/subscription analytics", "cross-app advertising or tracking")
+        ),
+        "RevenueCat asynchronous account-deletion disclosure": all(
+            token in privacy_text
+            for token in (
+                "our backend requests deletion of the matching revenuecat customer",
+                "retries requests that fail",
+                "deletion is not immediate",
+                "does not delete an app store",
+                "cancel a subscription",
+            )
+        ),
+        "verified production logging retention": all(
+            token in privacy_text for token in ("30 days", "400 days", "since 27 september 2026", "one-way lookup code")
+        ),
+        "public policy excludes internal rollout gates": all(
+            token not in privacy_text + support_text + article_text
+            for token in ("stop-ship", "not considered live until", "source-prepared", "remain a release gate")
+        ),
+        "Live Activity support distinguishes floor and card lifetime": all(
+            token in support_text for token in ("confirmed minimum", "eight hours", "does not reset", "iphone 13", "lock screen")
+        ),
+        "iPhone domain non-enumeration": all(
+            token in privacy_text
+            for token in ("selected category or", "does not list, export, or", "visited domain names")
+        ),
+        "Android post-expiry collection disclosure": all(
+            token in privacy_text
+            for token in (
+                "can continue",
+                "after paid access expires",
+                "private insights data",
+                "without unlocking paid reports",
+                "relevant permission",
+            )
+        ),
+        "iPhone Live Activity relay disclosure": all(
+            token in privacy_text
+            for token in ("activitykit and push routing tokens", "whole-minute aggregate elapsed-time floors")
+        ),
+        "account-linked Crashlytics disclosure": all(
+            token in privacy_text
+            for token in ("firebase crashlytics", "linked to the firebase account id", "stack traces")
+        ),
+        "Expo update disclosure": "expo/eas update" in privacy_text,
+        "compatible OTA wording": all(
+            token in privacy_text for token in ("compatible over-the-air update", "expo provides compatible")
+        ),
+        "shared ladder maximum disclosure": all(
+            token in privacy_text
+            for token in (
+                "1,410 minutes",
+                "47 potential shared check-ins",
+                "prompt limit does not limit the shared check-in ladder",
+            )
+        ),
+        "deterministic message safety disclosure": all(
+            token in privacy_text
+            for token in (
+                "deterministic safety screening",
+                "profile or display names",
+                "circle names",
+                "phone labels",
+                "room/private messages",
+                "not ai",
+                "optional notes or reasons can be omitted",
+            )
+        ),
+        "iPhone relay outbox disclosure": all(
+            token in privacy_text
+            for token in ("pending iphone relay outbox", "protected app group file", "more than 14 days old")
+        ),
+        "RevenueCat manual fallback and provider limitations": all(
+            token in privacy_text
+            for token in (
+                "contact us for a manual provider request",
+                "processes deletion asynchronously",
+                "unambiguous record matching",
+                "provider availability",
+                "required retention",
+                "and law",
+            )
+        ),
+        "linked authentication disclosure": all(
+            token in privacy_text for token in ("google or apple", "linked sign-in methods", "verification-grace")
+        ),
+        "localized-price terms": all(
+            token in terms_text for token in ("authoritative localized", "store displays at confirmation")
+        ),
+        "qualified one-time access": all(
+            token in terms_text for token in ("one-time purchase grants continuing access", "not a promise")
+        ),
+        "Apple subscription management support": "https://apps.apple.com/account/subscriptions" in support_text,
+        "Google subscription management support": "https://play.google.com/store/account/subscriptions" in support_text,
+        "privacy article current boundary": all(
+            token in article_text
+            for token in ("top-ten", "revenuecat handles access, not insights", "whole-minute aggregate")
+        ),
+        "collapsed mobile navigation is noninteractive": all(
+            token in (REPO / "styles.css").read_text(encoding="utf-8", errors="replace")
+            for token in ("visibility: hidden", "pointer-events: none", ".nav__links.open")
+        ),
+        "no loaded Plausible analytics": "plausible.io" not in public_text.lower(),
+        "no dormant Plausible analytics hooks": "window.plausible" not in public_text.lower(),
+    }
+    for label, passed in current_release_contracts.items():
+        if not passed:
+            failures.append(f"current supporter-release contract failed: {label}")
+
     retired_annual_price = re.compile(
         r"(?:PhonePact[^\r\n]*\$9\.99|\$9\.99[^\r\n]*PhonePact|"
         r"\$9\.99\s+(?:a|per)\s+year|\$9\.99\s+for\s+the\s+year|"
@@ -356,6 +567,17 @@ def main():
     )
     if retired_annual_price.search(public_text):
         failures.append("source-truth regression: retired $9.99 price")
+
+    retired_single_event_claims = (
+        "one fact per person per day",
+        "one honest number each",
+        "one plain message when you cross",
+        "only ever sees how long you were on your phone",
+        "the number you crossed and nothing else",
+    )
+    for claim in retired_single_event_claims:
+        if claim.lower() in public_text.lower():
+            failures.append(f"source-truth regression: retired shared-check-in claim: {claim}")
 
     if failures:
         print(f"site check failed with {len(failures)} issue(s):", file=sys.stderr)

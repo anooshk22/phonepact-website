@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — PhonePact</title>
   <meta property="og:title" content="Privacy Policy — PhonePact">
-  <meta property="og:description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
+  <meta property="og:description" content="How PhonePact handles accounts, screen-usage data, private Insights, purchases through RevenueCat, messages, diagnostics, and deletion.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://getphonepact.com/privacy">
   <meta property="og:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
@@ -13,9 +13,9 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy Policy — PhonePact">
-  <meta name="twitter:description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
+  <meta name="twitter:description" content="How PhonePact handles accounts, screen-usage data, private Insights, purchases through RevenueCat, messages, diagnostics, and deletion.">
   <meta name="twitter:image" content="https://getphonepact.com/assets/social-preview.png?v=4">
-  <meta name="description" content="How PhonePact collects, uses, and protects your information. We keep data minimal and never sell it.">
+  <meta name="description" content="How PhonePact handles accounts, screen-usage data, private Insights, purchases through RevenueCat, messages, diagnostics, and deletion.">
   <meta name="theme-color" content="#2d4a35">
   <link rel="canonical" href="https://getphonepact.com/privacy">
   <link rel="icon" href="favicon.ico">
@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260714-1">
+  <link rel="stylesheet" href="styles.css?v=20260927-1">
 </head>
 <body>
 
@@ -48,12 +48,13 @@
   </ul>
 </nav>
 
+<main id="main-content">
 <section class="studies-hero section" id="legal-top">
   <div class="container">
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 9 September 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 27 September 2026</p>
   </div>
 </section>
 
@@ -62,195 +63,414 @@
 <section class="section legal">
   <div class="container">
 
-    <p class="lede"><strong>The short version.</strong> PhonePact helps you use your phone less, with
-    support from a small circle you choose. We keep the data we collect small and we never sell it.
-    Duration is the only usage information in a shared check-in (for example, &ldquo;reached 2h today&rdquo;).
-    A member and short phone label identify it, and a short note may be added deliberately, but your circles never
-    see the apps you use, the websites you visit, or your browsing history. You can ask us to access
-    or delete your data at any time.</p>
+    <p class="lede"><strong>The short version.</strong> PhonePact helps you use your phone less with support
+    from circles you choose. We deliberately keep server collection narrow and never sell personal information.
+    A shared check-in contains a coarse duration (for example, &ldquo;reached 2h today&rdquo;), the member and phone
+    that recorded it, its time, and any short note the member deliberately adds. Your circles never receive
+    your app list, exact per-app activity, selected websites, browsing history, private Insights reports, or
+    owner-only daily history. You can ask us to access or delete data we control.</p>
 
     <p>This Privacy Policy explains how <strong>PhonePact LLC</strong> (&ldquo;PhonePact,&rdquo; &ldquo;we,&rdquo;
-    &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and shares information when you use the PhonePact
-    mobile application (the &ldquo;App&rdquo;) and related services. We are the &ldquo;data controller&rdquo;
-    (GDPR) and &ldquo;business&rdquo; (CCPA/CPRA) responsible for your information.</p>
+    &ldquo;us,&rdquo; or &ldquo;our&rdquo;) handles information when you use the PhonePact mobile application, the
+    getphonepact.com website, and related services (together, the &ldquo;Service&rdquo;). Where applicable privacy law
+    uses those terms, PhonePact LLC is the controller or business responsible for the processing described here.</p>
 
-    <h2>1. Information we collect</h2>
+    <p class="callout"><strong>What &ldquo;private&rdquo; means here.</strong> Some information stays only on
+    your phone; other information is stored in an owner-only part of our Firebase backend or is visible only to
+    the people you choose. Server-hosted information must still be processed by PhonePact and its service
+    providers to operate the Service. &ldquo;Private&rdquo; does not mean end-to-end encrypted or inaccessible to
+    authorized operators unless we expressly say it stays on-device.</p>
 
-    <h3>Information you give us</h3>
+    <h2>1. Information we handle</h2>
+
+    <h3>Account, profile, and authentication</h3>
     <ul>
-      <li><strong>Your name and email address</strong> — to create and secure your account (via Firebase Authentication) and identify you to your circle.</li>
-      <li><strong>Profile photo</strong> (if you add one) — shown to members of your circle as your avatar.</li>
-      <li><strong>Your hand-drawn signature</strong> — saved to personalize your &ldquo;Phone Pact.&rdquo; We treat this as sensitive personal information and store it only for that purpose.</li>
-      <li><strong>Your pact answers &amp; goals</strong> — the intentions and settings you enter during onboarding, used to set up your pact and personalize the App.</li>
-      <li><strong>Circle &amp; membership data</strong> — the circles you create or join and who is in them.</li>
-      <li><strong>Room messages</strong> — short messages you send in a circle&rsquo;s room. Ordinary messages expire after 24 hours. Any current circle member can visibly choose <em>Keep</em> on a member-written message, which extends that message for everyone to no more than 30 days after it was sent. Reported copies follow the safety-retention rules below.</li>
-      <li><strong>Private conversation messages</strong> — text you send one-to-one to a current member of a circle you share, including a pact discussion started through <em>Talk first</em>. Ordinary messages expire after 24 hours. Either participant can visibly choose <em>Keep in chat</em>, which extends that message to 30 days. Reported copies follow the safety-retention rules below.</li>
+      <li><strong>Name, email address, and authentication data</strong> &mdash; Firebase Authentication handles
+      email/password sign-in and provider sign-in. If you use or link Google or Apple, we receive the provider
+      identifier and any name or email the provider makes available. We store verification status, linked sign-in
+      methods, and a limited verification-grace timestamp used to secure sharing. PhonePact does not store your
+      plaintext password in its own databases. Linking another method requires your action and does not
+      automatically merge two separate PhonePact accounts merely because their emails match.</li>
+      <li><strong>Sign-in provider security data</strong> &mdash; Google Sign-In can process technical identifiers,
+      device/app information, and IP-derived approximate location for sign-in, security, and abuse prevention.
+      This is separate from phone-location permission; PhonePact does not request precise location to measure
+      screen usage. Provider handling is also subject to that provider&rsquo;s privacy policy.</li>
+      <li><strong>Profile and circle appearance</strong> &mdash; your optional avatar, profile details, and a circle
+      photo you choose to contribute are shown to the relevant circle members.</li>
+      <li><strong>Hand-drawn pact signature</strong> &mdash; stroke-path data used only to render your Phone Pact.
+      It is not analyzed for identity, used as a legal signature, or used for biometric recognition or authentication.</li>
+      <li><strong>Onboarding answers, goals, and settings</strong> &mdash; the intentions, pact point, notice choices,
+      and other settings you enter to configure the Service.</li>
+      <li><strong>Account and device identifiers</strong> &mdash; a Firebase account ID and a random per-installation
+      ID. The installation ID is not a hardware serial number, advertising ID, or device fingerprint. A short label
+      such as &ldquo;iPhone A1B2&rdquo; helps distinguish phones on the same account.</li>
     </ul>
 
-    <h3>Screen-usage information</h3>
-    <p>With your permission, PhonePact uses the screen-usage system provided by your phone. On iPhone,
-    Apple&rsquo;s Screen Time / Family Controls / Device Activity features count the scope you select during setup;
-    that may be the whole device or selected apps, categories, and websites. On Android, PhonePact uses Usage
-    Access and lets you choose the whole phone or individual launchable apps in a private on-device picker.
-    Home can show you a private &ldquo;Where it went&rdquo; summary of up to five selected apps used for at least one
-    minute today. Android can also show your aggregate total and pact progress in an optional home-screen
-    widget and, on supported phones, a private live status display. <strong>PhonePact does not send app or package identities, exact per-app details, websites, or
-    browsing history to our servers or your circle.</strong> Those details stay on your device. Coarse duration
-    check-ins (for example, &ldquo;Hank&rsquo;s iPhone reached 2h
-    today&rdquo;) go to your circle when a threshold is recorded. If you use PhonePact on more than one phone, each
-    phone has its own pact and up to seven recent recorded days of aggregate totals in its own private device
-    record in our Firebase backend. Circle members cannot read those totals.</p>
-
-    <h3 id="supporter-insights">Supporter insights</h3>
-    <p>Optional monthly and one-time PhonePact Supporter purchases unlock <strong>Deeper Insights</strong>
-    in You &rarr; Insights. The updated supporter edition includes daily and weekly views, time-of-day
-    patterns, private app details, and a pact journal. Available measurements depend on your phone, software
-    version, permissions, and recorded history. Missing days are not treated as zero; comparisons use
-    matching complete recorded days rather than assuming unavailable history.</p>
-    <p>On iPhone, app and category time, pickups, sessions, notification counts, and website domains when
-    supplied by Apple are displayed inside Apple&rsquo;s protected Screen Time report. PhonePact does not
-    export those detailed report values to its main app or servers. On Android, after you choose to enable
-    private summaries, PhonePact derives usage, app visits, unlocks, sessions, app switches, and screen-off
-    breaks from on-device Android events. Those detailed summaries stay in private files excluded from
-    Android backup. These metrics describe recorded activity, not physical intent, focus, or sleep.</p>
-    <p>Android notification counts require a separate, optional choice and Android&rsquo;s notification
-    access permission. We count notifications by app without reading or storing their text, titles, or
-    senders. Updates, group summaries, and ongoing status notifications are excluded; counts may have
-    gaps when permission or the counting service is unavailable. You can turn counts off and clear them
-    inside Insights, or turn off private usage summaries and clear their files.</p>
-    <p>The private pact journal records settings received and crossings recorded on this phone. It is not
-    a complete approval or delivery history. Deeper Insights do not analyze messages, use AI, rank members,
-    or send app details or reports to circles, RevenueCat, or analytics services. They do not establish why
-    your usage changed. Viewing all screen time is separate from changing what counts toward your pact.</p>
-
-    <h3>Information collected automatically</h3>
+    <h3>Circles, pact activity, and content</h3>
     <ul>
-      <li><strong>Push notification token</strong> — via Firebase Cloud Messaging, so we can send remote circle, pact-request, private-conversation, and shared-check-in notices. Private-conversation notifications identify the sender but do not include the message text. Private notices and Moment prompts are scheduled locally on your phone and do not use this token.</li>
-      <li><strong>Diagnostics &amp; crash data</strong> — via Firebase Crashlytics, to find and fix bugs. This may include device model, operating-system version, and technical details about a crash.</li>
-      <li><strong>Basic device &amp; log data</strong> — such as app version and general device information used to operate and secure the service. PhonePact also creates a random installation identifier and a short label such as &ldquo;iPhone A1B2&rdquo; so two phones on one account keep separate pacts and histories. This is not a hardware serial number, advertising identifier, or device fingerprint.</li>
+      <li><strong>Circle and membership data</strong> &mdash; circle names, appearance, invitations, membership,
+      blocks, and the people involved.</li>
+      <li><strong>Pact and change-request data</strong> &mdash; pact points, which eligible circle members you ask,
+      reasons or notes you provide, responses, timestamps, and request status. App-selection identities are not
+      included in a what-counts request.</li>
+      <li><strong>Room messages and interactions</strong> &mdash; short notes, replies, reactions, and visible Keep
+      attribution. Ordinary rows expire after 24 hours. A current circle member may visibly keep a member-written
+      message for everyone until no later than 30 days after it was sent.</li>
+      <li><strong>Private conversation messages</strong> &mdash; one-to-one text and pact context shared with a
+      current member of a circle you share. Ordinary messages expire after 24 hours; either participant may visibly
+      keep a message for up to 30 days.</li>
+      <li><strong>Reports, blocks, feedback, and support</strong> &mdash; report reason, reported content and context,
+      reporter/subject identifiers, moderation status, blocks, and messages or screenshots you deliberately send
+      to PhonePact for feedback or support.</li>
+      <li><strong>Deterministic safety screening</strong> &mdash; limited server rules inspect text entered as profile
+      or display names, circle names, phone labels, Room/private messages, optional check-in notes, and reasons for
+      pact or What Counts requests for blocked safety terms or patterns. This is rule-based processing, not AI
+      analysis or advertising profiling, and it can make mistakes. Depending on the field, blocked required text is
+      rejected or sanitized; blocked optional notes or reasons can be omitted while the underlying action continues.</li>
     </ul>
 
-    <h3>Purchases</h3>
-    <p>PhonePact offers optional Supporter purchases that help fund the core service and unlock personal
-    insights. Purchases are sold through the applicable app store and managed using <strong>RevenueCat</strong>.
-    <strong>The store processes your payment; we do not see or store your credit-card or payment details.</strong>
-    PhonePact and RevenueCat process an account-linked purchase identifier, product and transaction
-    records, purchase dates, subscription or entitlement status, and relevant app/device information to
-    validate purchases, restore access, handle billing support, and understand supporter purchases.
-    Screen-usage totals, pact history, insights, messages, and app-selection details are not sent to
-    RevenueCat. PhonePact's core service remains free.</p>
+    <h3>Screen-usage and check-in information</h3>
+    <p>With your permission, PhonePact uses the screen-usage system on your phone. On iPhone, Apple&rsquo;s Screen
+    Time, Family Controls, and Device Activity features count the scope you select, which may include the whole
+    device or selected apps, categories, and websites. On Android, Usage Access lets you choose the whole phone or
+    individual launchable apps in an on-device picker. Home can show a private &ldquo;Where it went&rdquo; summary of
+    up to ten selected apps used for at least one minute that day.</p>
+    <p><strong>App/package identities, selection tokens, exact per-app activity, website identities, and raw usage
+    events are not sent to PhonePact&rsquo;s servers or to your circles.</strong> PhonePact sends owner-only aggregate
+    totals and coarse events needed to preserve recent history and operate shared check-ins. A qualifying shared
+    check-in contains the account and circle identifiers, the measuring phone&rsquo;s ID and short label, the event
+    time, a duration threshold, and an optional note. Subject to synchronization and stale/replay suppression, a
+    phone can create one at its pact point and at later 30-minute crossings through 1,410 minutes (23h 30m) of
+    measured use. At the smallest 30-minute pact point, that is as many as 47 potential shared check-ins in a day.
+    The private pre-check-in Moment/Talk First prompt is limited to the pact point and six later crossings; that
+    prompt limit does not limit the shared check-in ladder. Each registered phone has its own pact and up to seven
+    recent recorded dates of aggregate totals in an owner-only Firebase device record. Some older accounts may also
+    retain a legacy owner-only copy of recent totals until account deletion. Circle members cannot read either
+    owner-only history.</p>
+    <p><strong>Pending iPhone relay outbox.</strong> A protected App Group file can temporarily hold an unsent relay
+    item containing account and phone identifiers, event kind and identifier, timestamps, minutes, local day and
+    time-zone context, Activity binding, and, where applicable, circle context or a deliberately added note. The
+    backend rejects relay events more than 14 days old. Delivered, invalid, stale, or over-age items are removed on
+    later outbox processing, so an inactive local file can physically remain until that cleanup path or account
+    teardown runs. It does not contain app, package, category, or website identities.</p>
 
-    <h2>2. How we use your information</h2>
+    <h3>Optional live status</h3>
+    <p>Android can display aggregate time and pact progress locally in a widget or supported live-status surface.
+    On supported iPhones, an optional Live Activity can continue updating while the App is not open. To route it,
+    PhonePact sends its backend account/device IDs, ActivityKit and push routing tokens, an activity ID and state,
+    local day, whole-minute aggregate elapsed-time floors, observation/start/dismissal times, time-zone offset,
+    pact point, and delivery/retry metadata. This routing state is owner-only and is sent through Firebase Cloud
+    Messaging and Apple Push Notification service. It contains no app, category, website, or browsing identity and
+    is never shown to a circle. You can disable or dismiss the surface; an already accepted in-flight push cannot
+    be recalled.</p>
+
+    <h3 id="supporter-insights">Supporter Insights</h3>
+    <p>Optional monthly and one-time PhonePact Supporter purchases unlock <strong>Deeper Insights</strong> in
+    <em>You &rarr; Insights</em> in builds where the feature is available. Views can include daily, weekly, monthly,
+    time-of-day, app-level, trend, comparison, research-context, and pact-journal cards. Measurements vary by phone,
+    operating-system version, permission, selection, and available history. Missing days are not treated as zero,
+    and the metrics do not establish intent, focus, sleep, diagnosis, or why usage changed.</p>
+    <p><strong>iPhone.</strong> Apple supplies the selected Screen Time data directly to a protected report
+    extension. That report may transiently process daily/hourly aggregate time, app identities and durations,
+    pickups, notification counts, first pickup, and longest activity when Apple supplies them. Selected category or
+    website activity may contribute to aggregate totals, but the current PhonePact report does not list, export, or
+    store visited domain names. Detailed report values are rendered inside Apple&rsquo;s protected extension and are
+    not copied into the main App, PhonePact servers, or RevenueCat. An opaque selection token stays on-device; it
+    may survive sign-out so the same account can restore its selection and is cleared by account deletion.</p>
+    <p><strong>Android.</strong> If you affirmatively choose to save private history, PhonePact reads local Android
+    usage events, including which app/package was used and when. It stores private no-backup summaries containing
+    daily/hourly totals, app labels and categories, pseudonymous package keys, per-app duration, visit/session and
+    quick-return estimates, unlocks, app switches, first/last activity, and screen-off break estimates. Raw Android
+    usage history remains controlled by Android. PhonePact&rsquo;s summary files remain on that phone, are excluded
+    from Android backup/device transfer, and are not uploaded.</p>
+    <p>A separate Android notification option, where offered or previously enabled, requires both an in-app choice
+    and Android Notification Access. PhonePact counts eligible arrivals by app, using a deduplication key and post
+    time, without reading or storing notification text, title, sender, actions, icons, conversation content, or
+    extras. Ongoing notifications and group summaries are excluded. Permission gaps and platform behavior can make
+    counts incomplete.</p>
+    <p>A small on-device pact journal is maintained for signed-in accounts so recent pact settings and crossings
+    recorded on that phone are ready if Insights is unlocked. It stores event kind, time, and minutes, not message
+    text or a complete approval/delivery history. Insights calculations are deterministic and on-device: PhonePact
+    does not use an AI service to analyze them, analyze messages, rank members, or send detailed Insights, app
+    identities, or reports to circles, RevenueCat, or advertising/behavioral analytics services.</p>
+
+    <h3>Technical, diagnostic, push, and update information</h3>
     <ul>
-      <li>To provide, operate, and maintain the App and your pact.</li>
-      <li>To show your private recent usage history and, when unlocked, provide the supporter insights described above.</li>
-      <li>To validate and restore supporter access and provide billing support.</li>
-      <li>To enable your circle features — check-ins, rooms, one-to-one private conversations, and change requests.</li>
-      <li>To send remote circle and pact notices, and to schedule the private notices you turn on locally.</li>
-      <li>To keep the service secure and prevent abuse.</li>
-      <li>To diagnose problems and improve the App.</li>
-      <li>To comply with law and enforce our <a href="terms">Terms of Use</a>.</li>
+      <li><strong>Push and routing tokens</strong> &mdash; Firebase Cloud Messaging and, where used, Apple push and
+      ActivityKit addresses let us send remote circle, pact-request, private-conversation, shared-check-in, and Live
+      Activity updates. Private-conversation pushes identify the sender but omit message text. Private notices and
+      Moment prompts are scheduled locally.</li>
+      <li><strong>Crash and diagnostic reports</strong> &mdash; release builds use Firebase Crashlytics. Reports are
+      linked to the Firebase account ID and may include fatal/nonfatal errors, native or JavaScript stack traces,
+      error messages, limited component-stack or developer log context, timestamps, app/build identifiers,
+      Crashlytics/Firebase installation and session IDs, device model/specifications, operating system, and whether
+      the App was in the foreground. We do not intentionally add message bodies or app-selection details to crash
+      reports, but unexpected error context can contain information involved in the failing operation.</li>
+      <li><strong>Service and security logs</strong> &mdash; IP address, user agent, request time, app version,
+      device/OS type, response/error information, and security or integrity signals can be processed by PhonePact,
+      Firebase, Apple, Google, or Expo when you authenticate, call the backend, receive a push, or check for an app
+      update. PhonePact&rsquo;s backend operational lines can also contain account and random device/installation IDs;
+      circle, request, message, push-token/claim, relay, or delivery-job IDs; and failure or retry details needed to
+      diagnose integrity and delivery problems. We do not intentionally put message bodies, app/site selections, or
+      Insights content in those operational lines. Our default Cloud Logging bucket retains entries for 30 days;
+      Google Cloud&rsquo;s required audit-log bucket retains its audit entries for 400 days. These log copies are
+      not individually found and scrubbed by in-app
+      account deletion, even after the underlying PhonePact records are removed.</li>
+      <li><strong>Safety-alert logs</strong> &mdash; a filed report creates a Cloud Logging alert so a human can act.
+      Since 27 September 2026, the report-alert line sends only a one-way lookup code, report type, and filing
+      revision to that log; the report content stays in the access-controlled report record. Earlier backend
+      revisions copied report reasons, content, names, and raw account/circle identifiers into the alert log. Any
+      legacy entries remain subject to the default bucket&rsquo;s 30-day retention and are not individually scrubbed
+      by the in-app account-deletion flow. Copies already delivered to an alert recipient follow that recipient&rsquo;s
+      notification-service retention; deleting the account does not recall a delivered alert.</li>
+      <li><strong>Over-the-air update data</strong> &mdash; Expo/EAS Update receives ordinary network and
+      app/runtime/platform metadata needed to determine and deliver a compatible over-the-air update.</li>
     </ul>
-    <p><strong>We do not sell your personal information, and we do not share it for cross-context behavioral
-    advertising.</strong> PhonePact contains no advertising SDKs and does not track you across other
-    companies&rsquo; apps or websites.</p>
 
-    <h3>Legal bases (for EU/UK users)</h3>
+    <h3>Supporter purchases and RevenueCat</h3>
+    <p>The core experience is currently available without a Supporter purchase. Apple or Google Play sells optional Supporter purchases and
+    handles payment credentials; PhonePact does not receive or store your card or bank details. PhonePact uses
+    <strong>RevenueCat</strong> as its purchase processor. When RevenueCat is enabled in a build, the SDK identifies
+    each signed-in user with the raw Firebase account ID so it can check access, even if that user has not purchased.
+    RevenueCat may process that account ID; app, SDK, device/OS, locale/currency, last-seen, network/approximate-country,
+    and permitted device-identifier information; and, when applicable, product/offer, Apple receipt or Google
+    purchase token, transaction, purchase date, renewal/expiration, subscription, and entitlement information.</p>
+    <p>PhonePact uses this information to show localized offerings, validate purchases, prevent purchase fraud,
+    restore and synchronize access, provide billing support, and produce purchase/subscription analytics. Our own
+    Firebase profile mirrors only whether purchases are available and whether Supporter access is active; it does
+    not receive the store receipt. PhonePact app code does not set RevenueCat customer attributes for your name,
+    email, phone number, screen usage, pact, messages, selection, or Insights. RevenueCat does not receive those
+    details from PhonePact. We do not use purchase data for cross-app advertising or tracking.</p>
+
+    <h2>2. How we use information</h2>
     <ul>
-      <li><strong>Performance of a contract</strong> — to give you the App and features you sign up for.</li>
-      <li><strong>Consent</strong> — for screen-usage access, notifications, and the optional Android timing, live-status, and Do Not Disturb exceptions you choose (you can withdraw these in your device settings at any time).</li>
-      <li><strong>Legitimate interests</strong> — to secure, maintain, and improve the service.</li>
-      <li><strong>Legal obligation</strong> — where we must retain or disclose data by law.</li>
+      <li>Provide, personalize, maintain, and secure the Service, accounts, pacts, devices, and circles.</li>
+      <li>Measure the scope you chose, preserve limited private history, operate private notices and optional live
+      status, and create the shared check-ins you agreed to send.</li>
+      <li>Operate rooms, private conversations, change requests, reports, blocks, and content-safety review.</li>
+      <li>Authenticate you, verify email ownership, link sign-in methods you request, and prevent account abuse.</li>
+      <li>Show Supporter offerings; validate, restore, and synchronize entitlements; provide billing support; and
+      understand aggregate purchase and subscription performance.</li>
+      <li>Deliver app updates, investigate errors, improve reliability, respond to support, enforce our
+      <a href="terms">Terms of Use</a>, and comply with law.</li>
     </ul>
+    <p><strong>PhonePact&rsquo;s policy forbids selling personal information, sharing it for cross-context behavioral
+    advertising, or using it for targeted advertising.</strong> PhonePact does not show ads or use measured activity
+    for advertising or cross-context behavioral tracking. If our processing practices materially change, we will
+    update this Policy and provide notice and obtain consent where the law requires it before the change begins.</p>
 
-    <h2>3. How we share information</h2>
+    <h3>Legal bases for EU/UK users</h3>
     <ul>
-      <li><strong>With your circle</strong> — your name, avatar, each registered phone&rsquo;s short label and pact point, coarse duration check-ins attributed to the phone that measured them, and any room messages you send are visible to members of the circle you choose. PhonePact does not share a live presence signal.</li>
-      <li><strong>With a private-conversation participant</strong> — a one-to-one message and its pact context, if any, are visible only to you and the current shared-circle member in that conversation. Other members of either circle cannot read it.</li>
-      <li><strong>With service providers</strong> — Google (Firebase Authentication, Cloud Firestore, Cloud Messaging, and Crashlytics) processes data on our behalf as a &ldquo;data processor.&rdquo; Apple provides Sign in with Apple and Screen Time. Apple or Google Play processes supporter payments, and RevenueCat processes the purchase-related information described above. See <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase&rsquo;s privacy information</a>, <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>, <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>, and <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>.</li>
-      <li><strong>For legal reasons</strong> — if required by law, or to protect the rights, safety, or property of our users or us.</li>
-      <li><strong>Business transfers</strong> — if we are involved in a merger, acquisition, or sale of assets, your information may be transferred, subject to this Policy.</li>
+      <li><strong>Contract</strong> &mdash; to provide the account, Service, and Supporter features you request.</li>
+      <li><strong>Consent</strong> &mdash; for screen-usage access, optional local history/notification counting,
+      push permissions, live status, and device permissions you choose. You can withdraw consent, although doing so
+      does not affect processing already completed.</li>
+      <li><strong>Legitimate interests</strong> &mdash; to secure, troubleshoot, prevent abuse, understand purchase
+      performance, and improve the Service without overriding your rights.</li>
+      <li><strong>Legal obligations</strong> &mdash; where law requires retention, disclosure, tax/accounting, or
+      response to valid legal process.</li>
     </ul>
 
-    <h2>4. Data retention</h2>
+    <h2>3. When information is disclosed</h2>
     <ul>
-      <li><strong>Private aggregate usage history on our servers</strong> — up to seven recent recorded days per phone. Older entries are removed as newer days replace them; this is a limited number of records, not a promise that an inactive phone&rsquo;s records disappear after seven calendar days. Server-side device histories are deleted with your account. Deeper Insights does not extend this server history.</li>
-      <li><strong>Private on-device insights</strong> — In the updated tester edition, Android usage summaries can accumulate up to 365 days on this phone after you choose to enable them. Older editions retain up to 28 days; expanding retention requires a fresh choice in the app. Missing history cannot always be recovered from Android. Optional notification counts still cover a rolling 28-day window. Older entries are pruned when Insights next runs or records new data; files on an inactive phone cannot be removed until the app runs again. Turning off private summaries clears these files and stops that optional collection. Signing out clears them as well. iPhone&rsquo;s detailed report history is supplied and retained by Apple, not copied into a PhonePact history store. The local pact journal on both platforms is limited to 28 recent days and 300 entries, prunes on access, and clears at sign-out. Subscription expiry closes access to paid reports; it does not itself delete history or revoke device permissions.</li>
-      <li><strong>Source check-in events</strong> — coarse duration events used to operate shared check-ins are retained until account deletion, separately from the short-lived messages displayed in the Room. They do not contain app identities or exact per-app usage and are not a complete daily usage history.</li>
-      <li><strong>Room messages</strong> — ordinary rows expire after 24 hours. A member-written message visibly kept by at least one current circle member expires no later than 30 days after it was sent; releasing the last Keep restores its ordinary expiry without reviving an already expired message. Deleting your account immediately deletes room notes and check-in rows attributed to you, and scrubs reply excerpts, reactions, Keep attribution, and names tied to those rows.</li>
-      <li><strong>Private conversations</strong> — ordinary messages expire after 24 hours. A message visibly kept by either participant expires 30 days after it was sent. Empty conversation records are later removed. Deleting either participant&rsquo;s account immediately deletes the entire private conversation and its messages.</li>
-      <li><strong>Reported messages</strong> — if someone reports a message, a copy of that message is
-        kept with the report so we can review it. <strong>This copy does not disappear after 24
-        hours</strong>, because a report we cannot read is a report we cannot act on. It is deleted
-        90 days after we finish reviewing it. A report that is still open is kept until it has been
-        looked at. If the reported author deletes their account, their copied text is scrubbed from the retained report.</li>
-      <li><strong>Reports you make</strong> — deleted when you delete your account.</li>
-      <li><strong>Reports about you</strong> — kept as safety records, but your account identifier is replaced
-        with an anonymous value and copied text attributed to you is scrubbed when you delete your account.
-        This is deliberate: otherwise deleting an account would erase the existence of complaints made about it.</li>
-      <li><strong>Account &amp; profile data</strong> (name, email, photo, signature, pact settings, circles) — kept while your account is active, and deleted when you delete your account, subject to any short backup or legal-retention period.</li>
-      <li><strong>Diagnostics</strong> — retained by Crashlytics for a limited period per Google&rsquo;s defaults.</li>
-      <li><strong>Purchase records</strong> — supporter purchase records may remain after account deletion for transaction, refund, fraud-prevention, or legal requirements. The applicable store and RevenueCat may retain records under their policies and obligations. Deleting a PhonePact account does not erase store transaction records or cancel a subscription.</li>
+      <li><strong>People you choose.</strong> Circle members see your name/avatar, circle membership, each registered
+      phone&rsquo;s short label and pact point, relevant pact-change requests/responses, duration-only shared check-ins
+      and their time, and room content/interactions you send. A private-conversation participant sees the message
+      and pact context you send to that conversation. Other members cannot read it. No circle receives a live
+      presence signal or your owner-only usage history.</li>
+      <li><strong>Processors and platform providers.</strong> Google/Firebase provides authentication, Cloud
+      Firestore, Cloud Functions, Cloud Messaging, and Crashlytics; Apple and Google provide sign-in, operating-system
+      measurement/push services, app distribution, and store billing; RevenueCat processes the purchase data above
+      on PhonePact&rsquo;s behalf; and Expo provides compatible over-the-air update delivery. Depending on the activity and law,
+      an app store or sign-in/platform provider may act under its own terms as an independent controller. See
+      <a href="https://firebase.google.com/support/privacy" rel="noopener">Firebase privacy and security</a>,
+      <a href="https://www.apple.com/legal/privacy/" rel="noopener">Apple&rsquo;s Privacy Policy</a>,
+      <a href="https://policies.google.com/privacy" rel="noopener">Google&rsquo;s Privacy Policy</a>,
+      <a href="https://www.revenuecat.com/privacy" rel="noopener">RevenueCat&rsquo;s Privacy Policy</a>, and
+      <a href="https://expo.dev/privacy" rel="noopener">Expo&rsquo;s Privacy Policy</a>.</li>
+      <li><strong>Safety and legal needs.</strong> Authorized reviewers and service operators may access reported
+      content and operational records as needed to investigate abuse, respond to support, comply with valid legal
+      process, or protect users, PhonePact, or others.</li>
+      <li><strong>Business transfers.</strong> Information may transfer in a merger, financing, reorganization,
+      acquisition, bankruptcy, or sale of assets, subject to this Policy and applicable law.</li>
     </ul>
 
-    <h2>5. Your choices and rights</h2>
+    <h2>4. Retention and deletion</h2>
     <ul>
-      <li><strong>Access, correct, or delete</strong> your personal information.</li>
-      <li><strong>Delete your account</strong> from within the App, under <em>You &rarr; Your Profile &rarr; Delete account</em>. Account data, private conversations, ordinary room notes and check-in rows attributed to you, and reports you filed are deleted. Reply excerpts, reaction attributions, and block-list references tied to your account are scrubbed. Reports about you may be retained as anonymized safety records, with copied text attributed to you scrubbed. You can also email us to request deletion.</li>
-      <li><strong>Turn off</strong> screen-usage access, notifications, exact-alarm access, live-status display, or PhonePact&rsquo;s optional Do Not Disturb exception in your phone settings at any time.</li>
+      <li><strong>Owner-only server usage.</strong> Active code keeps the newest seven recorded dates of aggregate
+      totals per phone, not a seven-calendar-day time-to-live. Intermediate iPhone relay/Live Activity state can
+      include additional current-day whole-minute floors needed for synchronization and delivery. Relay receipts
+      expire after about 15 days; relay credentials expire after no more than 180 days; completed/invalid delivery
+      jobs and superseded token claims are removed. The current device routing state otherwise remains with the
+      device record until replaced, the device is revoked, or the account is deleted. A legacy owner-only total copy
+      may remain until deletion. None of this contains app or website identities.</li>
+      <li><strong>Android on-device Insights.</strong> After fresh consent in expanded builds, usage summaries can
+      accumulate up to 365 recorded days. Day entries outside that window are pruned when the archive refreshes;
+      an abandoned/inactive file can physically remain until the cleanup path runs. Notification-count buckets cover
+      up to 28 recorded days and prune when another eligible notification is saved. Turning off and clearing private
+      history deletes usage summaries and notification counts but not the pact journal. Ordinary sign-out pauses
+      measurement and clears the extended Insights summaries, notification counts, and pact journal, but preserves
+      an account-scoped native resume checkpoint containing the selected package list, pact/progress settings, and up
+      to 14 recorded dates of aggregate history for restoration to that same account on that installation. Revoking
+      an OS permission stops new access but does not by itself erase prior summaries. Account deletion, clearing app
+      data, or uninstalling removes the local checkpoint.</li>
+      <li><strong>Supporter expiry.</strong> Expiration closes paid reports but does not delete history or revoke OS
+      permissions. On Android, previously enabled private-history refresh and notification counting can continue
+      after paid access expires. The always-available <em>You &rarr; Profile &rarr; Private Insights data</em>
+      control stops that collection and deletes PhonePact&rsquo;s saved usage summaries and notification counts without
+      unlocking paid reports. You can also stop new access by revoking the relevant permission, signing out, clearing
+      app data, deleting the account, or uninstalling.</li>
+      <li><strong>Local aggregate resume data.</strong> While measurement is active, native iPhone and Android stores
+      can keep up to 14 recorded dates of aggregate duration as rollover/offline slack for the seven-date ledger.
+      Both apps also keep an account-and-installation-scoped cache of up to seven aggregate dates across ordinary
+      sign-out so the same account can resume without losing recent totals. These caches contain duration and date,
+      not app identities, and clear for that account during account deletion.</li>
+      <li><strong>iPhone on-device data.</strong> Detailed Screen Time history is supplied and retained by Apple; it
+      is not copied to a PhonePact detailed-history store. Revoking access stops PhonePact from reading new reports
+      but does not delete Apple&rsquo;s OS-held history. Ordinary sign-out clears the active PhonePact App Group aggregate
+      history, while the seven-date account cache and opaque selection token may survive for same-account restoration;
+      both clear on account deletion.</li>
+      <li><strong>Pact journal.</strong> The local journal keeps no more than 28 recent days and 300 entries, prunes
+      on read/write, and clears at sign-out or account teardown.</li>
+      <li><strong>Shared check-in source events.</strong> Account-linked coarse events, including their timestamp,
+      phone/circle context, minutes, and optional note, are retained until account deletion separately from the
+      short-lived Room row. They do not contain app identities or exact per-app usage and are not a complete daily
+      history.</li>
+      <li><strong>Messages.</strong> Ordinary Room and private messages expire after 24 hours. A visibly kept
+      member-written Room message or private message expires no later than 30 days after sending. PhonePact clients
+      stop displaying a row at its expiry time; scheduled server deletion runs hourly and normally removes it on the
+      next successful sweep, but a backlog or failed job can delay physical removal. Releasing the last Room Keep
+      restores ordinary expiry without reviving an expired message. Deleting an account deletes its room notes/check-in
+      rows and its private conversations, and scrubs account-linked reply excerpts, reactions, Keep attribution, block
+      references, and names.</li>
+      <li><strong>Safety reports.</strong> A reported-message copy remains available while a report is open. It becomes
+      eligible for deletion 90 days after review closes; a daily server sweep normally removes it on the next successful
+      run, but a failed job can delay physical removal. Reports filed by a deleted account are deleted. Reports about a deleted account
+      may remain as safety records with the account identifier replaced by an opaque value and copied name/text
+      attributable to that user scrubbed. Those deletion actions apply to the Firestore report record. Legacy
+      Cloud Logging alert copies described above follow the logging bucket&rsquo;s separately configured retention and
+      are not individually scrubbed by account deletion.</li>
+      <li><strong>Account/profile data.</strong> We keep it while the account is active. In-app deletion starts
+      deletion of PhonePact-hosted account, profile, device, membership, pact, private-conversation, feedback,
+      entitlement-flag, and usage records, plus Room rows attributed to or about the deleted account. It also clears a
+      current shared-circle photo while that photo is still attributed to the deleted account. A shared circle and
+      content belonging to its remaining members continue; if nobody remains, the circle and invite-code mapping are
+      queued for removal. A content-free deletion guard keyed to the former account ID remains for seven days to
+      stop delayed devices from recreating deleted data. Google states that Firebase Authentication data can take up
+      to 180 days to leave its live and backup systems after deletion is initiated.</li>
+      <li><strong>Crash reports.</strong> Google states that Crashlytics keeps crash traces and associated
+      installation identifiers for 90 days before beginning removal from live and backup systems.</li>
+      <li><strong>Purchase records.</strong> PhonePact&rsquo;s two Firebase entitlement flags delete with the
+      account. After PhonePact account cleanup, our backend requests deletion of the matching RevenueCat customer
+      and retries requests that fail. RevenueCat processes deletion asynchronously, so deletion is not immediate.
+      If you need confirmation or the automatic request cannot be matched, contact us for a manual provider request.
+      Deleting its customer record does not delete an
+      app store&rsquo;s transaction record or cancel a subscription. RevenueCat and the stores may retain records under
+      their policies and as needed for entitlement, refund, fraud, accounting, tax, or law. If the PhonePact account
+      is already gone and no automatic deletion can be confirmed, an exact production Google transaction ID or
+      eligible Apple order ID may be needed to locate the record; PhonePact sends RevenueCat no email customer
+      attribute, so email alone may not identify it. Any manual request depends on unambiguous record matching,
+      provider availability, required retention, and law.</li>
+      <li><strong>Website submissions.</strong> We keep testing/waitlist, SMS-consent, feedback, and support records
+      only while needed for the requested communication, support, safety, or legal purpose, unless you ask us to
+      delete them sooner and no exception applies.</li>
     </ul>
-    <p>Turning off screen-usage permission stops new measurement; it does not by itself delete previously
-    saved history. Use the access or deletion options above for that history. If subscriptions are introduced,
-    canceling one will stop its renewal under the store&rsquo;s terms; it will not itself delete your account or
-    history. Deleting your account or uninstalling the App will not itself cancel a store subscription.</p>
-    <p><strong>EU/UK (GDPR):</strong> you also have the right to portability, to object to or restrict processing,
-    to withdraw consent, and to lodge a complaint with your local data-protection authority.</p>
-    <p><strong>California (CCPA/CPRA):</strong> you have the right to know, access, correct, and delete your
-    personal information, to opt out of &ldquo;sale&rdquo;/&ldquo;sharing&rdquo; (we do neither), to limit the use
-    of sensitive personal information, and not to be discriminated against for exercising these rights.</p>
-    <p>To exercise any right, email <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>. We will
-    respond within the time required by applicable law.</p>
 
-    <h2>6. Children&rsquo;s privacy</h2>
-    <p>PhonePact is intended for people <strong>13 years of age and older</strong>, and is not directed to
-    children under 13. We do not knowingly collect personal information from children under 13. If you believe
-    a child under 13 has provided us information, contact <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>
-    and we will delete it.</p>
+    <h2>5. Your choices and privacy rights</h2>
+    <ul>
+      <li><strong>Account controls.</strong> Correct profile details in the App and manage linked sign-in methods
+      from the top-right account settings button under <em>You</em>. Delete the account at
+      <em>You &rarr; Profile &rarr; Delete account</em>, or email us.</li>
+      <li><strong>Device controls.</strong> Turn off Screen Time/Usage Access, push or notification access, Android
+      Alarms &amp; reminders, live status, or an optional Do Not Disturb exception in system settings. On Android,
+      <em>You &rarr; Profile &rarr; Private Insights data</em> remains available after Supporter access ends and can
+      stop private-history collection and clear local usage/notification summaries.</li>
+      <li><strong>Billing controls.</strong> Cancel monthly support through the app store that billed you. Canceling
+      stops future renewal under store terms but does not delete your account or history. Deleting the account or
+      uninstalling the App does not cancel a subscription.</li>
+    </ul>
+    <p>Depending on where you live and subject to legal exceptions, you may request access, correction, deletion,
+    restriction, objection, or portability; withdraw consent; or appeal a denied request. You may also complain to
+    your local data-protection authority. We will not discriminate against you for exercising a privacy right.</p>
+    <p>Email <a href="mailto:support@getphonepact.com">support@getphonepact.com</a> with &ldquo;Privacy
+    request&rdquo; in the subject. We may verify your identity or an authorized agent&rsquo;s authority before acting.
+    If we deny a request, reply to appeal. We will respond within the period required by applicable law.</p>
 
-    <h2>7. Security</h2>
-    <p>We use reasonable technical and organizational measures to protect your information, including encryption
-    in transit and access controls on our Firebase backend. No method of transmission or storage is 100% secure,
-    so we cannot guarantee absolute security.</p>
+    <h2>6. U.S. state privacy notice</h2>
+    <p>In the preceding 12 months, PhonePact may have collected the following statutory categories, although not
+    every example within a category: identifiers/contact/account data; commercial and purchase information;
+    internet or electronic activity consisting of coarse screen-usage aggregates, check-in events, and technical
+    service/diagnostic activity (not uploaded app-level Insights); approximate location derived from IP address;
+    user-generated communications and photos; and support/safety records. Sources are you, your phone, people who
+    interact with you in the Service, app stores, authentication/platform providers, and our processors. The business
+    purposes and recipients are described in Sections 2 and 3.</p>
+    <p>PhonePact&rsquo;s policy is not to sell personal information, share it for cross-context behavioral advertising,
+    or process it for targeted advertising. PhonePact does not show advertising. We do not offer a financial
+    incentive in exchange for personal information; Supporter
+    access is a digital feature purchased with money, not data. Because we do not conduct those opt-out activities,
+    there is no sale/sharing opt-out necessary for us to apply. Where applicable, state law may provide rights to
+    know, access, correct, delete, obtain a portable copy, limit certain sensitive-data uses, opt out of covered
+    profiling, use an authorized agent, and appeal. Use the request process above.</p>
 
-    <h2>8. International users</h2>
-    <p>We are based in the United States and process data in the United States. If you use PhonePact from outside
-    the U.S., you understand your information will be transferred to and processed in the U.S., where
-    data-protection laws may differ from those in your country. Where required, we rely on appropriate safeguards
-    (such as Standard Contractual Clauses) for such transfers.</p>
+    <h2>7. Children&rsquo;s privacy</h2>
+    <p>PhonePact is intended for people <strong>13 and older</strong> and is not directed to children under 13. We
+    do not knowingly collect personal information from a child under 13. If you believe that occurred, contact us
+    and we will investigate and delete it. If the law where a 13&ndash;17-year-old lives requires parent or guardian
+    involvement or permission, the young person may use PhonePact only with that involvement or permission.</p>
 
-    <h2>9. Changes to this Policy</h2>
-    <p>We may update this Policy from time to time. We will post the new version here and update the
-    &ldquo;Last updated&rdquo; date, and, for material changes, provide additional notice in the App.</p>
+    <h2>8. Security</h2>
+    <p>We use reasonable technical and organizational safeguards, including encrypted transport, Firebase access
+    rules, owner-only server paths, app/device authorization, and restricted operational access. On-device files are
+    protected by the operating system; Android Insights files are excluded from Android backup. No transmission or
+    storage method is completely secure, so we cannot guarantee absolute security.</p>
 
-    <h2>10. Our website and testing signups</h2>
-    <p>This Policy also covers <strong>getphonepact.com</strong>. If you previously joined Android testing or our launch waitlist, or send feedback
-    on the website, we collect the email address you submit (and, only if you opt in to SMS updates, your
-    mobile number and consent) along with any message you send. These submissions are processed on our
-    behalf by <strong>Google Apps Script</strong>, which records them to a Google Sheet; if your browser has
-    JavaScript disabled, or if the primary submission cannot be confirmed and you choose the displayed
-    backup form, <strong>Formspree</strong> processes that submission instead. <strong>Google Fonts</strong> may receive basic request
-    information when your browser loads the site&rsquo;s fonts. We use this only to manage Android testing and prior waitlist records, send
-    updates you asked for, and respond to you — never for advertising, and we never sell it. You can
-    unsubscribe from emails at any time, and reply <strong>STOP</strong> to opt out of SMS. To access or delete
-    anything you submitted on the website, email <a href="mailto:support@getphonepact.com">support@getphonepact.com</a>.</p>
+    <h2>9. International processing</h2>
+    <p>PhonePact is based in the United States. We and our providers process information in the United States and
+    other countries where they operate, whose laws may differ from yours. Where required, we rely on an adequacy
+    decision, Standard Contractual Clauses, or another lawful transfer safeguard. RevenueCat states that its service
+    data is hosted in the United States and offers contractual transfer safeguards.</p>
 
-    <h2>11. Contact us</h2>
+    <h2 id="website-forms-network">10. Website, forms, and network requests</h2>
+    <p>This Policy also covers <strong>getphonepact.com</strong>. If you joined prior testing/a waitlist, opted into
+    SMS, or submit website feedback, we process the name and email you provide, optional phone number and consent,
+    message, form type, and submission time. Google Apps Script records the primary submission in Google Sheets. If
+    JavaScript is unavailable or the primary result cannot be confirmed and you choose the displayed backup form,
+    Formspree processes it instead.</p>
+    <p>The current site does not load an advertising or analytics tracker and does not set advertising cookies.
+    GitHub Pages hosts the site, and Google Fonts plus Apple/Google store-badge or linked resources may receive
+    ordinary HTTP data such as IP address, user agent, referrer subject to browser policy, and request time when your
+    browser requests them. We use submitted contact details only for the communication requested, testing/launch
+    administration, support, and safety &mdash; never targeted advertising or sale. Unsubscribe from email at any
+    time, reply <strong>STOP</strong> to an SMS, or contact us to access or delete a website submission.</p>
+    <p><strong>Invite links are access capabilities.</strong> New links put the six-character invite after
+    <code>#</code>. Browsers do not include that fragment in the HTTP request to GitHub Pages, and the page is designed
+    to remove it from the visible address after reading it. Older <code>?c=</code> links remain supported, but their
+    full request URL, including the code, reaches GitHub Pages before page code can remove it and can remain in
+    hosting/security logs under GitHub&rsquo;s configured practices. The page&rsquo;s no-referrer rule prevents the invite URL
+    from being sent onward as a referrer to fonts, store badges, or followed links; it cannot hide a legacy query from
+    the site host or erase a copy already made.</p>
+    <p>Either link form can also remain in the sender&rsquo;s or recipient&rsquo;s messages, link previews, clipboard,
+    screenshots, and browser history or synchronization. PhonePact cannot set retention for or delete those outside
+    copies, and in-app account deletion does not remove them. An invite code remains usable while its circle exists;
+    it can remain usable after one member deletes their account if other members keep the circle, and the current App
+    has no code-rotation or revocation control. For least exposure, send only the six-character code and enter it
+    directly in the App, then delete message, clipboard, and browser-history/sync copies you control. Clearing those
+    copies does not revoke the active code. GitHub&rsquo;s handling is described in its
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">Privacy Statement</a>.</p>
+
+    <h2>11. Changes to this Policy</h2>
+    <p>We may update this Policy as the Service, providers, or law changes. We will post the new version and update
+    the date above. For a material change, we will provide additional notice in the App or obtain consent where law
+    requires it before the new processing begins.</p>
+
+    <h2>12. Contact us</h2>
     <p><strong>PhonePact LLC</strong><br>
     Email: <a href="mailto:support@getphonepact.com">support@getphonepact.com</a></p>
 
   </div>
 </section>
 
+</main>
 <!-- Footer -->
 <footer class="footer">
   <div class="container">

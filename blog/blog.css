@@ -6,7 +6,9 @@
 :root{
   --pearl:#FAF9F5; --pearl-deep:#F1EFE8; --card:#FFFDF9;
   --ink:oklch(0.30 0.055 155); --ink-2:oklch(0.44 0.040 150);
-  --ink-3:oklch(0.58 0.028 148); --ink-4:oklch(0.72 0.020 142);
+  /* Both muted inks remain above 4.5:1 on the pearl backgrounds at the
+     small sizes used by navigation, metadata, and the footer. */
+  --ink-3:#5D6B61; --ink-4:#667269;
   --hair:#DCD7CC; --hair-soft:#E8E4DA;
   --accent:oklch(0.38 0.090 152); --accent-pale:oklch(0.86 0.045 140);
   --green-deep:oklch(0.27 0.062 154);
@@ -49,6 +51,15 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radi
 .topnav nav a{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
   text-transform:uppercase; color:var(--ink-3); border:none}
 .topnav nav a:hover,.topnav nav a[aria-current]{color:var(--ink)}
+
+@media (max-width:480px){
+  .wrap{padding-inline:14px}
+  .topnav{gap:12px; padding:20px 0}
+  .brand{font-size:18px; white-space:nowrap}
+  .brand .mark{margin-right:6px}
+  .topnav nav{gap:10px}
+  .topnav nav a{font-size:10px; letter-spacing:.08em}
+}
 
 .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.26em;
   text-transform:uppercase; color:var(--ink-3);
