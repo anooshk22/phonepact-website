@@ -1,0 +1,85 @@
+rules_version = '2';
+
+// Pacts by PhonePact. Everyone is signed in, anonymously at first, so every write
+// carries a uid. A pact's terms never change after it is created. Each person can
+// only fill an empty spot as themselves, record breaks for their own spot, and set
+// their own end-of-pact choice. Anyone holding the 10-character link can read the pact.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function text(v, max) { return v is string && v.size() > 0 && v.size() <= max; }
+    function pactPath(id) { return /databases/$(database)/documents/pacts/$(id); }
+    function slotPath(id, s) { return /databases/$(database)/documents/pacts/$(id)/slots/$(s); }
+    // getAfter so a slot written in the same batch as its pact can see the pact.
+    function pactAfter(id) { return getAfter(pactPath(id)).data; }
+    function notMySlot(id, s) { return !exists(slotPath(id, s)) || get(slotPath(id, s)).data.uid != request.auth.uid; }
+    function ownsSlot(id, s) { return exists(slotPath(id, s)) && get(slotPath(id, s)).data.uid == request.auth.uid; }
+
+    match /pacts/{id} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && id.matches('^[a-z0-9]{10}$')
+        && request.resource.data.keys().hasOnly(['v', 't', 'r', 'n', 's', 'c', 'a', 'l', 'names', 'by', 'at'])
+        && request.resource.data.v == 2
+        && text(request.resource.data.t, 40)
+        && text(request.resource.data.r, 140)
+        && text(request.resource.data.c, 80)
+        && request.resource.data.n is int && request.resource.data.n >= 1 && request.resource.data.n <= 90
+        && request.resource.data.s is int
+        && request.resource.data.a in ['phone', 'bars', 'sun', 'link', 'glass', 'wifi', 'doc', 'vape', 'leaf', 'reel', 'bed', 'plate', 'dumbbell']
+        && request.resource.data.l in ['ink', 'paper', 'stone', 'accent']
+        && request.resource.data.names is list
+        && request.resource.data.names.size() >= 2 && request.resource.data.names.size() <= 3
+        && request.resource.data.by == request.auth.uid
+        && request.resource.data.at == request.time;
+      allow update, delete: if false;
+
+      // One document per person: '0' is the creator, '1' and '2' are friends.
+      match /slots/{slot} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && slot in ['0', '1', '2']
+          && int(slot) < pactAfter(id).names.size()
+          && (slot != '0' || pactAfter(id).by == request.auth.uid)
+          && notMySlot(id, '0') && notMySlot(id, '1') && notMySlot(id, '2')
+          && request.resource.data.keys().hasOnly(['uid', 'name', 'at', 'sig'])
+          && request.resource.data.uid == request.auth.uid
+          && text(request.resource.data.name, 30)
+          && request.resource.data.sig is string && request.resource.data.sig.size() <= 2000
+          && request.resource.data.at == request.time;
+        allow update, delete: if false;
+      }
+
+      // Id is "<slot>_<day>", so the same day can only be recorded once.
+      match /breaks/{key} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && request.resource.data.keys().hasOnly(['slot', 'day', 'at'])
+          && request.resource.data.slot is int && request.resource.data.day is int
+          && key == string(request.resource.data.slot) + '_' + string(request.resource.data.day)
+          && request.resource.data.day >= 1 && request.resource.data.day <= get(pactPath(id)).data.n
+          && ownsSlot(id, string(request.resource.data.slot))
+          && request.resource.data.at == request.time;
+        allow update, delete: if false;
+      }
+
+      // "Go again" or "I'm done", one per person, changeable.
+      match /ends/{slot} {
+        allow read: if signedIn();
+        allow create, update: if signedIn()
+          && request.resource.data.keys().hasOnly(['choice', 'at'])
+          && request.resource.data.choice in ['again', 'done']
+          && ownsSlot(id, slot)
+          && request.resource.data.at == request.time;
+        allow delete: if false;
+      }
+    }
+
+    // Each person's own list of pacts, for "Your pacts" on any device.
+    match /users/{uid}/pacts/{id} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
