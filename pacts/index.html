@@ -23,6 +23,10 @@
 <link rel="icon" href="../favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- The sign-in and database code starts downloading while the page is still being read. -->
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js">
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js">
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-lite.js">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap">
 <style>
   /* Pacts by PhonePact. No framework and no build step. Pacts live on a small Firebase
@@ -903,7 +907,9 @@
       cloud.emulator = true;
     }
     if (!config) return false;
-    const [appMod, A, F] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore.js'].map(f => import(SDK + f)));
+    // Firestore Lite: Pacts only reads and writes once at a time, so plain requests are enough,
+    // with a fifth of the download and no streaming connection to open first.
+    const [appMod, A, F] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore-lite.js'].map(f => import(SDK + f)));
     const app = appMod.initializeApp(config);
     const auth = A.getAuth(app);
     const fs = F.getFirestore(app);
@@ -1066,12 +1072,16 @@
     delete db.sealed[p.id];
     save();
   }
+  // Refreshes your list of server pacts. It never clears first: a pact open on screen must not
+  // forget, even for a moment, which spot is yours.
   async function loadMine() {
     if (!cloud.on) return;
     const { fs, F } = cloud.fb;
-    for (const [id, p] of Object.entries(db.pacts)) if (p.cloud) { delete db.pacts[id]; delete db.me[id]; }
     const index = await F.getDocs(F.collection(fs, 'users', cloud.uid, 'pacts'));
+    const ids = new Set(index.docs.map(x => x.id));
     await Promise.all(index.docs.map(x => cloudFetch(x.id).then(p => p || F.deleteDoc(x.ref)).catch(() => null)));
+    // Server pacts no longer on this account's list (removed, or another account signed in) leave it.
+    for (const [id, p] of Object.entries(db.pacts)) if (p.cloud && !ids.has(id) && db.me[id] !== undefined) { delete db.pacts[id]; delete db.me[id]; }
   }
   // The first load of your list, shared by everything that needs it on the way in.
   let mineOnce = null;
