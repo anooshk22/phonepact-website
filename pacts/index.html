@@ -876,9 +876,15 @@
   /* ---------- The server ----------
      A separate Firebase project from the PhonePact app. Everyone gets an invisible guest
      account the first time, so signing needs no signup. Saving to an email turns that guest
-     account into one you can open anywhere. FIREBASE_CONFIG stays null until the project
-     exists (pacts/firebase/README.md); on localhost the local emulator stands in for it. */
-  const FIREBASE_CONFIG = null;
+     account into one you can open anywhere. The project is pacts-by-phonepact (see
+     pacts/firebase/README.md). These values are public by design; the rules protect the data.
+     On localhost, a running local emulator stands in for it. */
+  const FIREBASE_CONFIG = {
+    apiKey: 'AIzaSyDDE63xSpMWdgsFXwYhOP4beUdw105tHmY',
+    authDomain: 'pacts-by-phonepact.firebaseapp.com',
+    projectId: 'pacts-by-phonepact',
+    appId: '1:872882315539:web:aa23626362e881563b3ae6',
+  };
   const SDK = 'https://www.gstatic.com/firebasejs/12.19.0/';
   const cloud = { on: false, emulator: false, uid: null, email: null, anon: true, fb: null };
   let pendingLink = null;
@@ -1067,6 +1073,9 @@
     const index = await F.getDocs(F.collection(fs, 'users', cloud.uid, 'pacts'));
     await Promise.all(index.docs.map(x => cloudFetch(x.id).then(p => p || F.deleteDoc(x.ref)).catch(() => null)));
   }
+  // The first load of your list, shared by everything that needs it on the way in.
+  let mineOnce = null;
+  const loadMineOnce = () => mineOnce || (mineOnce = loadMine().catch(e => console.warn(e)));
 
   /* ---------- Saving to email: a one-tap link, no password ---------- */
   const hasCloudPacts = () => Object.values(db.pacts).some(p => p.cloud && db.me[p.id] !== undefined);
@@ -1118,6 +1127,7 @@
     if (form) wireSaveForm(form, $(`${prefix}-email`), $(`${prefix}-save-err`));
   }
 
+  const isEmailLinkUrl = () => { const q = new URLSearchParams(location.search); return q.get('mode') === 'signIn' && q.has('oobCode'); };
   async function finishEmailLink() {
     const { auth, A } = cloud.fb;
     if (!A.isSignInWithEmailLink(auth, location.href)) return;
@@ -2169,10 +2179,14 @@
   }
 
   /* Account: save to email, or get your pacts back on a new phone */
+  // More than one thing can ask for this page at once, so only the most recent request draws it.
+  let accountCall = 0;
   async function showAccount(errorText, token = routeToken) {
+    const call = ++accountCall;
+    const stale = () => call !== accountCall || token !== routeToken;
     show('load');
     const ok = await ready;
-    if (token !== routeToken) return;
+    if (stale()) return;
     const el = views.account;
     if (!ok) {
       el.innerHTML = '<a class="back" href="#">← Pacts</a><div class="box"><h2>Saving isn’t on here</h2><p class="sub">This copy of Pacts keeps pacts in this browser only.</p></div>';
@@ -2188,6 +2202,9 @@
         location.replace(location.pathname);
       });
     } else {
+      // Whether there's anything to save depends on your list, so wait for it the first time.
+      if (!pendingLink) await loadMineOnce();
+      if (stale()) return;
       const finishing = !!pendingLink;
       const has = hasCloudPacts();
       el.innerHTML = `<a class="back" href="#">← Pacts</a>
@@ -2225,6 +2242,8 @@
   function route() {
     const token = ++routeToken;
     renderMine();
+    // Arriving from an email sign-in link: finishing the sign-in decides what to show.
+    if (isEmailLinkUrl()) return show('load');
     let h = location.hash.slice(1);
     try { h = decodeURIComponent(h); } catch (e) { /* use it as it is */ }
     const packed = h.match(/^([jv])(\d?)\.(.+)$/);
@@ -2262,9 +2281,12 @@
   route();
   ready.then(async ok => {
     renderAccountLink();
-    if (!ok) return;
+    if (!ok) {
+      if (isEmailLinkUrl()) showLost('Couldn’t reach the Pacts server to finish signing in. Open the link from your email again in a minute.');
+      return;
+    }
     await finishEmailLink();
-    try { await loadMine(); } catch (e) { console.warn(e); }
+    await loadMineOnce();
     renderMine();
   });
 })();
