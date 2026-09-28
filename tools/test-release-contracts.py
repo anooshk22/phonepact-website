@@ -11,6 +11,10 @@ spec.loader.exec_module(checker)
 original_read = Path.read_text
 
 cases = [
+    ("privacy.html", "account identifier and name", "unspecified details", "local iPhone change-history disclosure"),
+    ("privacy.html", "not synchronized between phones", "synchronized between phones", "local iPhone change-history disclosure"),
+    ("privacy.html", "latest 20 completed selection changes plus one pending change", "every change forever", "local iPhone change-history disclosure"),
+    ("privacy.html", "opaque before-and-after selection tokens", "private information", "local iPhone change-history disclosure"),
     ("privacy.html", "our backend requests deletion of the matching RevenueCat customer", "contact us to discuss provider data", "RevenueCat asynchronous account-deletion disclosure"),
     ("privacy.html", "retries requests that fail", "does not retry failures", "RevenueCat asynchronous account-deletion disclosure"),
     ("privacy.html", "deletion is not immediate", "deletion is immediate", "RevenueCat asynchronous account-deletion disclosure"),

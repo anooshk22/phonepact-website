@@ -54,7 +54,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 27 September 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 28 September 2026</p>
   </div>
 </section>
 
@@ -190,7 +190,14 @@
     counts incomplete.</p>
     <p>A small on-device pact journal is maintained for signed-in accounts so recent pact settings and crossings
     recorded on that phone are ready if Insights is unlocked. It stores event kind, time, and minutes, not message
-    text or a complete approval/delivery history. Insights calculations are deterministic and on-device: PhonePact
+    text. In the updated iPhone version, it also records confirmed pact changes, previous and new pact points,
+    approval status, the approving member&rsquo;s account identifier and name when known, and separate approval
+    and local record times. For What counts changes, it can keep opaque before-and-after selection tokens on that
+    phone so Apple can display added or removed apps, categories, and websites privately. These are selection
+    changes, not evidence of which apps or websites you used. The journal is not a complete approval/delivery
+    history, does not reconstruct earlier unsaved changes, and is not synchronized between phones. These local
+    records and selection tokens are not sent to our servers or other members; the existing shared approval
+    request is separate. Insights calculations are deterministic and on-device: PhonePact
     does not use an AI service to analyze them, analyze messages, rank members, or send detailed Insights, app
     identities, or reports to circles, RevenueCat, or advertising/behavioral analytics services.</p>
 
@@ -331,7 +338,10 @@
       history, while the seven-date account cache and opaque selection token may survive for same-account restoration;
       both clear on account deletion.</li>
       <li><strong>Pact journal.</strong> The local journal keeps no more than 28 recent days and 300 entries, prunes
-      on read/write, and clears at sign-out or account teardown.</li>
+      on read/write, and clears at sign-out or account teardown. On supported iPhone versions, exact before-and-after
+      selection tokens are limited further to the latest 20 completed selection changes plus one pending change,
+      within the same journal limits. Older entries may retain change and approval metadata without exact selection
+      details. Changes in Screen Time authorization can also make Apple&rsquo;s older app labels unavailable.</li>
       <li><strong>Shared check-in source events.</strong> Account-linked coarse events, including their timestamp,
       phone/circle context, minutes, and optional note, are retained until account deletion separately from the
       short-lived Room row. They do not contain app identities or exact per-app usage and are not a complete daily

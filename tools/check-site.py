@@ -465,6 +465,14 @@ def main():
         "verified production logging retention": all(
             token in privacy_text for token in ("30 days", "400 days", "since 27 september 2026", "one-way lookup code")
         ),
+        "local iPhone change-history disclosure": all(
+            token in privacy_text for token in (
+                "approving member", "account identifier and name", "opaque before-and-after selection tokens",
+                "not synchronized between phones", "not sent to our servers or other members",
+                "28 recent days and 300 entries", "latest 20 completed selection changes plus one pending change",
+                "clears at sign-out or account teardown",
+            )
+        ),
         "public policy excludes internal rollout gates": all(
             token not in privacy_text + support_text + article_text
             for token in ("stop-ship", "not considered live until", "source-prepared", "remain a release gate")
