@@ -12,7 +12,7 @@
 <link rel="icon" href="../favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap">
 <style>
   /* Pacts by PhonePact. No framework and no build step. Pacts live on a small Firebase
      server when one is reachable (see pacts/firebase/README.md), otherwise in this browser.
@@ -34,6 +34,8 @@
     --display: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
     --mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
     --script: 'Mrs Saint Delafield', 'Snell Roundhand', 'Brush Script MT', cursive;
+    /* The signed contract is set in PhonePact's own serif, so it reads as a document, not a form. */
+    --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
     --ease: cubic-bezier(.16, 1, .3, 1);
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -104,34 +106,51 @@
   .art svg { width: 100%; height: 100%; max-height: 200px; overflow: visible; }
   .svg-label { font: 500 11px var(--mono); fill: currentColor; opacity: .75; }
   .svg-url { font: 500 18px var(--mono); fill: var(--acc); }
+  /* Some drawings move a little, slowly, so the wall feels alive without asking for attention.
+     Only on the cards and the pact's panel: the emblem on a signed contract stays still. */
+  .art .a-bob { animation: art-bob 5s ease-in-out infinite alternate; }
+  .art .a-lift { animation: art-lift 2.6s ease-in-out infinite alternate; }
+  .art .a-float { animation: art-float 3.4s ease-in-out infinite alternate; }
+  .art .a-twinkle { animation: art-twinkle 3.2s ease-in-out infinite; }
+  .art .a-glow { animation: art-glow 2.4s ease-in-out infinite; }
+  .art .a-drift { animation: art-drift 2.8s ease-in infinite; }
+  .art .a-puff { animation: art-puff 4.5s linear infinite; }
+  .art .a-signal { animation: art-signal 3s ease-in-out infinite; }
+  .art .a-rays { transform-box: view-box; transform-origin: 120px 118px; animation: art-breathe 5s ease-in-out infinite alternate; }
+  .art .a-grow { transform-box: fill-box; transform-origin: 50% 100%; animation: art-grow 3.6s ease-in-out infinite alternate; }
+  .art .a-follow { animation: art-follow 3.6s ease-in-out infinite alternate; }
+  .art .a-sway { transform-box: view-box; transform-origin: 120px 172px; animation: art-sway 6s ease-in-out infinite alternate; }
+  @keyframes art-bob { to { transform: translateY(-4px); } }
+  @keyframes art-lift { to { transform: translateY(-6px); } }
+  @keyframes art-float { to { transform: translateY(-3px); } }
+  @keyframes art-twinkle { 50% { opacity: .2; } }
+  @keyframes art-glow { 50% { opacity: .15; } }
+  @keyframes art-drift { 0% { transform: translateY(10px); opacity: 0; } 35% { opacity: 1; } 100% { transform: translateY(-10px); opacity: 0; } }
+  @keyframes art-puff { 0% { transform: translate(6px, 10px); opacity: 0; } 30% { opacity: var(--o); } 100% { transform: translate(-6px, -10px); opacity: 0; } }
+  @keyframes art-signal { 0%, 70%, 100% { opacity: .16; } 25% { opacity: .55; } }
+  @keyframes art-breathe { from { transform: scale(.94); } to { transform: scale(1.05); } }
+  @keyframes art-grow { from { transform: scaleY(.86); } }
+  @keyframes art-follow { from { transform: translateY(16px); } }
+  @keyframes art-sway { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
   .card-body { grid-area: body; }
   .card h3 { margin: 0; font: 800 clamp(1.35rem, 1.9vw, 1.65rem)/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
   .card-body p { margin: 8px 0 0; font-size: 15px; color: var(--sub); }
   .card-body p b { color: var(--fg); font-weight: 700; }
   .card-foot { grid-area: foot; display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 500 12px/1.3 var(--mono); color: var(--sub); font-variant-numeric: tabular-nums; }
   .join { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; background: var(--fg); color: var(--bg); font: 700 15px/1 var(--display); }
-  /* Open pacts come in a few shapes so the grid reads like a wall of posters, not a list. */
-  .v-feature { grid-column: span 2; grid-row: span 2; }
-  .v-feature h3 { font-size: clamp(2.4rem, 4.2vw, 3.8rem); }
-  .v-feature .art svg { max-height: 330px; }
-  .v-tall { grid-row: span 2; }
-  .v-tall h3 { font-size: clamp(1.7rem, 2.4vw, 2.1rem); }
-  .v-tall .art svg { max-height: 330px; }
-  .v-wide {
+  /* Every card is one row tall. Variety comes from wide cards (drawing on the right) placed at
+     different spots in each row; the first is the feature, with a bigger title. */
+  .v-wide, .v-feature {
     grid-column: span 2;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "top art" "body art" "foot foot";
     column-gap: 24px;
   }
-  .v-wide .card-body { align-self: end; }
+  .v-wide .card-body, .v-feature .card-body { align-self: end; }
   .v-wide h3 { font-size: clamp(1.7rem, 2.4vw, 2.2rem); }
-  .card-body .rule { color: var(--fg); font-weight: 500; }
-  /* Type cards lead with the stakes instead of a drawing. */
-  .v-type .art { place-items: end start; }
-  .stakes { margin: 0; font: 800 clamp(1.6rem, 2.3vw, 2.1rem)/1.04 var(--display); letter-spacing: -.035em; text-wrap: balance; }
-  .stakes span { display: block; margin-bottom: 10px; font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--sub); }
-  .v-type h3 { font-size: 1.15rem; letter-spacing: -.02em; }
+  .v-feature h3 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); }
+  .v-wide .art svg, .v-feature .art svg { max-height: 240px; }
   .card.draft {
     grid-column: 1 / -1;
     grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -152,6 +171,8 @@
   .cell.kept { background: var(--ink); }
   .cell.today { background: var(--page); box-shadow: inset 0 0 0 2px var(--ink); }
   .cell.broke { background: var(--break); color: #FFFFFF; font: 700 clamp(11px, 1.6vw, 20px)/1 var(--display); }
+  /* Days before someone joined: not theirs to keep or break. */
+  .cell.pre { background: transparent; box-shadow: inset 0 0 0 1px var(--stone); }
 
   /* How it works */
   .how { padding-block: clamp(64px, 9vw, 112px); border-top: 1.5px solid var(--ink); }
@@ -241,11 +262,49 @@
   .pad.locked canvas { cursor: default; }
   .pad-hint { position: absolute; left: 32px; bottom: 10px; color: var(--muted); font-style: italic; pointer-events: none; }
   .stamp { position: absolute; right: 4px; bottom: 16px; padding: 6px 10px; border: 2px solid var(--accent); color: var(--accent-text); font: 700 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; transform: rotate(-6deg); pointer-events: none; }
-  .stamp.hit { animation: hit .45s var(--ease) both; }
-  @keyframes hit { from { opacity: 0; transform: rotate(-6deg) scale(1.8); } to { opacity: 1; transform: rotate(-6deg) scale(1); } }
   .sig-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; font: 500 12px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
   .sig-meta b { color: var(--ink); font-weight: 500; }
   .sig-meta .linkish { margin-left: auto; font-size: 12px; }
+
+  /* The contract: what a pact becomes once it's signed, what a friend opens, what you come back to. */
+  .doc-wrap { max-width: 800px; margin-inline: auto; display: grid; gap: 20px; }
+  .doc-wrap > .back, .doc-wrap > .banner { margin-bottom: 0; }
+  .doc-wrap > .back { justify-self: start; }
+  .doc { position: relative; padding: clamp(22px, 5vw, 56px); background: var(--card); border: 1.5px solid var(--ink); box-shadow: 10px 10px 0 var(--stone); }
+  .doc-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding-bottom: 14px; border-bottom: 1.5px solid var(--ink); font: 500 12px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .doc-title { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: clamp(14px, 3vw, 24px); padding-block: clamp(20px, 4vw, 34px); }
+  .doc-emblem { width: clamp(64px, 11vw, 96px); aspect-ratio: 1; display: grid; place-items: center; padding: 10px; background: var(--bg); color: var(--fg); border: 1.5px solid var(--edge); }
+  .doc-emblem svg { width: 100%; height: 100%; overflow: visible; }
+  .doc-h { margin: 0; font: 500 clamp(2rem, 5vw, 3.2rem)/1.02 var(--serif); letter-spacing: -.02em; text-wrap: balance; overflow-wrap: anywhere; }
+  .doc-parties { margin: 8px 0 0; font: italic 400 clamp(1.1rem, 2vw, 1.35rem)/1.3 var(--serif); color: var(--muted); }
+  .doc-parties b { font-weight: 500; color: var(--ink); }
+  .doc-clauses { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .doc-clauses li { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 12px; padding-block: 15px; border-bottom: 1px solid var(--stone); }
+  .doc-n { font: 500 13px/1.7 var(--mono); color: var(--accent-text); }
+  .doc-clauses h2 { margin: 0 0 4px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .doc-clauses p { margin: 0; font: 400 clamp(1.08rem, 1.7vw, 1.25rem)/1.45 var(--serif); overflow-wrap: anywhere; }
+  .doc-clauses .key p { font-weight: 500; font-size: clamp(1.3rem, 2.3vw, 1.6rem); line-height: 1.3; }
+  .doc-sign { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; margin-top: clamp(26px, 5vw, 44px); }
+  .doc-line { position: relative; aspect-ratio: 4 / 1; border-bottom: 1.5px solid var(--ink); }
+  .doc-line .x { position: absolute; left: 0; bottom: 6px; pointer-events: none; }
+  .doc-line .sig { position: absolute; left: 30px; bottom: 0; }
+  .doc-blank, .doc-line .pad-hint { position: absolute; left: 32px; bottom: 10px; font: italic 400 1.05rem/1 var(--serif); color: var(--muted); }
+  .doc-who { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; margin: 8px 0 0; font: 500 12px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .doc-who b { color: var(--ink); font-weight: 500; }
+  .doc-name { flex: 1 1 8rem; min-width: 0; padding: 2px 0; border: 0; border-bottom: 1.5px dashed var(--ink); background: transparent; font: 500 14px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--ink); }
+  .doc-name:focus { outline: none; border-bottom-color: var(--accent); }
+  .doc-who .linkish { font-size: 12px; }
+  /* The seal is pressed into the bottom corner of the paper, half on and half off it. */
+  .doc.sealed { margin-bottom: 52px; }
+  .doc-seal { position: absolute; right: -34px; bottom: -66px; z-index: 1; width: 126px; color: var(--accent-text); transform: rotate(-12deg); pointer-events: none; }
+  .doc-seal svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .doc-seal .seal-paper { fill: var(--card); opacity: .9; }
+  .doc-seal .seal-ring { font: 500 10px var(--mono); fill: currentColor; }
+  .doc-seal .seal-word { font: 700 11.5px var(--mono); letter-spacing: .08em; fill: currentColor; }
+  .doc-seal .seal-day { font: 500 7.5px var(--mono); letter-spacing: .08em; fill: currentColor; }
+  .doc-seal.done { color: var(--ink); }
+  .doc-emblem .svg-label, .doc-emblem .svg-url { display: none; }
+  .doc-status { justify-self: start; }
 
   /* Buttons */
   .btn { appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 22px; border: 1.5px solid var(--ink); border-radius: 0; background: transparent; font: 700 16px/1 var(--display); text-decoration: none; cursor: pointer; transition: background-color .15s var(--ease), color .15s var(--ease); }
@@ -274,7 +333,7 @@
   .banner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-bottom: 18px; padding: 12px 16px; background: var(--ink); color: var(--page); font: 500 13px/1.4 var(--mono); }
   .banner a { color: var(--accent-on-ink); }
   .stack { display: grid; gap: 18px; margin-top: 24px; }
-  .main > .stack { margin-top: 0; }
+  .main > .stack, .doc-wrap > .stack { margin-top: 0; }
   .stack:empty { display: none; }
 
   /* A pact's record */
@@ -304,19 +363,25 @@
     .sheet { grid-template-columns: 1fr; }
     .panel { position: static; aspect-ratio: auto; height: auto; }
     .panel .art svg { height: clamp(150px, 42vw, 230px); max-height: none; }
+    /* Narrow screens have no room beside the paper, so the seal stays inside its edge. */
+    .doc-seal { right: 12px; }
   }
   @media (max-width: 600px) {
     .cards { grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .card, .v-feature, .v-tall, .v-wide, .card.draft { grid-column: auto; grid-row: auto; grid-template-columns: 1fr; grid-template-rows: auto minmax(120px, auto) auto auto; grid-template-areas: "top" "art" "body" "foot"; }
+    .card, .v-feature, .v-wide, .card.draft { grid-column: auto; grid-template-columns: 1fr; grid-template-rows: auto minmax(120px, auto) auto auto; grid-template-areas: "top" "art" "body" "foot"; }
     .v-feature h3 { font-size: 2.3rem; }
-    .art svg, .v-feature .art svg, .v-tall .art svg { max-height: 160px; }
-    .v-feature .art svg { max-height: 200px; }
+    .art svg, .v-wide .art svg, .v-feature .art svg { max-height: 160px; }
     .gap { width: 3.6em; }
     .gap.short { width: 1.6em; }
     .steps { grid-template-columns: 1fr; }
     .cells { --cols: var(--cn); }
     .terms > div { grid-template-columns: 1fr; }
-    .names, .sigs { grid-template-columns: 1fr; }
+    .names, .sigs, .doc-sign { grid-template-columns: 1fr; }
+    .doc { box-shadow: 6px 6px 0 var(--stone); }
+    /* Signatures stack here, so the paper gets a little more room at the bottom for the seal. */
+    .doc.sealed { padding-bottom: 64px; }
+    .doc-seal { right: 10px; bottom: -40px; width: 96px; }
+    .doc-clauses li { grid-template-columns: 2rem minmax(0, 1fr); }
     .by { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -351,7 +416,7 @@
     <section class="how wrap" id="how" aria-labelledby="howTitle">
       <h2 class="big" id="howTitle">Break it, and they’ll know.</h2>
       <figure class="ledger" aria-label="Example pact. You and Sam, day 18 of 30. Sam broke it on day 12.">
-        <figcaption class="ledger-head"><b>Under 3 hours a day</b><span>Example · You &amp; Sam · Day 18 of 30</span></figcaption>
+        <figcaption class="ledger-head"><b>Screen time under 3 hours a day</b><span>Example · You &amp; Sam · Day 18 of 30</span></figcaption>
         <div class="grid" id="grid"></div>
       </figure>
       <ol class="steps">
@@ -412,11 +477,10 @@
   /* ---------- Drawings. Colors come from the surrounding look: currentColor, --bg, --acc, --acc-text. ---------- */
   const ART = {
     phone: () => `<svg viewBox="0 0 240 190" aria-hidden="true">
-      <circle cx="190" cy="44" r="22" fill="currentColor"/>
-      <circle cx="201" cy="36" r="19" style="fill:var(--bg)"/>
-      <circle cx="150" cy="30" r="2.5" fill="currentColor"/>
-      <circle cx="218" cy="92" r="2" fill="currentColor"/>
-      <circle cx="178" cy="120" r="1.6" fill="currentColor"/>
+      <g class="a-bob"><circle cx="190" cy="44" r="22" fill="currentColor"/><circle cx="201" cy="36" r="19" style="fill:var(--bg)"/></g>
+      <circle class="a-twinkle" cx="150" cy="30" r="2.5" fill="currentColor"/>
+      <circle class="a-twinkle" cx="218" cy="92" r="2" fill="currentColor" style="animation-delay:-1.1s"/>
+      <circle class="a-twinkle" cx="178" cy="120" r="1.6" fill="currentColor" style="animation-delay:-2.2s"/>
       <g transform="rotate(-14 104 94)">
         <rect x="62" y="24" width="84" height="140" rx="17" fill="currentColor"/>
         <rect x="73" y="35" width="38" height="44" rx="11" style="fill:var(--bg)"/>
@@ -425,12 +489,12 @@
     </svg>`,
     bars: () => {
       const hrs = [2.2, 2.7, 1.9, 4.85, 2.5, 2.9, 1.6], base = 150, k = 24, w = 18, gap = 12, x0 = 22;
-      const bars = hrs.map((h, i) => `<rect x="${x0 + i * (w + gap)}" y="${f1(base - h * k)}" width="${w}" height="${f1(h * k)}" rx="3" style="fill:${h > 3 ? 'var(--acc)' : 'currentColor'}"/>`).join('');
+      const bars = hrs.map((h, i) => `<rect${h > 3 ? ' class="a-grow"' : ''} x="${x0 + i * (w + gap)}" y="${f1(base - h * k)}" width="${w}" height="${f1(h * k)}" rx="3" style="fill:${h > 3 ? 'var(--acc)' : 'currentColor'}"/>`).join('');
       const days = [...'MTWTFSS'].map((d, i) => `<text x="${x0 + i * (w + gap) + w / 2}" y="${base + 20}" text-anchor="middle" class="svg-label">${d}</text>`).join('');
       return `<svg viewBox="0 0 240 180" aria-hidden="true">${bars}
         <line x1="10" y1="${base - 3 * k}" x2="230" y2="${base - 3 * k}" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/>
         <text x="230" y="${base - 3 * k - 8}" text-anchor="end" class="svg-label">3h</text>
-        <text x="121" y="24" text-anchor="middle" class="svg-label" style="fill:var(--acc-text);opacity:1">4h 51m</text>${days}</svg>`;
+        <text x="121" y="24" text-anchor="middle" class="svg-label a-follow" style="fill:var(--acc-text);opacity:1">4h 51m</text>${days}</svg>`;
     },
     sun: () => {
       const cx = 120, cy = 118;
@@ -438,7 +502,7 @@
       let rays = '';
       for (let i = 0; i < 10; i++) { const a = (9 + i * 18) * Math.PI / 180; rays += `M${pt(54, a)} L${pt(72, a)} `; }
       return `<svg viewBox="0 0 240 180" aria-hidden="true">
-        <path d="${rays}" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path class="a-rays" d="${rays}" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
         <path d="M${cx - 42} ${cy} A42 42 0 0 1 ${cx + 42} ${cy} Z" style="fill:var(--acc)"/>
         <g stroke="currentColor" stroke-width="5" stroke-linecap="round">
           <line x1="18" y1="${cy}" x2="222" y2="${cy}"/>
@@ -448,10 +512,12 @@
       </svg>`;
     },
     link: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
-      <rect x="18" y="40" width="196" height="72" rx="24" fill="currentColor"/>
-      <path d="M194 100 C200 118 212 126 228 128 C214 118 212 110 212 98 Z" fill="currentColor"/>
-      <text x="40" y="84" class="svg-url">https://</text>
-      <rect x="132" y="64" width="62" height="24" rx="2" style="fill:var(--acc)"/>
+      <g class="a-float">
+        <rect x="18" y="40" width="196" height="72" rx="24" fill="currentColor"/>
+        <path d="M194 100 C200 118 212 126 228 128 C214 118 212 110 212 98 Z" fill="currentColor"/>
+        <text x="40" y="84" class="svg-url">https://</text>
+        <rect x="132" y="64" width="62" height="24" rx="2" style="fill:var(--acc)"/>
+      </g>
       <text x="214" y="146" text-anchor="end" class="svg-label">Delivered</text>
     </svg>`,
     glass: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
@@ -464,15 +530,19 @@
       <text x="162" y="55" class="svg-label" style="fill:var(--acc-text);opacity:1">0</text>
     </svg>`,
     wifi: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
-      <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" opacity=".2">
-        <path d="M69.1 97.1 A72 72 0 0 1 170.9 97.1"/>
-        <path d="M86.1 114.1 A48 48 0 0 1 153.9 114.1"/>
-        <path d="M103 131 A24 24 0 0 1 137 131"/>
+      <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round">
+        <path class="a-signal" opacity=".2" style="animation-delay:.7s" d="M69.1 97.1 A72 72 0 0 1 170.9 97.1"/>
+        <path class="a-signal" opacity=".2" style="animation-delay:.35s" d="M86.1 114.1 A48 48 0 0 1 153.9 114.1"/>
+        <path class="a-signal" opacity=".2" d="M103 131 A24 24 0 0 1 137 131"/>
       </g>
       <circle cx="120" cy="148" r="9" style="fill:var(--acc)"/>
     </svg>`,
     vape: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
-      <g fill="currentColor"><circle cx="70" cy="44" r="11" opacity=".4"/><circle cx="50" cy="28" r="15" opacity=".25"/><circle cx="84" cy="20" r="8" opacity=".18"/></g>
+      <g fill="currentColor">
+        <circle class="a-puff" cx="70" cy="44" r="11" opacity=".4" style="--o:.4"/>
+        <circle class="a-puff" cx="50" cy="28" r="15" opacity=".25" style="--o:.25;animation-delay:-1.5s"/>
+        <circle class="a-puff" cx="84" cy="20" r="8" opacity=".18" style="--o:.18;animation-delay:-3s"/>
+      </g>
       <g transform="rotate(-24 130 110)">
         <rect x="120" y="22" width="20" height="30" rx="7" fill="currentColor" opacity=".55"/>
         <rect x="112" y="48" width="36" height="120" rx="12" fill="currentColor"/>
@@ -491,8 +561,10 @@
       };
       const blades = [[-106, 34, 5, 5], [-68, 56, 7, 7], [-34, 76, 8.5, 8], [0, 96, 10, 9], [34, 76, 8.5, 8], [68, 56, 7, 7], [106, 34, 5, 5]];
       return `<svg viewBox="0 0 240 180" aria-hidden="true">
-        <g style="fill:var(--acc)">${blades.map(([ang, L, W, teeth]) => `<path d="${leaflet(L, W, teeth)}" transform="translate(120 128) rotate(${ang})"/>`).join('')}</g>
-        <line x1="120" y1="128" x2="120" y2="172" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        <g class="a-sway">
+          <g style="fill:var(--acc)">${blades.map(([ang, L, W, teeth]) => `<path d="${leaflet(L, W, teeth)}" transform="translate(120 128) rotate(${ang})"/>`).join('')}</g>
+          <line x1="120" y1="128" x2="120" y2="172" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </g>
       </svg>`;
     },
     reel: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
@@ -501,8 +573,8 @@
       <g fill="currentColor" opacity=".45"><circle cx="146" cy="116" r="4.5"/><circle cx="146" cy="132" r="4.5"/><circle cx="146" cy="148" r="4.5"/></g>
       <line x1="94" y1="156" x2="128" y2="156" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".35"/>
       <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".3">
-        <path d="M190 76 l14 -14 l14 14 M204 62 v48"/>
-        <path d="M22 76 l14 -14 l14 14 M36 62 v48"/>
+        <path class="a-drift" d="M190 76 l14 -14 l14 14 M204 62 v48"/>
+        <path class="a-drift" style="animation-delay:-1.4s" d="M22 76 l14 -14 l14 14 M36 62 v48"/>
       </g>
     </svg>`,
     // A closed bedroom door with a moon on it; the phone charges outside.
@@ -513,7 +585,7 @@
       <circle cx="104" cy="55" r="16" fill="currentColor"/>
       <circle cx="126" cy="100" r="4.5" style="fill:var(--bg)"/>
       <rect x="166" y="110" width="26" height="46" rx="5" style="fill:var(--acc)"/>
-      <rect x="174" y="115" width="10" height="3" rx="1.5" style="fill:var(--bg)" opacity=".6"/>
+      <rect class="a-glow" x="174" y="115" width="10" height="3" rx="1.5" style="fill:var(--bg)" opacity=".6"/>
       <path d="M179 156 C179 167 200 167 218 158" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
     </svg>`,
     plate: () => `<svg viewBox="0 0 240 180" aria-hidden="true">
@@ -527,7 +599,7 @@
     dumbbell: () => {
       const week = [1, 0, 1, 0, 1, 0, 0].map((on, i) => `<rect x="${46 + i * 22}" y="132" width="16" height="16" rx="3" ${on ? 'style="fill:var(--acc)"' : 'fill="none" stroke="currentColor" stroke-width="2.5" opacity=".4"'}/>`).join('');
       return `<svg viewBox="0 0 240 180" aria-hidden="true">
-        <g fill="currentColor">
+        <g class="a-lift" fill="currentColor">
           <rect x="30" y="50" width="14" height="44" rx="4"/><rect x="48" y="38" width="18" height="68" rx="4"/>
           <rect x="66" y="66" width="108" height="12" rx="3"/>
           <rect x="174" y="38" width="18" height="68" rx="4"/><rect x="196" y="50" width="14" height="44" rx="4"/>
@@ -548,32 +620,36 @@
   const monthLen = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const monthName = month.toLocaleDateString('en-US', { month: 'long' });
   const STARTS = { tonight: midnight, monday: () => nextDow(1), month: monthStart, sunday: () => nextDow(0) };
-  // What breaking it costs. The first group shows in Customize; the rest sit behind "More options".
-  const PRICES = [
+  // What breaking it costs. Never reorder or remove: a link made without the server names its price by its place here.
+  const ALL_PRICES = [
     'Send them the link', 'Send your Screen Time', '$50 to a cause you hate', 'Venmo them $20',
     'Text your mom what you did', 'Post it in the group chat', 'They pick your lock screen for a week', 'They pick your profile picture for a week',
-  ];
-  const MORE_PRICES = [
     'Buy their dinner', 'Send them the receipt', 'Send your betting history', 'They post one story for you',
     'Delete the app for a week', '100 push-ups on video', 'Cold shower on video', 'Hand them your phone for a day', 'They pick',
   ];
-  // The order and shapes are laid out as one four-column wall: feature 2×2, tall 1×2, wide 2×1,
-  // plain 1×1, and type (1×1, leads with the stakes). Neighbours never share a color.
+  const [LINK, SCREEN, CAUSE, VENMO, MOM, CHAT, LOCK, PFP, DINNER, RECEIPT, BETS, STORY, DELETE, PUSHUPS, SHOWER, HAND, PICK] = ALL_PRICES;
+  // Customize shows the eight that fit a pact first, the first of them already chosen; the rest wait
+  // behind "More options". Handing over your phone is never one of the eight.
+  const OWN_PRICES = [PICK, VENMO, CAUSE, CHAT, DINNER, MOM, LOCK, PFP];
+  // Laid out as a four-column wall, four cells per row. Each row has one wide card (two cells),
+  // at a different spot each time; the first is the feature. Neighbouring cards never share a color.
   const PRESETS = [
-    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', c: 'They pick your lock screen for a week', l: 'ink', a: 'phone', v: 'feature' },
-    { id: 'shortform', t: 'No short-form content', r: 'No TikTok, Reels, Shorts or any other endless video feed.', n: 30, sk: 'tonight', c: 'Post it in the group chat', l: 'accent', a: 'reel', v: 'tall' },
-    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', c: 'They post one story for you', l: 'stone', a: 'bed', v: 'plain' },
-    { id: 'screen', t: 'Under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', c: 'Send your Screen Time', l: 'paper', a: 'bars', v: 'plain' },
-    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', c: 'Cold shower on video', l: 'stone', a: 'sun', v: 'wide' },
-    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', c: '100 push-ups on video', l: 'ink', a: 'dumbbell', v: 'plain' },
-    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', c: 'Buy their dinner', l: 'stone', a: 'plate', v: 'type' },
-    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', c: 'Send them the link', l: 'accent', a: 'link', v: 'tall' },
-    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', c: '$50 to a cause you hate', l: 'paper', a: 'glass', v: 'type' },
-    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', c: 'Venmo them $20', l: 'stone', a: 'vape', v: 'plain' },
-    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', c: 'Text your mom what you did', l: 'paper', a: 'leaf', v: 'tall' },
-    { id: 'offline', t: 'No social media on Sundays', r: 'Every Sunday for four weeks: no social apps, no news, no videos, from when you wake up until bed. Texts and calls are fine.', n: 28, sk: 'sunday', c: 'They pick your profile picture for a week', l: 'ink', a: 'wifi', v: 'wide' },
-  ];
-  const ALL_PRICES = [...PRICES, ...MORE_PRICES];
+    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', l: 'ink', a: 'phone', v: 'feature', cs: [LOCK, SCREEN, VENMO, SHOWER, CHAT, PFP, DINNER, CAUSE] },
+    { id: 'shortform', t: 'No short-form content', r: 'No TikTok, Reels, Shorts or any other endless video feed.', n: 30, sk: 'tonight', l: 'accent', a: 'reel', v: 'plain', cs: [CHAT, SCREEN, DELETE, STORY, LOCK, PFP, VENMO, CAUSE] },
+    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', l: 'stone', a: 'bed', v: 'plain', cs: [STORY, SCREEN, LOCK, SHOWER, VENMO, CHAT, DINNER, CAUSE] },
+    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', l: 'paper', a: 'sun', v: 'plain', cs: [SHOWER, PUSHUPS, SCREEN, VENMO, DINNER, CHAT, LOCK, CAUSE] },
+    { id: 'screen', t: 'Screen time under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', l: 'stone', a: 'bars', v: 'wide', cs: [SCREEN, DELETE, LOCK, CHAT, VENMO, PFP, CAUSE, DINNER] },
+    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', l: 'ink', a: 'dumbbell', v: 'plain', cs: [PUSHUPS, VENMO, DINNER, SHOWER, CAUSE, CHAT, PFP, MOM] },
+    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', l: 'accent', a: 'link', v: 'wide', cs: [LINK, MOM, SCREEN, CAUSE, VENMO, CHAT, LOCK, PFP] },
+    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', l: 'paper', a: 'plate', v: 'plain', cs: [DINNER, SCREEN, VENMO, LOCK, CHAT, SHOWER, CAUSE, PFP] },
+    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', l: 'stone', a: 'glass', v: 'plain', cs: [CAUSE, RECEIPT, DINNER, VENMO, MOM, CHAT, SHOWER, PFP] },
+    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', l: 'stone', a: 'vape', v: 'plain', cs: [VENMO, RECEIPT, CAUSE, MOM, CHAT, SHOWER, PUSHUPS, PFP] },
+    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', l: 'paper', a: 'leaf', v: 'plain', cs: [MOM, RECEIPT, CAUSE, VENMO, CHAT, SHOWER, PFP, DINNER] },
+    { id: 'offline', t: 'No social media on Sundays', r: 'Every Sunday for four weeks: no social apps, no news, no videos, from when you wake up until bed. Texts and calls are fine.', n: 28, sk: 'sunday', l: 'ink', a: 'wifi', v: 'wide', cs: [PFP, SCREEN, STORY, DELETE, CHAT, LOCK, VENMO, CAUSE] },
+  ].map(p => ({ ...p, c: p.cs[0] }));
+  const topPrices = key => (PRESETS.find(x => x.id === key) || { cs: OWN_PRICES }).cs;
+  // Everyone in a pact, you included. The server's rules hold the same limit (pacts/firebase/firestore.rules).
+  const MAX_PEOPLE = 10;
 
   /* ---------- A pact, in one shape whichever way it is stored.
      t name, r rule, n length in days, s start, c consequence, a drawing, l look,
@@ -588,7 +664,7 @@
       s: num(o.s, 0, 8.64e15), c: str(o.c, 80) || 'They pick',
       a: Object.prototype.hasOwnProperty.call(ART, o.a) ? o.a : 'doc',
       l: ['ink', 'paper', 'stone', 'accent'].includes(o.l) ? o.l : 'paper',
-      p: (Array.isArray(o.p) ? o.p : []).slice(0, 3).map(x => {
+      p: (Array.isArray(o.p) ? o.p : []).slice(0, MAX_PEOPLE).map(x => {
         const a = Array.isArray(x) ? x : [];
         const name = str(a[0], 30) || 'Friend', at = num(a[1], 0, 8.64e15);
         const sig = typeof a[2] === 'string' && /^[A-Za-z0-9_.-]{4,2000}$/.test(a[2]) ? a[2] : '';
@@ -597,14 +673,16 @@
       b: [], e: [],
     };
     if (p.p.length < 2) throw new Error('a pact needs two people');
-    p.b = (Array.isArray(o.b) ? o.b : []).filter(Array.isArray).slice(0, 300)
-      .map(x => [num(x[0], 0, 2), num(x[1], 1, 90), num(x[2], 0, 8.64e15)]).filter(x => x[0] < p.p.length && x[1] <= p.n);
-    p.e = (Array.isArray(o.e) ? o.e : []).filter(Array.isArray).slice(0, 3)
-      .map(x => [num(x[0], 0, 2), x[1] === 'again' ? 'again' : 'done', num(x[2], 0, 8.64e15)]).filter(x => x[0] < p.p.length);
+    p.b = (Array.isArray(o.b) ? o.b : []).filter(Array.isArray).slice(0, 900)
+      .map(x => [num(x[0], 0, MAX_PEOPLE - 1), num(x[1], 1, 90), num(x[2], 0, 8.64e15)]).filter(x => x[0] < p.p.length && x[1] <= p.n);
+    p.e = (Array.isArray(o.e) ? o.e : []).filter(Array.isArray).slice(0, MAX_PEOPLE)
+      .map(x => [num(x[0], 0, MAX_PEOPLE - 1), x[1] === 'again' ? 'again' : 'done', num(x[2], 0, 8.64e15)]).filter(x => x[0] < p.p.length);
     return p;
   }
 
   // Without a server, two copies of the same pact meet when someone opens a link. Keep every signature, break and choice.
+  // People are matched by their place in the list, so if two people each add someone new before
+  // either copy has seen the other's, one of those two names wins. The server has no such gap.
   function merge(a, b) {
     if (!a) return clone(b);
     const out = clone(a);
@@ -625,24 +703,43 @@
     return out;
   }
 
-  const endOf = p => addDays(p.s, p.n);
-  const dayOf = p => daysBetween(p.s, Date.now()) + 1;
-  const phase = p => Date.now() < p.s ? 'upcoming' : Date.now() < endOf(p) ? 'active' : 'over';
+  /* A pact starts on its start date, but never before two people have signed it: if the second
+     signature comes later, it starts the midnight after. Anyone who signs once it's under way is
+     held to it from the midnight after they sign, until the same last day. */
+  const afterSigning = at => addDays(dayStart(at), 1);
+  const startOf = p => {
+    const at = p.p.map(x => x[1]).filter(Boolean).sort((a, b) => a - b);
+    return at.length < 2 ? 0 : Math.max(p.s, afterSigning(at[1]));
+  };
+  const joinOf = (p, i) => p.p[i] && p.p[i][1] && startOf(p) ? Math.max(startOf(p), afterSigning(p.p[i][1])) : 0;
+  const endOf = p => addDays(startOf(p), p.n);
+  const phase = p => { const s = startOf(p); return !s ? 'waiting' : Date.now() < s ? 'upcoming' : Date.now() < addDays(s, p.n) ? 'active' : 'over'; };
+  const dayOf = p => daysBetween(startOf(p), Date.now()) + 1;
+  // The pact day someone's record begins on: day 1 for everyone who was in from the start.
+  const firstDayOf = (p, i) => daysBetween(startOf(p), joinOf(p, i)) + 1;
+  // Someone new can still sign while there's at least one whole day left for them.
+  const canJoin = p => phase(p) !== 'over' && (phase(p) !== 'active' || afterSigning(Date.now()) < endOf(p));
+  const joinOr = a => a.length < 2 ? (a[0] || '') : `${a.slice(0, -1).join(', ')} or ${a[a.length - 1]}`;
   const nameOf = (p, i) => i === db.me[p.id] ? 'You' : p.p[i][0];
   const othersOf = p => p.p.map(x => x[0]).filter((_, i) => i !== db.me[p.id]);
   function statusOf(p) {
     const ph = phase(p);
-    if (ph === 'upcoming') {
-      const waiting = p.p.filter(x => !x[1]).map(x => x[0]);
-      return waiting.length ? `Waiting for ${joinNames(waiting)} to sign` : `Starts ${startPhrase(p.s)}`;
+    if (ph === 'waiting') {
+      const open = p.p.filter(x => !x[1]).map(x => x[0]);
+      return `Waiting for ${open.length > 3 ? 'a friend' : joinOr(open)} to sign`;
     }
-    if (ph === 'active') return `Day ${dayOf(p)} of ${p.n}`;
+    if (ph === 'upcoming') return `Starts ${startPhrase(startOf(p))}`;
+    if (ph === 'active') {
+      const me = db.me[p.id], mine = me === undefined ? 0 : joinOf(p, me);
+      return mine > Date.now() ? `Day ${dayOf(p)} of ${p.n} · you’re in from ${startPhrase(mine)}` : `Day ${dayOf(p)} of ${p.n}`;
+    }
     return 'Finished';
   }
 
-  /* ---------- Kept in this browser: your name, local-only pacts, private answers ---------- */
+  /* ---------- Kept in this browser: your name, local-only pacts, private answers,
+     and which pacts you've already seen sealed (so the seal lands once, the first time) ---------- */
   const KEY = 'phonepact.pacts.v1';
-  const db = { name: '', pacts: {}, me: {}, honest: {} };
+  const db = { name: '', pacts: {}, me: {}, honest: {}, sealed: {} };
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
     if (saved && typeof saved === 'object') {
@@ -650,6 +747,7 @@
       for (const [id, p] of Object.entries(saved.pacts || {})) { try { db.pacts[id] = clean(p); } catch (e) { /* skip a damaged entry */ } }
       for (const [id, i] of Object.entries(saved.me || {})) if (db.pacts[id] && Number.isInteger(i)) db.me[id] = i;
       Object.assign(db.honest, saved.honest || {});
+      Object.assign(db.sealed, saved.sealed || {});
     }
   } catch (e) { /* storage blocked: everything lasts for this visit only */ }
   // Server pacts are never written here; the server is their record.
@@ -660,7 +758,7 @@
       pacts[id] = p;
       if (db.me[id] !== undefined) me[id] = db.me[id];
     }
-    try { localStorage.setItem(KEY, JSON.stringify({ name: db.name, pacts, me, honest: db.honest })); } catch (e) { /* same as above */ }
+    try { localStorage.setItem(KEY, JSON.stringify({ name: db.name, pacts, me, honest: db.honest, sealed: db.sealed })); } catch (e) { /* same as above */ }
   }
 
   /* ---------- Links ---------- */
@@ -715,11 +813,17 @@
     });
   }
   // Server pacts get a 10-character link; the rest get the packed one above.
-  const linkFor = p => p.cloud ? `${BASE}#${p.id}` : `${BASE}#j.${pack(p)}`;
+  // A link made for one particular person opens on their line: ".3" after a server id, or "j3." before a packed pact.
+  const linkFor = (p, slot = -1) => p.cloud ? `${BASE}#${p.id}${slot >= 0 ? `.${slot}` : ''}` : `${BASE}#j${slot >= 0 ? slot : ''}.${pack(p)}`;
   const shown = link => link.replace(/^https:\/\/(?=getphonepact\.com)/, '');
   const pactHref = p => p.cloud ? `#${p.id}` : `#p-${p.id}`;
-  const previewHref = p => p.cloud ? `#preview-${p.id}` : `#v.${pack(p)}`;
-  const inviteMsg = p => `Make a pact with me: ${p.t}. ${lenText(p.n)}, ${p.s > Date.now() ? `starting ${startPhrase(p.s)}` : `started ${fmtDay(p.s)}`}. If one of us breaks it: ${inline(p.c)}. ${shown(linkFor(p))}`;
+  const previewHref = (p, slot = -1) => p.cloud ? `#preview-${p.id}${slot >= 0 ? `.${slot}` : ''}` : `#v${slot >= 0 ? slot : ''}.${pack(p)}`;
+  // Before it starts, the invite says when it will (if they sign in time). Once it's running, it asks them to join in.
+  const inviteMsg = (p, slot = -1) => {
+    const ph = phase(p), tail = `If one of us breaks it: ${inline(p.c)}. ${shown(linkFor(p, slot))}`;
+    if (ph === 'active') return `Join our pact: ${p.t}. We’re on day ${dayOf(p)} of ${p.n}, and you’d be in from tonight at midnight. ${tail}`;
+    return `Make a pact with me: ${p.t}. ${lenText(p.n)}, starting ${startPhrase(ph === 'upcoming' ? startOf(p) : Math.max(p.s, midnight()))}. ${tail}`;
+  };
 
   /* ---------- The server ----------
      A separate Firebase project from the PhonePact app. Everyone gets an invisible guest
@@ -809,6 +913,7 @@
     const batch = F.writeBatch(fs);
     batch.set(ref, { v: 2, t: p.t, r: p.r, n: p.n, s: p.s, c: p.c, a: p.a, l: p.l, names: p.p.map(x => x[0]), by: uid, at: F.serverTimestamp() });
     batch.set(F.doc(ref, 'slots', '0'), { uid, name: p.p[0][0], at: F.serverTimestamp(), sig: p.p[0][2] || '' });
+    batch.set(F.doc(ref, 'members', uid), { slot: 0 });
     batch.set(F.doc(fs, 'users', uid, 'pacts', p.id), { at: F.serverTimestamp() });
     await batch.commit();
     return cloudFetch(p.id);
@@ -825,8 +930,30 @@
     const { fs, F } = cloud.fb, uid = cloud.uid;
     const batch = F.writeBatch(fs);
     batch.set(F.doc(fs, 'pacts', p.id, 'slots', String(slot)), { uid, name, at: F.serverTimestamp(), sig });
+    // Which spot is whose, by account: the server's rules use it so nobody can take two spots.
+    batch.set(F.doc(fs, 'pacts', p.id, 'members', uid), { slot });
     batch.set(F.doc(fs, 'users', uid, 'pacts', p.id), { at: F.serverTimestamp() });
     await batch.commit();
+    return cloudFetch(p.id);
+  }
+  // Anyone in a pact can bring someone new in, before it starts or while it runs. They get the next spot.
+  async function addPerson(p, name) {
+    if (!p.cloud) {
+      if (p.p.length >= MAX_PEOPLE) throw new Error('full');
+      const q = clone(p);
+      q.p.push([name, 0]);
+      db.pacts[p.id] = q;
+      save();
+      return q;
+    }
+    const { fs, F } = cloud.fb;
+    const ref = F.doc(fs, 'pacts', p.id);
+    // A transaction, so two people adding someone at the same moment both get a spot.
+    await F.runTransaction(fs, async tx => {
+      const names = (await tx.get(ref)).data().names || [];
+      if (names.length >= MAX_PEOPLE) throw new Error('full');
+      tx.update(ref, { names: [...names, name] });
+    });
     return cloudFetch(p.id);
   }
   async function recordBreak(p, day) {
@@ -859,6 +986,7 @@
     delete db.pacts[p.id];
     delete db.me[p.id];
     delete db.honest[p.id];
+    delete db.sealed[p.id];
     save();
   }
   async function loadMine() {
@@ -1010,22 +1138,148 @@
     return `${d}L${last[0]} ${last[1]}`;
   }).join('');
   const sigSVG = (str, name) => `<svg class="sig-svg" viewBox="0 0 ${SIG_W} ${SIG_H}" role="img" aria-label="${esc(name)}’s signature"><path d="${sigPath(unpackSig(str))}" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-  const sigsHTML = (p, onlySigned) => `<div class="sigs">${p.p.map((x, i) => onlySigned && !x[1] ? '' : `
-    <div>
-      ${x[1] && x[2]
-        ? `<div class="sigline drawn"><span class="x" aria-hidden="true">×</span>${sigSVG(x[2], x[0])}</div>`
-        : `<div class="sigline"><span class="x" aria-hidden="true">×</span>${x[1] ? `<span class="sig">${esc(x[0])}</span>` : '<span class="sig-wait">Not signed yet</span>'}</div>`}
-      <div class="sig-meta"><b>${esc(nameOf(p, i))}</b><span>${x[1] ? esc(fmtStamp(x[1])) : ''}</span></div>
-    </div>`).join('')}</div>`;
+  /* ---------- The contract ---------- */
+  const fmtLong = t => new Date(t).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const fmtWeekday = t => new Date(t).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  const lenWords = n => n % 7 === 0 && n <= 28 ? `${['One', 'Two', 'Three', 'Four'][n / 7 - 1]} week${n === 7 ? '' : 's'}` : `${n} days`;
+  // Once two people have signed, the term has real dates. Until then it says what it's waiting for.
+  function termText(p) {
+    const s = startOf(p);
+    if (s) { const last = addDays(s, p.n - 1); return `${lenWords(p.n)}, from ${fmtWeekday(s)} to ${fmtWeekday(last)}, ${new Date(last).getFullYear()}.`; }
+    const open = p.p.filter(x => !x[1]).map(x => x[0]);
+    const after = `the day after ${open.length === 1 ? open[0] : 'one more of us'} signs`;
+    return p.s > Date.now() ? `${lenWords(p.n)}, starting ${fmtWeekday(p.s)}, or ${after}, whichever is later.` : `${lenWords(p.n)}, starting ${after}.`;
+  }
+  const sentence = s => /[.!?]$/.test(s) ? s : `${s}.`;
+  // The number on the paper: four digits worked out from the pact's id, so every copy shows the same
+  // one. It's only a label; the id in the link is what identifies the pact.
+  const pactNo = id => { let h = 2166136261; for (const ch of id) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return String(1000 + (h >>> 0) % 9000); };
+  // Once two people have signed, the pact carries a seal: sealed before it starts, in effect while it runs.
+  const sealOf = p => ({ waiting: '', upcoming: 'Sealed', active: 'In effect', over: 'Complete' })[phase(p)];
+  // The seal is pressed on: it comes down large, overshoots a touch, and settles.
+  const HIT = [
+    { opacity: 0, transform: 'rotate(-12deg) scale(1.8)' },
+    { opacity: 1, transform: 'rotate(-12deg) scale(.94)', offset: .7 },
+    { opacity: 1, transform: 'rotate(-12deg) scale(1)' },
+  ];
+  // A round seal, the kind pressed into a document once everyone has signed it: the pact number
+  // runs around the ring, its state and the day it was sealed sit in the middle.
+  function sealHTML(p, seal) {
+    const ring = `ring-${p.id}`;
+    // Dated the day it became binding: the second signature. Later joiners don't move it.
+    const day = new Date(p.p.map(x => x[1]).filter(Boolean).sort((a, b) => a - b)[1]).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).replace(',', '');
+    return `
+      <div class="doc-seal${seal === 'Complete' ? ' done' : ''}" role="img" aria-label="${esc(seal)}, ${esc(day)}">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="${ring}" d="M60 60 m-45 0 a45 45 0 1 1 90 0 a45 45 0 1 1 -90 0"/></defs>
+          <circle cx="60" cy="60" r="58" class="seal-paper"/>
+          <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <circle cx="60" cy="60" r="35" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <text class="seal-ring"><textPath href="#${ring}" textLength="278" lengthAdjust="spacing">PACT NO. ${esc(pactNo(p.id))} · PACTS BY PHONEPACT ·</textPath></text>
+          <text x="60" y="60" text-anchor="middle" class="seal-word"${seal.length > 7 ? ' style="font-size:9.5px"' : ''}>${esc(seal.toUpperCase())}</text>
+          <text x="60" y="73" text-anchor="middle" class="seal-day">${esc(day.toUpperCase())}</text>
+        </svg>
+      </div>`;
+  }
+  const EASE = 'cubic-bezier(.2, .8, .2, 1)';
+  const GLIDE = 'cubic-bezier(.55, 0, .15, 1)';
+
+  // pad: the spot being signed right here on the page (an invite). fresh: the spot that was just signed.
+  function contractHTML(p, { pad = -1, preview = false, fresh = -1 } = {}) {
+    const seal = sealOf(p);
+    const line = (x, i) => {
+      if (i === pad) return `
+          <div class="doc-line pad" id="j-pad">
+            <span class="x" aria-hidden="true">×</span>
+            <span class="pad-hint" id="j-hint">${preview ? `${esc(x[0])} signs here` : 'Sign here'}</span>
+            <canvas id="j-canvas" role="img" aria-label="Signature line. Sign with your mouse, finger or pen."></canvas>
+          </div>
+          <p class="doc-who"><input class="doc-name" id="j-name" maxlength="30" value="${esc(x[0])}" aria-label="Your name" ${preview ? 'readonly' : ''}><span>Not signed yet</span><button type="button" class="linkish quiet" id="j-clear" hidden>Clear</button></p>`;
+      const ink = !x[1] ? `<span class="doc-blank">Waiting for ${esc(x[0])}</span>`
+        : x[2] ? sigSVG(x[2], x[0]) : `<span class="sig">${esc(x[0])}</span>`;
+      return `
+          <div class="doc-line"><span class="x" aria-hidden="true">×</span>${ink}${i === fresh ? '<span class="stamp line-stamp">Signed</span>' : ''}</div>
+          <p class="doc-who"><b>${esc(x[0])}${i === db.me[p.id] ? ' · you' : ''}</b><span>${x[1] ? `Signed ${esc(fmtStamp(x[1]))}` : 'Not signed yet'}</span></p>`;
+    };
+    return `
+    <article class="doc${seal ? ' sealed' : ''}" aria-label="The pact">
+      <header class="doc-head"><span>Pact No. ${esc(pactNo(p.id))}</span><span>Made ${esc(fmtLong(p.p[0][1] || Date.now()))}</span></header>
+      <div class="doc-title">
+        <div class="doc-emblem look-${p.l}">${ART[p.a]()}</div>
+        <div class="doc-name-block"><h1 class="doc-h">${esc(p.t)}</h1><p class="doc-parties">between ${joinNames(p.p.map((x, i) => `<b data-party="${i}">${esc(x[0])}</b>`))}</p></div>
+      </div>
+      <ol class="doc-clauses">
+        <li class="key"><span class="doc-n">§1</span><div><h2>The rule</h2><p>${esc(sentence(p.r))}</p></div></li>
+        <li><span class="doc-n">§2</span><div><h2>The term</h2><p>${esc(termText(p))}</p></div></li>
+        <li><span class="doc-n">§3</span><div><h2>If one of us breaks it</h2><p>${esc(sentence(p.c))}</p></div></li>
+        <li><span class="doc-n">§4</span><div><h2>How it’s kept</h2><p>No check-ins. Whoever breaks it says so the same day, then pays.</p></div></li>
+        <li><span class="doc-n">§5</span><div><h2>Adding people</h2><p>Any of us can bring someone in at any time. They’re held to it from the day after they sign.</p></div></li>
+        <li><span class="doc-n">§6</span><div><h2>When it ends</h2><p>Each of us chooses another round or calls it done.</p></div></li>
+      </ol>
+      <footer class="doc-sign">
+        ${p.p.map((x, i) => `<div class="doc-party" data-slot="${i}">${line(x, i)}</div>`).join('')}
+      </footer>
+      ${seal ? sealHTML(p, seal) : ''}
+    </article>`;
+  }
+
+  const rise = (el, delay = 0) => el && !reduce && el.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay, easing: EASE, fill: 'backwards' });
+  const onScreen = r => !!r && r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+  // Move an element from where something else used to be on screen to where it now sits. Only
+  // when both spots are in view: a flight that starts or ends off screen just looks like a glitch.
+  function fly(el, from, duration, delay = 0) {
+    if (!el || reduce) return false;
+    const to = el.getBoundingClientRect();
+    if (!onScreen(from) || !onScreen(to)) return false;
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    el.animate([{ transform: `translate(${dx}px, ${dy}px) scale(${from.width / to.width})` }, { transform: 'none' }], { duration, delay, easing: GLIDE, fill: 'backwards' });
+    return true;
+  }
+  // The page settles into a contract. whole: it just turned into one, so its parts set in one after
+  // another and the pact's drawing and the fresh signature travel to their places. Otherwise the
+  // contract was already on screen, and only the stamp and the seal land.
+  function settle(doc, { panel, pad, slot = -1, whole = false, seal: pressSeal = true } = {}) {
+    if (reduce) return;
+    if (whole) {
+      [...doc.querySelectorAll('.doc-head, .doc-name-block, .doc-clauses li, .doc-who')].forEach((el, i) => rise(el, 80 + i * 55));
+      const emblem = doc.querySelector('.doc-emblem');
+      if (!fly(emblem, panel, 900)) rise(emblem, 80);
+      if (slot >= 0) {
+        const sig = doc.querySelector(`.doc-party[data-slot="${slot}"] .sig-svg`);
+        if (!fly(sig, pad, 1100, 100)) rise(sig, 500);
+      }
+    }
+    const t = whole ? 1200 : 200;
+    const stamp = doc.querySelector('.line-stamp');
+    if (stamp) stamp.animate([{ opacity: 0, transform: 'rotate(-6deg) scale(1.9)' }, { opacity: 1, transform: 'rotate(-6deg) scale(1)' }], { duration: 450, delay: t, easing: EASE, fill: 'backwards' });
+    const seal = doc.querySelector('.doc-seal');
+    if (seal && pressSeal) seal.animate(HIT, { duration: 520, delay: t + 350, easing: 'ease-out', fill: 'backwards' });
+  }
+  // Put the signatures (and the seal, when there is one) on screen, with as much of the contract above them as fits.
+  function frame(doc, room = 28) {
+    const bottom = Math.max(...[...doc.querySelectorAll('.doc-sign, .doc-seal')].map(el => el.getBoundingClientRect().bottom));
+    window.scrollTo(0, Math.max(0, bottom + scrollY + room - innerHeight));
+  }
+  // Once the moment has landed, bring the next step into view, unless they've started scrolling themselves.
+  function nudge(el, delay) {
+    let moved = false;
+    const stop = () => { moved = true; };
+    const evs = ['wheel', 'touchmove', 'keydown'];
+    evs.forEach(ev => addEventListener(ev, stop, { passive: true }));
+    setTimeout(() => {
+      evs.forEach(ev => removeEventListener(ev, stop));
+      if (!moved && el && el.isConnected && !el.closest('[hidden]') && el.innerHTML.trim()) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+    }, reduce ? 0 : delay);
+  }
   const signingHTML = (prefix, who) => `
     <div class="signing">
       <div class="pad" id="${prefix}-pad">
         <span class="x" aria-hidden="true">×</span>
         <span class="pad-hint" id="${prefix}-hint">Sign here</span>
         <canvas id="${prefix}-canvas" role="img" aria-label="Signature line. Sign with your mouse, finger or pen."></canvas>
-        <span class="stamp" id="${prefix}-stamp" hidden>Signed</span>
       </div>
-      <div class="sig-meta"><b>${esc(who)}</b><span id="${prefix}-sigdate"></span><button type="button" class="linkish quiet" id="${prefix}-clear" hidden>Clear</button></div>
+      <div class="sig-meta"><b>${esc(who)}</b><button type="button" class="linkish quiet" id="${prefix}-clear" hidden>Clear</button></div>
     </div>`;
 
   // The line takes a signature as soon as it's on screen: press and draw.
@@ -1093,12 +1347,6 @@
       lock: () => { locked = true; pad.classList.add('locked'); changed(); },
     };
   }
-  function sealSignature(prefix, at) {
-    const stamp = $(`${prefix}-stamp`);
-    stamp.hidden = false;
-    stamp.classList.add('hit');
-    $(`${prefix}-sigdate`).textContent = fmtStamp(at);
-  }
 
   // A message and its link, ready to text. Share opens the phone's share sheet where there is one.
   const canShare = typeof navigator.share === 'function';
@@ -1147,17 +1395,11 @@
   function renderCards() {
     $('cards').innerHTML = PRESETS.map(p => {
       const s = STARTS[p.sk]();
-      const art = p.v === 'type'
-        ? `<p class="stakes"><span>If you break it</span>${esc(p.c)}.</p>`
-        : ART[p.a]();
-      const body = p.v === 'type'
-        ? `<h3>${esc(p.t)}</h3>`
-        : `<h3>${esc(p.t)}</h3>${p.v === 'plain' ? '' : `<p class="rule">${esc(p.r)}</p>`}<p>Break it: <b>${esc(inline(p.c))}</b></p>`;
       return `
       <a class="card look-${p.l} v-${p.v}" href="#new-${p.id}">
         <div class="card-top"><span class="${isTonight(s) ? 'now' : ''}">${esc(whenText(s))}</span><span class="len">${esc(lenText(p.n))}</span></div>
-        <div class="art">${art}</div>
-        <div class="card-body">${body}</div>
+        <div class="art">${ART[p.a]()}</div>
+        <div class="card-body"><h3>${esc(p.t)}</h3><p>Break it: <b>${esc(inline(p.c))}</b></p></div>
         <div class="card-foot"><span data-left="${s}"></span><span class="join">Join</span></div>
       </a>`;
     }).join('') + `
@@ -1165,7 +1407,7 @@
         <div class="card-top"><span>Any start</span><span class="len">Any length</span></div>
         <div class="art"><p class="fill"><span class="nw">I won’t <span class="gap"><i class="caret"></i></span></span> <span class="nw">for <span class="gap short"></span>.</span></p></div>
         <div class="card-body"><h3>Write your own</h3><p>Your rule. <b>Your price.</b></p></div>
-        <div class="card-foot"><span>With one or two friends</span><span class="join">Start</span></div>
+        <div class="card-foot"><span>With your friends</span><span class="join">Start</span></div>
       </a>`;
   }
   function renderExample() {
@@ -1194,7 +1436,7 @@
     }
   }
   function renderMine() {
-    const rank = { active: 0, upcoming: 1, over: 2 };
+    const rank = { active: 0, waiting: 1, upcoming: 2, over: 3 };
     const list = Object.values(db.pacts).filter(p => db.me[p.id] !== undefined)
       .sort((a, b) => rank[phase(a)] - rank[phase(b)] || a.s - b.s);
     $('mine').hidden = $('nav-mine').hidden = !list.length;
@@ -1219,6 +1461,7 @@
   }
 
   /* Setting up a pact: pick, adjust if you like, sign, send */
+  const nameField = (i, v) => `<label class="field"><span>${i === 0 ? 'You' : i === 1 ? 'With' : 'And'}</span><input class="in" id="s-n${i}" maxlength="30" autocomplete="${i ? 'off' : 'given-name'}" placeholder="${i === 0 ? 'Your name' : i === 1 ? 'A friend’s name' : 'Another friend'}" value="${esc(v)}"></label>`;
   let draft = null, setupPad = null;
   async function showSetup(key, fromId, token) {
     let base = null;
@@ -1227,15 +1470,15 @@
     if (token !== routeToken) return;
     if (from) {
       const me = db.me[fromId];
-      base = { k: from.k || '', t: from.t, r: from.r, n: Math.max(7, from.n), sk: 'tonight', c: from.c, l: from.l, a: from.a, names: [from.p[me] ? from.p[me][0] : db.name, ...from.p.filter((_, i) => i !== me).map(x => x[0])] };
+      base = { k: from.k || '', t: from.t, r: from.r, n: Math.max(7, from.n), sk: 'tonight', c: from.c, l: from.l, a: from.a, names: [from.p[me] ? from.p[me][0] : db.name, ...from.p.filter((x, i) => i !== me && x[1]).map(x => x[0])] };
     } else if (key === 'own') {
       base = { t: '', r: '', n: 30, sk: 'tonight', c: 'They pick', l: 'paper', a: 'doc', own: true };
     } else {
       base = PRESETS.find(p => p.id === key);
     }
     if (!base) return showLost('That pact doesn’t exist. Pick one from the open pacts.');
-    const names = base.names || [db.name, '', ''];
-    draft = { k: base.own ? '' : 'k' in base ? base.k : base.id, t: base.t, r: base.r, n: base.n, sk: base.sk, s: STARTS[base.sk](), c: base.c, baseC: base.c, l: base.l, a: base.a, own: !!base.own, names: [names[0] || '', names[1] || '', names[2] || ''], id: null };
+    const names = (base.names || [db.name, '']).slice(0, MAX_PEOPLE);
+    draft = { k: base.own ? '' : 'k' in base ? base.k : base.id, t: base.t, r: base.r, n: base.n, sk: base.sk, s: STARTS[base.sk](), c: base.c, baseC: base.c, l: base.l, a: base.a, own: !!base.own, names: names.map(x => x || ''), id: null };
     renderSetup();
     show('setup');
     toTop();
@@ -1248,7 +1491,8 @@
     const starts = ['tonight', 'monday', 'month', 'sunday'].map(k => [k, STARTS[k]()])
       .filter(([, t]) => !seen.has(t) && seen.add(t)).sort((a, b) => a[1] - b[1]);
     const chip = c => `<button type="button" class="chip" data-c="${esc(c)}">${esc(c)}</button>`;
-    const moreOpen = MORE_PRICES.includes(d.c);
+    const top = topPrices(d.k), more = ALL_PRICES.filter(c => !top.includes(c));
+    const moreOpen = more.includes(d.c);
     views.setup.innerHTML = `
       <a class="back" href="#open">← All pacts</a>
       <div class="sheet">
@@ -1273,26 +1517,21 @@
               <div class="chips" id="o-s">${starts.map(([k, t]) => `<button type="button" class="chip" data-k="${k}" data-t="${t}">${esc(isTonight(t) ? 'Tonight' : fmtDay(t))}</button>`).join('')}<input class="chip-in date" id="o-sd" type="date" min="${isoDate(midnight())}" aria-label="Pick a start date"></div>
             </div>
             <div class="field"><span>Break it</span>
-              <div class="chips" id="o-c">${PRICES.map(chip).join('')}</div>
+              <div class="chips" id="o-c">${top.map(chip).join('')}</div>
               <button type="button" class="linkish quiet" id="o-more" aria-expanded="${moreOpen}" aria-controls="o-c2">${moreOpen ? 'Fewer options' : 'More options'}</button>
-              <div class="chips" id="o-c2" ${moreOpen ? '' : 'hidden'}>${MORE_PRICES.map(chip).join('')}</div>
+              <div class="chips" id="o-c2" ${moreOpen ? '' : 'hidden'}>${more.map(chip).join('')}</div>
               <input class="in sm" id="o-cc" maxlength="80" placeholder="Or write your own">
             </div>
           </div>
           <fieldset class="who">
             <legend>Who’s in</legend>
-            <div class="names">
-              <label class="field"><span>You</span><input class="in" id="s-n0" maxlength="30" autocomplete="given-name" placeholder="Your name" value="${esc(d.names[0])}"></label>
-              <label class="field"><span>With</span><input class="in" id="s-n1" maxlength="30" autocomplete="off" placeholder="A friend’s name" value="${esc(d.names[1])}"></label>
-              <label class="field" id="s-n2wrap" ${d.names[2] ? '' : 'hidden'}><span>And</span><input class="in" id="s-n2" maxlength="30" autocomplete="off" placeholder="Another friend" value="${esc(d.names[2])}"></label>
-            </div>
-            <button type="button" class="linkish" id="s-add" ${d.names[2] ? 'hidden' : ''}>+ Add someone</button>
+            <div class="names" id="s-names">${d.names.map((v, i) => nameField(i, v)).join('')}</div>
+            <button type="button" class="linkish" id="s-add" ${d.names.length >= MAX_PEOPLE ? 'hidden' : ''}>+ Add someone</button>
           </fieldset>
           ${signingHTML('s', 'You')}
           <p class="err" id="s-err" role="alert"></p>
           <button class="btn primary big" id="s-go" type="submit">Sign it</button>
         </form>
-        <div class="stack" id="s-send"></div>
         </div>
       </div>`;
     wireSetup();
@@ -1384,7 +1623,13 @@
       $('o-more').textContent = open ? 'Fewer options' : 'More options';
     });
     $('o-cc').addEventListener('input', e => { d.c = e.target.value.trim() || d.baseC; updateSetup(); });
-    $('s-add').addEventListener('click', () => { $('s-n2wrap').hidden = false; $('s-add').hidden = true; $('s-n2').focus(); });
+    $('s-add').addEventListener('click', () => {
+      const box = $('s-names'), i = box.children.length;
+      if (i >= MAX_PEOPLE) return;
+      box.insertAdjacentHTML('beforeend', nameField(i, ''));
+      $(`s-n${i}`).focus();
+      $('s-add').hidden = i + 1 >= MAX_PEOPLE;
+    });
     $('s-form').addEventListener('submit', signSetup);
     setupPad = makePad('s');
   }
@@ -1395,7 +1640,7 @@
     if (d.id) return;
     const err = $('s-err');
     const me = $('s-n0').value.trim();
-    const friends = [$('s-n1').value.trim(), $('s-n2wrap').hidden ? '' : $('s-n2').value.trim()].filter(Boolean);
+    const friends = [...$('s-names').querySelectorAll('input')].slice(1).map(x => x.value.trim()).filter(Boolean);
     const problem = !d.t.trim() ? 'Give your pact a name under Customize.'
       : !d.r.trim() ? 'Write the rule under Customize.'
       : !me ? 'Add your name.'
@@ -1428,44 +1673,55 @@
     db.name = me;
     save();
     d.id = p.id;
-
-    for (const el of $('s-form').querySelectorAll('input')) el.disabled = true;
-    $('s-tweak').hidden = true;
-    openOpts(false);
-    $('s-add').hidden = true;
-    go.hidden = true;
-    setupPad.lock();
-    sealSignature('s', p.p[0][1] || now);
-    updateWhen();
     renderMine();
-    $('s-send').innerHTML = shareHTML({
+
+    // The form turns into the contract. Remember where the drawing and the signature were on
+    // screen, let everything else fade, then let both travel to their places on the document.
+    setupPad.lock();
+    const from = { panel: views.setup.querySelector('.panel').getBoundingClientRect(), pad: $('s-pad').getBoundingClientRect() };
+    if (!reduce) {
+      const leaving = [...views.setup.querySelectorAll('.back, #s-form > :not(.signing), #s-form .signing .sig-meta')];
+      await Promise.all(leaving.map(el => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'forwards' }).finished));
+    }
+    history.replaceState(null, '', pactHref(p));
+    renderLedger(p, shareHTML({
       heading: `Now send it to ${joinNames(friends)}`,
       sub: 'They open the link and sign. No app, no account.',
       msg: inviteMsg(p),
       link: linkFor(p),
-      extra: `<a href="${previewHref(p)}">Preview what ${esc(friends[0])} sees</a><a href="${pactHref(p)}">Go to your pact →</a>`,
-    }) + saveHTML('s');
-    wireSave('s');
-    setTimeout(() => $('s-send').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }), reduce ? 0 : 500);
+      extra: `<a href="${previewHref(p)}">Preview what ${esc(friends[0])} sees</a>`,
+    }) + saveHTML('l'), { fresh: 0 });
+    wireSave('l');
+    show('ledger');
+    const doc = views.ledger.querySelector('.doc');
+    frame(doc);
+    settle(doc, { ...from, slot: 0, whole: true });
+    for (const el of views.ledger.querySelectorAll('.back, .doc-status')) rise(el);
+    for (const el of views.ledger.querySelectorAll('.doc ~ *')) rise(el, 1600);
+    nudge($('l-panel'), 2200);
   }
 
   /* Opening a friend's link */
-  function showJoin(data, preview, packed) {
+  function showJoin(data, preview, packed, slot = -1) {
     let inc;
     try { inc = packed ? unpack(data) : clean(dec(data)); } catch (e) { return showLost('This link is broken or got cut off. Ask your friend to send it again.'); }
     if (!preview && db.me[inc.id] !== undefined) {
-      db.pacts[inc.id] = merge(db.pacts[inc.id], inc);
+      const was = db.pacts[inc.id], now = merge(was, inc);
+      db.pacts[inc.id] = now;
       save();
-      toast('Pact updated from the link');
+      const signed = now.p.filter((x, i) => x[1] && !(was && was.p[i] && was.p[i][1])).map(x => x[0]);
+      toast(signed.length ? `${joinNames(signed)} signed${sealOf(now) && !sealOf(was) ? '. It’s sealed.' : '.'}` : 'Pact updated from the link');
       location.replace(`#p-${inc.id}`);
       return;
     }
-    renderJoin(inc, preview);
+    // Previewing your own pact: the link leaves signature drawings out to stay short, but this
+    // device has yours, so the preview shows your real signature (as the server version does).
+    renderJoin(preview && db.pacts[inc.id] ? merge(db.pacts[inc.id], inc) : inc, preview, slot);
     show('join');
     toTop();
   }
 
-  async function showCloud(id, preview, token) {
+  async function showCloud(id, preview, token, slot = -1) {
     show('load');
     const ok = await ready;
     if (token !== routeToken) return;
@@ -1474,48 +1730,44 @@
     try { p = await cloudFetch(id); } catch (err) { if (token === routeToken) showLost('Couldn’t load this pact. Check your connection and try again.'); return; }
     if (token !== routeToken) return;
     if (!p) return showLost('This pact doesn’t exist. Check the link your friend sent.');
-    if (!preview && db.me[id] !== undefined) { renderLedger(p); show('ledger'); toTop(); return; }
-    renderJoin(p, preview);
+    if (!preview && db.me[id] !== undefined) return openLedger(p);
+    renderJoin(p, preview, slot);
     show('join');
     toTop();
   }
 
-  function renderJoin(p, preview) {
+  // The invite is the contract itself, with the friend's own line left open to sign.
+  function renderJoin(p, preview, choose) {
     const signers = p.p.filter(x => x[1]).map(x => x[0]);
     const open = p.p.map((x, i) => ({ name: x[0], i })).filter(o => !p.p[o.i][1]);
-    let pick = open.length ? open[0].i : -1;
+    // Too late to join once there isn't a whole day left: the pact stays readable, the line closed.
+    const closed = open.length > 0 && !canJoin(p);
+    const pick = closed ? -1 : open.some(o => o.i === choose) ? choose : open.length ? open[0].i : -1;
+    const ph = phase(p);
+    const eyebrow = !signers.length ? 'You’re invited to a pact'
+      : ph === 'active' ? `${joinNames(signers)} ${signers.length > 1 ? 'are' : 'is'} on day ${dayOf(p)} of ${p.n}. Sign to join from midnight.`
+      : `${joinNames(signers)} signed this. Your turn.`;
+    const ended = `<div class="box"><h2>${ph === 'over' ? 'This pact is over' : 'This pact ends tonight'}</h2><p>There’s no day left to join. Ask ${esc(joinNames(signers) || 'them')} to start a new one with you.</p></div>`;
     const full = p.cloud
       ? `<div class="box"><h2>Everyone has signed</h2><p>If this is your pact, sign in with the email you saved it to.</p><div class="row"><a class="btn" href="#account">Sign in</a></div></div>`
-      : `<div class="box"><h2>Everyone has signed</h2><p>Which one are you? This opens the pact on this device.</p><div class="chips">${p.p.map((x, i) => `<button type="button" class="chip" data-claim="${i}">${esc(x[0])}</button>`).join('')}</div></div>`;
+      : `<div class="box" id="j-claim"><h2>Everyone has signed</h2><p>Which one are you? This opens the pact on this device.</p><div class="chips">${p.p.map((x, i) => `<button type="button" class="chip" data-claim="${i}">${esc(x[0])}</button>`).join('')}</div></div>`;
     views.join.innerHTML = `
-      ${preview
-        ? `<div class="banner"><span>Preview. This is what ${esc(joinNames(open.map(o => o.name)) || 'your friend')} sees.</span><a href="${pactHref(p)}">Back to your pact</a></div>`
-        : '<a class="back" href="#">← Pacts</a>'}
-      <div class="sheet">
-        ${panelHTML(p.l, p.a, whenText(p.s), lenText(p.n), isTonight(p.s))}
-        <div class="main">
-        <form class="main" id="j-form" novalidate>
-          <p class="eyebrow2">${signers.length ? `${esc(joinNames(signers))} signed this. Your turn.` : 'You’re invited to a pact'}</p>
-          <h1 class="title">${esc(p.t)}</h1>
-          ${termsHTML(p)}
-          ${sigsHTML(p, true)}
-          ${open.length ? `
-            <fieldset class="who">
-              <legend>Sign as</legend>
-              ${open.length > 1 ? `<div class="chips" id="j-pick">${open.map(o => `<button type="button" class="chip" data-i="${o.i}" aria-pressed="${o.i === pick}">${esc(o.name)}</button>`).join('')}</div>` : ''}
-              <label class="field"><span>Your name</span><input class="in" id="j-name" maxlength="30" value="${esc(open[0].name)}" ${preview ? 'readonly' : ''}></label>
-            </fieldset>
-            ${signingHTML('j', 'You')}
-            <p class="err" id="j-err" role="alert"></p>
-            <button class="btn primary big" type="submit" id="j-go" ${preview ? 'disabled' : ''}>${preview ? `${esc(open[0].name)} signs here` : 'Sign it'}</button>` : full}
-        </form>
-        <div class="stack" id="j-send"></div>
-        </div>
+      <div class="doc-wrap">
+        ${preview
+          ? `<div class="banner"><span>Preview. This is what ${esc(joinNames(open.map(o => o.name)) || 'your friend')} sees.</span><a href="${pactHref(p)}">Back to your pact</a></div>`
+          : '<a class="back" href="#">← Pacts</a>'}
+        <p class="eyebrow2">${esc(eyebrow)}</p>
+        ${open.length > 1 && !closed ? `<div class="chips" id="j-pick">${open.map(o => `<button type="button" class="chip" data-i="${o.i}" aria-pressed="${o.i === pick}">I’m ${esc(o.name)}</button>`).join('')}</div>` : ''}
+        ${contractHTML(p, { pad: pick, preview })}
+        ${closed ? ended : open.length ? `
+          <p class="err" id="j-err" role="alert"></p>
+          <button class="btn primary big doc-go" type="button" id="j-go" ${preview ? 'disabled' : ''}>${preview ? `${esc(p.p[pick][0])} signs here` : 'Sign the pact'}</button>` : full}
       </div>`;
 
-    const form = $('j-form');
+    if (closed) return;
     if (!open.length) {
-      form.addEventListener('click', e => {
+      const claim = $('j-claim');
+      if (claim) claim.addEventListener('click', e => {
         const b = e.target.closest('[data-claim]');
         if (!b || preview) return;
         db.pacts[p.id] = merge(db.pacts[p.id], p);
@@ -1527,20 +1779,22 @@
     }
     const pickBox = $('j-pick');
     const pad = makePad('j');
-    if (preview) { pad.lock(); $('j-hint').textContent = `${open[0].name} signs here`; }
+    if (preview) pad.lock();
     if (pickBox) pickBox.addEventListener('click', e => {
       const b = e.target.closest('.chip');
-      if (!b) return;
-      pick = +b.dataset.i;
-      press('#j-pick .chip', x => +x.dataset.i === pick);
-      $('j-name').value = p.p[pick][0];
+      if (b) renderJoin(p, preview, +b.dataset.i);
     });
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
+    // The contract names you as you type.
+    $('j-name').addEventListener('input', e => {
+      const b = views.join.querySelector(`[data-party="${pick}"]`);
+      if (b) b.textContent = e.target.value.trim() || p.p[pick][0];
+    });
+    $('j-go').addEventListener('click', async () => {
       if (preview || pick < 0) return;
+      const err = $('j-err');
       const name = $('j-name').value.trim();
-      if (!name) { $('j-err').textContent = 'Add your name to sign.'; return; }
-      if (!pad.has()) { $('j-err').textContent = 'Sign on the line first.'; return; }
+      if (!name) { err.textContent = 'Add your name to sign.'; return; }
+      if (!pad.has()) { err.textContent = 'Sign on the line first.'; return; }
       const go = $('j-go');
       go.disabled = true;
       go.textContent = 'Signing…';
@@ -1550,30 +1804,36 @@
       } catch (ex) {
         console.warn(ex);
         go.disabled = false;
-        go.textContent = 'Sign it';
-        $('j-err').textContent = ex && ex.code === 'permission-denied'
+        go.textContent = 'Sign the pact';
+        err.textContent = ex && ex.code === 'permission-denied'
           ? 'Someone already signed in that spot. Reload the page to see the latest.'
           : 'Couldn’t sign right now. Check your connection and try again.';
         return;
       }
       if (!db.name) { db.name = name; save(); }
-      $('j-err').textContent = '';
-      $('j-name').disabled = true;
-      if (pickBox) pickBox.hidden = true;
-      go.hidden = true;
       pad.lock();
-      sealSignature('j', saved.p[pick] ? saved.p[pick][1] : Date.now());
       renderMine();
-      const back = joinNames(saved.p.filter((_, i) => i !== pick).map(x => x[0]));
-      $('j-send').innerHTML = shareHTML({
+      // The contract stays exactly where it is on screen. Your line takes its stamp, the seal is
+      // pressed on if yours was the signature that made it binding, and the page around it becomes
+      // your copy of the pact.
+      const before = views.join.querySelector('.doc').getBoundingClientRect().top;
+      const others = saved.p.filter((x, i) => i !== pick && x[1]).map(x => x[0]);
+      const back = others.length > 3 ? 'everyone' : joinNames(others);
+      history.replaceState(null, '', pactHref(saved));
+      renderLedger(saved, shareHTML({
         heading: `Tell ${back} you’re in`,
-        sub: saved.cloud ? `${back} sees your signature on their side. A text lets them know.` : 'Send the link back so the pact shows your signature on their side too.',
+        sub: saved.cloud ? `${back === 'everyone' ? 'Everyone' : back} sees your signature on their side. A text lets them know.` : 'Send the link back so the pact shows your signature on their side too.',
         msg: `I'm in. I signed our pact: ${saved.t}. ${shown(linkFor(saved))}`,
         link: linkFor(saved),
-        extra: `<a href="${pactHref(saved)}">Go to the pact →</a>`,
-      }) + saveHTML('j');
-      wireSave('j');
-      setTimeout(() => $('j-send').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }), reduce ? 0 : 500);
+      }) + saveHTML('l'), { fresh: pick });
+      wireSave('l');
+      show('ledger');
+      const doc = views.ledger.querySelector('.doc');
+      window.scrollBy(0, doc.getBoundingClientRect().top - before);
+      settle(doc, { slot: pick, seal: !sealOf(p) });
+      for (const el of views.ledger.querySelectorAll('.back, .doc-status')) rise(el);
+      for (const el of views.ledger.querySelectorAll('.doc ~ *')) rise(el, 500);
+      nudge($('l-panel'), 1100);
     });
   }
 
@@ -1581,9 +1841,7 @@
   function showLedger(id) {
     const p = db.pacts[id];
     if (!p) return showLost('That pact isn’t saved in this browser. Open the latest link from your friend.');
-    renderLedger(p);
-    show('ledger');
-    toTop();
+    openLedger(p);
   }
 
   function recordHTML(p) {
@@ -1591,31 +1849,36 @@
     const today = ph === 'active' ? dayOf(p) : ph === 'over' ? p.n + 1 : 0;
     const cw = Math.min(p.n, 30), cn = Math.min(p.n, 15);
     return `<div class="rec">${p.p.map((x, i) => {
+      // Days before someone joined aren't theirs to keep or break.
+      const first = x[1] && startOf(p) ? firstDayOf(p, i) : 0;
       let cells = '';
       for (let d = 1; d <= p.n; d++) {
         const b = p.b.some(y => y[0] === i && y[1] === d);
-        const cls = b ? 'broke' : x[1] && d < today ? 'kept' : x[1] && d === today ? 'today' : '';
+        const cls = b ? 'broke' : !first ? '' : d < first ? 'pre' : d < today ? 'kept' : d === today ? 'today' : '';
         cells += `<span class="cell ${cls}" title="Day ${d}">${b ? '×' : ''}</span>`;
       }
-      return `<div class="rec-row"><span class="rec-name">${esc(nameOf(p, i))}${x[1] ? '' : '<small>not signed</small>'}</span><div class="cells" style="--cw:${cw};--cn:${cn}">${cells}</div></div>`;
+      const note = !x[1] ? 'not signed' : first > 1 ? `in from day ${first}` : '';
+      return `<div class="rec-row"><span class="rec-name">${esc(nameOf(p, i))}${note ? `<small>${note}</small>` : ''}</span><div class="cells" style="--cw:${cw};--cn:${cn}">${cells}</div></div>`;
     }).join('')}</div>`;
   }
 
   function logHTML(p) {
-    if (!p.b.length) return `<p class="quiet-note">${phase(p) === 'upcoming' ? 'Nothing yet. It hasn’t started.' : 'No breaks. Nothing to report.'}</p>`;
+    if (!p.b.length) return `<p class="quiet-note">${['waiting', 'upcoming'].includes(phase(p)) ? 'Nothing yet. It hasn’t started.' : 'No breaks. Nothing to report.'}</p>`;
     return `<ul class="log">${p.b.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]).map(x =>
       `<li><b>Day ${x[1]}.</b> ${esc(nameOf(p, x[0]))} broke it. The deal: ${esc(inline(p.c))}.</li>`).join('')}</ul>`;
   }
 
   function endHTML(p) {
     const me = db.me[p.id];
-    const kept = i => p.n - new Set(p.b.filter(x => x[0] === i).map(x => x[1])).size;
+    const inFor = i => p.n - firstDayOf(p, i) + 1;
+    const kept = i => inFor(i) - new Set(p.b.filter(x => x[0] === i).map(x => x[1])).size;
     const choice = i => (p.e.find(x => x[0] === i) || [])[1];
     const mine = choice(me);
     const lines = p.p.map((x, i) => {
+      if (!x[1] || inFor(i) < 1) return '';
       const c = choice(i);
       const tail = c ? ` · ${c === 'again' ? 'going again' : 'done'}` : i === me ? '' : ' · hasn’t decided';
-      return `<li><b>${esc(nameOf(p, i))}</b> kept ${kept(i)} of ${p.n} day${p.n === 1 ? '' : 's'}${tail}</li>`;
+      return `<li><b>${esc(nameOf(p, i))}</b> kept ${kept(i)} of ${inFor(i)} day${inFor(i) === 1 ? '' : 's'}${tail}</li>`;
     }).join('');
     return `
       <section class="box" aria-labelledby="endTitle">
@@ -1636,43 +1899,54 @@
       </section>`;
   }
 
-  function renderLedger(p, panel = '') {
+  function renderLedger(p, panel = '', opts = {}) {
     const me = db.me[p.id];
     const ph = phase(p);
     const signedMe = me !== undefined && p.p[me] && p.p[me][1];
     const waiting = p.p.filter(x => !x[1]).map(x => x[0]);
+    // The seal lands the first time you see everyone's signatures on the pact.
+    const fresh = opts.fresh >= 0 ? opts.fresh : -1;
+    const newSeal = !!sealOf(p) && !db.sealed[p.id];
+    if (newSeal) { db.sealed[p.id] = 1; save(); }
+    // A message box that's already open covers sending, so the send button waits until it's closed.
+    const acts = (ph === 'active' && signedMe && joinOf(p, me) <= Date.now() ? '<button class="btn warn" type="button" id="l-broke">I broke it</button>' : '')
+      + (panel ? '' : waiting.length && canJoin(p)
+        ? `<button class="btn" type="button" id="l-resend">${waiting.length > 2 ? 'Send the invite again' : `Send it to ${esc(joinNames(waiting))} again`}</button>`
+        : `<button class="btn" type="button" id="l-update">${p.cloud ? 'Share the link' : 'Send an update'}</button>`)
+      + (signedMe && canJoin(p) && p.p.length < MAX_PEOPLE ? '<button class="btn" type="button" id="l-add">Add someone</button>' : '');
     views.ledger.dataset.id = p.id;
     views.ledger.innerHTML = `
-      <a class="back" href="#mine">← Your pacts</a>
-      <div class="sheet">
-        ${panelHTML(p.l, p.a, whenText(p.s), lenText(p.n), isTonight(p.s))}
-        <div class="main">
-          <p class="status ${ph}">${esc(statusOf(p))}</p>
-          <h1 class="title">${esc(p.t)}</h1>
-          ${termsHTML(p)}
-          ${sigsHTML(p)}
-          <div class="row">
-            ${ph === 'active' && signedMe ? '<button class="btn warn" type="button" id="l-broke">I broke it</button>' : ''}
-            ${waiting.length && ph !== 'over'
-              ? `<button class="btn" type="button" id="l-resend">Send it to ${esc(joinNames(waiting))} again</button>`
-              : `<button class="btn" type="button" id="l-update">${p.cloud ? 'Share the link' : 'Send an update'}</button>`}
-          </div>
-        </div>
-      </div>
-      <div class="stack" id="l-panel">${panel}</div>
-      ${ph === 'over' ? `<div class="stack">${endHTML(p)}</div>` : ''}
-      <section class="record" aria-labelledby="recTitle">
-        <h2 class="label" id="recTitle">The record</h2>
-        ${recordHTML(p)}
-        ${logHTML(p)}
-      </section>
-      <p class="quiet-note"><button type="button" class="linkish quiet" id="l-remove">${p.cloud ? 'Remove from your pacts' : 'Remove from this browser'}</button></p>`;
+      <div class="doc-wrap">
+        <a class="back" href="#mine">← Your pacts</a>
+        <p class="status ${ph} doc-status">${esc(statusOf(p))}</p>
+        ${contractHTML(p, { fresh })}
+        ${acts ? `<div class="row">${acts}</div>` : ''}
+        <div class="stack" id="l-panel">${panel}</div>
+        ${ph === 'over' ? endHTML(p) : ''}
+        <section class="record" aria-labelledby="recTitle">
+          <h2 class="label" id="recTitle">The record</h2>
+          ${recordHTML(p)}
+          ${logHTML(p)}
+        </section>
+        <p class="quiet-note"><button type="button" class="linkish quiet" id="l-remove">${p.cloud ? 'Remove from your pacts' : 'Remove from this browser'}</button></p>
+      </div>`;
     wireLedger(p);
+    // Signing here animates its own seal (settle); coming back to a pact your friend just sealed lands it now.
+    const landing = newSeal && fresh < 0;
+    if (landing && !reduce) views.ledger.querySelector('.doc-seal').animate(HIT, { duration: 520, delay: 450, easing: 'ease-out', fill: 'backwards' });
+    return landing;
+  }
+  // Opening a pact's page. If the seal is about to land, start where the signatures are.
+  function openLedger(p) {
+    const landing = renderLedger(p);
+    show('ledger');
+    if (landing) frame(views.ledger.querySelector('.doc'), 90);
+    else toTop();
   }
 
   function wireLedger(p) {
     const me = db.me[p.id];
-    const others = joinNames(othersOf(p)) || 'them';
+    const others = othersOf(p).length > 3 ? 'everyone' : joinNames(othersOf(p)) || 'them';
     const panel = $('l-panel');
     const openPanel = html => { panel.innerHTML = html; panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); };
     const failed = () => toast('That didn’t go through. Check your connection and try again.');
@@ -1680,7 +1954,7 @@
     const broke = $('l-broke');
     if (broke) broke.addEventListener('click', () => {
       const today = dayOf(p);
-      const days = [today, today - 1].filter(x => x >= 1);
+      const days = [today, today - 1].filter(x => x >= Math.max(1, firstDayOf(p, me)));
       let day = today;
       openPanel(`
         <div class="box warn">
@@ -1710,11 +1984,13 @@
     });
 
     const resend = $('l-resend');
+    // Only one person left to sign: the link opens on their line.
+    const only = p.p.filter(x => !x[1]).length === 1 ? p.p.findIndex(x => !x[1]) : -1;
     if (resend) resend.addEventListener('click', () => openPanel(shareHTML({
       heading: 'Send it again',
-      msg: inviteMsg(p),
-      link: linkFor(p),
-      extra: `<a href="${previewHref(p)}">Preview what they see</a>`,
+      msg: inviteMsg(p, only),
+      link: linkFor(p, only),
+      extra: `<a href="${previewHref(p, only)}">Preview what they see</a>`,
     })));
 
     const update = $('l-update');
@@ -1724,6 +2000,43 @@
       msg: `Our pact: ${p.t}. ${statusOf(p)}. ${shown(linkFor(p))}`,
       link: linkFor(p),
     })));
+
+    // Bringing someone new in: their line appears on the contract, then the message to send them.
+    const add = $('l-add');
+    if (add) add.addEventListener('click', () => {
+      openPanel(`
+        <form class="box" id="n-form" novalidate>
+          <h2>Add someone</h2>
+          <p class="sub">${phase(p) === 'active' ? `They’re in from the day after they sign, through day ${p.n}. Everyone else keeps going.` : 'They sign the same pact, on the same terms.'}</p>
+          <div class="row"><input class="in" id="n-name" maxlength="30" autocomplete="off" placeholder="Their name" aria-label="Their name"><button class="btn primary" type="submit">Add</button></div>
+          <p class="err" id="n-err" role="alert"></p>
+        </form>`);
+      $('n-name').focus();
+      $('n-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const name = $('n-name').value.trim();
+        if (!name) { $('n-err').textContent = 'Type their name.'; return; }
+        const btn = $('n-form').querySelector('button[type="submit"]');
+        btn.disabled = true;
+        let fresh;
+        try { fresh = await addPerson(p, name); } catch (ex) {
+          console.warn(ex);
+          btn.disabled = false;
+          $('n-err').textContent = ex && ex.message === 'full' ? `A pact can have ${MAX_PEOPLE} people at most.` : 'That didn’t go through. Check your connection and try again.';
+          return;
+        }
+        const slot = fresh.p.length - 1;
+        renderLedger(fresh, shareHTML({
+          heading: `Now send it to ${name}`,
+          sub: phase(fresh) === 'active' ? 'They open the link and sign. They’re in from the day after.' : 'They open the link and sign. No app, no account.',
+          msg: inviteMsg(fresh, slot),
+          link: linkFor(fresh, slot),
+          extra: `<a href="${previewHref(fresh, slot)}">Preview what ${esc(name)} sees</a>`,
+        }));
+        rise(views.ledger.querySelector(`.doc-party[data-slot="${slot}"]`), 100);
+        nudge($('l-panel'), 700);
+      });
+    });
 
     const endPick = $('e-pick');
     if (endPick) endPick.addEventListener('click', async e => {
@@ -1824,17 +2137,17 @@
     renderMine();
     let h = location.hash.slice(1);
     try { h = decodeURIComponent(h); } catch (e) { /* use it as it is */ }
-    if (h.startsWith('j.')) return showJoin(h.slice(2), false, true);
-    if (h.startsWith('v.')) return showJoin(h.slice(2), true, true);
+    const packed = h.match(/^([jv])(\d?)\.(.+)$/);
+    if (packed) return showJoin(packed[3], packed[1] === 'v', true, packed[2] ? +packed[2] : -1);
     // Longer links from before the packed format still open.
     if (h.startsWith('join.')) return showJoin(h.slice(5), false);
     if (h.startsWith('preview.')) return showJoin(h.slice(8), true);
-    if (h.startsWith('preview-')) return showCloud(h.slice(8), true, token);
     if (h.startsWith('new-')) return showSetup(h.slice(4), null, token);
     if (h.startsWith('again-')) return showSetup(null, h.slice(6), token);
     if (h.startsWith('p-')) return CLOUD_ID.test(h.slice(2)) && !db.pacts[h.slice(2)] ? showCloud(h.slice(2), false, token) : showLedger(h.slice(2));
     if (h === 'account') return showAccount('', token);
-    if (CLOUD_ID.test(h)) return showCloud(h, false, token);
+    const onServer = h.match(/^(preview-)?([a-z0-9]{10})(?:\.(\d))?$/);
+    if (onServer) return showCloud(onServer[2], !!onServer[1], token, onServer[3] ? +onServer[3] : -1);
     showHome(h);
   }
 

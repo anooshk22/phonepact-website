@@ -1,9 +1,11 @@
 rules_version = '2';
 
 // Pacts by PhonePact. Everyone is signed in, anonymously at first, so every write
-// carries a uid. A pact's terms never change after it is created. Each person can
-// only fill an empty spot as themselves, record breaks for their own spot, and set
-// their own end-of-pact choice. Anyone holding the 10-character link can read the pact.
+// carries a uid. A pact's terms never change after it is created; the one edit is that
+// someone already in it can add another name to the end of the list. Each person can
+// only fill an empty spot as themselves (one spot per account), record breaks for their
+// own spot, and set their own end-of-pact choice. Anyone holding the 10-character link
+// can read the pact. At most 10 people, the same limit as MAX_PEOPLE in pacts/index.html.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -13,7 +15,7 @@ service cloud.firestore {
     function slotPath(id, s) { return /databases/$(database)/documents/pacts/$(id)/slots/$(s); }
     // getAfter so a slot written in the same batch as its pact can see the pact.
     function pactAfter(id) { return getAfter(pactPath(id)).data; }
-    function notMySlot(id, s) { return !exists(slotPath(id, s)) || get(slotPath(id, s)).data.uid != request.auth.uid; }
+    function memberPath(id) { return /databases/$(database)/documents/pacts/$(id)/members/$(request.auth.uid); }
     function ownsSlot(id, s) { return exists(slotPath(id, s)) && get(slotPath(id, s)).data.uid == request.auth.uid; }
 
     match /pacts/{id} {
@@ -31,24 +33,46 @@ service cloud.firestore {
         && request.resource.data.a in ['phone', 'bars', 'sun', 'link', 'glass', 'wifi', 'doc', 'vape', 'leaf', 'reel', 'bed', 'plate', 'dumbbell']
         && request.resource.data.l in ['ink', 'paper', 'stone', 'accent']
         && request.resource.data.names is list
-        && request.resource.data.names.size() >= 2 && request.resource.data.names.size() <= 3
+        && request.resource.data.names.size() >= 2 && request.resource.data.names.size() <= 10
         && request.resource.data.by == request.auth.uid
         && request.resource.data.at == request.time;
-      allow update, delete: if false;
+      // Someone already in the pact brings someone new in: one more name at the end, nothing else changes.
+      allow update: if signedIn()
+        && exists(memberPath(id))
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['names'])
+        && request.resource.data.names is list
+        && request.resource.data.names.size() == resource.data.names.size() + 1
+        && request.resource.data.names.size() <= 10
+        && request.resource.data.names[0:resource.data.names.size()] == resource.data.names
+        && text(request.resource.data.names[resource.data.names.size()], 30);
+      allow delete: if false;
 
-      // One document per person: '0' is the creator, '1' and '2' are friends.
+      // One document per person: '0' is the creator, '1' to '9' everyone else, in the order they were named.
       match /slots/{slot} {
         allow read: if signedIn();
         allow create: if signedIn()
-          && slot in ['0', '1', '2']
+          && slot.matches('^[0-9]$')
           && int(slot) < pactAfter(id).names.size()
           && (slot != '0' || pactAfter(id).by == request.auth.uid)
-          && notMySlot(id, '0') && notMySlot(id, '1') && notMySlot(id, '2')
+          // One spot per account: the membership record is written with the spot and can't exist already.
+          && !exists(memberPath(id))
+          && getAfter(memberPath(id)).data.slot == int(slot)
           && request.resource.data.keys().hasOnly(['uid', 'name', 'at', 'sig'])
           && request.resource.data.uid == request.auth.uid
           && text(request.resource.data.name, 30)
           && request.resource.data.sig is string && request.resource.data.sig.size() <= 2000
           && request.resource.data.at == request.time;
+        allow update, delete: if false;
+      }
+
+      // Which spot each account holds, written in the same batch as the spot itself.
+      match /members/{uid} {
+        allow read: if signedIn() && uid == request.auth.uid;
+        allow create: if signedIn()
+          && uid == request.auth.uid
+          && request.resource.data.keys().hasOnly(['slot'])
+          && request.resource.data.slot is int
+          && getAfter(slotPath(id, string(request.resource.data.slot))).data.uid == request.auth.uid;
         allow update, delete: if false;
       }
 
