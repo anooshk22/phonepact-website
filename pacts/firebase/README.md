@@ -29,7 +29,10 @@ PhonePact app** (`phonepact-001`), so pact data never mixes with app users.
   `pacts/index.html`. These values are public by design; the rules protect the
   data.
 - On the Spark plan, Firebase sends at most 5 sign-in link emails a day for the
-  whole project. Adding a billing account (the Blaze plan) raises that.
+  whole project, and in testing on 28 September 2026 none arrived at all. So the
+  page hides "Save it to your email" (`EMAIL_SIGNIN = false` in
+  `pacts/index.html`) until the project has a billing account (the Blaze plan).
+  Turn it back on there, then send yourself a test link before telling anyone.
 
 Deploy rule changes with:
 

@@ -471,24 +471,24 @@
         <li>The pact: its name, rule, dates and what breaking it costs.</li>
         <li>The names people type, and each person’s drawn signature.</li>
         <li>The breaks people record, and each person’s choice when it ends.</li>
-        <li>Your email, only if you choose to save your pacts to it.</li>
+        <li data-email="on" hidden>Your email, only if you choose to save your pacts to it.</li>
       </ul>
       <h2>Where it’s kept</h2>
-      <p>Pacts are stored with Google Firebase in the United States, in a project of their own, separate from the PhonePact app. The first time you sign, Firebase gives you a guest account, so nobody needs a password. Saving to your email turns that into an account you can open on any phone. This browser also remembers your name, your sign-in, and your answer to the honesty question.</p>
+      <p>Pacts are stored with Google Firebase in the United States, in a project of their own, separate from the PhonePact app. The first time you sign, Firebase gives you a guest account, so nobody needs a password.<span data-email="on" hidden> Saving to your email turns that into an account you can open on any phone.</span> This browser also remembers your name, your sign-in, and your answer to the honesty question.</p>
       <p>If the Pacts server can’t be reached, a pact travels inside its link instead (names, dates and the record, but not signatures) and lives in the browsers of the people in it.</p>
       <h2>Who can see it</h2>
-      <p>Anyone with a pact’s link can open it and see everything on it: the names, signatures, dates and record. The links are long random codes, so share them only with the people in the pact. Your list of pacts and your email are yours alone; nobody in a pact sees your email. The honesty question never leaves this browser.</p>
+      <p>Anyone with a pact’s link can open it and see everything on it: the names, signatures, dates and record. The links are long random codes, so share them only with the people in the pact. Your list of pacts is yours alone.<span data-email="on" hidden> So is your email: nobody in a pact sees it.</span> The honesty question never leaves this browser.</p>
       <h2>What we don’t do</h2>
-      <p>No ads, no analytics, no selling data, and no emails beyond the sign-in link you ask for. Pacts can’t read anything else on your phone.</p>
+      <p>No ads, no analytics, no selling data, and no emails<span data-email="on" hidden> beyond the sign-in link you ask for</span>. Pacts can’t read anything else on your phone.</p>
       <h2>Deleting</h2>
-      <p>Whoever made a pact can delete it for everyone, with every signature and record in it. Anyone can take a pact off their own list. To erase anything else, like your signature on someone else’s pact or your email, write to <a href="mailto:support@getphonepact.com">support@getphonepact.com</a> and we’ll remove it.</p>
+      <p>Whoever made a pact can delete it for everyone, with every signature and record in it. Anyone can take a pact off their own list. To erase anything else, like your signature on someone else’s pact<span data-email="on" hidden> or your email</span>, write to <a href="mailto:support@getphonepact.com">support@getphonepact.com</a> and we’ll remove it.</p>
       <h2>Everything else</h2>
       <p>Pacts is for people 13 and older. Fonts come from Google Fonts and the sign-in code from Google, so Google receives basic request details, like your IP address and browser, as it does on any site that uses them. This note covers Pacts; PhonePact’s <a href="../privacy">full privacy policy</a> covers the rest of getphonepact.com and the app.</p>
     </article>
   </div>
 </main>
 
-<footer class="foot wrap"><span>Pacts by PhonePact · <a href="#privacy">Privacy</a></span><span>No password. Sign first; save to your email if you want your pacts on any phone.</span></footer>
+<footer class="foot wrap"><span>Pacts by PhonePact · <a href="#privacy">Privacy</a></span><span data-email="off">No password and no account: your pacts stay with this browser.</span><span data-email="on" hidden>No password. Sign first; save to your email if you want your pacts on any phone.</span></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -883,6 +883,11 @@
      account into one you can open anywhere. The project is pacts-by-phonepact (see
      pacts/firebase/README.md). These values are public by design; the rules protect the data.
      On localhost, a running local emulator stands in for it. */
+  // Saving pacts to an email needs Firebase to send sign-in emails. On the free plan it sends at
+  // most five a day, and none arrived in testing, so the option stays hidden until the project
+  // has a billing account. Flipping this back on restores every part of it, including the copy
+  // marked data-email="on" (the footer and the privacy note).
+  const EMAIL_SIGNIN = false;
   const FIREBASE_CONFIG = {
     apiKey: 'AIzaSyDDE63xSpMWdgsFXwYhOP4beUdw105tHmY',
     authDomain: 'pacts-by-phonepact.firebaseapp.com',
@@ -1125,7 +1130,7 @@
       }
     });
   }
-  const saveHTML = prefix => cloud.on && cloud.anon ? `
+  const saveHTML = prefix => EMAIL_SIGNIN && cloud.on && cloud.anon ? `
     <form class="box save dashed" id="${prefix}-save" novalidate>
       <h2>Save it to your email</h2>
       <p class="sub">So you can open your pacts on any phone. We email you a link. No password.</p>
@@ -1541,7 +1546,7 @@
   function renderAccountLink() {
     const a = $('nav-acct');
     if (!a) return;
-    a.hidden = !cloud.on;
+    a.hidden = !cloud.on || (!EMAIL_SIGNIN && cloud.anon);
     a.textContent = !cloud.anon ? 'Account' : hasCloudPacts() ? 'Save' : 'Sign in';
   }
   function showHome(anchor) {
@@ -2211,6 +2216,9 @@
         await cloud.fb.A.signOut(cloud.fb.auth);
         location.replace(location.pathname);
       });
+    } else if (!EMAIL_SIGNIN && !pendingLink) {
+      el.innerHTML = `<a class="back" href="#">← Pacts</a>
+        <div class="box"><h2>Saving to email is coming</h2><p class="sub">For now, your pacts stay with this browser. Their links open them from anywhere.</p></div>`;
     } else {
       // Whether there's anything to save depends on your list, so wait for it the first time.
       if (!pendingLink) await loadMineOnce();
@@ -2283,6 +2291,7 @@
     } catch (e) { /* keep what's on screen */ }
   });
 
+  for (const el of document.querySelectorAll('[data-email]')) el.hidden = el.dataset.email !== (EMAIL_SIGNIN ? 'on' : 'off');
   renderCards();
   renderExample();
   tick();
