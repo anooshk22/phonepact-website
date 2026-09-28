@@ -6,8 +6,19 @@
 <title>Pacts by PhonePact</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Make a pact with a friend. Break it, and you pay.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PhonePact">
+<meta property="og:url" content="https://getphonepact.com/pacts/">
 <meta property="og:title" content="Pacts by PhonePact">
 <meta property="og:description" content="Make a pact with a friend. Break it, and you pay.">
+<meta property="og:image" content="https://getphonepact.com/pacts/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="A signed pact on paper with a green seal pressed into its corner. Pacts by PhonePact.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pacts by PhonePact">
+<meta name="twitter:description" content="Make a pact with a friend. Break it, and you pay.">
+<meta name="twitter:image" content="https://getphonepact.com/pacts/og.png">
 <meta name="theme-color" content="#F4F4F0">
 <link rel="icon" href="../favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -353,6 +364,18 @@
   .private small { color: var(--muted); font-size: 13px; }
 
   .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 28px 40px; border-top: 1.5px solid var(--ink); font: 500 12px/1.5 var(--mono); letter-spacing: .04em; color: var(--muted); }
+  .foot a { color: var(--ink); text-underline-offset: 3px; }
+
+  /* The privacy note: plain reading, one column. */
+  .prose { max-width: 42rem; }
+  .prose h1 { margin: 0; font: 800 clamp(2.4rem, 5.4vw, 4rem)/.95 var(--display); letter-spacing: -.045em; }
+  .prose .lede { margin: 14px 0 0; font-size: 1.2rem; color: var(--muted); }
+  .prose h2 { margin: 34px 0 10px; padding-top: 12px; border-top: 1.5px solid var(--ink); font: 500 12px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .prose p, .prose ul { margin: 0 0 12px; line-height: 1.6; }
+  .prose ul { padding-left: 1.2em; }
+  .prose li + li { margin-top: 6px; }
+  .prose a { color: var(--accent-text); text-underline-offset: 3px; }
+  .quiet-note.ends { display: flex; flex-wrap: wrap; gap: 8px 24px; }
   .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 20; max-width: calc(100% - 32px); padding: 12px 18px; background: var(--ink); color: var(--page); font-size: 15px; opacity: 0; transform: translate(-50%, 16px); pointer-events: none; transition: opacity .25s var(--ease), transform .25s var(--ease); }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
@@ -434,9 +457,34 @@
   <div id="account" class="wrap view" hidden></div>
   <div id="view-load" class="wrap view" hidden><p class="loading">Opening the pact…</p></div>
   <div id="view-lost" class="wrap view" hidden></div>
+  <div id="privacy" class="wrap view" hidden>
+    <article class="prose">
+      <a class="back" href="#">← Pacts</a>
+      <h1>Privacy</h1>
+      <p class="lede">Pacts keeps what it takes to make a pact between friends, and nothing about your phone.</p>
+      <h2>What’s kept</h2>
+      <ul>
+        <li>The pact: its name, rule, dates and what breaking it costs.</li>
+        <li>The names people type, and each person’s drawn signature.</li>
+        <li>The breaks people record, and each person’s choice when it ends.</li>
+        <li>Your email, only if you choose to save your pacts to it.</li>
+      </ul>
+      <h2>Where it’s kept</h2>
+      <p>Pacts are stored with Google Firebase in the United States, in a project of their own, separate from the PhonePact app. The first time you sign, Firebase gives you a guest account, so nobody needs a password. Saving to your email turns that into an account you can open on any phone. This browser also remembers your name, your sign-in, and your answer to the honesty question.</p>
+      <p>If the Pacts server can’t be reached, a pact travels inside its link instead (names, dates and the record, but not signatures) and lives in the browsers of the people in it.</p>
+      <h2>Who can see it</h2>
+      <p>Anyone with a pact’s link can open it and see everything on it: the names, signatures, dates and record. The links are long random codes, so share them only with the people in the pact. Your list of pacts and your email are yours alone; nobody in a pact sees your email. The honesty question never leaves this browser.</p>
+      <h2>What we don’t do</h2>
+      <p>No ads, no analytics, no selling data, and no emails beyond the sign-in link you ask for. Pacts can’t read anything else on your phone.</p>
+      <h2>Deleting</h2>
+      <p>Whoever made a pact can delete it for everyone, with every signature and record in it. Anyone can take a pact off their own list. To erase anything else, like your signature on someone else’s pact or your email, write to <a href="mailto:support@getphonepact.com">support@getphonepact.com</a> and we’ll remove it.</p>
+      <h2>Everything else</h2>
+      <p>Pacts is for people 13 and older. Fonts come from Google Fonts and the sign-in code from Google, so Google receives basic request details, like your IP address and browser, as it does on any site that uses them. This note covers Pacts; PhonePact’s <a href="../privacy">full privacy policy</a> covers the rest of getphonepact.com and the app.</p>
+    </article>
+  </div>
 </main>
 
-<footer class="foot wrap"><span>Pacts by PhonePact</span><span>No password. Sign first; save to your email if you want your pacts on any phone.</span></footer>
+<footer class="foot wrap"><span>Pacts by PhonePact · <a href="#privacy">Privacy</a></span><span>No password. Sign first; save to your email if you want your pacts on any phone.</span></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -981,6 +1029,29 @@
     await F.setDoc(F.doc(fs, 'pacts', p.id, 'ends', String(me)), { choice, at: F.serverTimestamp() });
     return cloudFetch(p.id);
   }
+  // Whoever made a pact can delete it for everyone: every spot, signature, break and choice, then
+  // the pact itself. It goes last, so each earlier batch can still see who made it.
+  async function deletePact(p) {
+    const { fs, F } = cloud.fb;
+    const ref = F.doc(fs, 'pacts', p.id);
+    const [slots, breaks, ends] = await Promise.all(['slots', 'breaks', 'ends'].map(c => F.getDocs(F.collection(ref, c))));
+    const refs = [];
+    slots.forEach(x => { refs.push(x.ref, F.doc(ref, 'members', x.data().uid)); });
+    breaks.forEach(x => refs.push(x.ref));
+    ends.forEach(x => refs.push(x.ref));
+    refs.push(F.doc(fs, 'users', cloud.uid, 'pacts', p.id));
+    for (let i = 0; i < refs.length; i += 400) {
+      const batch = F.writeBatch(fs);
+      refs.slice(i, i + 400).forEach(r => batch.delete(r));
+      if (i + 400 >= refs.length) batch.delete(ref);
+      await batch.commit();
+    }
+    delete db.pacts[p.id];
+    delete db.me[p.id];
+    delete db.honest[p.id];
+    delete db.sealed[p.id];
+    save();
+  }
   async function removePact(p) {
     if (p.cloud) { const { fs, F } = cloud.fb; await F.deleteDoc(F.doc(fs, 'users', cloud.uid, 'pacts', p.id)); }
     delete db.pacts[p.id];
@@ -994,7 +1065,7 @@
     const { fs, F } = cloud.fb;
     for (const [id, p] of Object.entries(db.pacts)) if (p.cloud) { delete db.pacts[id]; delete db.me[id]; }
     const index = await F.getDocs(F.collection(fs, 'users', cloud.uid, 'pacts'));
-    await Promise.all(index.docs.map(x => cloudFetch(x.id).catch(() => null)));
+    await Promise.all(index.docs.map(x => cloudFetch(x.id).then(p => p || F.deleteDoc(x.ref)).catch(() => null)));
   }
 
   /* ---------- Saving to email: a one-tap link, no password ---------- */
@@ -1379,7 +1450,7 @@
   });
 
   /* ---------- Views ---------- */
-  const views = { home: $('view-home'), setup: $('view-setup'), join: $('view-join'), ledger: $('view-ledger'), account: $('account'), load: $('view-load'), lost: $('view-lost') };
+  const views = { home: $('view-home'), setup: $('view-setup'), join: $('view-join'), ledger: $('view-ledger'), account: $('account'), privacy: $('privacy'), load: $('view-load'), lost: $('view-lost') };
   function show(name) { for (const [k, el] of Object.entries(views)) el.hidden = k !== name; }
   const toTop = () => window.scrollTo(0, 0);
   let routeToken = 0;
@@ -1729,7 +1800,7 @@
     let p;
     try { p = await cloudFetch(id); } catch (err) { if (token === routeToken) showLost('Couldn’t load this pact. Check your connection and try again.'); return; }
     if (token !== routeToken) return;
-    if (!p) return showLost('This pact doesn’t exist. Check the link your friend sent.');
+    if (!p) return showLost('This pact doesn’t exist, or it was deleted. Check the link your friend sent.');
     if (!preview && db.me[id] !== undefined) return openLedger(p);
     renderJoin(p, preview, slot);
     show('join');
@@ -1928,7 +1999,7 @@
           ${recordHTML(p)}
           ${logHTML(p)}
         </section>
-        <p class="quiet-note"><button type="button" class="linkish quiet" id="l-remove">${p.cloud ? 'Remove from your pacts' : 'Remove from this browser'}</button></p>
+        <p class="quiet-note ends"><button type="button" class="linkish quiet" id="l-remove">${p.cloud ? 'Remove from your pacts' : 'Remove from this browser'}</button>${p.cloud && me === 0 ? '<button type="button" class="linkish quiet" id="l-delete">Delete it for everyone</button>' : ''}</p>
       </div>`;
     wireLedger(p);
     // Signing here animates its own seal (settle); coming back to a pact your friend just sealed lands it now.
@@ -2062,6 +2133,25 @@
       toast('Saved in this browser only');
     });
 
+    // Only whoever made the pact sees this. It asks first, in plain words, then erases it for everyone.
+    const del = $('l-delete');
+    if (del) del.addEventListener('click', () => {
+      const rest = othersOf(p);
+      openPanel(`
+        <div class="box warn">
+          <h2>Delete it for everyone?</h2>
+          <p>The contract, every signature and the whole record are erased${rest.length ? ` for ${esc(rest.length > 3 ? 'everyone in it' : joinNames(rest))} too` : ''}. This can’t be undone.</p>
+          <div class="row"><button type="button" class="btn danger" id="d-yes">Delete it</button><button type="button" class="btn" id="d-no">Keep it</button></div>
+        </div>`);
+      $('d-no').addEventListener('click', () => { panel.innerHTML = ''; });
+      $('d-yes').addEventListener('click', async () => {
+        $('d-yes').disabled = true;
+        try { await deletePact(p); } catch (ex) { console.warn(ex); $('d-yes').disabled = false; failed(); return; }
+        toast('Pact deleted');
+        location.hash = '#';
+      });
+    });
+
     const remove = $('l-remove');
     const label = remove.textContent;
     let armed = null;
@@ -2146,6 +2236,7 @@
     if (h.startsWith('again-')) return showSetup(null, h.slice(6), token);
     if (h.startsWith('p-')) return CLOUD_ID.test(h.slice(2)) && !db.pacts[h.slice(2)] ? showCloud(h.slice(2), false, token) : showLedger(h.slice(2));
     if (h === 'account') return showAccount('', token);
+    if (h === 'privacy') { show('privacy'); return toTop(); }
     const onServer = h.match(/^(preview-)?([a-z0-9]{10})(?:\.(\d))?$/);
     if (onServer) return showCloud(onServer[2], !!onServer[1], token, onServer[3] ? +onServer[3] : -1);
     showHome(h);

@@ -5,7 +5,8 @@ rules_version = '2';
 // someone already in it can add another name to the end of the list. Each person can
 // only fill an empty spot as themselves (one spot per account), record breaks for their
 // own spot, and set their own end-of-pact choice. Anyone holding the 10-character link
-// can read the pact. At most 10 people, the same limit as MAX_PEOPLE in pacts/index.html.
+// can read the pact. Whoever made a pact can delete it, with everything in it, for everyone.
+// At most 10 people, the same limit as MAX_PEOPLE in pacts/index.html.
 service cloud.firestore {
   match /databases/{database}/documents {
 
@@ -17,6 +18,8 @@ service cloud.firestore {
     function pactAfter(id) { return getAfter(pactPath(id)).data; }
     function memberPath(id) { return /databases/$(database)/documents/pacts/$(id)/members/$(request.auth.uid); }
     function ownsSlot(id, s) { return exists(slotPath(id, s)) && get(slotPath(id, s)).data.uid == request.auth.uid; }
+    // The pact itself is deleted in the last batch, so it still exists while everything under it goes.
+    function madeIt(id) { return get(pactPath(id)).data.by == request.auth.uid; }
 
     match /pacts/{id} {
       allow get: if signedIn();
@@ -45,7 +48,7 @@ service cloud.firestore {
         && request.resource.data.names.size() <= 10
         && request.resource.data.names[0:resource.data.names.size()] == resource.data.names
         && text(request.resource.data.names[resource.data.names.size()], 30);
-      allow delete: if false;
+      allow delete: if signedIn() && resource.data.by == request.auth.uid;
 
       // One document per person: '0' is the creator, '1' to '9' everyone else, in the order they were named.
       match /slots/{slot} {
@@ -62,7 +65,8 @@ service cloud.firestore {
           && text(request.resource.data.name, 30)
           && request.resource.data.sig is string && request.resource.data.sig.size() <= 2000
           && request.resource.data.at == request.time;
-        allow update, delete: if false;
+        allow update: if false;
+        allow delete: if signedIn() && madeIt(id);
       }
 
       // Which spot each account holds, written in the same batch as the spot itself.
@@ -73,7 +77,8 @@ service cloud.firestore {
           && request.resource.data.keys().hasOnly(['slot'])
           && request.resource.data.slot is int
           && getAfter(slotPath(id, string(request.resource.data.slot))).data.uid == request.auth.uid;
-        allow update, delete: if false;
+        allow update: if false;
+        allow delete: if signedIn() && madeIt(id);
       }
 
       // Id is "<slot>_<day>", so the same day can only be recorded once.
@@ -86,7 +91,8 @@ service cloud.firestore {
           && request.resource.data.day >= 1 && request.resource.data.day <= get(pactPath(id)).data.n
           && ownsSlot(id, string(request.resource.data.slot))
           && request.resource.data.at == request.time;
-        allow update, delete: if false;
+        allow update: if false;
+        allow delete: if signedIn() && madeIt(id);
       }
 
       // "Go again" or "I'm done", one per person, changeable.
@@ -97,7 +103,7 @@ service cloud.firestore {
           && request.resource.data.choice in ['again', 'done']
           && ownsSlot(id, slot)
           && request.resource.data.at == request.time;
-        allow delete: if false;
+        allow delete: if signedIn() && madeIt(id);
       }
     }
 
