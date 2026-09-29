@@ -84,6 +84,10 @@
   }
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: var(--page); color: var(--ink); font: 400 17px/1.5 var(--display); -webkit-font-smoothing: antialiased; }
+  /* The seal comes down at nearly twice its size. On a phone that pokes past the screen's edge for a
+     moment, and a wider page makes the phone zoom out and stay zoomed. Anything past the edge is cut
+     instead (clip, unlike hidden, doesn't turn main into a scrolling box). */
+  main { overflow-x: clip; }
   button, input, textarea { font: inherit; color: inherit; }
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
