@@ -1,11 +1,13 @@
 rules_version = '2';
 
-// Pacts by PhonePact. Everyone is signed in, anonymously at first, so every write
-// carries a uid. A pact's terms never change after it is created; the one edit is that
-// someone already in it can add another name to the end of the list. Each person can
-// only fill an empty spot as themselves (one spot per account), record breaks for their
-// own spot, and set their own end-of-pact choice. Anyone holding the 10-character link
-// can read the pact. Whoever made a pact can delete it, with everything in it, for everyone.
+// Pacts by PhonePact. Anyone who writes is signed in (with an invisible guest account at
+// first, made the first time they sign), so every write carries a uid. A pact's terms never
+// change after it is created; the one edit is that someone already in it can add another
+// name to the end of the list. Each person can only fill an empty spot as themselves (one
+// spot per account), record breaks for their own spot, and set their own end-of-pact
+// choice. Anyone holding the 10-character link can read the pact, with or without an
+// account, so a link opens without waiting for a sign-in; nobody can list the pacts.
+// Whoever made a pact can delete it, with everything in it, for everyone.
 // At most 10 people, the same limit as MAX_PEOPLE in pacts/index.html.
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -22,7 +24,8 @@ service cloud.firestore {
     function madeIt(id) { return get(pactPath(id)).data.by == request.auth.uid; }
 
     match /pacts/{id} {
-      allow get: if signedIn();
+      // The link is the key: holding it is enough to read the pact and everything on it.
+      allow get: if true;
       allow list: if false;
       allow create: if signedIn()
         && id.matches('^[a-z0-9]{10}$')
@@ -52,7 +55,7 @@ service cloud.firestore {
 
       // One document per person: '0' is the creator, '1' to '9' everyone else, in the order they were named.
       match /slots/{slot} {
-        allow read: if signedIn();
+        allow read: if true;
         allow create: if signedIn()
           && slot.matches('^[0-9]$')
           && int(slot) < pactAfter(id).names.size()
@@ -83,7 +86,7 @@ service cloud.firestore {
 
       // Id is "<slot>_<day>", so the same day can only be recorded once.
       match /breaks/{key} {
-        allow read: if signedIn();
+        allow read: if true;
         allow create: if signedIn()
           && request.resource.data.keys().hasOnly(['slot', 'day', 'at'])
           && request.resource.data.slot is int && request.resource.data.day is int
@@ -97,7 +100,7 @@ service cloud.firestore {
 
       // "Go again" or "I'm done", one per person, changeable.
       match /ends/{slot} {
-        allow read: if signedIn();
+        allow read: if true;
         allow create, update: if signedIn()
           && request.resource.data.keys().hasOnly(['choice', 'at'])
           && request.resource.data.choice in ['again', 'done']

@@ -12,6 +12,28 @@
 The page uses cloud mode with the project below, or, on `localhost`, the local
 emulator when it is running.
 
+## How a pact opens fast
+
+- **Reading needs no account.** A pact's link is its key: the rules let anyone
+  read a pact, its signatures, breaks and end choices by its id, and nobody can
+  list pacts. So a script at the top of the page starts reading the pact in the
+  link from Firestore's web API right away, while the rest of the page and the
+  Firebase code are still downloading.
+- **One request for what a friend sees.** The pact and its ten possible
+  signature lines come back in a single `batchGet`: several requests sent to
+  Firestore at once come back slower (in testing, one answered in about 0.25s
+  and the rest in about 0.9s). The breaks and end choices, which only
+  a pact's own page shows, are read only for the people in it.
+- **Nobody gets an account just for looking.** The invisible guest account is
+  made when someone first starts drawing a signature, so it is ready by the time
+  they press Sign.
+- **Pacts you're in are kept in the browser** and open from that copy at once;
+  the page then checks the server and redraws if anything changed.
+
+Deploy rule changes before a page that relies on them. With the older rules
+(reading needed an account) the page still works: it signs in first, just
+slower.
+
 ## The project
 
 Set up on 28 September 2026. It is a **separate Firebase project from the

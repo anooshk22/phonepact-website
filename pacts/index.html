@@ -23,10 +23,39 @@
 <link rel="icon" href="../favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- The Pacts database and sign-in servers: connecting early saves a round trip or two later. -->
+<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://identitytoolkit.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://securetoken.googleapis.com" crossorigin>
 <!-- The sign-in and database code starts downloading while the page is still being read. -->
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js">
 <link rel="modulepreload" href="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-lite.js">
+<script>
+  /* Opening a pact's link starts reading the pact right here, before the rest of the page has
+     arrived. Reading needs no account (anyone holding a pact's link may read it; see
+     pacts/firebase/firestore.rules), so the pact can be on screen while the Firebase code is
+     still downloading. The page script picks the answer up (readContract). This sits above the
+     font stylesheet because a script below a stylesheet waits for it to load. */
+  const PACTS_PROJECT = 'pacts-by-phonepact';
+  const PACTS_DOCS = `https://firestore.googleapis.com/v1/projects/${PACTS_PROJECT}/databases/(default)/documents`;
+  // The contract: the pact and everyone's line (0 to 9, as a pact has at most 10 people), by name,
+  // in a single request, because several sent at once come back slower. A plain request with no
+  // extra headers, so the browser doesn't have to ask the server's permission first.
+  function askForPact(docs, id, headers = {}) {
+    const pact = `${docs.slice(docs.indexOf('projects/'))}/pacts/${id}`, names = [pact];
+    for (let i = 0; i < 10; i++) names.push(`${pact}/slots/${i}`);
+    const ask = fetch(`${docs}:batchGet`, { method: 'POST', headers, body: JSON.stringify({ documents: names }) });
+    ask.catch(() => { /* whoever reads the answer reports a failure */ });
+    return ask;
+  }
+  let earlyPact = null;
+  {
+    const link = location.hash.match(/^#(?:preview-)?([a-z0-9]{10})(?:\.\d)?$/);
+    // A local copy first checks for the local test server instead (see server in the page script).
+    if (link && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) earlyPact = { id: link[1], ask: askForPact(PACTS_DOCS, link[1]) };
+  }
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap">
 <style>
   /* Pacts by PhonePact. No framework and no build step. Pacts live on a small Firebase
@@ -441,7 +470,7 @@
     </section>
 
     <section class="how wrap" id="how" aria-labelledby="howTitle">
-      <h2 class="big" id="howTitle">Break it, and they’ll know.</h2>
+      <h2 class="big" id="howTitle">Break it, and you tell them.</h2>
       <figure class="ledger" aria-label="Example pact. You and Sam, day 18 of 30. Sam broke it on day 12.">
         <figcaption class="ledger-head"><b>Screen time under 3 hours a day</b><span>Example · You &amp; Sam · Day 18 of 30</span></figcaption>
         <div class="grid" id="grid"></div>
@@ -474,7 +503,7 @@
         <li data-email="on" hidden>Your email, only if you choose to save your pacts to it.</li>
       </ul>
       <h2>Where it’s kept</h2>
-      <p>Pacts are stored with Google Firebase in the United States, in a project of their own, separate from the PhonePact app. The first time you sign, Firebase gives you a guest account, so nobody needs a password.<span data-email="on" hidden> Saving to your email turns that into an account you can open on any phone.</span> This browser also remembers your name, your sign-in, and your answer to the honesty question.</p>
+      <p>Pacts are stored with Google Firebase in the United States, in a project of their own, separate from the PhonePact app. The first time you sign, Firebase gives you a guest account, so nobody needs a password.<span data-email="on" hidden> Saving to your email turns that into an account you can open on any phone.</span> This browser also remembers your name, your sign-in, a copy of the pacts you’re in (so they open straight away), and your answer to the honesty question.</p>
       <p>If the Pacts server can’t be reached, a pact travels inside its link instead (names, dates and the record, but not signatures) and lives in the browsers of the people in it.</p>
       <h2>Who can see it</h2>
       <p>Anyone with a pact’s link can open it and see everything on it: the names, signatures, dates and record. The links are long random codes, so share them only with the people in the pact. Your list of pacts is yours alone.<span data-email="on" hidden> So is your email: nobody in a pact sees it.</span> The honesty question never leaves this browser.</p>
@@ -788,7 +817,8 @@
     return 'Finished';
   }
 
-  /* ---------- Kept in this browser: your name, local-only pacts, private answers,
+  /* ---------- Kept in this browser: your name, the pacts you're in (server ones too, so they
+     open straight away; the server's copy replaces them as soon as it arrives), private answers,
      and which pacts you've already seen sealed (so the seal lands once, the first time) ---------- */
   const KEY = 'phonepact.pacts.v1';
   const db = { name: '', pacts: {}, me: {}, honest: {}, sealed: {} };
@@ -796,17 +826,17 @@
     const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
     if (saved && typeof saved === 'object') {
       if (typeof saved.name === 'string') db.name = saved.name.slice(0, 30);
-      for (const [id, p] of Object.entries(saved.pacts || {})) { try { db.pacts[id] = clean(p); } catch (e) { /* skip a damaged entry */ } }
+      for (const [id, p] of Object.entries(saved.pacts || {})) { try { db.pacts[id] = Object.assign(clean(p), p.cloud === true ? { cloud: true } : {}); } catch (e) { /* skip a damaged entry */ } }
       for (const [id, i] of Object.entries(saved.me || {})) if (db.pacts[id] && Number.isInteger(i)) db.me[id] = i;
       Object.assign(db.honest, saved.honest || {});
       Object.assign(db.sealed, saved.sealed || {});
     }
   } catch (e) { /* storage blocked: everything lasts for this visit only */ }
-  // Server pacts are never written here; the server is their record.
+  // A server pact is kept only if it's yours; one you've only looked at isn't.
   function save() {
     const pacts = {}, me = {};
     for (const [id, p] of Object.entries(db.pacts)) {
-      if (p.cloud) continue;
+      if (p.cloud && db.me[id] === undefined) continue;
       pacts[id] = p;
       if (db.me[id] !== undefined) me[id] = db.me[id];
     }
@@ -878,11 +908,12 @@
   };
 
   /* ---------- The server ----------
-     A separate Firebase project from the PhonePact app. Everyone gets an invisible guest
-     account the first time, so signing needs no signup. Saving to an email turns that guest
-     account into one you can open anywhere. The project is pacts-by-phonepact (see
-     pacts/firebase/README.md). These values are public by design; the rules protect the data.
-     On localhost, a running local emulator stands in for it. */
+     A separate Firebase project from the PhonePact app. Reading a pact needs no account: its
+     link is the key, so a pact opens as soon as the page does. Writing needs one, so the first
+     time someone signs anything Firebase gives them an invisible guest account: no signup.
+     Saving to an email turns that guest account into one you can open anywhere. The project is
+     pacts-by-phonepact (see pacts/firebase/README.md). These values are public by design; the
+     rules protect the data. On localhost, a running local emulator stands in for it. */
   // Saving pacts to an email needs Firebase to send sign-in emails. On the free plan it sends at
   // most five a day, and none arrived in testing, so the option stays hidden until the project
   // has a billing account. Flipping this back on restores every part of it, including the copy
@@ -891,12 +922,17 @@
   const FIREBASE_CONFIG = {
     apiKey: 'AIzaSyDDE63xSpMWdgsFXwYhOP4beUdw105tHmY',
     authDomain: 'pacts-by-phonepact.firebaseapp.com',
-    projectId: 'pacts-by-phonepact',
+    projectId: PACTS_PROJECT,
     appId: '1:872882315539:web:aa23626362e881563b3ae6',
   };
   const SDK = 'https://www.gstatic.com/firebasejs/12.19.0/';
   const cloud = { on: false, emulator: false, uid: null, email: null, anon: true, fb: null };
   let pendingLink = null;
+  // The account this browser was signed in with last time. It says which line on a pact is yours
+  // before the sign-in code has loaded.
+  const UID_KEY = 'phonepact.uid';
+  let lastUid = null;
+  try { lastUid = localStorage.getItem(UID_KEY); } catch (e) { /* known once the sign-in code loads */ }
 
   // The emulator answers any request with a readable response; a refused connection means it isn't running.
   const reachable = url => new Promise(resolve => {
@@ -905,31 +941,35 @@
     fetch(url, { signal: ctl.signal }).then(res => { clearTimeout(timer); resolve(res.status > 0); }, () => { clearTimeout(timer); resolve(false); });
   });
 
-  async function startCloud() {
-    let config = FIREBASE_CONFIG;
+  // Which server: the Pacts project, or on localhost the local emulator while it's running.
+  const server = (async () => {
     if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && await reachable('http://127.0.0.1:9099/')) {
-      config = { apiKey: 'demo-key', authDomain: 'demo-pacts.firebaseapp.com', projectId: 'demo-pacts' };
-      cloud.emulator = true;
+      return {
+        emulator: true,
+        config: { apiKey: 'demo-key', authDomain: 'demo-pacts.firebaseapp.com', projectId: 'demo-pacts' },
+        docs: 'http://127.0.0.1:8080/v1/projects/demo-pacts/databases/(default)/documents',
+      };
     }
-    if (!config) return false;
+    return { emulator: false, config: FIREBASE_CONFIG, docs: PACTS_DOCS };
+  })();
+
+  // Loads the Firebase code and finds out who's signed in, without signing anyone in: nobody
+  // gets an account just for opening the page (see writer).
+  async function startCloud() {
+    const { config, emulator } = await server;
+    cloud.emulator = emulator;
     // Firestore Lite: Pacts only reads and writes once at a time, so plain requests are enough,
     // with a fifth of the download and no streaming connection to open first.
     const [appMod, A, F] = await Promise.all(['firebase-app.js', 'firebase-auth.js', 'firebase-firestore-lite.js'].map(f => import(SDK + f)));
     const app = appMod.initializeApp(config);
     const auth = A.getAuth(app);
     const fs = F.getFirestore(app);
-    if (cloud.emulator) {
+    if (emulator) {
       A.connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
       F.connectFirestoreEmulator(fs, '127.0.0.1', 8080);
     }
     cloud.fb = { auth, fs, A, F };
-    await new Promise((resolve, reject) => {
-      const off = A.onAuthStateChanged(auth, user => {
-        if (!user) { A.signInAnonymously(auth).catch(reject); return; }
-        off();
-        resolve();
-      }, reject);
-    });
+    await auth.authStateReady();
     syncUser();
     A.onAuthStateChanged(auth, syncUser);
     cloud.on = true;
@@ -940,40 +980,135 @@
     cloud.uid = u ? u.uid : null;
     cloud.email = u && u.email || null;
     cloud.anon = !u || u.isAnonymous;
+    lastUid = cloud.uid;
+    try { if (cloud.uid) localStorage.setItem(UID_KEY, cloud.uid); else localStorage.removeItem(UID_KEY); } catch (e) { /* this visit only */ }
     renderAccountLink();
   }
   const ready = startCloud().catch(err => { console.warn('Pacts is running without its server:', err); return false; });
 
-  const ms = ts => ts && typeof ts.toMillis === 'function' ? ts.toMillis() : Date.now();
-  async function cloudFetch(id) {
-    const { fs, F } = cloud.fb;
-    const ref = F.doc(fs, 'pacts', id);
-    const [snap, slots, breaks, ends] = await Promise.all([
-      F.getDoc(ref), F.getDocs(F.collection(ref, 'slots')), F.getDocs(F.collection(ref, 'breaks')), F.getDocs(F.collection(ref, 'ends')),
-    ]);
-    if (!snap.exists()) return null;
-    const d = snap.data();
+  // Writing needs the Firebase code and an account. The account is an invisible guest one, made
+  // the first time someone signs anything. Starting to draw a signature gets it going (warmUp),
+  // so it's ready by the time they press Sign.
+  let guest = null;
+  async function writer() {
+    if (!await ready) throw new Error('The Pacts server isn’t reachable');
+    const { auth, A } = cloud.fb;
+    if (!auth.currentUser) {
+      guest = guest || A.signInAnonymously(auth).finally(() => { guest = null; });
+      await guest;
+      syncUser();
+    }
+    return cloud.fb;
+  }
+  const warmUp = () => { writer().catch(() => { /* signing says so if it still can't */ }); };
+
+  /* Reading. Firestore's web API answers in its own typed format; these turn it back into plain values. */
+  const fromFirestore = v => !v ? null
+    : 'stringValue' in v ? v.stringValue
+    : 'integerValue' in v ? Number(v.integerValue)
+    : 'doubleValue' in v ? v.doubleValue
+    : 'booleanValue' in v ? v.booleanValue
+    // Up to nine decimals of a second; every browser reads three.
+    : 'timestampValue' in v ? Date.parse(v.timestampValue.replace(/(\.\d{3})\d+/, '$1'))
+    : 'arrayValue' in v ? (v.arrayValue.values || []).map(fromFirestore)
+    : 'mapValue' in v ? docFields(v.mapValue)
+    : null;
+  const docFields = d => Object.fromEntries(Object.entries(d.fields || {}).map(([k, v]) => [k, fromFirestore(v)]));
+  const docRows = answer => answer.filter(x => x.document).map(x => [x.document.name.split('/').pop(), docFields(x.document)]);
+  const headersFor = token => token ? { Authorization: `Bearer ${token}` } : {};
+  const answerOf = async ask => {
+    const res = await ask;
+    if (!res.ok) throw Object.assign(new Error(`The Pacts server answered ${res.status}`), { status: res.status });
+    return res.json();
+  };
+  // The contract: the pact and everyone's line, or null if there's no such pact. With a token it
+  // reads as that account; without one, as anyone holding the link. The pact in the page's own
+  // link was asked for at the top of the page.
+  async function readContract(id, token) {
+    let ask;
+    if (!token && earlyPact && earlyPact.id === id) { ask = earlyPact.ask; earlyPact = null; }
+    else ask = askForPact((await server).docs, id, headersFor(token));
+    const found = {};
+    for (const x of await answerOf(ask)) if (x.found) found[x.found.name.slice(x.found.name.indexOf('/pacts/') + 7)] = docFields(x.found);
+    if (!found[id]) return null;
+    const slots = [];
+    for (let i = 0; i < 10; i++) if (found[`${id}/slots/${i}`]) slots.push([i, found[`${id}/slots/${i}`]]);
+    return { pact: found[id], slots };
+  }
+  // The record: breaks and end-of-pact choices, which only a pact's own page shows.
+  async function readRecord(id, token) {
+    const at = `${(await server).docs}/pacts/${id}:runQuery`, headers = headersFor(token);
+    const all = c => answerOf(fetch(at, { method: 'POST', headers, body: JSON.stringify({ structuredQuery: { from: [{ collectionId: c }] } }) }));
+    const [breaks, ends] = await Promise.all([all('breaks'), all('ends')]);
+    return { breaks: docRows(breaks), ends: docRows(ends) };
+  }
+
+  // Which account holds each line, by pact: how a pact that opened before the sign-in code had
+  // loaded can still turn out to be yours (see the end of the page).
+  const lineOwners = {};
+  // A pact from the server, or null if there's no such pact. Its record comes too when it's yours
+  // (or whole is asked for); a friend opening the link sees the contract, which doesn't show it.
+  async function cloudFetch(id, whole = true) {
+    let token = null, got;
+    try { got = await readContract(id); }
+    catch (err) {
+      // Only while the server still asks for an account to read (its rules from before this page).
+      if (err.status !== 403) throw err;
+      const { auth } = await writer();
+      token = await auth.currentUser.getIdToken();
+      got = await readContract(id, token);
+    }
+    if (!got) {
+      // Deleted by whoever made it, or never there. A copy kept here goes too.
+      if (db.pacts[id] && db.pacts[id].cloud) forget(id);
+      return null;
+    }
+    const d = got.pact;
     const raw = { v: 2, id, t: d.t, r: d.r, n: d.n, s: d.s, c: d.c, a: d.a, l: d.l, p: (d.names || []).map(n => [n, 0]), b: [], e: [] };
-    let mine;
-    slots.forEach(x => {
-      const i = +x.id, v = x.data();
-      if (!raw.p[i]) return;
-      raw.p[i] = [v.name, ms(v.at), v.sig || ''];
-      if (v.uid === cloud.uid) mine = i;
-    });
-    breaks.forEach(x => { const v = x.data(); raw.b.push([v.slot, v.day, ms(v.at)]); });
-    ends.forEach(x => { const v = x.data(); raw.e.push([+x.id, v.choice, ms(v.at)]); });
+    const owners = [];
+    for (const [i, v] of got.slots) {
+      if (!raw.p[i]) continue;
+      raw.p[i] = [v.name, v.at || Date.now(), v.sig || ''];
+      owners[i] = v.uid;
+    }
+    // Until the sign-in code has loaded, the account this browser had last time stands in.
+    const who = cloud.uid || lastUid, mine = who ? owners.indexOf(who) : -1;
+    const yours = mine >= 0 || (!cloud.uid && db.me[id] !== undefined);
+    if (whole || yours) {
+      const { breaks, ends } = await readRecord(id, token);
+      for (const [, v] of breaks) raw.b.push([v.slot, v.day, v.at || Date.now()]);
+      for (const [slot, v] of ends) raw.e.push([+slot, v.choice, v.at || Date.now()]);
+    }
     const p = clean(raw);
     p.cloud = true;
     db.pacts[id] = p;
-    if (mine === undefined) delete db.me[id]; else db.me[id] = mine;
+    lineOwners[id] = owners;
+    if (mine >= 0) db.me[id] = mine;
+    else if (cloud.uid) delete db.me[id];
+    save();
     return p;
+  }
+  // Once the sign-in code has said who this is: whether a line on this pact is theirs.
+  function claimLine(id) {
+    const line = cloud.uid && lineOwners[id] ? lineOwners[id].indexOf(cloud.uid) : -1;
+    if (line >= 0 && db.me[id] === undefined) { db.me[id] = line; save(); }
+    return line >= 0;
+  }
+  // A pact that's gone from the server, or from your list, leaves this browser with everything kept for it.
+  function forget(id) {
+    delete db.pacts[id];
+    delete db.me[id];
+    delete db.honest[id];
+    delete db.sealed[id];
+    delete lineOwners[id];
+    save();
   }
 
   // Each action works on the server when there is one, otherwise in this browser.
   async function createPact(p) {
     if (!cloud.on) { db.pacts[p.id] = p; db.me[p.id] = 0; save(); return p; }
-    const { fs, F } = cloud.fb, uid = cloud.uid;
+    const { fs, F } = await writer();
+    const uid = cloud.uid;
     const ref = F.doc(fs, 'pacts', p.id);
     const batch = F.writeBatch(fs);
     batch.set(ref, { v: 2, t: p.t, r: p.r, n: p.n, s: p.s, c: p.c, a: p.a, l: p.l, names: p.p.map(x => x[0]), by: uid, at: F.serverTimestamp() });
@@ -992,7 +1127,8 @@
       save();
       return db.pacts[p.id];
     }
-    const { fs, F } = cloud.fb, uid = cloud.uid;
+    const { fs, F } = await writer();
+    const uid = cloud.uid;
     const batch = F.writeBatch(fs);
     batch.set(F.doc(fs, 'pacts', p.id, 'slots', String(slot)), { uid, name, at: F.serverTimestamp(), sig });
     // Which spot is whose, by account: the server's rules use it so nobody can take two spots.
@@ -1011,7 +1147,7 @@
       save();
       return q;
     }
-    const { fs, F } = cloud.fb;
+    const { fs, F } = await writer();
     const ref = F.doc(fs, 'pacts', p.id);
     // A transaction, so two people adding someone at the same moment both get a spot.
     await F.runTransaction(fs, async tx => {
@@ -1028,7 +1164,7 @@
       save();
       return p;
     }
-    const { fs, F } = cloud.fb;
+    const { fs, F } = await writer();
     // The id is "<slot>_<day>", so recording the same day twice is refused; that just means it's already there.
     try { await F.setDoc(F.doc(fs, 'pacts', p.id, 'breaks', `${me}_${day}`), { slot: me, day, at: F.serverTimestamp() }); }
     catch (err) { if (err.code !== 'permission-denied') throw err; }
@@ -1042,14 +1178,14 @@
       save();
       return p;
     }
-    const { fs, F } = cloud.fb;
+    const { fs, F } = await writer();
     await F.setDoc(F.doc(fs, 'pacts', p.id, 'ends', String(me)), { choice, at: F.serverTimestamp() });
     return cloudFetch(p.id);
   }
   // Whoever made a pact can delete it for everyone: every spot, signature, break and choice, then
   // the pact itself. It goes last, so each earlier batch can still see who made it.
   async function deletePact(p) {
-    const { fs, F } = cloud.fb;
+    const { fs, F } = await writer();
     const ref = F.doc(fs, 'pacts', p.id);
     const [slots, breaks, ends] = await Promise.all(['slots', 'breaks', 'ends'].map(c => F.getDocs(F.collection(ref, c))));
     const refs = [];
@@ -1063,30 +1199,26 @@
       if (i + 400 >= refs.length) batch.delete(ref);
       await batch.commit();
     }
-    delete db.pacts[p.id];
-    delete db.me[p.id];
-    delete db.honest[p.id];
-    delete db.sealed[p.id];
-    save();
+    forget(p.id);
   }
   async function removePact(p) {
-    if (p.cloud) { const { fs, F } = cloud.fb; await F.deleteDoc(F.doc(fs, 'users', cloud.uid, 'pacts', p.id)); }
-    delete db.pacts[p.id];
-    delete db.me[p.id];
-    delete db.honest[p.id];
-    delete db.sealed[p.id];
-    save();
+    if (p.cloud) { const { fs, F } = await writer(); await F.deleteDoc(F.doc(fs, 'users', cloud.uid, 'pacts', p.id)); }
+    forget(p.id);
   }
   // Refreshes your list of server pacts. It never clears first: a pact open on screen must not
   // forget, even for a moment, which spot is yours.
   async function loadMine() {
     if (!cloud.on) return;
-    const { fs, F } = cloud.fb;
-    const index = await F.getDocs(F.collection(fs, 'users', cloud.uid, 'pacts'));
-    const ids = new Set(index.docs.map(x => x.id));
-    await Promise.all(index.docs.map(x => cloudFetch(x.id).then(p => p || F.deleteDoc(x.ref)).catch(() => null)));
+    const ids = new Set();
+    // With no account yet there's no list on the server, so nothing kept here can be yours.
+    if (cloud.uid) {
+      const { fs, F } = cloud.fb;
+      const index = await F.getDocs(F.collection(fs, 'users', cloud.uid, 'pacts'));
+      for (const x of index.docs) ids.add(x.id);
+      await Promise.all(index.docs.map(x => cloudFetch(x.id).then(p => p || F.deleteDoc(x.ref)).catch(() => null)));
+    }
     // Server pacts no longer on this account's list (removed, or another account signed in) leave it.
-    for (const [id, p] of Object.entries(db.pacts)) if (p.cloud && !ids.has(id) && db.me[id] !== undefined) { delete db.pacts[id]; delete db.me[id]; }
+    for (const [id, p] of Object.entries(db.pacts)) if (p.cloud && !ids.has(id) && db.me[id] !== undefined) forget(id);
   }
   // The first load of your list, shared by everything that needs it on the way in.
   let mineOnce = null;
@@ -1411,6 +1543,8 @@
     const changed = () => { hint.hidden = strokes.length > 0; clear.hidden = !strokes.length || locked; };
     canvas.addEventListener('pointerdown', e => {
       if (locked || total >= SIG_MAX) return;
+      // Signing needs an account; the first stroke is the moment to make it (see writer).
+      if (!total) warmUp();
       e.preventDefault();
       try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* drawing still works without capture */ }
       cur = [at(e)];
@@ -1562,7 +1696,7 @@
   async function showSetup(key, fromId, token) {
     let base = null;
     let from = fromId && db.pacts[fromId];
-    if (fromId && !from && CLOUD_ID.test(fromId) && await ready) { try { from = await cloudFetch(fromId); } catch (e) { /* handled below */ } }
+    if (fromId && !from && CLOUD_ID.test(fromId)) { try { from = await cloudFetch(fromId, false); } catch (e) { /* handled below */ } }
     if (token !== routeToken) return;
     if (from) {
       const me = db.me[fromId];
@@ -1818,14 +1952,23 @@
   }
 
   async function showCloud(id, preview, token, slot = -1) {
+    // A pact you're in opens from this browser's copy straight away, then catches up.
+    const kept = db.pacts[id] && db.pacts[id].cloud && db.me[id] !== undefined ? db.pacts[id] : null;
+    if (kept && !preview) { openLedger(kept); refreshOpen(id); return; }
+    if (kept) { renderJoin(kept, true, slot); show('join'); return toTop(); }
     show('load');
-    const ok = await ready;
-    if (token !== routeToken) return;
-    if (!ok) return showLost('This pact lives on the Pacts server, which isn’t reachable right now. Try again in a minute.');
     let p;
-    try { p = await cloudFetch(id); } catch (err) { if (token === routeToken) showLost('Couldn’t load this pact. Check your connection and try again.'); return; }
+    try { p = await cloudFetch(id, false); } catch (err) { if (token === routeToken) showLost('Couldn’t load this pact. Check your connection and try again.'); return; }
     if (token !== routeToken) return;
     if (!p) return showLost('This pact doesn’t exist, or it was deleted. Check the link your friend sent.');
+    // This browser has signed pacts, but from before it remembered which account it used. Let the
+    // sign-in code say whether this pact is one of them, rather than show a friend's view of it.
+    if (!preview && db.me[id] === undefined && !lastUid && db.name) {
+      await ready;
+      if (token !== routeToken) return;
+      // Yours after all: it opens, and its record (which a friend's view skips) follows.
+      if (claimLine(id)) { openLedger(p); return refreshOpen(id); }
+    }
     if (!preview && db.me[id] !== undefined) return openLedger(p);
     renderJoin(p, preview, slot);
     show('join');
@@ -1847,6 +1990,9 @@
     const full = p.cloud
       ? `<div class="box"><h2>Everyone has signed</h2><p>If this is your pact, sign in with the email you saved it to.</p><div class="row"><a class="btn" href="#account">Sign in</a></div></div>`
       : `<div class="box" id="j-claim"><h2>Everyone has signed</h2><p>Which one are you? This opens the pact on this device.</p><div class="chips">${p.p.map((x, i) => `<button type="button" class="chip" data-claim="${i}">${esc(x[0])}</button>`).join('')}</div></div>`;
+    // Remembered so the page can switch to your own view if this pact turns out to be yours.
+    views.join.dataset.id = p.id;
+    views.join.dataset.preview = preview ? '1' : '';
     views.join.innerHTML = `
       <div class="doc-wrap">
         ${preview
@@ -1938,6 +2084,18 @@
     const p = db.pacts[id];
     if (!p) return showLost('That pact isn’t saved in this browser. Open the latest link from your friend.');
     openLedger(p);
+    if (p.cloud) refreshOpen(id);
+  }
+  // A pact on screen catches up with the server: right after it opens from this browser's copy,
+  // and when you come back to the page. If a friend signed or broke it meanwhile, it redraws,
+  // unless you're in the middle of something (a panel is open).
+  async function refreshOpen(id) {
+    const before = JSON.stringify([db.pacts[id], db.me[id]]);
+    let fresh;
+    try { fresh = await cloudFetch(id); } catch (e) { return; /* keep what's on screen */ }
+    if (views.ledger.hidden || views.ledger.dataset.id !== id) return;
+    if (!fresh) return showLost('This pact was deleted by whoever made it.');
+    if (!$('l-panel').innerHTML.trim() && JSON.stringify([fresh, db.me[id]]) !== before) renderLedger(fresh);
   }
 
   function recordHTML(p) {
@@ -2214,6 +2372,7 @@
         </div>`;
       $('a-out').addEventListener('click', async () => {
         await cloud.fb.A.signOut(cloud.fb.auth);
+        for (const [id, p] of Object.entries(db.pacts)) if (p.cloud) forget(id);
         location.replace(location.pathname);
       });
     } else if (!EMAIL_SIGNIN && !pendingLink) {
@@ -2280,15 +2439,9 @@
   }
 
   // A friend may have signed or broken it while you were away: refresh an open pact when you come back.
-  document.addEventListener('visibilitychange', async () => {
-    if (document.hidden || views.ledger.hidden) return;
-    const id = views.ledger.dataset.id;
-    const p = db.pacts[id];
-    if (!p || !p.cloud || $('l-panel').innerHTML.trim()) return;
-    try {
-      const fresh = await cloudFetch(id);
-      if (fresh && !views.ledger.hidden && views.ledger.dataset.id === id && !$('l-panel').innerHTML.trim()) renderLedger(fresh);
-    } catch (e) { /* keep what's on screen */ }
+  document.addEventListener('visibilitychange', () => {
+    const p = !document.hidden && !views.ledger.hidden && db.pacts[views.ledger.dataset.id];
+    if (p && p.cloud) refreshOpen(p.id);
   });
 
   for (const el of document.querySelectorAll('[data-email]')) el.hidden = el.dataset.email !== (EMAIL_SIGNIN ? 'on' : 'off');
@@ -2304,6 +2457,9 @@
       if (isEmailLinkUrl()) showLost('Couldn’t reach the Pacts server to finish signing in. Open the link from your email again in a minute.');
       return;
     }
+    // A pact that opened before the sign-in code loaded can turn out to be one you're in.
+    const open = !views.join.hidden && !views.join.dataset.preview && views.join.dataset.id;
+    if (open && claimLine(open)) { openLedger(db.pacts[open]); refreshOpen(open); }
     await finishEmailLink();
     await loadMineOnce();
     renderMine();
