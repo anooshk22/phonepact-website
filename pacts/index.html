@@ -332,6 +332,15 @@
   .doc-clauses h2 { margin: 0 0 4px; font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   .doc-clauses p { margin: 0; font: 400 clamp(1.08rem, 1.7vw, 1.25rem)/1.45 var(--serif); overflow-wrap: anywhere; }
   .doc-clauses .key p { font-weight: 500; font-size: clamp(1.3rem, 2.3vw, 1.6rem); line-height: 1.3; }
+  /* After someone changes a pact, until everyone has signed the new version: what changed, and what it said before. */
+  .chg { margin-left: 8px; padding: 1px 6px; background: var(--accent); color: var(--page); font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .doc .was { margin: 6px 0 0; font: 400 .95rem/1.4 var(--serif); color: var(--muted); text-decoration: line-through; }
+  /* Someone's own end of the pact, when it differs from its rule. */
+  .doc .end { margin: 12px 0 0; padding-left: 12px; border-left: 2px solid var(--accent); font: 400 1.05rem/1.4 var(--serif); }
+  .doc .end b { display: block; margin-bottom: 2px; font: 500 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); }
+  .end-edit h2 { margin: 0; font-size: 1.1rem; }
+  .end-edit .sub { margin: 0; color: var(--muted); }
+  .end-in { width: 100%; min-height: 3.2em; resize: vertical; font: 400 1.05rem/1.4 var(--serif); }
   .doc-sign { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; margin-top: clamp(26px, 5vw, 44px); }
   .doc-line { position: relative; aspect-ratio: 4 / 1; border-bottom: 1.5px solid var(--ink); }
   .doc-line .x { position: absolute; left: 0; bottom: 6px; pointer-events: none; }
@@ -711,34 +720,50 @@
     'Text your mom what you did', 'Post it in the group chat', 'They pick your lock screen for a week', 'They pick your profile picture for a week',
     'Buy their dinner', 'Send them the receipt', 'Send your betting history', 'They post one story for you',
     'Delete the app for a week', '100 push-ups on video', 'Cold shower on video', 'Hand them your phone for a day', 'They pick',
+    'Karaoke video to the group chat', 'Write them a 200-word apology',
+    'Delete your best photo from Instagram', '50 burpees in public, on video', 'Hand-write a thank-you note to an old teacher and send a photo',
   ];
-  const [LINK, SCREEN, CAUSE, VENMO, MOM, CHAT, LOCK, PFP, DINNER, RECEIPT, BETS, STORY, DELETE, PUSHUPS, SHOWER, HAND, PICK] = ALL_PRICES;
+  const [LINK, SCREEN, CAUSE, VENMO, MOM, CHAT, LOCK, PFP, DINNER, RECEIPT, BETS, STORY, DELETE, PUSHUPS, SHOWER, HAND, PICK, KARAOKE, APOLOGY, PHOTO, BURPEES, TEACHER] = ALL_PRICES;
   // Customize shows the eight that fit a pact first, the first of them already chosen; the rest wait
   // behind "More options". Handing over your phone is never one of the eight.
-  const OWN_PRICES = [PICK, VENMO, CAUSE, CHAT, DINNER, MOM, LOCK, PFP];
+  const OWN_PRICES = [PICK, VENMO, CAUSE, CHAT, DINNER, KARAOKE, APOLOGY, LOCK];
   // Laid out as a four-column wall, four cells per row. Each row has one wide card (two cells),
   // at a different spot each time; the first is the feature. Neighbouring cards never share a color.
   const PRESETS = [
-    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', l: 'ink', a: 'phone', v: 'feature', cs: [LOCK, SCREEN, VENMO, SHOWER, CHAT, PFP, DINNER, CAUSE] },
-    { id: 'shortform', t: 'No short-form content', r: 'No TikTok, Reels, Shorts or any other endless video feed.', n: 30, sk: 'tonight', l: 'accent', a: 'reel', v: 'plain', cs: [CHAT, SCREEN, DELETE, STORY, LOCK, PFP, VENMO, CAUSE] },
-    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', l: 'stone', a: 'bed', v: 'plain', cs: [STORY, SCREEN, LOCK, SHOWER, VENMO, CHAT, DINNER, CAUSE] },
-    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', l: 'paper', a: 'sun', v: 'plain', cs: [SHOWER, PUSHUPS, SCREEN, VENMO, DINNER, CHAT, LOCK, CAUSE] },
-    { id: 'screen', t: 'Screen time under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', l: 'stone', a: 'bars', v: 'wide', cs: [SCREEN, DELETE, LOCK, CHAT, VENMO, PFP, CAUSE, DINNER] },
-    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', l: 'ink', a: 'dumbbell', v: 'plain', cs: [PUSHUPS, VENMO, DINNER, SHOWER, CAUSE, CHAT, PFP, MOM] },
-    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', l: 'accent', a: 'link', v: 'wide', cs: [LINK, MOM, SCREEN, CAUSE, VENMO, CHAT, LOCK, PFP] },
-    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', l: 'paper', a: 'plate', v: 'plain', cs: [DINNER, SCREEN, VENMO, LOCK, CHAT, SHOWER, CAUSE, PFP] },
-    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', l: 'stone', a: 'glass', v: 'plain', cs: [CAUSE, RECEIPT, DINNER, VENMO, MOM, CHAT, SHOWER, PFP] },
-    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', l: 'stone', a: 'vape', v: 'plain', cs: [VENMO, RECEIPT, CAUSE, MOM, CHAT, SHOWER, PUSHUPS, PFP] },
-    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', l: 'paper', a: 'leaf', v: 'plain', cs: [MOM, RECEIPT, CAUSE, VENMO, CHAT, SHOWER, PFP, DINNER] },
-    { id: 'offline', t: 'No social media on Sundays', r: 'Every Sunday for four weeks: no social apps, no news, no videos, from when you wake up until bed. Texts and calls are fine.', n: 28, sk: 'sunday', l: 'ink', a: 'wifi', v: 'wide', cs: [PFP, SCREEN, STORY, DELETE, CHAT, LOCK, VENMO, CAUSE] },
+    { id: 'phones', t: 'Phones down at 10', r: 'Phone goes on the charger outside your room by 10 pm. Every night.', n: 7, sk: 'tonight', l: 'ink', a: 'phone', v: 'feature', cs: [LOCK, SCREEN, VENMO, SHOWER, CHAT, PFP, DINNER, KARAOKE] },
+    { id: 'shortform', t: 'No short-form content', r: 'No TikTok, Reels, Shorts or any other endless video feed.', n: 30, sk: 'tonight', l: 'accent', a: 'reel', v: 'plain', cs: [CHAT, SCREEN, DELETE, STORY, LOCK, PFP, PHOTO, KARAOKE] },
+    { id: 'bedroom', t: 'Phone out of the bedroom', r: 'Your phone sleeps outside your bedroom. Every night.', n: 14, sk: 'tonight', l: 'stone', a: 'bed', v: 'plain', cs: [STORY, SCREEN, LOCK, SHOWER, VENMO, CHAT, TEACHER, APOLOGY] },
+    { id: 'quiet', t: 'Ten quiet minutes every morning', r: 'Ten quiet minutes before you touch your phone, every morning.', n: 30, sk: 'monday', l: 'paper', a: 'sun', v: 'plain', cs: [SHOWER, PUSHUPS, BURPEES, SCREEN, VENMO, DINNER, CHAT, APOLOGY] },
+    { id: 'screen', t: 'Screen time under 3 hours a day', r: 'Screen Time stays under 3 hours, every day.', n: 14, sk: 'monday', l: 'stone', a: 'bars', v: 'wide', cs: [SCREEN, DELETE, LOCK, CHAT, VENMO, PFP, PHOTO, KARAOKE] },
+    { id: 'gym', t: 'Gym 3× a week', r: 'Three workouts every Monday-to-Sunday week. A short week is a break.', n: 28, sk: 'monday', l: 'ink', a: 'dumbbell', v: 'plain', cs: [PUSHUPS, BURPEES, VENMO, DINNER, SHOWER, CAUSE, CHAT, KARAOKE] },
+    { id: 'porn', t: 'No porn', r: 'No porn. Any device, any form.', n: 30, sk: 'month', l: 'accent', a: 'link', v: 'wide', cs: [LINK, MOM, SCREEN, CAUSE, VENMO, CHAT, APOLOGY, TEACHER] },
+    { id: 'meals', t: 'No phones at meals', r: 'No phone on the table at any meal. Face down still counts.', n: 14, sk: 'monday', l: 'paper', a: 'plate', v: 'plain', cs: [DINNER, SCREEN, VENMO, LOCK, CHAT, SHOWER, KARAOKE, APOLOGY] },
+    { id: 'dry', t: `Dry ${monthName}`, r: 'No alcohol. Not one drink.', n: monthLen, sk: 'month', l: 'stone', a: 'glass', v: 'plain', cs: [CAUSE, RECEIPT, DINNER, VENMO, MOM, CHAT, SHOWER, KARAOKE] },
+    { id: 'vaping', t: 'No vaping', r: 'No nicotine. Vapes, cigarettes, pouches, all of it.', n: 30, sk: 'month', l: 'stone', a: 'vape', v: 'plain', cs: [VENMO, RECEIPT, CAUSE, MOM, CHAT, SHOWER, PUSHUPS, APOLOGY] },
+    { id: 'weed', t: 'No weed', r: 'No weed. Smoking, edibles, carts, all of it.', n: 30, sk: 'month', l: 'paper', a: 'leaf', v: 'plain', cs: [MOM, RECEIPT, CAUSE, VENMO, CHAT, SHOWER, APOLOGY, TEACHER] },
+    { id: 'offline', t: 'No social media on Sundays', r: 'Every Sunday for four weeks: no social apps, no news, no videos, from when you wake up until bed. Texts and calls are fine.', n: 28, sk: 'sunday', l: 'ink', a: 'wifi', v: 'wide', cs: [PFP, SCREEN, STORY, DELETE, CHAT, LOCK, PHOTO, KARAOKE] },
   ].map(p => ({ ...p, c: p.cs[0] }));
   const topPrices = key => (PRESETS.find(x => x.id === key) || { cs: OWN_PRICES }).cs;
+  // One tap to make your end of a pact easier or harder, for the pacts with a number in them. Each
+  // is the whole rule as you'd be held to it; the one that matches the pact's rule is the same as everyone's.
+  const COUNT = ['', 'One', 'Two', 'Three', 'Four', 'Five'];
+  const END_STEPS = {
+    phones: [['9 pm', '9 pm'], ['10 pm', '10 pm'], ['11 pm', '11 pm'], ['Midnight', 'midnight']].map(([label, h]) => [label, `Phone goes on the charger outside your room by ${h}. Every night.`]),
+    quiet: [[5, 'Five'], [10, 'Ten'], [20, 'Twenty'], [30, 'Thirty']].map(([m, w]) => [`${m} min`, `${w} quiet minutes before you touch your phone, every morning.`]),
+    screen: [1, 2, 3, 4].map(h => [`${h} hour${h > 1 ? 's' : ''}`, `Screen Time stays under ${h} hour${h > 1 ? 's' : ''}, every day.`]),
+    gym: [2, 3, 4, 5].map(n => [`${n}× a week`, `${COUNT[n]} workouts every Monday-to-Sunday week. A short week is a break.`]),
+  };
+  // Server pacts don't keep which card they came from, so the title says.
+  const stepsFor = p => END_STEPS[(PRESETS.find(x => x.t === p.t) || {}).id] || [];
   // Everyone in a pact, you included. The server's rules hold the same limit (pacts/firebase/firestore.rules).
   const MAX_PEOPLE = 10;
 
   /* ---------- A pact, in one shape whichever way it is stored.
      t name, r rule, n length in days, s start, c consequence, a drawing, l look,
-     p [[name, signedAt or 0, signature]], b [[person, day, at]], e [[person, 'again'|'done', at]] ---------- */
+     p [[name, signedAt or 0, signature]], b [[person, day, at]], e [[person, 'again'|'done', at]],
+     and for a server pact that someone changed before it started: ver its version, ch who changed
+     it, was its terms before, vo the spots whose signature was on an older version. m when it was
+     made, en each person's own end of it ('' for the pact's rule) ---------- */
   function clean(o) {
     const str = (x, max) => typeof x === 'string' ? x.trim().slice(0, max) : '';
     const num = (x, lo, hi) => Number.isFinite(x) ? Math.min(hi, Math.max(lo, Math.round(x))) : lo;
@@ -756,8 +781,12 @@
         return at && sig ? [name, at, sig] : [name, at];
       }),
       b: [], e: [],
+      ver: num(o.ver, 0, 1e6), ch: str(o.ch, 30), m: num(o.m, 0, 8.64e15),
+      was: o.was && typeof o.was === 'object' ? { t: str(o.was.t, 40), r: str(o.was.r, 140), n: num(o.was.n, 1, 90), s: num(o.was.s, 0, 8.64e15), c: str(o.was.c, 80) } : null,
     };
     if (p.p.length < 2) throw new Error('a pact needs two people');
+    p.vo = (Array.isArray(o.vo) ? o.vo : []).filter(i => Number.isInteger(i) && p.p[i] && !p.p[i][1]);
+    p.en = p.p.map((_, i) => str(Array.isArray(o.en) ? o.en[i] : '', 140));
     p.b = (Array.isArray(o.b) ? o.b : []).filter(Array.isArray).slice(0, 900)
       .map(x => [num(x[0], 0, MAX_PEOPLE - 1), num(x[1], 1, 90), num(x[2], 0, 8.64e15)]).filter(x => x[0] < p.p.length && x[1] <= p.n);
     p.e = (Array.isArray(o.e) ? o.e : []).filter(Array.isArray).slice(0, MAX_PEOPLE)
@@ -808,6 +837,7 @@
   const nameOf = (p, i) => i === db.me[p.id] ? 'You' : p.p[i][0];
   const othersOf = p => p.p.map(x => x[0]).filter((_, i) => i !== db.me[p.id]);
   function statusOf(p) {
+    if (p.vo.includes(db.me[p.id])) return `${p.ch || 'Someone'} changed it · sign again`;
     const ph = phase(p);
     if (ph === 'waiting') {
       const open = p.p.filter(x => !x[1]).map(x => x[0]);
@@ -906,6 +936,7 @@
   const previewHref = (p, slot = -1) => p.cloud ? `#preview-${p.id}${slot >= 0 ? `.${slot}` : ''}` : `#v${slot >= 0 ? slot : ''}.${pack(p)}`;
   // Before it starts, the invite says when it will (if they sign in time). Once it's running, it asks them to join in.
   const inviteMsg = (p, slot = -1) => {
+    if (p.vo.includes(slot)) return `I changed our pact: ${p.t}. Read the new version and sign it again: ${shown(linkFor(p, slot))}`;
     const ph = phase(p), tail = `If one of us breaks it: ${inline(p.c)}. ${shown(linkFor(p, slot))}`;
     if (ph === 'active') return `Join our pact: ${p.t}. We’re on day ${dayOf(p)} of ${p.n}, and you’d be in from tonight at midnight. ${tail}`;
     return `Make a pact with me: ${p.t}. ${lenText(p.n)}, starting ${startPhrase(ph === 'upcoming' ? startOf(p) : Math.max(p.s, midnight()))}. ${tail}`;
@@ -1070,10 +1101,14 @@
     const d = got.pact;
     const raw = { v: 2, id, t: d.t, r: d.r, n: d.n, s: d.s, c: d.c, a: d.a, l: d.l, p: (d.names || []).map(n => [n, 0]), b: [], e: [] };
     const owners = [];
+    // A signature counts only for the version it was made on: changing the pact voids the others.
+    Object.assign(raw, { ver: d.ver || 0, ch: d.ch || '', was: d.was || null, vo: [], m: d.at || 0, en: [] });
     for (const [i, v] of got.slots) {
       if (!raw.p[i]) continue;
-      raw.p[i] = [v.name, v.at || Date.now(), v.sig || ''];
       owners[i] = v.uid;
+      raw.en[i] = v.end || '';
+      if ((v.ver || 0) === raw.ver) raw.p[i] = [v.name, v.at || Date.now(), v.sig || ''];
+      else { raw.p[i] = [v.name, 0]; raw.vo.push(i); }
     }
     // Until the sign-in code has loaded, the account this browser had last time stands in.
     const who = cloud.uid || lastUid, mine = who ? owners.indexOf(who) : -1;
@@ -1122,7 +1157,7 @@
     await batch.commit();
     return cloudFetch(p.id);
   }
-  async function signPact(p, slot, name, sig) {
+  async function signPact(p, slot, name, sig, end = '') {
     if (!p.cloud) {
       const q = clone(p);
       q.p[slot] = [name, Date.now(), sig];
@@ -1134,11 +1169,31 @@
     const { fs, F } = await writer();
     const uid = cloud.uid;
     const batch = F.writeBatch(fs);
-    batch.set(F.doc(fs, 'pacts', p.id, 'slots', String(slot)), { uid, name, at: F.serverTimestamp(), sig });
+    // Signed for this version of the pact. Signing again after a change rewrites your own spot.
+    const spot = { uid, name, at: F.serverTimestamp(), sig, ver: p.ver };
+    if (end && end !== p.r) spot.end = end;
+    batch.set(F.doc(fs, 'pacts', p.id, 'slots', String(slot)), spot);
     // Which spot is whose, by account: the server's rules use it so nobody can take two spots.
-    batch.set(F.doc(fs, 'pacts', p.id, 'members', uid), { slot });
+    if (db.me[p.id] !== slot) batch.set(F.doc(fs, 'pacts', p.id, 'members', uid), { slot });
     batch.set(F.doc(fs, 'users', uid, 'pacts', p.id), { at: F.serverTimestamp() });
     await batch.commit();
+    return cloudFetch(p.id);
+  }
+  // Before a pact's start date, someone who hasn't signed it can change its terms. That makes a new
+  // version: they sign it in the same step, every signature on the old one stops counting, and the
+  // others read it again and sign again.
+  const canChange = p => p.cloud && p.s > Date.now() && ['waiting', 'upcoming'].includes(phase(p));
+  async function changePact(p, slot, terms, name, sig) {
+    const { fs, F } = await writer();
+    const uid = cloud.uid, ref = F.doc(fs, 'pacts', p.id), mine = db.me[p.id] === slot;
+    await F.runTransaction(fs, async tx => {
+      const cur = (await tx.get(ref)).data();
+      const ver = (cur.ver || 0) + 1;
+      tx.update(ref, { ...terms, ver, ch: name, was: { t: cur.t, r: cur.r, n: cur.n, s: cur.s, c: cur.c } });
+      tx.set(F.doc(ref, 'slots', String(slot)), { uid, name, at: F.serverTimestamp(), sig, ver });
+      if (!mine) tx.set(F.doc(ref, 'members', uid), { slot });
+      tx.set(F.doc(fs, 'users', uid, 'pacts', p.id), { at: F.serverTimestamp() });
+    });
     return cloudFetch(p.id);
   }
   // Anyone in a pact can bring someone new in, before it starts or while it runs. They get the next spot.
@@ -1417,6 +1472,16 @@
   const GLIDE = 'cubic-bezier(.55, 0, .15, 1)';
 
   // pad: the spot being signed right here on the page (an invite). fresh: the spot that was just signed.
+  // Anyone whose end of the pact differs from its rule: easier, harder, or their own thing.
+  // mine is the end being written on the pad's line right now.
+  function endsHTML(p, pad = -1, preview = false, mine) {
+    return p.p.map((x, i) => {
+      const text = i === pad && mine !== undefined ? mine : p.en[i];
+      if (!text || text === p.r) return '';
+      const you = i === pad || (!preview && i === db.me[p.id]);
+      return `<p class="end"><b>${you ? 'Your end' : `${esc(x[0])}’s end`}</b>${esc(sentence(text))}</p>`;
+    }).join('');
+  }
   function contractHTML(p, { pad = -1, preview = false, fresh = -1 } = {}) {
     const seal = sealOf(p);
     const line = (x, i) => {
@@ -1427,23 +1492,29 @@
             <canvas id="j-canvas" role="img" aria-label="Signature line. Sign with your mouse, finger or pen."></canvas>
           </div>
           <p class="doc-who"><input class="doc-name" id="j-name" maxlength="30" value="${esc(x[0])}" aria-label="Your name" ${preview ? 'readonly' : ''}><span>Not signed yet</span><button type="button" class="linkish quiet" id="j-clear" hidden>Clear</button></p>`;
-      const ink = !x[1] ? `<span class="doc-blank">Waiting for ${esc(x[0])}</span>`
+      const redo = p.vo.includes(i);
+      const ink = !x[1] ? `<span class="doc-blank">Waiting for ${esc(x[0])}${redo ? ' to sign again' : ''}</span>`
         : x[2] ? sigSVG(x[2], x[0]) : `<span class="sig">${esc(x[0])}</span>`;
       return `
           <div class="doc-line"><span class="x" aria-hidden="true">×</span>${ink}${i === fresh ? '<span class="stamp line-stamp">Signed</span>' : ''}</div>
-          <p class="doc-who"><b>${esc(x[0])}${i === db.me[p.id] ? ' · you' : ''}</b><span>${x[1] ? `Signed ${esc(fmtStamp(x[1]))}` : 'Not signed yet'}</span></p>`;
+          <p class="doc-who"><b>${esc(x[0])}${i === db.me[p.id] ? ' · you' : ''}</b><span>${x[1] ? `Signed ${esc(fmtStamp(x[1]))}` : redo ? 'Signed the old version' : 'Not signed yet'}</span></p>`;
     };
+    // Until everyone has signed the new version, the changed parts say so, with what they said before.
+    const was = !seal && p.was;
+    const tRule = was && was.r !== p.r, tTerm = was && (was.n !== p.n || was.s !== p.s), tCost = was && was.c !== p.c, tName = was && was.t !== p.t;
+    const chg = on => on ? '<span class="chg">Changed</span>' : '';
+    const before = (on, text) => on ? `<p class="was">${esc(text)}</p>` : '';
     return `
     <article class="doc${seal ? ' sealed' : ''}" aria-label="The pact">
-      <header class="doc-head"><span>Pact No. ${esc(pactNo(p.id))}</span><span>Made ${esc(fmtLong(p.p[0][1] || Date.now()))}</span></header>
+      <header class="doc-head"><span>Pact No. ${esc(pactNo(p.id))}</span><span>Made ${esc(fmtLong(p.m || p.p[0][1] || Date.now()))}</span></header>
       <div class="doc-title">
         <div class="doc-emblem look-${p.l}">${ART[p.a]()}</div>
-        <div class="doc-name-block"><h1 class="doc-h">${esc(p.t)}</h1><p class="doc-parties">between ${joinNames(p.p.map((x, i) => `<b data-party="${i}">${esc(x[0])}</b>`))}</p></div>
+        <div class="doc-name-block"><h1 class="doc-h">${esc(p.t)}</h1>${before(tName, was && was.t)}<p class="doc-parties">between ${joinNames(p.p.map((x, i) => `<b data-party="${i}">${esc(x[0])}</b>`))}</p></div>
       </div>
       <ol class="doc-clauses">
-        <li class="key"><span class="doc-n">§1</span><div><h2>The rule</h2><p>${esc(sentence(p.r))}</p></div></li>
-        <li><span class="doc-n">§2</span><div><h2>The term</h2><p>${esc(termText(p))}</p></div></li>
-        <li><span class="doc-n">§3</span><div><h2>If one of us breaks it</h2><p>${esc(sentence(p.c))}</p></div></li>
+        <li class="key"><span class="doc-n">§1</span><div><h2>The rule${chg(tRule)}</h2><p>${esc(sentence(p.r))}</p>${before(tRule, was && sentence(was.r))}<div class="doc-ends">${endsHTML(p, pad, preview)}</div></div></li>
+        <li><span class="doc-n">§2</span><div><h2>The term${chg(tTerm)}</h2><p>${esc(termText(p))}</p>${before(tTerm, was && `${lenWords(was.n)}, starting ${fmtWeekday(was.s)}.`)}</div></li>
+        <li><span class="doc-n">§3</span><div><h2>If one of us breaks it${chg(tCost)}</h2><p>${esc(sentence(p.c))}</p>${before(tCost, was && sentence(was.c))}</div></li>
         <li><span class="doc-n">§4</span><div><h2>How it’s kept</h2><p>No check-ins. Whoever breaks it says so the same day, then pays.</p></div></li>
         <li><span class="doc-n">§5</span><div><h2>Adding people</h2><p>Any of us can bring someone in at any time. They’re held to it from the day after they sign.</p></div></li>
         <li><span class="doc-n">§6</span><div><h2>When it ends</h2><p>Each of us chooses another round or calls it done.</p></div></li>
@@ -1718,8 +1789,25 @@
     toTop();
   }
 
+  // Making changes to a friend's pact before signing it: the same form, filled in from the pact.
+  async function showChange(arg, token) {
+    const [id, at] = arg.split('.'), slot = +at;
+    let p = null;
+    try { p = CLOUD_ID.test(id) ? await cloudFetch(id, false) : null; } catch (e) { /* handled below */ }
+    if (token !== routeToken) return;
+    const mine = p && db.me[id];
+    const yours = p && p.p[slot] && !p.p[slot][1] && (mine === undefined ? !p.vo.includes(slot) : mine === slot);
+    if (!p || !yours || !canChange(p)) return showLost('This pact can’t be changed now. It may have started, or that line is already signed.');
+    const pre = PRESETS.find(x => x.t === p.t);
+    draft = { k: pre ? pre.id : '', t: p.t, r: p.r, n: p.n, sk: null, s: p.s, c: p.c, baseC: p.c, l: p.l, a: p.a, own: false, names: [p.p[slot][0]], id: null, change: { p, slot } };
+    renderSetup();
+    show('setup');
+    toTop();
+  }
+
   function renderSetup() {
     const d = draft;
+    const ch = d.change, signed = ch ? ch.p.p.filter(x => x[1]).map(x => x[0]) : [];
     const lens = [...new Set([7, 14, 30, d.n])].sort((a, b) => a - b);
     const seen = new Set();
     const starts = ['tonight', 'monday', 'month', 'sunday'].map(k => [k, STARTS[k]()])
@@ -1728,7 +1816,7 @@
     const top = topPrices(d.k), more = ALL_PRICES.filter(c => !top.includes(c));
     const moreOpen = more.includes(d.c);
     views.setup.innerHTML = `
-      <a class="back" href="#open">← All pacts</a>
+      ${ch ? `<a class="back" href="#${ch.p.id}.${ch.slot}">← Back to the pact</a>` : '<a class="back" href="#open">← All pacts</a>'}
       <div class="sheet">
         ${panelHTML(d.l, d.a, whenText(d.s), lenText(d.n), isTonight(d.s))}
         <div class="main">
@@ -1740,8 +1828,8 @@
             <div><dt>How long</dt><dd id="s-len"></dd></div>
             <div><dt>Break it</dt><dd id="s-cons"></dd></div>
           </dl>
-          <button type="button" class="tweak" id="s-tweak" aria-expanded="${d.own}" aria-controls="s-opts">Customize ${chevron}</button>
-          <div class="opts" id="s-opts" ${d.own ? '' : 'hidden'}>
+          <button type="button" class="tweak" id="s-tweak" aria-expanded="${d.own || !!ch}" aria-controls="s-opts">${ch ? 'Your changes' : 'Customize'} ${chevron}</button>
+          <div class="opts" id="s-opts" ${d.own || ch ? '' : 'hidden'}>
             <label class="field"><span>Name</span><input class="in sm" id="o-t" maxlength="40" placeholder="No sugar" value="${esc(d.t)}"></label>
             <label class="field"><span>The rule</span><input class="in sm" id="o-r" maxlength="140" placeholder="No sugar, no dessert, no exceptions." value="${esc(d.r)}"></label>
             <div class="field"><span>How long</span>
@@ -1757,14 +1845,20 @@
               <input class="in sm" id="o-cc" maxlength="80" placeholder="Or write your own">
             </div>
           </div>
+          ${ch ? `
+          <fieldset class="who">
+            <legend>Your name</legend>
+            <div class="names" id="s-names">${nameField(0, d.names[0])}</div>
+          </fieldset>
+          <p class="quiet-note">${signed.length ? `Changing it cancels ${esc(joinNames(signed))}’s signature. They read the new version and sign again.` : 'Everyone reads the new version before they sign.'}</p>` : `
           <fieldset class="who">
             <legend>Who’s in</legend>
             <div class="names" id="s-names">${d.names.map((v, i) => nameField(i, v)).join('')}</div>
             <button type="button" class="linkish" id="s-add" ${d.names.length >= MAX_PEOPLE ? 'hidden' : ''}>+ Add someone</button>
-          </fieldset>
+          </fieldset>`}
           ${signingHTML('s', 'You')}
           <p class="err" id="s-err" role="alert"></p>
-          <button class="btn primary big" id="s-go" type="submit">Sign it</button>
+          <button class="btn primary big" id="s-go" type="submit">${ch ? 'Sign the new version' : 'Sign it'}</button>
         </form>
         </div>
       </div>`;
@@ -1797,6 +1891,7 @@
     const el = $('s-when');
     if (!el || !draft) return;
     if (draft.id) { el.innerHTML = `Signed · starts ${esc(startPhrase(draft.s))}`; return; }
+    if (draft.change) { el.textContent = 'Change what you like, then sign the new version'; return; }
     el.innerHTML = isTonight(draft.s) ? `Tonight · <b>${clock(draft.s - Date.now()).join(':')} left to sign</b>` : `Starts ${esc(fmtDay(draft.s))}`;
   }
 
@@ -1857,7 +1952,7 @@
       $('o-more').textContent = open ? 'Fewer options' : 'More options';
     });
     $('o-cc').addEventListener('input', e => { d.c = e.target.value.trim() || d.baseC; updateSetup(); });
-    $('s-add').addEventListener('click', () => {
+    if ($('s-add')) $('s-add').addEventListener('click', () => {
       const box = $('s-names'), i = box.children.length;
       if (i >= MAX_PEOPLE) return;
       box.insertAdjacentHTML('beforeend', nameField(i, ''));
@@ -1875,10 +1970,13 @@
     const err = $('s-err');
     const me = $('s-n0').value.trim();
     const friends = [...$('s-names').querySelectorAll('input')].slice(1).map(x => x.value.trim()).filter(Boolean);
+    const ch = d.change, old = ch && ch.p;
+    const same = ch && d.t.trim() === old.t && d.r.trim() === old.r && d.n === old.n && (d.sk ? STARTS[d.sk]() : d.s) === old.s && d.c === old.c;
     const problem = !d.t.trim() ? 'Give your pact a name under Customize.'
       : !d.r.trim() ? 'Write the rule under Customize.'
       : !me ? 'Add your name.'
-      : !friends.length ? 'Add the name of a friend to sign it with.'
+      : !ch && !friends.length ? 'Add the name of a friend to sign it with.'
+      : same ? 'Nothing is different yet. Change something, or go back and sign it as it is.'
       : !setupPad.has() ? 'Sign on the line first.' : '';
     if (problem) {
       err.textContent = problem;
@@ -1896,12 +1994,14 @@
     const now = Date.now();
     let p;
     try {
-      p = await createPact({ v: 1, id: newId(), k: d.k, t: d.t.trim(), r: d.r.trim(), n: d.n, u: 'day', s: d.s, c: d.c, a: d.a, l: d.l, p: [[me, now, setupPad.value()], ...friends.map(f => [f, 0])], b: [], e: [] });
+      p = ch
+        ? await changePact(old, ch.slot, { t: d.t.trim(), r: d.r.trim(), n: d.n, s: d.s, c: d.c }, me, setupPad.value())
+        : await createPact({ v: 1, id: newId(), k: d.k, t: d.t.trim(), r: d.r.trim(), n: d.n, u: 'day', s: d.s, c: d.c, a: d.a, l: d.l, p: [[me, now, setupPad.value()], ...friends.map(f => [f, 0])], b: [], e: [] });
     } catch (ex) {
       console.warn(ex);
       go.disabled = false;
-      go.textContent = 'Sign it';
-      err.textContent = 'Couldn’t save the pact. Check your connection and try again.';
+      go.textContent = ch ? 'Sign the new version' : 'Sign it';
+      err.textContent = ch ? 'Couldn’t save your changes. Someone may have just signed or changed it. Go back to the pact and try again.' : 'Couldn’t save the pact. Check your connection and try again.';
       return;
     }
     db.name = me;
@@ -1918,18 +2018,25 @@
       await Promise.all(leaving.map(el => el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'forwards' }).finished));
     }
     history.replaceState(null, '', pactHref(p));
-    renderLedger(p, shareHTML({
+    // After a change, it goes back to whoever's signature it cancelled.
+    const redo = p.vo.map(i => p.p[i][0]), back = p.vo.length === 1 ? p.vo[0] : -1;
+    renderLedger(p, shareHTML(ch ? {
+      heading: redo.length ? `Send it back to ${joinNames(redo)}` : 'Send it on',
+      sub: redo.length ? `Your changes cancel ${joinNames(redo)}’s signature. They read the new version and sign again.` : 'They open the link and sign.',
+      msg: redo.length ? inviteMsg(p, back) : inviteMsg(p),
+      link: linkFor(p, back),
+    } : {
       heading: `Now send it to ${joinNames(friends)}`,
       sub: 'They open the link and sign. No app, no account.',
       msg: inviteMsg(p),
       link: linkFor(p),
       extra: `<a href="${previewHref(p)}">Preview what ${esc(friends[0])} sees</a>`,
-    }) + saveHTML('l'), { fresh: 0 });
+    }) + saveHTML('l'), { fresh: ch ? ch.slot : 0 });
     wireSave('l');
     show('ledger');
     const doc = views.ledger.querySelector('.doc');
     frame(doc);
-    settle(doc, { ...from, slot: 0, whole: true });
+    settle(doc, { ...from, slot: ch ? ch.slot : 0, whole: true });
     for (const el of views.ledger.querySelectorAll('.back, .doc-status')) rise(el);
     for (const el of views.ledger.querySelectorAll('.doc ~ *')) rise(el, 1600);
     nudge($('l-panel'), 2200);
@@ -1980,20 +2087,37 @@
   }
 
   // The invite is the contract itself, with the friend's own line left open to sign.
-  function renderJoin(p, preview, choose) {
+  // redo: you've signed and are changing your end before it starts, which means signing again.
+  function renderJoin(p, preview, choose, { redo = false } = {}) {
     const signers = p.p.filter(x => x[1]).map(x => x[0]);
-    const open = p.p.map((x, i) => ({ name: x[0], i })).filter(o => !p.p[o.i][1]);
+    const mine = db.me[p.id];
+    redo = !preview && redo && mine !== undefined;
+    const again = !preview && (redo || p.vo.includes(mine));
+    const open = again ? [{ name: p.p[mine][0], i: mine }] : p.p.map((x, i) => ({ name: x[0], i })).filter(o => !p.p[o.i][1] && !p.vo.includes(o.i));
     // Too late to join once there isn't a whole day left: the pact stays readable, the line closed.
     const closed = open.length > 0 && !canJoin(p);
     const pick = closed ? -1 : open.some(o => o.i === choose) ? choose : open.length ? open[0].i : -1;
     const ph = phase(p);
-    const eyebrow = !signers.length ? 'You’re invited to a pact'
+    const eyebrow = redo ? 'Change your end of it, then sign again.'
+      : again ? `${p.ch || 'Someone'} changed the pact. Read it again and sign.`
+      : !signers.length ? 'You’re invited to a pact'
       : ph === 'active' ? `${joinNames(signers)} ${signers.length > 1 ? 'are' : 'is'} on day ${dayOf(p)} of ${p.n}. Sign to join from midnight.`
       : `${joinNames(signers)} signed this. Your turn.`;
     const ended = `<div class="box"><h2>${ph === 'over' ? 'This pact is over' : 'This pact ends tonight'}</h2><p>There’s no day left to join. Ask ${esc(joinNames(signers) || 'them')} to start a new one with you.</p></div>`;
     const full = p.cloud
       ? `<div class="box"><h2>Everyone has signed</h2><p>If this is your pact, sign in with the email you saved it to.</p><div class="row"><a class="btn" href="#account">Sign in</a></div></div>`
       : `<div class="box" id="j-claim"><h2>Everyone has signed</h2><p>Which one are you? This opens the pact on this device.</p><div class="chips">${p.p.map((x, i) => `<button type="button" class="chip" data-claim="${i}">${esc(x[0])}</button>`).join('')}</div></div>`;
+    // Your end: what you're held to. Only on server pacts, and only while this line can be signed.
+    const steps = stepsFor(p), current = (again && p.en[pick]) || p.r;
+    const endBox = !p.cloud || closed || !open.length ? '' : `
+          <div class="box end-edit" id="j-endbox" ${redo ? '' : 'hidden'}>
+            <h2>Your end of it</h2>
+            <p class="sub">Only what you’re held to changes. Everyone sees it on the pact, and it’s set once the pact starts.</p>
+            ${steps.length ? `<div class="chips" id="j-steps">${steps.map(([label, text]) => `<button type="button" class="chip" data-end="${esc(text)}" aria-pressed="${text === current}">${esc(label)}</button>`).join('')}</div>` : ''}
+            <textarea class="in end-in" id="j-end" rows="2" maxlength="140" aria-label="Your end of the pact" ${preview ? 'readonly' : ''}>${esc(current)}</textarea>
+          </div>`;
+    const other = canChange(p) ? ` or ${preview ? '<u>make changes</u>' : `<a href="#change-${p.id}.${pick}">make changes</a>`} for everyone` : '';
+    const offer = endBox && !redo ? `<p class="quiet-note">Want it different? ${preview ? '<u>Change your end</u>' : '<button type="button" class="linkish" id="j-endlink">Change your end</button>'} (just yours)${other}.</p>` : '';
     // Remembered so the page can switch to your own view if this pact turns out to be yours.
     views.join.dataset.id = p.id;
     views.join.dataset.preview = preview ? '1' : '';
@@ -2006,8 +2130,10 @@
         ${open.length > 1 && !closed ? `<div class="chips" id="j-pick">${open.map(o => `<button type="button" class="chip" data-i="${o.i}" aria-pressed="${o.i === pick}">I’m ${esc(o.name)}</button>`).join('')}</div>` : ''}
         ${contractHTML(p, { pad: pick, preview })}
         ${closed ? ended : open.length ? `
+          ${endBox}
           <p class="err" id="j-err" role="alert"></p>
-          <button class="btn primary big doc-go" type="button" id="j-go" ${preview ? 'disabled' : ''}>${preview ? `${esc(p.p[pick][0])} signs here` : 'Sign the pact'}</button>` : full}
+          <button class="btn primary big doc-go" type="button" id="j-go" ${preview ? 'disabled' : ''}>${preview ? `${esc(p.p[pick][0])} signs here` : again ? 'Sign it again' : 'Sign the pact'}</button>
+          ${offer}` : full}
       </div>`;
 
     if (closed) return;
@@ -2035,6 +2161,26 @@
       const b = views.join.querySelector(`[data-party="${pick}"]`);
       if (b) b.textContent = e.target.value.trim() || p.p[pick][0];
     });
+    // And shows your end under the rule as you choose it.
+    const endIn = $('j-end');
+    const drawEnds = () => {
+      views.join.querySelector('.doc-ends').innerHTML = endsHTML(p, pick, preview, endIn.value.trim() || p.r);
+      press('#j-steps .chip', b => b.dataset.end === endIn.value.trim());
+    };
+    if (endIn && !preview) {
+      endIn.addEventListener('input', drawEnds);
+      if ($('j-steps')) $('j-steps').addEventListener('click', e => {
+        const b = e.target.closest('.chip');
+        if (!b) return;
+        endIn.value = b.dataset.end;
+        drawEnds();
+      });
+    }
+    if ($('j-endlink')) $('j-endlink').addEventListener('click', () => {
+      $('j-endbox').hidden = false;
+      $('j-endlink').closest('.quiet-note').hidden = true;
+      $('j-endbox').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    });
     $('j-go').addEventListener('click', async () => {
       if (preview || pick < 0) return;
       const err = $('j-err');
@@ -2044,15 +2190,17 @@
       const go = $('j-go');
       go.disabled = true;
       go.textContent = 'Signing…';
+      // An end only counts if you opened it; otherwise you keep the one you had (or the pact's rule).
+      const end = endIn && !$('j-endbox').hidden ? endIn.value.trim() : again ? p.en[pick] : '';
       let saved;
       try {
-        saved = await signPact(p, pick, name, pad.value());
+        saved = await signPact(p, pick, name, pad.value(), end);
       } catch (ex) {
         console.warn(ex);
         go.disabled = false;
-        go.textContent = 'Sign the pact';
+        go.textContent = again ? 'Sign it again' : 'Sign the pact';
         err.textContent = ex && ex.code === 'permission-denied'
-          ? 'Someone already signed in that spot. Reload the page to see the latest.'
+          ? 'Someone signed that spot or changed the pact just now. Reload the page to see the latest.'
           : 'Couldn’t sign right now. Check your connection and try again.';
         return;
       }
@@ -2066,10 +2214,16 @@
       const others = saved.p.filter((x, i) => i !== pick && x[1]).map(x => x[0]);
       const back = others.length > 3 ? 'everyone' : joinNames(others);
       history.replaceState(null, '', pactHref(saved));
-      renderLedger(saved, shareHTML({
+      const own = saved.en[pick] && saved.en[pick] !== saved.r ? saved.en[pick] : '';
+      renderLedger(saved, shareHTML(redo ? {
+        heading: `Tell ${back} your end`,
+        sub: `${back === 'everyone' ? 'Everyone' : back} sees it on the pact. A text makes sure they notice.`,
+        msg: `I changed my end of our pact (${saved.t}). ${sentence(own || saved.r)} ${shown(linkFor(saved))}`,
+        link: linkFor(saved),
+      } : {
         heading: `Tell ${back} you’re in`,
         sub: saved.cloud ? `${back === 'everyone' ? 'Everyone' : back} sees your signature on their side. A text lets them know.` : 'Send the link back so the pact shows your signature on their side too.',
-        msg: `I'm in. I signed our pact: ${saved.t}. ${shown(linkFor(saved))}`,
+        msg: `I'm in. I signed our pact: ${saved.t}.${own ? ` My end: ${sentence(lower(own))}` : ''} ${shown(linkFor(saved))}`,
         link: linkFor(saved),
       }) + saveHTML('l'), { fresh: pick });
       wireSave('l');
@@ -2099,7 +2253,9 @@
     try { fresh = await cloudFetch(id); } catch (e) { return; /* keep what's on screen */ }
     if (views.ledger.hidden || views.ledger.dataset.id !== id) return;
     if (!fresh) return showLost('This pact was deleted by whoever made it.');
-    if (!$('l-panel').innerHTML.trim() && JSON.stringify([fresh, db.me[id]]) !== before) renderLedger(fresh);
+    if ($('l-panel').innerHTML.trim() || JSON.stringify([fresh, db.me[id]]) === before) return;
+    if (fresh.vo.includes(db.me[id])) openLedger(fresh);
+    else renderLedger(fresh);
   }
 
   function recordHTML(p) {
@@ -2164,8 +2320,8 @@
     const waiting = p.p.filter(x => !x[1]).map(x => x[0]);
     // The seal lands the first time you see everyone's signatures on the pact.
     const fresh = opts.fresh >= 0 ? opts.fresh : -1;
-    const newSeal = !!sealOf(p) && !db.sealed[p.id];
-    if (newSeal) { db.sealed[p.id] = 1; save(); }
+    const newSeal = !!sealOf(p) && db.sealed[p.id] !== p.ver + 1;
+    if (newSeal) { db.sealed[p.id] = p.ver + 1; save(); }
     // A message box that's already open covers sending, so the send button waits until it's closed.
     const acts = (ph === 'active' && signedMe && joinOf(p, me) <= Date.now() ? '<button class="btn warn" type="button" id="l-broke">I broke it</button>' : '')
       + (panel ? '' : waiting.length && canJoin(p)
@@ -2179,6 +2335,7 @@
         <p class="status ${ph} doc-status">${esc(statusOf(p))}</p>
         ${contractHTML(p, { fresh })}
         ${acts ? `<div class="row">${acts}</div>` : ''}
+        ${signedMe && canChange(p) ? '<p class="quiet-note"><button type="button" class="linkish" id="l-end">Change your end</button> Until it starts, you can make it easier or harder for you.</p>' : ''}
         <div class="stack" id="l-panel">${panel}</div>
         ${ph === 'over' ? endHTML(p) : ''}
         <section class="record" aria-labelledby="recTitle">
@@ -2196,6 +2353,7 @@
   }
   // Opening a pact's page. If the seal is about to land, start where the signatures are.
   function openLedger(p) {
+    if (p.vo.includes(db.me[p.id])) { renderJoin(p, false); show('join'); return toTop(); }
     const landing = renderLedger(p);
     show('ledger');
     if (landing) frame(views.ledger.querySelector('.doc'), 90);
@@ -2206,6 +2364,12 @@
     const me = db.me[p.id];
     const others = othersOf(p).length > 3 ? 'everyone' : joinNames(othersOf(p)) || 'them';
     const panel = $('l-panel');
+    // Changing your end means signing your line again, on the same contract.
+    if ($('l-end')) $('l-end').addEventListener('click', () => {
+      renderJoin(p, false, me, { redo: true });
+      show('join');
+      $('j-endbox').scrollIntoView({ block: 'center' });
+    });
     const openPanel = html => { panel.innerHTML = html; panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); };
     const failed = () => toast('That didn’t go through. Check your connection and try again.');
 
@@ -2435,6 +2599,7 @@
     if (h.startsWith('new-')) return showSetup(h.slice(4), null, token);
     if (h.startsWith('again-')) return showSetup(null, h.slice(6), token);
     if (h.startsWith('p-')) return CLOUD_ID.test(h.slice(2)) && !db.pacts[h.slice(2)] ? showCloud(h.slice(2), false, token) : showLedger(h.slice(2));
+    if (h.startsWith('change-')) return showChange(h.slice(7), token);
     if (h === 'account') return showAccount('', token);
     if (h === 'privacy') { show('privacy'); return toTop(); }
     const onServer = h.match(/^(preview-)?([a-z0-9]{10})(?:\.(\d))?$/);

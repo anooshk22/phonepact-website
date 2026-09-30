@@ -1,11 +1,14 @@
 rules_version = '2';
 
 // Pacts by PhonePact. Anyone who writes is signed in (with an invisible guest account at
-// first, made the first time they sign), so every write carries a uid. A pact's terms never
-// change after it is created; the one edit is that someone already in it can add another
-// name to the end of the list. Each person can only fill an empty spot as themselves (one
-// spot per account), record breaks for their own spot, and set their own end-of-pact
-// choice. Anyone holding the 10-character link can read the pact, with or without an
+// first, made the first time they sign), so every write carries a uid. Someone already in a
+// pact can add another name to the end of the list. Before a pact's start date, its terms can
+// be changed by someone signing the changed version in the same step: that makes a new version
+// (ver), and a signature only counts for the version it was made on, so the others sign their
+// own spot again. Each person can set their own end of the pact (an easier or harder version of
+// the rule, just for them) when they sign, and change it by signing again until the start date.
+// Each person can only fill an empty spot as themselves (one spot per account), record breaks
+// for their own spot, and set their own end-of-pact choice. Anyone holding the 10-character link can read the pact, with or without an
 // account, so a link opens without waiting for a sign-in; nobody can list the pacts.
 // Whoever made a pact can delete it, with everything in it, for everyone.
 // At most 10 people, the same limit as MAX_PEOPLE in pacts/index.html.
@@ -22,6 +25,46 @@ service cloud.firestore {
     function ownsSlot(id, s) { return exists(slotPath(id, s)) && get(slotPath(id, s)).data.uid == request.auth.uid; }
     // The pact itself is deleted in the last batch, so it still exists while everything under it goes.
     function madeIt(id) { return get(pactPath(id)).data.by == request.auth.uid; }
+    // Someone already in the pact brings someone new in: one more name at the end, nothing else changes.
+    function addsName(id) {
+      let d = request.resource.data;
+      let o = resource.data;
+      return exists(memberPath(id))
+        && d.diff(o).affectedKeys().hasOnly(['names'])
+        && d.names is list
+        && d.names.size() == o.names.size() + 1
+        && d.names.size() <= 10
+        && d.names[0:o.names.size()] == o.names
+        && text(d.names[o.names.size()], 30);
+    }
+    // A signature: your name, your drawing, the time, and your own end of the pact if you set one,
+    // made on the pact as it stands (after this step, if this step changes it).
+    function signsSpot(id) {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['uid', 'name', 'at', 'sig', 'ver', 'end'])
+        && d.uid == request.auth.uid
+        && d.get('ver', 0) == pactAfter(id).get('ver', 0)
+        && text(d.name, 30)
+        && d.sig is string && d.sig.size() <= 2000
+        && (!('end' in d) || text(d.end, 140))
+        && d.at == request.time;
+    }
+    // Changing the terms before the start date: the next version, with a true record of the last
+    // one, and whoever changes it signs the new version (their spot, by their membership) in the same step.
+    function changesTerms(id) {
+      let d = request.resource.data;
+      let o = resource.data;
+      let spot = slotPath(id, string(getAfter(memberPath(id)).data.slot));
+      return o.s > request.time.toMillis()
+        && d.diff(o).affectedKeys().hasOnly(['t', 'r', 'n', 's', 'c', 'ver', 'ch', 'was'])
+        && d.ver == o.get('ver', 0) + 1
+        && text(d.t, 40) && text(d.r, 140) && text(d.c, 80) && text(d.ch, 30)
+        && d.n is int && d.n >= 1 && d.n <= 90
+        && d.s is int && d.s > request.time.toMillis() - 86400000
+        && d.was == { 't': o.t, 'r': o.r, 'n': o.n, 's': o.s, 'c': o.c }
+        && getAfter(spot).data.uid == request.auth.uid
+        && getAfter(spot).data.get('ver', 0) == d.ver;
+    }
 
     match /pacts/{id} {
       // The link is the key: holding it is enough to read the pact and everything on it.
@@ -42,15 +85,7 @@ service cloud.firestore {
         && request.resource.data.names.size() >= 2 && request.resource.data.names.size() <= 10
         && request.resource.data.by == request.auth.uid
         && request.resource.data.at == request.time;
-      // Someone already in the pact brings someone new in: one more name at the end, nothing else changes.
-      allow update: if signedIn()
-        && exists(memberPath(id))
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['names'])
-        && request.resource.data.names is list
-        && request.resource.data.names.size() == resource.data.names.size() + 1
-        && request.resource.data.names.size() <= 10
-        && request.resource.data.names[0:resource.data.names.size()] == resource.data.names
-        && text(request.resource.data.names[resource.data.names.size()], 30);
+      allow update: if signedIn() && (addsName(id) || changesTerms(id));
       allow delete: if signedIn() && resource.data.by == request.auth.uid;
 
       // One document per person: '0' is the creator, '1' to '9' everyone else, in the order they were named.
@@ -63,12 +98,13 @@ service cloud.firestore {
           // One spot per account: the membership record is written with the spot and can't exist already.
           && !exists(memberPath(id))
           && getAfter(memberPath(id)).data.slot == int(slot)
-          && request.resource.data.keys().hasOnly(['uid', 'name', 'at', 'sig'])
-          && request.resource.data.uid == request.auth.uid
-          && text(request.resource.data.name, 30)
-          && request.resource.data.sig is string && request.resource.data.sig.size() <= 2000
-          && request.resource.data.at == request.time;
-        allow update: if false;
+          && signsSpot(id);
+        // Signing your own spot again: after the pact changed (your signature was on an older
+        // version), or before its start date, to change your end.
+        allow update: if signedIn()
+          && resource.data.uid == request.auth.uid
+          && (resource.data.get('ver', 0) < pactAfter(id).get('ver', 0) || pactAfter(id).s > request.time.toMillis())
+          && signsSpot(id);
         allow delete: if signedIn() && madeIt(id);
       }
 

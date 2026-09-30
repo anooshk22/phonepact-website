@@ -30,7 +30,26 @@ emulator when it is running.
 - **Pacts you're in are kept in the browser** and open from that copy at once;
   the page then checks the server and redraws if anything changed.
 
-Deploy rule changes before a page that relies on them. With the older rules
+## Changing a pact before it starts
+
+Until a pact's start date, someone who hasn't signed it can change its terms
+(name, rule, length, start, what breaking it costs). That makes a new version:
+the pact's `ver` goes up by one, `was` keeps the previous terms and `ch` who
+changed them, and whoever changed it signs the new version in the same step.
+Each signature carries the `ver` it was made on and only counts for that
+version, so everyone else reads the changes and signs their own spot again.
+
+## Your own end
+
+Each signature can carry an `end`: that person's own version of the rule, easier
+or harder (two workouts a week in a three-a-week pact) or their own thing
+entirely. It is set when they sign, and until the start date they can change it
+by signing their own spot again. It changes only what they are held to, so it
+cancels nobody else's signature, and everyone sees it on the pact.
+
+Deploy rule changes before a page that relies on them. The page with versions
+needs the rules with versions: the older rules refuse a signature that
+carries `ver`. With the older rules
 (reading needed an account) the page still works: it signs in first, just
 slower.
 
