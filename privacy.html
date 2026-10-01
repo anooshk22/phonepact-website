@@ -99,8 +99,9 @@
       screen usage. Provider handling is also subject to that provider&rsquo;s privacy policy.</li>
       <li><strong>Profile and circle appearance</strong> &mdash; your optional avatar, profile details, and a circle
       photo you choose to contribute are shown to the relevant circle members.</li>
-      <li><strong>Hand-drawn pact signature</strong> &mdash; stroke-path data used only to render your Phone Pact.
-      It is not analyzed for identity, used as a legal signature, or used for biometric recognition or authentication.</li>
+      <li><strong>Hand-drawn pact signature</strong> &mdash; stroke-path data used to render your Phone Pact and,
+      when you sign a pact in a circle&rsquo;s room, shown to that circle&rsquo;s members on that pact. It is not
+      analyzed for identity, used as a legal signature, or used for biometric recognition or authentication.</li>
       <li><strong>Onboarding answers, goals, and settings</strong> &mdash; the intentions, pact point, notice choices,
       and other settings you enter to configure the Service.</li>
       <li><strong>Account and device identifiers</strong> &mdash; a Firebase account ID and a random per-installation
@@ -115,6 +116,12 @@
       <li><strong>Pact and change-request data</strong> &mdash; pact points, which eligible circle members you ask,
       reasons or notes you provide, responses, timestamps, and request status. App-selection identities are not
       included in a what-counts request.</li>
+      <li><strong>Pacts in rooms</strong> &mdash; when you start or sign a pact in a circle&rsquo;s room: its terms
+      (kind, title, rule, length, start, and consequence), your name, the goal you set, the signature you sign it
+      with, when you signed, the days you are held to it, any day you left, the breaks recorded for you with any note
+      you add, and whether a break is marked paid. For a screen time pact, it also keeps which of your phones the pact
+      set and that phone&rsquo;s earlier pact point, so you can go back to it afterwards. Screen time breaks come from
+      your shared check-ins; no app or website identity is involved.</li>
       <li><strong>Room messages and interactions</strong> &mdash; short notes, replies, reactions, and visible Keep
       attribution. Ordinary rows expire after 24 hours. A current circle member may visibly keep a member-written
       message for everyone until no later than 30 days after it was sent.</li>
@@ -281,23 +288,33 @@
 
     <h3>Legal bases for EU/UK users</h3>
     <ul>
-      <li><strong>Contract</strong> &mdash; to provide the account, Service, and Supporter features you request.</li>
+      <li><strong>Contract</strong> &mdash; to provide the account and the features you use: circles, rooms,
+      private conversations, pacts, the shared check-ins you set up, your yearly history and its backup, Insights,
+      and Supporter purchases.</li>
       <li><strong>Consent</strong> &mdash; for screen-usage access, optional local history/notification counting,
-      push permissions, live status, and device permissions you choose. You can withdraw consent, although doing so
-      does not affect processing already completed.</li>
-      <li><strong>Legitimate interests</strong> &mdash; to secure, troubleshoot, prevent abuse, understand purchase
-      performance, and improve the Service without overriding your rights.</li>
+      push permissions, live status, and device permissions you choose. You can withdraw consent at any time in the
+      App or your device settings, although doing so does not affect processing already completed.</li>
+      <li><strong>Legitimate interests</strong> &mdash; to keep the Service and its members secure, investigate
+      reports and prevent abuse (including the rule-based safety screening), diagnose crashes and errors, understand
+      aggregate purchase performance, and establish or defend legal claims, in each case without overriding your
+      rights. You can object to processing based on legitimate interests.</li>
       <li><strong>Legal obligations</strong> &mdash; where law requires retention, disclosure, tax/accounting, or
       response to valid legal process.</li>
     </ul>
+    <p>To use PhonePact you need an account (a sign-in method and a name). Screen Time or Usage Access is needed
+    for check-ins, pacts measured by screen time, and Insights; everything else you share is optional. We do not make
+    decisions about you based solely on automated processing that produce legal or similarly significant effects.
+    The rule-based safety screening only blocks or trims text; you can ask a person to review its effect on you.</p>
 
     <h2>3. When information is disclosed</h2>
     <ul>
       <li><strong>People you choose.</strong> Circle members see your name/avatar, circle membership, each registered
       phone&rsquo;s short label and pact point, relevant pact-change requests/responses, duration-only shared check-ins
       and their time, and room content/interactions you send. A private-conversation participant sees the message
-      and pact context you send to that conversation. Other members cannot read it. No circle receives a live
-      presence signal or your owner-only usage history.</li>
+      and pact context you send to that conversation. Other members cannot read it. Members of a circle also see the
+      pacts started or signed in its room, including each signer&rsquo;s name, goal, signature, the days they are held
+      to it, and the breaks, notes, and payments recorded for them. No circle receives a live presence signal or your
+      owner-only usage history.</li>
       <li><strong>Processors and platform providers.</strong> Google/Firebase provides authentication, Cloud
       Firestore, Cloud Functions, Cloud Messaging, and Crashlytics; Apple and Google provide sign-in, operating-system
       measurement/push services, app distribution, and store billing; RevenueCat processes the purchase data above
@@ -310,7 +327,8 @@
       <a href="https://expo.dev/privacy" rel="noopener">Expo&rsquo;s Privacy Policy</a>.</li>
       <li><strong>Safety and legal needs.</strong> Authorized reviewers and service operators may access reported
       content and operational records as needed to investigate abuse, respond to support, comply with valid legal
-      process, or protect users, PhonePact, or others.</li>
+      process, or protect users, PhonePact, or others. As United States law requires, we report apparent child sexual
+      exploitation to the National Center for Missing &amp; Exploited Children.</li>
       <li><strong>Business transfers.</strong> Information may transfer in a merger, financing, reorganization,
       acquisition, bankruptcy, or sale of assets, subject to this Policy and applicable law.</li>
     </ul>
@@ -367,6 +385,12 @@
       phone/circle context, minutes, and optional note, are retained until account deletion separately from the
       short-lived Room row. They do not contain app identities or exact per-app usage and are not a complete daily
       history.</li>
+      <li><strong>Pacts in rooms.</strong> A pact stays in its circle after it ends, so members can look back at it,
+      and is deleted when the circle is deleted. If you leave a circle after a pact has started, your row (name, goal,
+      signature, and breaks) stays in that pact, marked with the day you left; if you leave before it starts, your row
+      and signature are removed. Deleting your account removes your row, signature, breaks, and notes from every pact,
+      including pacts that have ended; a pact you created can keep your account&rsquo;s random identifier as its
+      creator, without your name.</li>
       <li><strong>Messages.</strong> Ordinary Room and private messages expire after 24 hours. A visibly kept
       member-written Room message or private message expires no later than 30 days after sending. PhonePact clients
       stop displaying a row at its expiry time; scheduled server deletion runs hourly and normally removes it on the
@@ -444,12 +468,19 @@
     there is no sale/sharing opt-out necessary for us to apply. Where applicable, state law may provide rights to
     know, access, correct, delete, obtain a portable copy, limit certain sensitive-data uses, opt out of covered
     profiling, use an authorized agent, and appeal. Use the request process above.</p>
+    <p><strong>Do Not Track and Global Privacy Control.</strong> PhonePact does not track you across other
+    companies&rsquo; apps or websites and does not sell or share personal information for cross-context behavioral
+    advertising, so these browser signals do not change how the Service works. Where the law treats a Global Privacy
+    Control signal as an opt-out request, we honor it.</p>
 
     <h2>7. Children&rsquo;s privacy</h2>
     <p>PhonePact is intended for people <strong>13 and older</strong> and is not directed to children under 13. We
     do not knowingly collect personal information from a child under 13. If you believe that occurred, contact us
-    and we will investigate and delete it. If the law where a 13&ndash;17-year-old lives requires parent or guardian
-    involvement or permission, the young person may use PhonePact only with that involvement or permission.</p>
+    and we will investigate and delete it. People aged 13 to 17 may use PhonePact only with a parent&rsquo;s or
+    guardian&rsquo;s permission. Where the law requires it, a parent or guardian must also agree to how a young
+    person&rsquo;s data is used (in some EU countries until the age of 16), and an app store may ask a parent or
+    guardian to approve downloads, purchases, and significant changes to the App. A parent or guardian can contact us
+    to review or delete their child&rsquo;s information.</p>
 
     <h2>8. Security</h2>
     <p>We use reasonable technical and organizational safeguards, including encrypted transport, Firebase access
@@ -460,7 +491,8 @@
     <h2>9. International processing</h2>
     <p>PhonePact is based in the United States. We and our providers process information in the United States and
     other countries where they operate, whose laws may differ from yours. Where required, we rely on an adequacy
-    decision, Standard Contractual Clauses, or another lawful transfer safeguard. RevenueCat states that its service
+    decision (including the EU&ndash;U.S. Data Privacy Framework and its UK extension where a provider is certified),
+    Standard Contractual Clauses (with the UK Addendum for UK data), or another lawful transfer safeguard. RevenueCat states that its service
     data is hosted in the United States and offers contractual transfer safeguards.</p>
 
     <h2 id="website-forms-network">10. Website, forms, and network requests</h2>
@@ -475,6 +507,13 @@
     browser requests them. We use submitted contact details only for the communication requested, testing/launch
     administration, support, and safety &mdash; never targeted advertising or sale. Unsubscribe from email at any
     time, reply <strong>STOP</strong> to an SMS, or contact us to access or delete a website submission.</p>
+    <p><strong>Pacts by PhonePact</strong> (getphonepact.com/pacts) is a separate web page with its own
+    <a href="pacts/#privacy">short privacy note</a>, which this Policy supplements. It stores the pacts you make or
+    sign (names, signatures, dates, terms, and each pact&rsquo;s record) in a separate Firebase project in the United
+    States, gives you a guest account the first time you sign, and keeps your name, sign-in, and a copy of your pacts
+    in your browser. Anyone with a pact&rsquo;s link can see everything on it. A pact stays until the person who made
+    it deletes it; to remove your signature or anything else from someone else&rsquo;s pact, email us. The rights,
+    contact, and other sections of this Policy apply to it too.</p>
     <p><strong>Invite links are access capabilities.</strong> New links put the six-character invite after
     <code>#</code>. Browsers do not include that fragment in the HTTP request to GitHub Pages, and the page is designed
     to remove it from the visible address after reading it. Older <code>?c=</code> links remain supported, but their
