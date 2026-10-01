@@ -54,7 +54,7 @@
     <a href="./" class="studies-back reveal">&larr; Back to PhonePact</a>
     <p class="studies-hero__label reveal stagger-1">Legal</p>
     <h1 class="studies-hero__title reveal stagger-2">Privacy Policy</h1>
-    <p class="updated reveal stagger-3">Last updated: 28 September 2026</p>
+    <p class="updated reveal stagger-3">Last updated: 1 October 2026</p>
   </div>
 </section>
 
@@ -68,7 +68,9 @@
     A shared check-in contains a coarse duration (for example, &ldquo;reached 2h today&rdquo;), the member and phone
     that recorded it, its time, and any short note the member deliberately adds. Your circles never receive
     your app list, exact per-app activity, selected websites, browsing history, private Insights reports, or
-    owner-only daily history. You can ask us to access or delete data we control.</p>
+    owner-only daily history. On iPhone, up to a year of your daily totals (a date and a number of minutes, nothing
+    about which apps) is kept in an owner-only part of your account, so your history survives a reinstall or a new
+    phone. You can ask us to access or delete data we control.</p>
 
     <p>This Privacy Policy explains how <strong>PhonePact LLC</strong> (&ldquo;PhonePact,&rdquo; &ldquo;we,&rdquo;
     &ldquo;us,&rdquo; or &ldquo;our&rdquo;) handles information when you use the PhonePact mobile application, the
@@ -137,7 +139,7 @@
     up to ten selected apps used for at least one minute that day.</p>
     <p><strong>App/package identities, selection tokens, exact per-app activity, website identities, and raw usage
     events are not sent to PhonePact&rsquo;s servers or to your circles.</strong> PhonePact sends owner-only aggregate
-    totals and coarse events needed to preserve recent history and operate shared check-ins. A qualifying shared
+    totals and coarse events needed to keep and back up your daily history and operate shared check-ins. A qualifying shared
     check-in contains the account and circle identifiers, the measuring phone&rsquo;s ID and short label, the event
     time, a duration threshold, and an optional note. Subject to synchronization and stale/replay suppression, a
     phone can create one at its pact point and at later 30-minute crossings through 1,410 minutes (23h 30m) of
@@ -145,8 +147,17 @@
     The private pre-check-in Moment/Talk First prompt is limited to the pact point and six later crossings; that
     prompt limit does not limit the shared check-in ladder. Each registered phone has its own pact and up to seven
     recent recorded dates of aggregate totals in an owner-only Firebase device record. Some older accounts may also
-    retain a legacy owner-only copy of recent totals until account deletion. Circle members cannot read either
-    owner-only history.</p>
+    retain a legacy owner-only copy of recent totals until account deletion.</p>
+    <p><strong>Yearly history (iPhone).</strong> In updated iPhone versions, each phone also keeps an owner-only
+    yearly history record in your account: one whole-minute total for each recorded date in the past year (up to
+    366 dates), plus that phone&rsquo;s installation ID and the time the phone was first registered, which lets a
+    reinstalled App keep the same history. Each total is the highest 15- or 30-minute step that PhonePact&rsquo;s own
+    measurement reached that day, a floor rather than Apple&rsquo;s exact figure. The record contains no app,
+    category, website, or circle information. It lets the same account see its history again after reinstalling
+    PhonePact or moving to a new phone, where Insights can show an earlier phone&rsquo;s dates before the new
+    phone&rsquo;s own. Nothing is saved until the App has shown a one-time note about it, and you can turn it off
+    at any time under <em>history backup</em> in <em>You &rarr; Profile</em>, which deletes the saved records; the
+    dates on each phone stay there. Circle members cannot read any of these owner-only histories.</p>
     <p><strong>Pending iPhone relay outbox.</strong> A protected App Group file can temporarily hold an unsent relay
     item containing account and phone identifiers, event kind and identifier, timestamps, minutes, local day and
     time-zone context, Activity binding, and, where applicable, circle context or a deliberately added note. The
@@ -175,8 +186,10 @@
     pickups, notification counts, first pickup, and longest activity when Apple supplies them. Selected category or
     website activity may contribute to aggregate totals, but the current PhonePact report does not list, export, or
     store visited domain names. Detailed report values are rendered inside Apple&rsquo;s protected extension and are
-    not copied into the main App, PhonePact servers, or RevenueCat. An opaque selection token stays on-device; it
-    may survive sign-out so the same account can restore its selection and is cleared by account deletion.</p>
+    not copied into the main App, PhonePact servers, or RevenueCat. For dates Apple no longer supplies, Insights can
+    show PhonePact&rsquo;s own daily totals from the yearly history above, without any app detail. An opaque selection
+    token stays on-device; it may survive sign-out so the same account can restore its selection and is cleared by
+    account deletion.</p>
     <p><strong>Android.</strong> If you affirmatively choose to save private history, PhonePact reads local Android
     usage events, including which app/package was used and when. It stores private no-backup summaries containing
     daily/hourly totals, app labels and categories, pseudonymous package keys, per-app duration, visit/session and
@@ -252,8 +265,8 @@
     <h2>2. How we use information</h2>
     <ul>
       <li>Provide, personalize, maintain, and secure the Service, accounts, pacts, devices, and circles.</li>
-      <li>Measure the scope you chose, preserve limited private history, operate private notices and optional live
-      status, and create the shared check-ins you agreed to send.</li>
+      <li>Measure the scope you chose, keep and back up up to a year of private daily totals, operate private
+      notices and optional live status, and create the shared check-ins you agreed to send.</li>
       <li>Operate rooms, private conversations, change requests, reports, blocks, and content-safety review.</li>
       <li>Authenticate you, verify email ownership, link sign-in methods you request, and prevent account abuse.</li>
       <li>Show Supporter offerings; validate, restore, and synchronize entitlements; provide billing support; and
@@ -305,7 +318,12 @@
     <h2>4. Retention and deletion</h2>
     <ul>
       <li><strong>Owner-only server usage.</strong> Active code keeps the newest seven recorded dates of aggregate
-      totals per phone, not a seven-calendar-day time-to-live. Intermediate iPhone relay/Live Activity state can
+      totals per phone, not a seven-calendar-day time-to-live. Updated iPhone versions also keep each phone&rsquo;s
+      yearly history record of up to 366 recorded dates from the past year. The App removes dates older than a year
+      whenever one of your phones syncs; a record no phone has synced since can hold older dates until one does,
+      that phone is removed, or the account is deleted. Removing a phone from the phone list under
+      <em>You &rarr; Profile</em> deletes its yearly history, and deleting the account deletes all of it. Intermediate
+      iPhone relay/Live Activity state can
       include additional current-day whole-minute floors needed for synchronization and delivery. Relay receipts
       expire after about 15 days; relay credentials expire after no more than 180 days; completed/invalid delivery
       jobs and superseded token claims are removed. The current device routing state otherwise remains with the
@@ -327,8 +345,9 @@
       control stops that collection and deletes PhonePact&rsquo;s saved usage summaries and notification counts without
       unlocking paid reports. You can also stop new access by revoking the relevant permission, signing out, clearing
       app data, deleting the account, or uninstalling.</li>
-      <li><strong>Local aggregate resume data.</strong> While measurement is active, native iPhone and Android stores
-      can keep up to 14 recorded dates of aggregate duration as rollover/offline slack for the seven-date ledger.
+      <li><strong>Local aggregate resume data.</strong> While measurement is active, native Android stores can keep
+      up to 14 recorded dates of aggregate duration as rollover/offline slack for the seven-date ledger. Updated
+      native iPhone stores keep up to 366 recorded dates from the past year for the yearly history.
       Both apps also keep an account-and-installation-scoped cache of up to seven aggregate dates across ordinary
       sign-out so the same account can resume without losing recent totals. These caches contain duration and date,
       not app identities, and clear for that account during account deletion.</li>
@@ -336,9 +355,11 @@
       is not copied to a PhonePact detailed-history store. Revoking access stops PhonePact from reading new reports
       but does not delete Apple&rsquo;s OS-held history. Ordinary sign-out clears the active PhonePact App Group aggregate
       history, while the seven-date account cache and opaque selection token may survive for same-account restoration;
-      both clear on account deletion.</li>
-      <li><strong>Pact journal.</strong> The local journal keeps no more than 28 recent days and 300 entries, prunes
-      on read/write, and clears at sign-out or account teardown. On supported iPhone versions, exact before-and-after
+      both clear on account deletion. Signing back in to the same account restores the yearly history from the
+      account.</li>
+      <li><strong>Pact journal.</strong> The local journal keeps pact point settings (a time and a number of minutes)
+      for up to a year, at most 120 of them, and everything else for no more than 28 recent days and 300 entries. It
+      prunes on read/write, and clears at sign-out or account teardown. On supported iPhone versions, exact before-and-after
       selection tokens are limited further to the latest 20 completed selection changes plus one pending change,
       within the same journal limits. Older entries may retain change and approval metadata without exact selection
       details. Changes in Screen Time authorization can also make Apple&rsquo;s older app labels unavailable.</li>
@@ -394,7 +415,9 @@
       <li><strong>Device controls.</strong> Turn off Screen Time/Usage Access, push or notification access, Android
       Alarms &amp; reminders, live status, or an optional Do Not Disturb exception in system settings. On Android,
       <em>You &rarr; Profile &rarr; Private Insights data</em> remains available after Supporter access ends and can
-      stop private-history collection and clear local usage/notification summaries.</li>
+      stop private-history collection and clear local usage/notification summaries. On iPhone, <em>history
+      backup</em> under <em>You &rarr; Profile</em> stops saving the yearly history to your account and deletes what
+      is saved.</li>
       <li><strong>Billing controls.</strong> Cancel monthly support through the app store that billed you. Canceling
       stops future renewal under store terms but does not delete your account or history. Deleting the account or
       uninstalling the App does not cancel a subscription.</li>
