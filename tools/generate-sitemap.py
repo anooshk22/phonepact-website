@@ -41,6 +41,7 @@ PRIORITY = {
     "/family-phone-peace": "0.9",
     "/privacy": "0.3",
     "/terms": "0.3",
+    "/tokushoho": "0.3",
 }
 
 NOINDEX = re.compile(
